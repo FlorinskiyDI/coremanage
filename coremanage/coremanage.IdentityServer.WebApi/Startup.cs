@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using IdentityServer4.Services;
+using coremanage.IdentityServer.WebApi.Services;
+using coremanage.IdentityServer.Storage.EFCore.Common.Entities;
+using coremanage.IdentityServer.Storage.EFCore.MSSQL;
+using Microsoft.EntityFrameworkCore;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -28,7 +33,20 @@ namespace coremanage.IdentityServer.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddApplicationInsightsTelemetry(Configuration);
+            services.AddTransient<IProfileService, IdentityWithAdditionalClaimsProfileService>();
             services.AddMvc();
+
+            services.AddIdentityServerStorageEFCoreMSSQL(connectionString);
+            services.AddIdentityServer()
+               .AddTemporarySigningCredential()
+               .AddAspNetIdentity<AppUser>()
+               .AddProfileService<IdentityWithAdditionalClaimsProfileService>()
+               .AddConfigurationStore(builder => builder.UseSqlServer(connectionString))
+               .AddOperationalStore(builder => builder.UseSqlServer(connectionString));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
