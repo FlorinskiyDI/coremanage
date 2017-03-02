@@ -42,18 +42,18 @@ namespace ResourceOwnerClient
             Console.WriteLine("\n\n");
 
             // call api
-            var client = new HttpClient();
-            client.SetBearerToken(tokenResponse.AccessToken);
-            var response = await client.GetAsync("http://localhost:5200/api/Identity");
-            if (!response.IsSuccessStatusCode)
-            {
-                Console.WriteLine(response.StatusCode);
-            }
-            else
-            {
-                var content = response.Content.ReadAsStringAsync().Result;
-                Console.WriteLine("User claims \n" + JArray.Parse(content));
-            }
+            //var client = new HttpClient();
+            //client.SetBearerToken(tokenResponse.AccessToken);
+            //var response = await client.GetAsync("http://localhost:5200/api/Identity");
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    Console.WriteLine(response.StatusCode);
+            //}
+            //else
+            //{
+            //    var content = response.Content.ReadAsStringAsync().Result;
+            //    Console.WriteLine("User claims \n" + JArray.Parse(content));
+            //}
         }
     }
 }
