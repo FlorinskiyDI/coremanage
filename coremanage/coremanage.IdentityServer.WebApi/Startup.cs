@@ -7,6 +7,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using IdentityServer4.Services;
+using coremanage.IdentityServer.WebApi.Services;
+using coremanage.IdentityServer.Storage.EFCore.Common.Entities;
+using coremanage.IdentityServer.Storage.EFCore.MSSQL;
+using Microsoft.EntityFrameworkCore;
+using coremanage.IdentityServer.Storage.EFCore.Common;
+using coremanage.IdentityServer.WebApi.Configurations;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -28,7 +35,20 @@ namespace coremanage.IdentityServer.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddApplicationInsightsTelemetry(Configuration);
+            services.AddTransient<IProfileService, IdentityWithAdditionalClaimsProfileService>();
             services.AddMvc();
+
+            services.AddIdentityServerStorageEFCoreMSSQL(connectionString);
+            services.AddIdentityServer()
+              .AddTemporarySigningCredential()
+              .AddAspNetIdentity<AppUser>()
+              .AddProfileService<IdentityWithAdditionalClaimsProfileService>()
+              .AddConfigurationStore(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.IdentityServer.Storage.EFCore.MSSQL")))
+              .AddOperationalStore(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.IdentityServer.Storage.EFCore.MSSQL")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,7 +56,20 @@ namespace coremanage.IdentityServer.WebApi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            app.UseApplicationInsightsRequestTelemetry();
+            app.UseApplicationInsightsExceptionTelemetry();
 
+            // this will do the initial DB population
+            CloudscribeIdentityServerIntegrationEFCoreStorage.InitializeDatabaseAsync(
+                app.ApplicationServices,
+                Clients.Get(),
+                Resources.GetApiResources(),
+                null,
+                TestUsers.Get()
+            ).Wait();
+
+            app.UseIdentity();
+            app.UseIdentityServer();
             app.UseMvc();
         }
     }
