@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using coremanage.IdentityServer.Storage.EFCore.Common.DbContexts;
-using Microsoft.EntityFrameworkCore;
-using coremanage.IdentityServer.Storage.EFCore.Common.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using coremanage.IdentityServer.Storage.EFCore.Common.DbContexts;
+using coremanage.IdentityServer.Storage.EFCore.Common.Entities;
+
 
 namespace coremanage.IdentityServer.Storage.EFCore.MSSQL
 {
@@ -14,7 +15,7 @@ namespace coremanage.IdentityServer.Storage.EFCore.MSSQL
         )
         {
             // Add framework services.
-            services.AddDbContext<IdentityServerDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<IdentityServerDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.IdentityServer.Storage.EFCore.MSSQL")));
             services.AddIdentity<AppUser, IdentityRole>(options =>
                 {
                     options.Password.RequireDigit = false;
@@ -24,7 +25,7 @@ namespace coremanage.IdentityServer.Storage.EFCore.MSSQL
                 })
                 .AddEntityFrameworkStores<IdentityServerDbContext>()
                 .AddDefaultTokenProviders();
-
+           
             return services;
         }
     }

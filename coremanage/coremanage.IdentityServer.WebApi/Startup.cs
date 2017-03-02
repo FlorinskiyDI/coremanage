@@ -12,6 +12,8 @@ using coremanage.IdentityServer.WebApi.Services;
 using coremanage.IdentityServer.Storage.EFCore.Common.Entities;
 using coremanage.IdentityServer.Storage.EFCore.MSSQL;
 using Microsoft.EntityFrameworkCore;
+using coremanage.IdentityServer.Storage.EFCore.Common;
+using coremanage.IdentityServer.WebApi.Configurations;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -41,11 +43,11 @@ namespace coremanage.IdentityServer.WebApi
 
             services.AddIdentityServerStorageEFCoreMSSQL(connectionString);
             services.AddIdentityServer()
-               .AddTemporarySigningCredential()
-               .AddAspNetIdentity<AppUser>()
-               .AddProfileService<IdentityWithAdditionalClaimsProfileService>()
-               .AddConfigurationStore(builder => builder.UseSqlServer(connectionString))
-               .AddOperationalStore(builder => builder.UseSqlServer(connectionString));
+              .AddTemporarySigningCredential()
+              .AddAspNetIdentity<AppUser>()
+              .AddProfileService<IdentityWithAdditionalClaimsProfileService>()
+              .AddConfigurationStore(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.IdentityServer.Storage.EFCore.MSSQL")))
+              .AddOperationalStore(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.IdentityServer.Storage.EFCore.MSSQL")));
 
         }
 
@@ -54,7 +56,20 @@ namespace coremanage.IdentityServer.WebApi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            app.UseApplicationInsightsRequestTelemetry();
+            app.UseApplicationInsightsExceptionTelemetry();
 
+            // this will do the initial DB population
+            CloudscribeIdentityServerIntegrationEFCoreStorage.InitializeDatabaseAsync(
+                app.ApplicationServices,
+                Clients.Get(),
+                Resources.GetApiResources(),
+                null,
+                TestUsers.Get()
+            ).Wait();
+
+            app.UseIdentity();
+            app.UseIdentityServer();
             app.UseMvc();
         }
     }
