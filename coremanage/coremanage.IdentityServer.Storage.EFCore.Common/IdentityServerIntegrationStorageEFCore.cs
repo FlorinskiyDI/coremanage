@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace coremanage.IdentityServer.Storage.EFCore.Common
 {
-    public static class CloudscribeIdentityServerIntegrationEFCoreStorage
+    public static class IdentityServerIntegrationEFCoreStorage
     {
         public static async Task InitializeDatabaseAsync(
             IServiceProvider serviceProvider,

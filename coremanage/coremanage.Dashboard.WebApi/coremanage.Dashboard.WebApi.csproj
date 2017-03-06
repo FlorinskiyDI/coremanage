@@ -16,5 +16,8 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\coremanage.Data.Storage.EFCore.MSSQL\coremanage.Data.Storage.EFCore.MSSQL.csproj" />
+  </ItemGroup>
 
 </Project>
