@@ -22,5 +22,9 @@ PM> update-database -StartupProject coremanage.IdentityServer.WebApi
 localhost:5200 - coremanage.Dashboard.WebApi
 localhost:5300 - coremanage.Dashboard.Api
 
+// commands for migration
+PM> add-migration -n InitialCoreManage -c CoreManageDbContext -o Migrations -StartupProject coremanage.Dashboard.WebApi
+PM> update-database -StartupProject coremanage.Dashboard.WebApi
+
 
 

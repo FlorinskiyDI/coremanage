@@ -15,4 +15,8 @@
     <ProjectReference Include="..\coremanage.Data.DomainModel\coremanage.Data.DomainModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>

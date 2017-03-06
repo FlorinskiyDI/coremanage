@@ -60,7 +60,7 @@ namespace coremanage.IdentityServer.WebApi
             app.UseApplicationInsightsExceptionTelemetry();
 
             // this will do the initial DB population
-            CloudscribeIdentityServerIntegrationEFCoreStorage.InitializeDatabaseAsync(
+            IdentityServerIntegrationEFCoreStorage.InitializeDatabaseAsync(
                 app.ApplicationServices,
                 Clients.Get(),
                 Resources.GetApiResources(),
