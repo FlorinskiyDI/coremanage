@@ -13,7 +13,7 @@ namespace coremanage.IdentityServer.WebApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "identityServer4", "identityServer4" };
         }
 
         // GET api/values/5

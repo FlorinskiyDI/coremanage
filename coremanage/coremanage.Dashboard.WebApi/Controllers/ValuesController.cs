@@ -13,7 +13,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "dashboard", "dashboard" };
         }
 
         // GET api/values/5

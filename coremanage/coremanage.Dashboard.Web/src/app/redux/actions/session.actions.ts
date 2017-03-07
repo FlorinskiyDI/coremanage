@@ -1,0 +1,39 @@
+import { Injectable } from '@angular/core';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from '../store';
+import { LoginData } from '../../shared/index.models';
+import { ISessionDto, IUserDto } from '../../redux/store/session';
+
+@Injectable()
+export class SessionActions {
+  static LOGIN_USER = 'LOGIN_USER';
+  static LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+  static LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
+  static LOGOUT_USER = 'LOGOUT_USER';
+
+  constructor(
+    private ngRedux: NgRedux<IAppState>
+  ) {}
+
+  public loginUser() {
+     this.ngRedux.dispatch({
+      type: SessionActions.LOGIN_USER,
+      payload: {},
+    });
+  };
+
+  public loginUserSuccess(data: ISessionDto<IUserDto>){
+    this.ngRedux.dispatch({
+      type: SessionActions.LOGIN_USER_SUCCESS,
+      payload: data
+    });
+  }
+
+  public loginUserError() {
+    this.ngRedux.dispatch({ type: SessionActions.LOGIN_USER_ERROR });
+  };
+
+  public logoutUser() {
+    this.ngRedux.dispatch({ type: SessionActions.LOGOUT_USER });
+  };
+}

@@ -13,6 +13,7 @@ namespace coremanage.Dashboard.WebApi
 {
     public class Startup
     {
+        public static IConfigurationRoot Configuration;
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -20,10 +21,16 @@ namespace coremanage.Dashboard.WebApi
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+            if (env.IsEnvironment("Development"))
+            {
+                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
+                builder.AddApplicationInsightsSettings(developerMode: true);
+            }
+
+            builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -32,9 +39,14 @@ namespace coremanage.Dashboard.WebApi
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddMvc();
+            services.AddMvcCore()
+               .AddAuthorization()
+               .AddJsonFormatters();
 
+            services.AddCors();
             services.AddCoreManageStorageEFCoreMSSQL(connectionString);
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +54,23 @@ namespace coremanage.Dashboard.WebApi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseApplicationInsightsRequestTelemetry();
+            app.UseApplicationInsightsExceptionTelemetry();
+
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            {
+                Authority = Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost"),
+                ApiName = Configuration.GetSection("CustomSettings").GetValue<string>("ApiName"),
+                RequireHttpsMetadata = false
+            });
+
+            var webHost = Configuration.GetSection("CustomSettings").GetValue<string>("WebHost");
+            app.UseCors(builder => builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowCredentials());
 
             app.UseMvc();
         }
