@@ -8,7 +8,7 @@ using System.Text;
 
 namespace coremanage.Data.Storage.EFCore.Common.Repositories
 {
-    class BaseRepository: IBaseRepository
+    public class BaseRepository: IBaseRepository
     {
         protected readonly CoreManageDbContext context;
 
