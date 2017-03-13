@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using URF.Abstractions.Infrastructure;
+using URF.Abstractions.Repositories;
 
 namespace coremanage.Core.Abstraction.Repositories
 {
-    public interface IBaseRepository
+    public interface IBaseRepository<TEntity> : IRepository<TEntity> where TEntity : class, IObjectState
     {
-        IList<T> Get<T>() where T : class;
-        int Count<T>() where T : class;
-        T GetById<T>(object id) where T : class;
-        void Delete<T>(object id) where T : class;
-        void Save<T>(T data) where T : class;
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using coremanage.Core.Abstraction.Repositories;
-using coremanage.Data.Storage.EFCore.Common.Repositories;
+using coremanage.Data.DomainModel.Identity;
 
 namespace coremanage.Core.Bootstrap.Mappers
 {
@@ -11,7 +11,7 @@ namespace coremanage.Core.Bootstrap.Mappers
     { 
         protected override void Configure()
         {
-            CreateMap<IBaseRepository, BaseRepository>();
+            //CreateMap<IBaseRepository<Company>, BaseRepository<Company>>();
         }
     }
 }

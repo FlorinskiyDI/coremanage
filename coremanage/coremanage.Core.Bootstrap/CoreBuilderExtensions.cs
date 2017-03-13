@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using coremanage.Core.Abstraction.Repositories;
+using coremanage.Data.DomainModel.Identity;
+using coremanage.Data.Storage.EFCore.Common.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,7 +19,7 @@ namespace coremanage.Core.Bootstrap
         {
             services.AddAutoMapper();
             // Add framework services.
-
+            services.AddScoped<IBaseRepository<Company>, BaseRepository<Company>>();
             return services;
         }
     }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using coremanage.Core.Common.API;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace coremanage.Data.DomainModel
+namespace coremanage.Core.Common.DTO
 {
-    public class AuditedEntity: BaseEntity, IAuditedEntity
+    class AuditedDto: IAuditedDto
     {
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -14,9 +15,9 @@ namespace coremanage.Data.DomainModel
 
         public int CompanyId { get; set; }
 
-        public AuditedEntity()
+        public AuditedDto()
         {
-            
+
         }
     }
 }
