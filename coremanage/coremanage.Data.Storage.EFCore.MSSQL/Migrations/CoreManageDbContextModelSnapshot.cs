@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using coremanage.Data.Storage.EFCore.Common.DbContexts;
+using coremanage.Data.Storage.EFCore.Common;
 
 namespace coremanage.Data.Storage.EFCore.MSSQL.Migrations
 {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace coremanage.Data.DomainModel
 {
-    public class AuditedEntity: BaseEntity, IAuditedEntity
+    public class AuditedEntity: IAuditedEntity
     {
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }

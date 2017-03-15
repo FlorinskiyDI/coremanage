@@ -1,4 +1,4 @@
-﻿using coremanage.Data.Storage.EFCore.Common.DbContexts;
+﻿using coremanage.Data.Storage.EFCore.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

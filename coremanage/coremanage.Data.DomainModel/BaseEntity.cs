@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using coremanage.Data.DomainModel.API;
-using URF.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace coremanage.Data.DomainModel
 {
-    public class BaseEntity: Entity, IBaseEntity
+    public class BaseEntity: IBaseEntity
     {
+        [Key]
+        public int Id { get; set; }
     }
 }

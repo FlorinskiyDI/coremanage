@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace coremanage.Data.Storage.EFCore.Common.DbContexts
+namespace coremanage.Data.Storage.EFCore.Common
 {
 
-    public class CoreManageDbContext : DbContext
+    public class CoreManageDbContext: DbContext
     {
         public CoreManageDbContext(DbContextOptions<CoreManageDbContext> options) : base(options)
         {
