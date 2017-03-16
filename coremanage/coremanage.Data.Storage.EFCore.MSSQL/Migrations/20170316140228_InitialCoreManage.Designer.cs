@@ -8,13 +8,13 @@ using coremanage.Data.Storage.EFCore.Common;
 namespace coremanage.Data.Storage.EFCore.MSSQL.Migrations
 {
     [DbContext(typeof(CoreManageDbContext))]
-    [Migration("20170306131002_InitialCoreManage")]
+    [Migration("20170316140228_InitialCoreManage")]
     partial class InitialCoreManage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
+                .HasAnnotation("ProductVersion", "1.1.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("coremanage.Data.DomainModel.Identity.Company", b =>

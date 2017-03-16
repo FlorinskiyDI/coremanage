@@ -14,7 +14,7 @@ namespace coremanage.Data.Storage.EFCore.MSSQL
         )
         {
             // Add framework services.
-            services.AddDbContext<CoreManageDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.Data.Storage.EFCore.MSSQL")));
+            //services.AddDbContext<CoreManageDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.Data.Storage.EFCore.MSSQL")));
             
 
             return services;
