@@ -2,29 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using coremanage.Data.DomainModel.API;
+using coremanage.Core.Abstraction;
 
 namespace coremanage.Data.DomainModel.Identity
 {
-    public class Company: AuditedEntity, IAuditedEntity
+    public class Company: Auditable, IBaseEntity<int>
     {
         [Key]
-        public new int CompanyId
-        {
-            get
-            {
-                return base.CompanyId;
-            }
-            set
-            {
-                base.CompanyId = value;
-            }
-        }
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+        public bool IsGroup { get; set; }
+        public int? ParentCompanyId { get; set; }
+
         public List<UserCompany> UserCompanies { get; set; } // many to many
         public List<IdentityCompanyClaim> IdentityCompanyClaims { get; set; } // many to many
 
-        public string CompanyName { get; set; }
-        public bool GroupInd { get; set; }
-        public int? ParentCompanyId { get; set; }
-        
     }
 }

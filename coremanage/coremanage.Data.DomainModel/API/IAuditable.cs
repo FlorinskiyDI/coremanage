@@ -4,7 +4,7 @@ using System.Text;
 
 namespace coremanage.Data.DomainModel
 {
-    public interface IAuditedEntity
+    public interface IAuditable
     {
         string CreatedBy { get; set; }
         DateTime CreatedAt { get; set; }
@@ -12,6 +12,5 @@ namespace coremanage.Data.DomainModel
         DateTime LastModifiedAt { get; set; }
 
         bool IsDeleted { get; set; }
-        int CompanyId { get; set; }
     }
 }

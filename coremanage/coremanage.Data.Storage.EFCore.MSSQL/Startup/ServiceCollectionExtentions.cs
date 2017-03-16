@@ -29,7 +29,7 @@ namespace coremanage.Data.Storage.EFCore.MSSQL.Startup
         {
             services.TryAddSingleton<IUowProvider, UowProvider>();
             services.TryAddTransient<IEntityContext, BaseDbContext<CoreManageDbContext>>();
-            services.TryAddTransient(typeof(IBaseRepository<>), typeof(GenericRepository<>));
+            services.TryAddTransient(typeof(IBaseRepository<,>), typeof(GenericRepository<,>));
             //services.TryAddTransient(typeof(IDataPager<>), typeof(DataPager<>));
         }
 

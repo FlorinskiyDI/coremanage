@@ -11,7 +11,7 @@ namespace coremanage.Core.Bootstrap.Mappers
     { 
         protected override void Configure()
         {
-            //CreateMap<IBaseRepository<Company>, BaseRepository<Company>>();
+            CreateMap<Company, Company>();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace coremanage.Core.Abstraction.Uow
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
-        IBaseRepository<TEntity> GetRepository<TEntity>();
+        IBaseRepository<TEntity, TKey> GetRepository<TEntity, TKey>() where TEntity : IBaseEntity<TKey>;
         TRepository GetCustomRepository<TRepository>();
     }
 }

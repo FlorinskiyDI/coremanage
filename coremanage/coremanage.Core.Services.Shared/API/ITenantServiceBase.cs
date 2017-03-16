@@ -4,7 +4,7 @@ using System.Text;
 
 namespace coremanage.Core.Services.Shared.API
 {
-    public interface IBaseService
+    public interface ITenantServiceBase<TDto>
     {
     }
 }

@@ -11,6 +11,5 @@ namespace coremanage.Data.DomainModel.Identity
 
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-
     }
 }

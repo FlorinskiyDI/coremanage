@@ -1,20 +1,23 @@
 ﻿using coremanage.Core.Abstraction.Repositories;
 using coremanage.Data.DomainModel;
+using coremanage.Data.DomainModel.API;
 using coremanage.Data.Storage.EFCore.Common.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace coremanage.Data.Storage.EFCore.Common.Repositories
 {
-    public abstract class BaseRepository<TContext, TEntity> : Repository<TContext>, IBaseRepository<TEntity>
+    public abstract class BaseRepository<TContext, TEntity, TKey> : Repository<TContext>, IBaseRepository<TEntity,TKey>
         where TContext : DbContext
-        where TEntity : BaseEntity, new()
+        where TEntity : BaseEntity<TKey>,
+        new()
     {
         private readonly OrderBy<TEntity> DefaultOrderBy = new OrderBy<TEntity>(qry => qry.OrderBy(e => e.Id));
 
@@ -61,7 +64,7 @@ namespace coremanage.Data.Storage.EFCore.Common.Repositories
             return await result.Skip(startRow).Take(pageLength).ToListAsync();
         }
 
-        public virtual TEntity Get(int id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        public virtual TEntity Get(TKey id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -70,10 +73,10 @@ namespace coremanage.Data.Storage.EFCore.Common.Repositories
                 query = includes(query);
             }
 
-            return query.SingleOrDefault(x => x.Id == id);
+            return query.Where("Id = @0", id).FirstOrDefault();
         }
 
-        public virtual Task<TEntity> GetAsync(int id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        public virtual Task<TEntity> GetAsync(TKey id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -82,7 +85,7 @@ namespace coremanage.Data.Storage.EFCore.Common.Repositories
                 query = includes(query);
             }
 
-            return query.SingleOrDefaultAsync(x => x.Id == id);
+            return query.Where("Id = @0", id).FirstOrDefaultAsync();
         }
 
         public virtual IEnumerable<TEntity> Query(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
@@ -143,7 +146,7 @@ namespace coremanage.Data.Storage.EFCore.Common.Repositories
             Context.Set<TEntity>().Remove(entity);
         }
 
-        public virtual void Remove(int id)
+        public virtual void Remove(TKey id)
         {
             var entity = new TEntity() { Id = id };
             this.Remove(entity);

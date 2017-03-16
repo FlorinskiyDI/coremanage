@@ -4,7 +4,7 @@ using System.Text;
 
 namespace coremanage.Data.DomainModel
 {
-    public class AuditedEntity: IAuditedEntity
+    public class Auditable: IAuditable
     {
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -12,9 +12,7 @@ namespace coremanage.Data.DomainModel
         public DateTime LastModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
 
-        public int CompanyId { get; set; }
-
-        public AuditedEntity()
+        public Auditable()
         {
             
         }

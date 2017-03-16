@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace coremanage.Core.Services.Shared.API
+namespace coremanage.Core.Services.Shared.Services
 {
-    public interface ITenantService
+    class TenantServiceBase
     {
     }
 }

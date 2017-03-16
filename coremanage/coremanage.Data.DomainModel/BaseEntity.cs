@@ -1,14 +1,13 @@
-﻿using System;
+﻿using coremanage.Core.Abstraction;
+using coremanage.Data.DomainModel.API;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using coremanage.Data.DomainModel.API;
-using System.ComponentModel.DataAnnotations;
 
 namespace coremanage.Data.DomainModel
 {
-    public class BaseEntity: IBaseEntity
+    public class BaseEntity<TKey> : IBaseEntity<TKey>
     {
-        [Key]
-        public int Id { get; set; }
+        public TKey Id { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using coremanage.Core.Abstraction;
 
 namespace coremanage.Data.Storage.EFCore.Common.Uow
 {
@@ -40,11 +41,11 @@ namespace coremanage.Data.Storage.EFCore.Common.Uow
             return _context.SaveChangesAsync(cancellationToken);
         }
 
-        public IBaseRepository<TEntity> GetRepository<TEntity>()
+        public IBaseRepository<TEntity, TKey> GetRepository<TEntity, TKey>() where TEntity : IBaseEntity<TKey>
         {
             CheckDisposed();
-            var repositoryType = typeof(IBaseRepository<TEntity>);
-            var repository = (IBaseRepository<TEntity>)_serviceProvider.GetService(repositoryType);
+            var repositoryType = typeof(IBaseRepository<TEntity, TKey>);
+            var repository = (IBaseRepository<TEntity, TKey>)_serviceProvider.GetService(repositoryType);
             if (repository == null)
             {
                 throw new RepositoryNotFoundException(repositoryType.Name, String.Format("Repository {0} not found in the IOC container. Check if it is registered during startup.", repositoryType.Name));

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace coremanage.Data.DomainModel.API
 {
-    public interface IBaseEntity
+    public interface ITenant
     {
-        int Id { get; set; }
+        int CompanyId { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace coremanage.Core.Abstraction.Repositories
 {
-    public interface IBaseRepository<TEntity>
+    public interface IBaseRepository<TEntity, TKey> where TEntity : IBaseEntity<TKey>
     {
         IEnumerable<TEntity> GetAll(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
         Task<IEnumerable<TEntity>> GetAllAsync(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
@@ -15,8 +15,8 @@ namespace coremanage.Core.Abstraction.Repositories
         IEnumerable<TEntity> GetPage(int startRij, int aantal, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
         Task<IEnumerable<TEntity>> GetPageAsync(int startRij, int aantal, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
 
-        TEntity Get(int id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
-        Task<TEntity> GetAsync(int id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
+        TEntity Get(TKey id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
+        Task<TEntity> GetAsync(TKey id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
 
         IEnumerable<TEntity> Query(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
         Task<IEnumerable<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
@@ -32,7 +32,7 @@ namespace coremanage.Core.Abstraction.Repositories
         TEntity Update(TEntity entity);
 
         void Remove(TEntity entity);
-        void Remove(int id);
+        void Remove(TKey id);
 
         bool Any(Expression<Func<TEntity, bool>> filter = null);
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter = null);
