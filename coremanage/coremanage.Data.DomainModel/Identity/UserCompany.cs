@@ -6,7 +6,6 @@ namespace coremanage.Data.DomainModel.Identity
 {
     public class UserCompany
     {
-
         public int UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
 
