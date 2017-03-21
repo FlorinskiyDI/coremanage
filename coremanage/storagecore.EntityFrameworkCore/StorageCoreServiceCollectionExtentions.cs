@@ -6,13 +6,10 @@ using storagecore.Abstractions.Uow;
 using storagecore.EntityFrameworkCore.Context;
 using storagecore.EntityFrameworkCore.Repositories;
 using storagecore.EntityFrameworkCore.Uow;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace storagecore.EntityFrameworkCore.Startup
+namespace storagecore.EntityFrameworkCore
 {
-    public static class ServiceCollectionExtentions
+    public static class StorageCoreServiceCollectionExtentions
     {
         public static IServiceCollection AddDataAccess<TEntityContext>(this IServiceCollection services) where TEntityContext : DbContextBase<TEntityContext>
         {

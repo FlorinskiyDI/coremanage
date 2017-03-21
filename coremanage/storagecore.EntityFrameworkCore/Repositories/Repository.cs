@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using storagecore.Abstractions.Repositories;
+using storagecore.EntityFrameworkCore.Models;
 
 namespace storagecore.EntityFrameworkCore.Repositories
 {
     public abstract class Repository<TContext> : IRepositoryInjection where TContext : DbContext
     {
-        protected Repository(ILogger<DataAccess> logger, TContext context)
+        protected Repository(ILogger<LoggerDataAccess> logger, TContext context)
         {
             this.Logger = logger;
             this.Context = context;

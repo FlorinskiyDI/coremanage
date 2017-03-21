@@ -5,16 +5,17 @@ using storagecore.Abstractions.Uow;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using storagecore.EntityFrameworkCore.Models;
 
 namespace storagecore.EntityFrameworkCore.Uow
 {
     public class UowProvider : IUowProvider
     {
 
-        //public UowProvider()
-        //{ }
+        public UowProvider()
+        { }
 
-        public UowProvider(ILogger<DataAccess> logger, IServiceProvider serviceProvider)
+        public UowProvider(ILogger<LoggerDataAccess> logger, IServiceProvider serviceProvider)
         {
             _logger = logger;
             _serviceProvider = serviceProvider;

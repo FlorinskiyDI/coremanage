@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using storagecore.EntityFrameworkCore.Models;
 
 namespace storagecore.EntityFrameworkCore.Repositories
 {
@@ -19,7 +20,7 @@ namespace storagecore.EntityFrameworkCore.Repositories
     {
         private readonly OrderBy<TEntity> DefaultOrderBy = new OrderBy<TEntity>(qry => qry.OrderBy(e => e.Id));
 
-        protected BaseRepository(ILogger<DataAccess> logger, TContext context) : base(logger, context)
+        protected BaseRepository(ILogger<LoggerDataAccess> logger, TContext context) : base(logger, context)
         {
         }
 
