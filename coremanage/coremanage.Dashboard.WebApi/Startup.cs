@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using coremanage.Core.Bootstrap;
 using coremanage.Data.Storage.EFCore.MSSQL;
 using coremanage.Data.Storage.EFCore.MSSQL.Startup;
 using Microsoft.AspNetCore.Builder;
@@ -46,9 +48,14 @@ namespace coremanage.Dashboard.WebApi
 
             services.AddCors();
             services.AddDataAccess(connectionString);
+            services.AddCoreServices();
             //services.AddCoreManageStorageEFCoreMSSQL(connectionString);
 
             services.AddMvc();
+            services.AddAutoMapper();
+
+            services.AddSingleton(Mapper.Configuration);
+            services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

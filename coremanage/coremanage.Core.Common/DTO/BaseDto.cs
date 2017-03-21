@@ -5,7 +5,8 @@ using System.Text;
 
 namespace coremanage.Core.Common.DTO
 {
-    class BaseDto: IBaseDto
+    public class BaseDto<TKey> : IBaseDto<TKey>
     {
+        public TKey Id { get; set; }
     }
 }

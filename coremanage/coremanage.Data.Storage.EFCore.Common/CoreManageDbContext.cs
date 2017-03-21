@@ -1,5 +1,6 @@
 ﻿using coremanage.Data.DomainModel;
 using coremanage.Data.DomainModel.Identity;
+using coremanage.Data.Storage.EFCore.Common.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ using System.Text;
 namespace coremanage.Data.Storage.EFCore.Common
 {
 
-    public class CoreManageDbContext: DbContext
+    public class CoreManageDbContext: BaseDbContext<CoreManageDbContext>
     {
         public CoreManageDbContext(DbContextOptions<CoreManageDbContext> options) : base(options)
-        {
+        { 
         }
 
         // Identity entities

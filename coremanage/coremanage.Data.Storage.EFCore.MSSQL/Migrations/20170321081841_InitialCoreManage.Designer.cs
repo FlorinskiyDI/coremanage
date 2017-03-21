@@ -8,7 +8,7 @@ using coremanage.Data.Storage.EFCore.Common;
 namespace coremanage.Data.Storage.EFCore.MSSQL.Migrations
 {
     [DbContext(typeof(CoreManageDbContext))]
-    [Migration("20170316173221_InitialCoreManage")]
+    [Migration("20170321081841_InitialCoreManage")]
     partial class InitialCoreManage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

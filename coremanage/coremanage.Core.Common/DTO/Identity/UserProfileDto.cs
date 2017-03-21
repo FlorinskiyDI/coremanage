@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using coremanage.Data.DomainModel.API;
-using coremanage.Core.Abstraction;
 
-namespace coremanage.Data.DomainModel.Identity
+namespace coremanage.Core.Common.DTO.Identity
 {
-    public class UserProfile: BaseEntity<string>, IAuditable, ITenant
+    public class UserProfileDto: BaseDto<string>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
 
-        // implementation IAuditable
+        // Auditable
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
         public string LastModifiedBy { get; set; }
         public DateTime LastModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
-        // implementation ITenant
+        // Tenant
         public int CompanyId { get; set; }
 
-        public List<UserCompany> UserCompanies { get; set; } // many to many
+        public List<UserCompanyDto> UserCompanies { get; set; } // many to many
     }
 }

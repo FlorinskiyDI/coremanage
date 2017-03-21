@@ -1,24 +1,22 @@
 ﻿using AutoMapper;
 using coremanage.Core.Abstraction.Repositories;
-using coremanage.Data.DomainModel.Identity;
+using coremanage.Core.Services.Shared.API.Security;
+using coremanage.Core.Services.Shared.Services.Security;
+using coremanage.Data.Storage.EFCore.Common.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace coremanage.Core.Bootstrap
 {
     public static class CoreBuilderExtensions
     {
-        public static IServiceCollection AddIdentityServerStorageEFCoreMSSQL(
-            this IServiceCollection services,
-
-            string connectionString
+        public static IServiceCollection AddCoreServices(
+            this IServiceCollection services
         )
         {
             services.AddAutoMapper();
             // Add framework services.
             //services.AddScoped<IBaseRepository<Company>, BaseRepository<Company>>();
+            services.AddScoped<ICompanyService, CompanyService>();
             return services;
         }
     }

@@ -46,5 +46,6 @@ namespace coremanage.Dashboard.WebApi.Controllers
             var result = from c in User.Claims select new { c.Type, c.Value };
             return new JsonResult(result);
         }
+        
     }
 }

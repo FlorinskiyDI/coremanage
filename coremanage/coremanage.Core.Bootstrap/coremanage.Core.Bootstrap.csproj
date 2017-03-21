@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="5.2.0" />
+    <PackageReference Include="AutoMapper" Version="6.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="1.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.0" />
@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\coremanage.Core.Abstraction\coremanage.Core.Abstraction.csproj" />
     <ProjectReference Include="..\coremanage.Core.Common\coremanage.Core.Common.csproj" />
+    <ProjectReference Include="..\coremanage.Core.Services.Shared\coremanage.Core.Services.Shared.csproj" />
     <ProjectReference Include="..\coremanage.Data.DomainModel\coremanage.Data.DomainModel.csproj" />
     <ProjectReference Include="..\coremanage.Data.Storage.EFCore.Common\coremanage.Data.Storage.EFCore.Common.csproj" />
   </ItemGroup>

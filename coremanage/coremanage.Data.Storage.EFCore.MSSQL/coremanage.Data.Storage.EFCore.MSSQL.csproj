@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\coremanage.Data.DomainModel\coremanage.Data.DomainModel.csproj" />
     <ProjectReference Include="..\coremanage.Data.Storage.EFCore.Common\coremanage.Data.Storage.EFCore.Common.csproj" />
   </ItemGroup>
 

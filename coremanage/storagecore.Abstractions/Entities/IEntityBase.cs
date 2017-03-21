@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace coremanage.Core.Common.API
+namespace storagecore.Abstractions.Entities
 {
-    public interface IBaseDto<TKey>
+    public interface IEntityBase<TKey>
     {
         TKey Id { get; set; }
     }

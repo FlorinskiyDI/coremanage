@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace coremanage.Core.Services.Shared.Services
+namespace storagecore.Abstractions.Context
 {
-    class TenantServiceBase
+    public interface IEntityContext
     {
     }
 }

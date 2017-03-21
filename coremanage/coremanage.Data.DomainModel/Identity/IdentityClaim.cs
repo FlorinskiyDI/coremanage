@@ -4,11 +4,8 @@ using coremanage.Core.Abstraction;
 
 namespace coremanage.Data.DomainModel.Identity
 {
-    public class IdentityClaim: IBaseEntity<int>
+    public class IdentityClaim: BaseEntity<int>
     {
-        [Key]
-        public int Id { get; set; }
-
         public string ClaimType { get; set; }
         public string ClaimValue { get; set; }
         public string Description { get; set; }
