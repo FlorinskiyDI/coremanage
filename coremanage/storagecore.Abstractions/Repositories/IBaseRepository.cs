@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace storagecore.Abstractions.Repositories
 {
-    public interface IBaseRepositoryBase<TEntity, in TKey>
+    public interface IBaseRepository<TEntity, in TKey>
     {
         // get all
         IEnumerable<TEntity> GetAll(

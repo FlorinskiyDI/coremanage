@@ -5,11 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\" />
-    <Folder Include="Uow\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Query\" />
     <Folder Include="Paging\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.3.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\storagecore.Abstractions\storagecore.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,8 @@
-﻿namespace storagecore.EntityFrameworkCore.Context
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Linq;
+
+namespace storagecore.EntityFrameworkCore.Context
 {
     public static class ModelBuilderExtensions
     {
