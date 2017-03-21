@@ -7,104 +7,104 @@ using System.Threading.Tasks;
 
 namespace storagecore.Abstractions.Repositories
 {
-    public interface IRepositoryBase
+    public interface IBaseRepositoryBase<TEntity, in TKey>
     {
         // get all
-        IEnumerable<TEntity> GetAll<TEntity, TKey>(
+        IEnumerable<TEntity> GetAll(
             Func<IQueryable<TEntity>,
             IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>,
             IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
-        Task<IEnumerable<TEntity>> GetAllAsync<TEntity, TKey>(
+        );
+        Task<IEnumerable<TEntity>> GetAllAsync(
             Func<IQueryable<TEntity>,
             IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
+        );
 
         // get page
-        IEnumerable<TEntity> GetPage<TEntity, TKey>(
+        IEnumerable<TEntity> GetPage(
             int startRij,
             int aantal,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
-        Task<IEnumerable<TEntity>> GetPageAsync<TEntity, TKey>(
+        );
+        Task<IEnumerable<TEntity>> GetPageAsync(
             int startRij,
             int aantal,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
+        );
         
         // get
-        TEntity Get<TEntity, TKey>(
+        TEntity Get(
             TKey id,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
-        Task<TEntity> GetAsync<TEntity, TKey>(
+        );
+        Task<TEntity> GetAsync(
             TKey id,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
+        );
 
         // query
-        IEnumerable<TEntity> Query<TEntity, TKey>(
+        IEnumerable<TEntity> Query(
             Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
-        Task<IEnumerable<TEntity>> QueryAsync<TEntity, TKey>(
+        );
+        Task<IEnumerable<TEntity>> QueryAsync(
             Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
+        );
 
         // query page
-        IEnumerable<TEntity> QueryPage<TEntity, TKey>(
+        IEnumerable<TEntity> QueryPage(
             int startRij,
             int aantal,
             Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
-        Task<IEnumerable<TEntity>> QueryPageAsync<TEntity, TKey>(
+        );
+        Task<IEnumerable<TEntity>> QueryPageAsync(
             int startRij,
             int aantal,
             Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
+        );
 
         // load
-        void Load<TEntity, TKey>(
+        void Load(
             Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
-        Task LoadAsync<TEntity, TKey>(
+        );
+        Task LoadAsync(
             Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null
-        ) where TEntity : IEntityBase<TKey>;
+        );
         
         // add
-        void Add<TEntity, TKey>(TEntity entity) where TEntity : IEntityBase<TKey>;
+        void Add(TEntity entity);
 
         // update
-        TEntity Update<TEntity, TKey>(TEntity entity) where TEntity : IEntityBase<TKey>;
+        TEntity Update(TEntity entity);
 
         // remove
-        void Remove<TEntity, TKey>(TEntity entity) where TEntity : IEntityBase<TKey>;
-        void Remove<TEntity, TKey>(TKey id) where TEntity : IEntityBase<TKey>;
+        void Remove(TEntity entity);
+        void Remove(TKey id);
 
         // any
-        bool Any<TEntity, TKey>(Expression<Func<TEntity, bool>> filter = null) where TEntity : IEntityBase<TKey>;
-        Task<bool> AnyAsync<TEntity, TKey>(Expression<Func<TEntity, bool>> filter = null) where TEntity : IEntityBase<TKey>;
+        bool Any(Expression<Func<TEntity, bool>> filter = null);
+        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter = null);
 
         // count
-        int Count<TEntity, TKey>(Expression<Func<TEntity, bool>> filter = null) where TEntity : IEntityBase<TKey>;
-        Task<int> CountAsync<TEntity, TKey>(Expression<Func<TEntity, bool>> filter = null) where TEntity : IEntityBase<TKey>;
+        int Count(Expression<Func<TEntity, bool>> filter = null);
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null);
 
         // set unchanged
-        void SetUnchanged<TEntity, TKey>(TEntity entitieit) where TEntity : IEntityBase<TKey>;
+        void SetUnchanged(TEntity entitieit);
     }
 }

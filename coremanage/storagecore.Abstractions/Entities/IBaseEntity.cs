@@ -4,7 +4,7 @@ using System.Text;
 
 namespace storagecore.Abstractions.Entities
 {
-    public interface IEntityBase<TKey>
+    public interface IBaseEntity<TKey>
     {
         TKey Id { get; set; }
     }
