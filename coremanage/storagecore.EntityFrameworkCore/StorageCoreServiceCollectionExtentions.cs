@@ -11,13 +11,13 @@ namespace storagecore.EntityFrameworkCore
 {
     public static class StorageCoreServiceCollectionExtentions
     {
-        public static IServiceCollection AddDataAccess<TEntityContext>(this IServiceCollection services) where TEntityContext : DbContextBase<TEntityContext>
+        public static IServiceCollection AddStorageCoreDataAccess<TEntityContext>(this IServiceCollection services) where TEntityContext : DbContextBase<TEntityContext>
         {
-            RegisterDataAccess<TEntityContext>(services);
+            RegisterStorageCoreDataAccess<TEntityContext>(services);
             return services;
         }
 
-        private static void RegisterDataAccess<TEntityContext>(IServiceCollection services) where TEntityContext : DbContextBase<TEntityContext>
+        private static void RegisterStorageCoreDataAccess<TEntityContext>(IServiceCollection services) where TEntityContext : DbContextBase<TEntityContext>
         {
             services.TryAddSingleton<IUowProvider, UowProvider>();
             services.TryAddTransient<IEntityContext, TEntityContext>();

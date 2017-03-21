@@ -4,6 +4,12 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
+ <ItemGroup>
+   <Compile Remove="Paging\**" />
+   <EmbeddedResource Remove="Paging\**" />
+   <None Remove="Paging\**" />
+ </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.3.3" />
@@ -12,12 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\coremanage.Core.Abstraction\coremanage.Core.Abstraction.csproj" />
+    <ProjectReference Include="..\coremanage.Core.Contracts\coremanage.Core.Contracts.csproj" />
     <ProjectReference Include="..\coremanage.Data.DomainModel\coremanage.Data.DomainModel.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Paging\" />
+    <ProjectReference Include="..\storagecore.EntityFrameworkCore\storagecore.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
 </Project>

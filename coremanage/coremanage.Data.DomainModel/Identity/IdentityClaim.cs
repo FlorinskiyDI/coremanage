@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using coremanage.Core.Abstraction;
+﻿using storagecore.EntityFrameworkCore.Entities;
+using System.Collections.Generic;
 
 namespace coremanage.Data.DomainModel.Identity
 {

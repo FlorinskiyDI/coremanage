@@ -1,5 +1,4 @@
-﻿using coremanage.Core.Abstraction;
-using coremanage.Data.DomainModel.API;
+﻿using storagecore.EntityFrameworkCore.Entities;
 using System;
 using System.Collections.Generic;
 

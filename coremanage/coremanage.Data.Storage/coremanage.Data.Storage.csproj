@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\coremanage.Core.Common\coremanage.Core.Common.csproj" />
+    <ProjectReference Include="..\coremanage.Core.Contracts\coremanage.Core.Contracts.csproj" />
     <ProjectReference Include="..\coremanage.Data.DomainModel\coremanage.Data.DomainModel.csproj" />
-    <ProjectReference Include="..\storagecore.Abstractions\storagecore.Abstractions.csproj" />
+    <ProjectReference Include="..\storagecore.EntityFrameworkCore\storagecore.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
 </Project>

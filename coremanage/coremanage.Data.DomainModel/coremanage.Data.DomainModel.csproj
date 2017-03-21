@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\coremanage.Core.Abstraction\coremanage.Core.Abstraction.csproj" />
+    <ProjectReference Include="..\storagecore.EntityFrameworkCore\storagecore.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using coremanage.Core.Abstraction;
 using coremanage.Core.Services.Shared.API;
-using coremanage.Core.Abstraction.Uow;
 using coremanage.Core.Common.API;
 using AutoMapper;
+using storagecore.Abstractions.Entities;
+using storagecore.Abstractions.Uow;
 
 namespace coremanage.Core.Services.Shared.Services
 {

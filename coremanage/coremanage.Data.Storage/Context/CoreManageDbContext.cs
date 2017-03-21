@@ -1,19 +1,16 @@
-﻿using coremanage.Data.DomainModel;
-using coremanage.Data.DomainModel.Identity;
-using coremanage.Data.Storage.EFCore.Common.Context;
+﻿using coremanage.Data.DomainModel.Identity;
 using Microsoft.EntityFrameworkCore;
+using storagecore.EntityFrameworkCore.Context;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace coremanage.Data.Storage.EFCore.Common
+namespace coremanage.Data.Storage.Context
 {
-
-    public class CoreManageDbContext: BaseDbContext<CoreManageDbContext>
+    public class CoreManageDbContext : DbContextBase<CoreManageDbContext>
     {
         public CoreManageDbContext(DbContextOptions<CoreManageDbContext> options) : base(options)
-        { 
+        {
         }
 
         // Identity entities

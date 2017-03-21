@@ -12,11 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\coremanage.Core.Abstraction\coremanage.Core.Abstraction.csproj" />
     <ProjectReference Include="..\coremanage.Core.Common\coremanage.Core.Common.csproj" />
     <ProjectReference Include="..\coremanage.Core.Services.Shared\coremanage.Core.Services.Shared.csproj" />
     <ProjectReference Include="..\coremanage.Data.DomainModel\coremanage.Data.DomainModel.csproj" />
-    <ProjectReference Include="..\coremanage.Data.Storage.EFCore.Common\coremanage.Data.Storage.EFCore.Common.csproj" />
   </ItemGroup>
 
 </Project>

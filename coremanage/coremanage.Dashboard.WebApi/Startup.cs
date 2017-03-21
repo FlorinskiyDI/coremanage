@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using coremanage.Core.Bootstrap;
-using coremanage.Data.Storage.EFCore.MSSQL;
-using coremanage.Data.Storage.EFCore.MSSQL.Startup;
+using coremanage.Data.Storage;
+using coremanage.Data.Storage.MSSQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -47,9 +47,10 @@ namespace coremanage.Dashboard.WebApi
                .AddJsonFormatters();
 
             services.AddCors();
-            services.AddDataAccess(connectionString);
-            services.AddCoreServices();
-            //services.AddCoreManageStorageEFCoreMSSQL(connectionString);
+
+            services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
+            services.AddStorageDataAccess(); // registering the repository
+            services.AddCoreServices(); // registering the services
 
             services.AddMvc();
             services.AddAutoMapper();

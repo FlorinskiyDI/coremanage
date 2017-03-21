@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 using coremanage.Data.DomainModel.API;
-using coremanage.Core.Abstraction;
+using storagecore.EntityFrameworkCore.Entities;
 
 namespace coremanage.Data.DomainModel.Identity
 {
