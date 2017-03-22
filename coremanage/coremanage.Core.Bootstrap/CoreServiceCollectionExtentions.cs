@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace coremanage.Core.Bootstrap
 {
-    public static class CoreBuilderExtensions
+    public static class CoreServiceCollectionExtentions
     {
         public static IServiceCollection AddCoreServices(
             this IServiceCollection services

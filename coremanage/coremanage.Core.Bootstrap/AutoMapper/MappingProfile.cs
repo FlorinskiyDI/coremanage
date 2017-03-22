@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using coremanage.Core.Common.DTO.Identity;
+using coremanage.Core.Models.Dtos.Identity;
 using coremanage.Data.DomainModel.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace coremanage.Core.Bootstrap.AutoMapper
 {

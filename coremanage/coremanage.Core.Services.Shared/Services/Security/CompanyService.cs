@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using coremanage.Core.Common.DTO.Identity;
+using coremanage.Core.Models.Dtos.Identity;
 using coremanage.Core.Services.Shared.API.Security;
 using coremanage.Data.DomainModel.Identity;
 using storagecore.Abstractions.Uow;

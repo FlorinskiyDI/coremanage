@@ -1,8 +1,6 @@
-﻿using System;
+﻿using coremanage.Core.Models.Interfaces;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using coremanage.Core.Common.API;
 
 namespace coremanage.Core.Services.Shared.API
 {

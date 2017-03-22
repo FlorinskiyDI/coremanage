@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\coremanage.Core.Common\coremanage.Core.Common.csproj" />
+    <ProjectReference Include="..\coremanage.Core.Models\coremanage.Core.Models.csproj" />
     <ProjectReference Include="..\coremanage.Core.Services.Shared\coremanage.Core.Services.Shared.csproj" />
     <ProjectReference Include="..\coremanage.Data.DomainModel\coremanage.Data.DomainModel.csproj" />
   </ItemGroup>
