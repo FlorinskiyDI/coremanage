@@ -13,6 +13,7 @@ namespace coremanage.Core.Bootstrap
         {
             services.AddAutoMapper();
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IUserProfileService, UserProfileService>();
             return services;
         }
     }

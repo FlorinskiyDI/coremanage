@@ -52,7 +52,9 @@ export class LoginComponent implements OnInit{
                     // Redirect the user
                     this.router.navigate([redirect]);                    
                 },
-                error => { alert(" error - Authorization \n message: " + error); }
+                error => {
+                    alert(" error - Authorization \n message: " + error);
+                }
             );
     }
 

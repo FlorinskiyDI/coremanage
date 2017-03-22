@@ -26,7 +26,11 @@ export class AuthService {
         this.sessionActions.loginUser();
         return this.identityService.get(loginData)
             .do(
-                data => { this.loginSuccess(data); },
+                data => {
+                    let decodeToken = this.jwtDecodeService.decode(data.accessToken);
+                    let tenant = this.getUserTenant(decodeToken.sub);
+                    this.loginSuccess(data, decodeToken, tenant);
+                },
                 error => { this.loginError(error); }
             );
     }
@@ -35,14 +39,21 @@ export class AuthService {
         this.sessionActions.logoutUser();
     }
 
-    private loginSuccess(data: any){
-        let decode = this.jwtDecodeService.decode(data.accessToken);
+    // get tanant data by user id
+    private getUserTenant(id: string){
+        return this.identityService.getTenant(id).do(
+                data => { return data },
+                error => { this.loginError(error); }
+            );
+    }
+
+    private loginSuccess(data: any, decodeToken: any, tenant: any ){
         let user: IUserDto = {
-            firstName: decode.firstName,
-            lastName: decode.lastName,
-            userName: decode.userName,
-            email: decode.email,
-            role: decode.role
+            firstName: decodeToken.firstName,
+            lastName: decodeToken.lastName,
+            userName: decodeToken.userName,
+            email: decodeToken.email,
+            role: decodeToken.role
         };
         let session: ISessionDto<IUserDto> = {
             token: data.accessToken,

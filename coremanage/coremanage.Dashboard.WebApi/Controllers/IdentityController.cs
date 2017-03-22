@@ -7,6 +7,7 @@ using coremanage.Dashboard.WebApi.Views;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using coremanage.Core.Services.Shared.API.Security;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,6 +17,13 @@ namespace coremanage.Dashboard.WebApi.Controllers
     [Route("api/Identity")]
     public class IdentityController : Controller
     {
+
+        private readonly IUserProfileService _userProfileService;
+        public IdentityController(IUserProfileService userProfileService)
+        {
+            _userProfileService = userProfileService;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]LoginData loginData)
         {
@@ -38,6 +46,19 @@ namespace coremanage.Dashboard.WebApi.Controllers
                 return new JsonResult($"{e.Message}\r\n{e.StackTrace}");
             }
         }
+
+
+        // GET api/Identity/Tenant/5
+        [HttpGet]
+        [Authorize]
+        [Route("Tenant/{id}")]
+        public List<int> GetTenant(string id)
+        {
+            var tenants = new List<int>();
+            //tenants = _userProfileService.GetTenants(id);
+            return tenants;
+        }
+
         [HttpGet]
         [Authorize]
         public IActionResult Get()
@@ -46,6 +67,5 @@ namespace coremanage.Dashboard.WebApi.Controllers
             var result = from c in User.Claims select new { c.Type, c.Value };
             return new JsonResult(result);
         }
-        
     }
 }

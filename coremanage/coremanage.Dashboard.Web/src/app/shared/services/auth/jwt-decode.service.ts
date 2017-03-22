@@ -7,7 +7,9 @@ export class JwtDecodeService {
     public decode(token: string) {
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace('-', '+').replace('_', '/');
-        return JSON.parse(window.atob(base64));    
+        var decode = JSON.parse(window.atob(base64));
+        console.log(decode);
+        return decode;    
     };
 }
 

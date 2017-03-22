@@ -13,12 +13,19 @@ export class IdentityService {
 
     constructor(protected http: Http) {
         this.apiServer = appConstant.apiServer;
+        
     }
 
     // retern token
     get( loginData: LoginData ): Observable<any> {
         return this.http.post(this.apiServer + "api/Identity", JSON.stringify(loginData))
             .map( (res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    getTenant(id: string): Observable<any> {
+        return this.http.get(this.apiServer + "api/Identity/Tenant/" + id)
+            .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 

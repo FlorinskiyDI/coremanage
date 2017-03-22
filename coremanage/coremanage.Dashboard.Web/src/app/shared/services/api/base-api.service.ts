@@ -11,7 +11,7 @@ export abstract  class BaseApiService<TEntity> {
     protected apiServer: string;
     @select(['session', 'token']) token$: Observable<String>;
 
-    constructor(        
+    constructor(
         private apiRoute: string,
         protected http: Http
     ) {

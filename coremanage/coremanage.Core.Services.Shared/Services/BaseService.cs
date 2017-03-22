@@ -12,13 +12,13 @@ namespace coremanage.Core.Services.Shared.Services
         where TDto : IBaseDto<TKey>
         where TEntity : IBaseEntity<TKey>
     {
-        private readonly IUowProvider _uowProvider;
-        private readonly IMapper _mapper;
+        protected readonly IUowProvider UowProvider;
+        protected readonly IMapper Mapper;
 
         protected BaseService(IUowProvider uowProvider, IMapper mapper)
         {
-            this._uowProvider = uowProvider;
-            this._mapper = mapper;
+            this.UowProvider = uowProvider;
+            this.Mapper = mapper;
         }
 
         /* Example
@@ -32,51 +32,51 @@ namespace coremanage.Core.Services.Shared.Services
         public IEnumerable<TDto> GetAll()
         {
             IEnumerable<TEntity> items;
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 items = repository.GetAll();
             }
-            return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(items);
+            return Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(items);
         }
 
         public Task<IEnumerable<TDto>> GetAllAsync()
         {
             Task<IEnumerable<TEntity>> items;
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 items = repository.GetAllAsync();
             }
-            return _mapper.Map<Task<IEnumerable<TEntity>>, Task<IEnumerable<TDto>>>(items);
+            return Mapper.Map<Task<IEnumerable<TEntity>>, Task<IEnumerable<TDto>>>(items);
         }
 
         public TDto Get(TKey id)
         {
             TEntity item;
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 item = repository.Get(id);
             }
-            return _mapper.Map<TEntity, TDto>(item);
+            return Mapper.Map<TEntity, TDto>(item);
         }
 
         public Task<TDto> GetAsync(TKey id)
         {
             Task<TEntity> item;
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 item = repository.GetAsync(id);
             }
-            return _mapper.Map<Task<TEntity>, Task<TDto>>(item);
+            return Mapper.Map<Task<TEntity>, Task<TDto>>(item);
         }
 
         public void Add(TDto entity)
         {
-            var item = _mapper.Map<TDto, TEntity>(entity);
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            var item = Mapper.Map<TDto, TEntity>(entity);
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 repository.Add(item);
@@ -86,20 +86,20 @@ namespace coremanage.Core.Services.Shared.Services
 
         public TDto Update(TDto entity)
         {
-            var item = _mapper.Map<TDto, TEntity>(entity);
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            var item = Mapper.Map<TDto, TEntity>(entity);
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 repository.Update(item);
                 uow.SaveChanges();
             }
-            return _mapper.Map<TEntity, TDto>(item);
+            return Mapper.Map<TEntity, TDto>(item);
         }
 
         public void Remove(TDto entity)
         {
-            var item = _mapper.Map<TDto, TEntity>(entity);
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            var item = Mapper.Map<TDto, TEntity>(entity);
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 repository.Remove(item);
@@ -109,7 +109,7 @@ namespace coremanage.Core.Services.Shared.Services
 
         public void Remove(TKey id)
         {
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 repository.Remove(id);
@@ -120,7 +120,7 @@ namespace coremanage.Core.Services.Shared.Services
         public bool Any()
         {
             bool isAny;
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 isAny = repository.Any();
@@ -131,7 +131,7 @@ namespace coremanage.Core.Services.Shared.Services
         public Task<bool> AnyAsync()
         {
             Task<bool> isAny;
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 isAny = repository.AnyAsync();
@@ -143,7 +143,7 @@ namespace coremanage.Core.Services.Shared.Services
         public int Count()
         {
             int isAny;
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 isAny = repository.Count();
@@ -154,7 +154,7 @@ namespace coremanage.Core.Services.Shared.Services
         public Task<int> CountAsync()
         {
             Task<int> isAny;
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 isAny = repository.CountAsync();
@@ -164,8 +164,8 @@ namespace coremanage.Core.Services.Shared.Services
 
         public void SetUnchanged(TDto entitieit)
         {
-            var item = _mapper.Map<TDto, TEntity>(entitieit);
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            var item = Mapper.Map<TDto, TEntity>(entitieit);
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<TEntity, TKey>();
                 repository.SetUnchanged(item);
