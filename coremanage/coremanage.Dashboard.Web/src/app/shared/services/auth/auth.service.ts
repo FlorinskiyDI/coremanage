@@ -28,8 +28,8 @@ export class AuthService {
             .do(
                 data => {
                     let decodeToken = this.jwtDecodeService.decode(data.accessToken);
-                    let tenant = this.getUserTenant(decodeToken.sub);
-                    this.loginSuccess(data, decodeToken, tenant);
+                    // let tenant = this.getUserTenant(decodeToken.sub);
+                    this.loginSuccess(data, decodeToken);
                 },
                 error => { this.loginError(error); }
             );
@@ -47,7 +47,7 @@ export class AuthService {
             );
     }
 
-    private loginSuccess(data: any, decodeToken: any, tenant: any ){
+    private loginSuccess(data: any, decodeToken: any){
         let user: IUserDto = {
             firstName: decodeToken.firstName,
             lastName: decodeToken.lastName,

@@ -50,7 +50,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
         // GET api/Identity/Tenant/5
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("Tenant/{id}")]
         public List<int> GetTenant(string id)
         {

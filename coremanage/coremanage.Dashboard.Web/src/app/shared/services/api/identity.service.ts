@@ -1,7 +1,8 @@
 // external import
 import { Injectable } from "@angular/core";
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Rx";
+import { NgRedux, select } from '@angular-redux/store';
 
 // app`s import
 import { LoginData } from "../../index.models";
@@ -9,11 +10,11 @@ import { appConstant } from "../../index.constants";
 
 @Injectable()
 export class IdentityService {
+    @select(['session', 'token']) token$: Observable<String>;
     protected apiServer: string;
 
     constructor(protected http: Http) {
         this.apiServer = appConstant.apiServer;
-        
     }
 
     // retern token
