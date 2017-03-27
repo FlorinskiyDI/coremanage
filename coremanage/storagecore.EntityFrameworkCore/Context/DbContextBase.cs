@@ -6,8 +6,7 @@ using System.Text;
 
 namespace storagecore.EntityFrameworkCore.Context
 {
-    public class DbContextBase<TContext> : DbContext, IEntityContext
-        where TContext : DbContext
+    public class DbContextBase<TContext> : DbContext, IEntityContext where TContext : DbContext
     {
         public DbContextBase(DbContextOptions<TContext> options) : base(options)
         {

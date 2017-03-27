@@ -22,7 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\coremanage.Core.Bootstrap\coremanage.Core.Bootstrap.csproj" />
-    <ProjectReference Include="..\coremanage.Core.Services.Shared\coremanage.Core.Services.Shared.csproj" />
     <ProjectReference Include="..\coremanage.Data.Storage.MSSQL\coremanage.Data.Storage.MSSQL.csproj" />
     <ProjectReference Include="..\coremanage.Data.Storage\coremanage.Data.Storage.csproj" />
   </ItemGroup>

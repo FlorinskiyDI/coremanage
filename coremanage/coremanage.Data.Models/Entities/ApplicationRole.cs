@@ -8,7 +8,7 @@ namespace coremanage.Data.Models.Entities
 {
     public class ApplicationRole: IdentityRole
     {
-        public int CompanyId { get; set; }
+        public int TenantId { get; set; }
         public int RoleType { get; set; }
     }
 }

@@ -10,9 +10,9 @@ namespace coremanage.Data.Storage
 {
     public static class StorageServiceCollectionExtentions
     {
-        public static IServiceCollection AddStorageDataAccess(this IServiceCollection services)
+        public static IServiceCollection AddStorageDataAccessMSSQL(this IServiceCollection services)
         {
-            services.AddStorageCoreDataAccess<CoreManageDbContext>();
+            services.AddStorageCoreDataAccess<GenericDbContext<CoreManageDbContext>>();
             RegisterStorageDataAccess(services);
             return services;
         }

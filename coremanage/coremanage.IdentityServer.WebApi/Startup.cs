@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using coremanage.Data.Storage.MSSQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,13 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using IdentityServer4.Services;
 using coremanage.IdentityServer.WebApi.Services;
-using coremanage.IdentityServer.Storage.EFCore.Common.Entities;
-using coremanage.IdentityServer.Storage.EFCore.MSSQL;
 using Microsoft.EntityFrameworkCore;
-using coremanage.IdentityServer.Storage.EFCore.Common;
 using coremanage.IdentityServer.WebApi.Configurations;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using coremanage.IdentityServer.Storage.EFCore.Common.DbContexts;
+using coremanage.Data.Models.Entities;
+using coremanage.Data.Storage.Context;
+using coremanage.Data.Storage.Integration;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -43,24 +42,23 @@ namespace coremanage.IdentityServer.WebApi
             services.AddTransient<IProfileService, IdentityWithAdditionalClaimsProfileService>();
             services.AddMvc();
 
-            services.AddIdentityServerStorageEFCoreMSSQL(connectionString);
-            services.AddIdentity<AppUser, IdentityRole>(options =>
+            services.AddStorageMSSQL(connectionString);
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
             })
-            .AddEntityFrameworkStores<IdentityServerDbContext>()
+            .AddEntityFrameworkStores<CoreManageDbContext>()
             .AddDefaultTokenProviders();
 
             services.AddIdentityServer()
               .AddTemporarySigningCredential()
-              .AddAspNetIdentity<AppUser>()
+              .AddAspNetIdentity<ApplicationUser>()
               .AddProfileService<IdentityWithAdditionalClaimsProfileService>()
-              .AddConfigurationStore(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.IdentityServer.Storage.EFCore.MSSQL")))
-              .AddOperationalStore(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.IdentityServer.Storage.EFCore.MSSQL")));
-
+              .AddConfigurationStoreMSSQL(connectionString)
+              .AddOperationalStoreMSSQL(connectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,7 +70,7 @@ namespace coremanage.IdentityServer.WebApi
             app.UseApplicationInsightsExceptionTelemetry();
 
             // this will do the initial DB population
-            IdentityServerIntegrationEFCoreStorage.InitializeDatabaseAsync(
+            IntegrationStorage.InitializeDatabaseAsync(
                 app.ApplicationServices,
                 Clients.Get(),
                 Resources.GetApiResources(),

@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\coremanage.Core.Models\coremanage.Core.Models.csproj" />
-    <ProjectReference Include="..\coremanage.Core.Services.Shared\coremanage.Core.Services.Shared.csproj" />
+    <ProjectReference Include="..\coremanage.Core.Services\coremanage.Core.Services.csproj" />
     <ProjectReference Include="..\coremanage.Data.Models\coremanage.Data.Models.csproj" />
   </ItemGroup>
 
