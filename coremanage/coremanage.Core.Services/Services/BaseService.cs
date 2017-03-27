@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using coremanage.Core.Services.Shared.API;
-using AutoMapper;
+using coremanage.Core.Models.Interfaces;
+using coremanage.Core.Services.Interfaces;
 using storagecore.Abstractions.Entities;
 using storagecore.Abstractions.Uow;
-using coremanage.Core.Models.Interfaces;
+using AutoMapper;
 
-namespace coremanage.Core.Services.Shared.Services
+namespace coremanage.Core.Services.Services
 {
     public abstract class BaseService<TDto, TEntity, TKey> : IBaseService<TDto, TKey>
         where TDto : IBaseDto<TKey>

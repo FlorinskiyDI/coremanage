@@ -5,12 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="6.0.0" />
+    <PackageReference Include="AutoMapper" Version="6.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\coremanage.Core.Models\coremanage.Core.Models.csproj" />
-    <ProjectReference Include="..\coremanage.Data.DomainModel\coremanage.Data.DomainModel.csproj" />
     <ProjectReference Include="..\storagecore.Abstractions\storagecore.Abstractions.csproj" />
   </ItemGroup>
 

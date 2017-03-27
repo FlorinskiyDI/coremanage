@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using coremanage.Core.Contracts.Repositories;
 using coremanage.Data.Storage.Context;
 using storagecore.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using coremanage.Data.Storage.Repositories;
 
 namespace coremanage.Data.Storage
 {
@@ -21,7 +19,7 @@ namespace coremanage.Data.Storage
 
         private static void RegisterStorageDataAccess(IServiceCollection services)
         {
-            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            //services.AddScoped<ICompanyRepository, CompanyRepository>();
         }
     }
 }

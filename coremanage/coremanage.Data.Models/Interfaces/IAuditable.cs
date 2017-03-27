@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace coremanage.Data.DomainModel
+namespace coremanage.Data.Models.Interfaces
 {
     public interface IAuditable
     {
@@ -11,6 +11,7 @@ namespace coremanage.Data.DomainModel
         string LastModifiedBy { get; set; }
         DateTime LastModifiedAt { get; set; }
 
+        // Soft Delete
         bool IsDeleted { get; set; }
     }
 }

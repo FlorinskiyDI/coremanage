@@ -1,4 +1,4 @@
-﻿using coremanage.Data.DomainModel.Identity;
+﻿using coremanage.Data.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using storagecore.EntityFrameworkCore.Context;
 using System;
@@ -14,22 +14,22 @@ namespace coremanage.Data.Storage.Context
         }
 
         // Identity entities
-        public DbSet<Company> Companies { get; set; }
+        public DbSet<Tenant> Tenants { get; set; }
         public DbSet<IdentityClaim> IdentityClaims { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
-        public DbSet<IdentityCompanyClaim> IdentityCompanyClaims { get; set; }
-        public DbSet<UserCompany> UserCompanies { get; set; }
+        public DbSet<IdentityTenantClaim> IdentityTenantClaims { get; set; }
+        public DbSet<UserTenant> UserTenants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<UserCompany>(entity =>
-            {
-                entity.HasKey(e => new { e.UserProfileId, e.CompanyId });
+            builder.Entity<UserTenant>(entity =>
+            { 
+                entity.HasKey(e => new { e.UserProfileId, e.TenantId });
             });
 
-            builder.Entity<IdentityCompanyClaim>(entity =>
+            builder.Entity<IdentityTenantClaim>(entity =>
             {
-                entity.HasKey(e => new { e.IdentityClaimId, e.CompanyId });
+                entity.HasKey(e => new { e.IdentityClaimId, e.TenantId });
             });
 
             base.OnModelCreating(builder);

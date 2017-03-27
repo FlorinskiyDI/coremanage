@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using coremanage.Data.DomainModel.API;
+﻿using coremanage.Data.Models.Interfaces;
 using storagecore.EntityFrameworkCore.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace coremanage.Data.DomainModel.Identity
+namespace coremanage.Data.Models.Entities
 {
-    public class UserProfile: BaseEntity<string>, IAuditable, ITenant
+    public class UserProfile : BaseEntity<string>, IAuditable, ITenant
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,8 +19,8 @@ namespace coremanage.Data.DomainModel.Identity
         public DateTime LastModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
         // implementation ITenant
-        public int CompanyId { get; set; }
+        public int TenantId { get; set; }
 
-        public List<UserCompany> UserCompanies { get; set; } // many to many
+        public List<UserTenant> UserTenants { get; set; } // many to many
     }
 }

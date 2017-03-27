@@ -1,8 +1,8 @@
-﻿using coremanage.Core.Models.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using coremanage.Core.Models.Interfaces;
 
-namespace coremanage.Core.Services.Shared.API
+namespace coremanage.Core.Services.Interfaces
 {
     public interface IBaseService<TDto, in TKey> where TDto : IBaseDto<TKey>
     {

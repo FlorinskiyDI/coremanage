@@ -14,6 +14,8 @@ using coremanage.IdentityServer.Storage.EFCore.MSSQL;
 using Microsoft.EntityFrameworkCore;
 using coremanage.IdentityServer.Storage.EFCore.Common;
 using coremanage.IdentityServer.WebApi.Configurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using coremanage.IdentityServer.Storage.EFCore.Common.DbContexts;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -42,6 +44,16 @@ namespace coremanage.IdentityServer.WebApi
             services.AddMvc();
 
             services.AddIdentityServerStorageEFCoreMSSQL(connectionString);
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+            })
+            .AddEntityFrameworkStores<IdentityServerDbContext>()
+            .AddDefaultTokenProviders();
+
             services.AddIdentityServer()
               .AddTemporarySigningCredential()
               .AddAspNetIdentity<AppUser>()

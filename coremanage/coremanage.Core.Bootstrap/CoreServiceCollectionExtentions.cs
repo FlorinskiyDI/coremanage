@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using coremanage.Core.Services.Shared.API.Security;
-using coremanage.Core.Services.Shared.Services.Security;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace coremanage.Core.Bootstrap
@@ -12,8 +10,8 @@ namespace coremanage.Core.Bootstrap
         )
         {
             services.AddAutoMapper();
-            services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScoped<IUserProfileService, UserProfileService>();
+            //services.AddScoped<ICompanyService, CompanyService>();
+            //services.AddScoped<IUserProfileService, UserProfileService>();
             return services;
         }
     }

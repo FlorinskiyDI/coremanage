@@ -1,10 +1,12 @@
-﻿using storagecore.EntityFrameworkCore.Entities;
+﻿using coremanage.Data.Models.Interfaces;
+using storagecore.EntityFrameworkCore.Entities;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace coremanage.Data.DomainModel.Identity
+namespace coremanage.Data.Models.Entities
 {
-    public class Company: BaseEntity<int>, IAuditable
+    public class Tenant : BaseEntity<int>, IAuditable
     {
         public string Name { get; set; }
         public bool IsGroup { get; set; }
@@ -17,8 +19,8 @@ namespace coremanage.Data.DomainModel.Identity
         public DateTime LastModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
 
-        public List<UserCompany> UserCompanies { get; set; } // many to many
-        public List<IdentityCompanyClaim> IdentityCompanyClaims { get; set; } // many to many
-        
+        public List<UserTenant> UserTenants { get; set; } // many to many
+        public List<IdentityTenantClaim> IdentityTenantClaims { get; set; } // many to many
+
     }
 }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace coremanage.Data.DomainModel.API
+namespace coremanage.Data.Models.Interfaces
 {
     public interface ITenant
     {
-        int CompanyId { get; set; }
+        int TenantId { get; set; }
     }
 }
