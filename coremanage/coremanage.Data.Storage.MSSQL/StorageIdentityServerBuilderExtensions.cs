@@ -24,6 +24,5 @@ namespace coremanage.Data.Storage.MSSQL
             builderScope.AddOperationalStore(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.Data.Storage.MSSQL")));
             return builderScope;
         }
-
     }
 }

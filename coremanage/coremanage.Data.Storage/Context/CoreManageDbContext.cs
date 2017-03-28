@@ -15,9 +15,9 @@ namespace coremanage.Data.Storage.Context
         }
 
         // Identity entities
-        public DbSet<IdentityClaim> IdentityClaims { get; set; }
+        //public DbSet<IdentityClaim> IdentityClaims { get; set; }
         public DbSet<IdentityRoleHierarchy> IdentityRoleHierarchies { get; set; }
-        public DbSet<IdentityTenantClaim> IdentityTenantClaims { get; set; }
+        //public DbSet<IdentityTenantClaim> IdentityTenantClaims { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<UserTenant> UserTenants { get; set; }

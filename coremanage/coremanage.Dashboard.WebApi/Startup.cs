@@ -49,7 +49,7 @@ namespace coremanage.Dashboard.WebApi
             services.AddCors();
 
             services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
-            services.AddStorageDataAccess(); // registering the repository
+            //services.AddStorageDataAccess(); // registering the repository
             services.AddCoreServices(); // registering the services
 
             services.AddMvc();

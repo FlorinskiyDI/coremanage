@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace coremanage.IdentityServer.Storage.EFCore.MSSQL.Migrations.IdentityServer.ConfigurationDb
+namespace coremanage.Data.Storage.MSSQL.Migrations.IdentityServer.ConfigurationDb
 {
     public partial class InitialIdentityServerConfigurationDbMigration : Migration
     {

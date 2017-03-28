@@ -3,21 +3,48 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using coremanage.IdentityServer.Storage.EFCore.Common.DbContexts;
+using coremanage.Data.Storage.Context;
 
-namespace coremanage.IdentityServer.Storage.EFCore.MSSQL.Migrations
+namespace coremanage.Data.Storage.MSSQL.Migrations
 {
-    [DbContext(typeof(IdentityServerDbContext))]
-    [Migration("20170302111656_InitialAspNetIdentity")]
+    [DbContext(typeof(CoreManageDbContext))]
+    [Migration("20170328095925_InitialAspNetIdentity")]
     partial class InitialAspNetIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
+                .HasAnnotation("ProductVersion", "1.1.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("coremanage.IdentityServer.Storage.EFCore.Common.Entities.AppUser", b =>
+            modelBuilder.Entity("coremanage.Data.Models.Entities.ApplicationRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.Property<int>("RoleType");
+
+                    b.Property<int>("TenantId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("coremanage.Data.Models.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -69,27 +96,111 @@ namespace coremanage.IdentityServer.Storage.EFCore.MSSQL.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
+            modelBuilder.Entity("coremanage.Data.Models.Entities.IdentityClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("Description");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdentityClaim");
+                });
+
+            modelBuilder.Entity("coremanage.Data.Models.Entities.IdentityRoleHierarchy", b =>
+                {
+                    b.Property<string>("RoleId");
+
+                    b.Property<string>("ChildRoleId");
+
+                    b.HasKey("RoleId", "ChildRoleId");
+
+                    b.ToTable("IdentityRoleHierarchies");
+                });
+
+            modelBuilder.Entity("coremanage.Data.Models.Entities.IdentityTenantClaim", b =>
+                {
+                    b.Property<int>("IdentityClaimId");
+
+                    b.Property<int>("TenantId");
+
+                    b.HasKey("IdentityClaimId", "TenantId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("IdentityTenantClaim");
+                });
+
+            modelBuilder.Entity("coremanage.Data.Models.Entities.Tenant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsGroup");
+
+                    b.Property<DateTime>("LastModifiedAt");
+
+                    b.Property<string>("LastModifiedBy");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("ParentCompanyId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tenants");
+                });
+
+            modelBuilder.Entity("coremanage.Data.Models.Entities.UserProfile", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                    b.Property<DateTime>("CreatedAt");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(256);
+                    b.Property<string>("CreatedBy");
 
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
+                    b.Property<string>("EmailAddress");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastModifiedAt");
+
+                    b.Property<string>("LastModifiedBy");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("TenantId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex");
+                    b.ToTable("UserProfiles");
+                });
 
-                    b.ToTable("AspNetRoles");
+            modelBuilder.Entity("coremanage.Data.Models.Entities.UserTenant", b =>
+                {
+                    b.Property<string>("UserProfileId");
+
+                    b.Property<int>("TenantId");
+
+                    b.HasKey("UserProfileId", "TenantId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("UserTenants");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -176,9 +287,35 @@ namespace coremanage.IdentityServer.Storage.EFCore.MSSQL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("coremanage.Data.Models.Entities.IdentityTenantClaim", b =>
+                {
+                    b.HasOne("coremanage.Data.Models.Entities.IdentityClaim", "IdentityClaim")
+                        .WithMany("IdentityTenantClaims")
+                        .HasForeignKey("IdentityClaimId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("coremanage.Data.Models.Entities.Tenant", "Tenant")
+                        .WithMany("IdentityTenantClaims")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("coremanage.Data.Models.Entities.UserTenant", b =>
+                {
+                    b.HasOne("coremanage.Data.Models.Entities.Tenant", "Tenant")
+                        .WithMany("UserTenants")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("coremanage.Data.Models.Entities.UserProfile", "UserProfile")
+                        .WithMany("UserTenants")
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
+                    b.HasOne("coremanage.Data.Models.Entities.ApplicationRole")
                         .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -186,7 +323,7 @@ namespace coremanage.IdentityServer.Storage.EFCore.MSSQL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("coremanage.IdentityServer.Storage.EFCore.Common.Entities.AppUser")
+                    b.HasOne("coremanage.Data.Models.Entities.ApplicationUser")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -194,7 +331,7 @@ namespace coremanage.IdentityServer.Storage.EFCore.MSSQL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("coremanage.IdentityServer.Storage.EFCore.Common.Entities.AppUser")
+                    b.HasOne("coremanage.Data.Models.Entities.ApplicationUser")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -202,12 +339,12 @@ namespace coremanage.IdentityServer.Storage.EFCore.MSSQL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
+                    b.HasOne("coremanage.Data.Models.Entities.ApplicationRole")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("coremanage.IdentityServer.Storage.EFCore.Common.Entities.AppUser")
+                    b.HasOne("coremanage.Data.Models.Entities.ApplicationUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

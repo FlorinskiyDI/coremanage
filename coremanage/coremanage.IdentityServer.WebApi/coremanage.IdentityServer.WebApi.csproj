@@ -11,6 +11,7 @@
     <PackageReference Include="IdentityModel" Version="2.6.0" />
     <PackageReference Include="IdentityServer4" Version="1.3.1" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="1.0.1" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="1.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="1.1.1" />
@@ -21,8 +22,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\coremanage.IdentityServer.Storage.EFCore.Common\coremanage.IdentityServer.Storage.EFCore.Common.csproj" />
-    <ProjectReference Include="..\coremanage.IdentityServer.Storage.EFCore.MSSQL\coremanage.IdentityServer.Storage.EFCore.MSSQL.csproj" />
+    <ProjectReference Include="..\coremanage.Data.Models\coremanage.Data.Models.csproj" />
+    <ProjectReference Include="..\coremanage.Data.Storage.MSSQL\coremanage.Data.Storage.MSSQL.csproj" />
+    <ProjectReference Include="..\coremanage.Data.Storage\coremanage.Data.Storage.csproj" />
   </ItemGroup>
 
 </Project>

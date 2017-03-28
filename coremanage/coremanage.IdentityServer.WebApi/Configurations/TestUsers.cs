@@ -1,5 +1,4 @@
-﻿using coremanage.IdentityServer.Storage.EFCore.Common.Enums;
-using IdentityServer4.Test;
+﻿using IdentityServer4.Test;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -19,7 +18,7 @@ namespace coremanage.IdentityServer.WebApi.Configurations
 
                     Claims = new List<Claim>
                     {
-                        new Claim( "role", EnumRoles.SuperAdmin.ToString() )
+                        //new Claim( "role", EnumRoles.SuperAdmin.ToString() )
                     }
                 }
             };
