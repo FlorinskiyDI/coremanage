@@ -21,6 +21,6 @@ namespace coremanage.Data.Models.Entities
         // implementation ITenant
         public int TenantId { get; set; }
 
-        public List<UserTenant> UserTenants { get; set; } // many to many
+        public List<UserProfileTenant> UserTenants { get; set; } // many to many
     }
 }

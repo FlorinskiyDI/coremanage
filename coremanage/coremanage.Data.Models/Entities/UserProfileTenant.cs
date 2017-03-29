@@ -4,7 +4,7 @@ using System.Text;
 
 namespace coremanage.Data.Models.Entities
 {
-    public class UserTenant
+    public class UserProfileTenant
     {
         public string UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }

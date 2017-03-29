@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using coremanage.Data.Models.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using coremanage.Data.Models.Models;
+using storagecore.Abstractions.Uow;
 
 namespace coremanage.Data.Storage.Integration
 {
@@ -65,6 +69,42 @@ namespace coremanage.Data.Storage.Integration
                     }
                     await configContext.SaveChangesAsync();
                 }
+
+                // intitial roles       
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+                if (!roleManager.Roles.Any())
+                {
+                    roleManager.CreateAsync(new ApplicationRole(RoleType.SuperAdmin.ToString(), (int)RoleType.SuperAdmin)).Wait();
+                    roleManager.CreateAsync(new ApplicationRole(RoleType.GroupAdmin.ToString(), (int)RoleType.SuperAdmin)).Wait();
+                    roleManager.CreateAsync(new ApplicationRole(RoleType.TenantAdmin.ToString(), (int)RoleType.GroupAdmin)).Wait();
+                    roleManager.CreateAsync(new ApplicationRole(RoleType.ModuleAdmin.ToString(), (int)RoleType.TenantAdmin)).Wait();
+                    roleManager.CreateAsync(new ApplicationRole("DashboardAdmin", (int)RoleType.TenantAdmin)).Wait(); // module admin
+                }
+
+                //var uowProvider = serviceScope.ServiceProvider.GetRequiredService<IUowProvider>();
+                //using (var uow = uowProvider.CreateUnitOfWork())
+                //{
+                //    var repository = uow.GetRepository<IdentityRoleHierarchy, int>();
+
+                //    repository.AnyAsync();
+                //    uow.SaveChanges();
+                //}
+
+
+                // intitial testUsers 
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                if ((testUsers != null) && (!userManager.Users.Any()))
+                {
+                    foreach (var inMemoryUser in testUsers)
+                    {
+                        var identityUser = new ApplicationUser(inMemoryUser.Username);
+                        userManager.CreateAsync(identityUser, inMemoryUser.Password).Wait();
+                        userManager.AddToRoleAsync(identityUser, RoleType.SuperAdmin.ToString()).Wait(); // Set user role "Superadmin"
+                    }
+                }
+
+
+
 
                 //// intitial roles       
                 //var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();

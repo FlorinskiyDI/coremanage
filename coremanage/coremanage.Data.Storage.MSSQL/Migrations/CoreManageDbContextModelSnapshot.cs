@@ -32,8 +32,6 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.Property<int>("RoleType");
 
-                    b.Property<int>("TenantId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
@@ -50,7 +48,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime>("AccountExpires");
+                    b.Property<DateTime?>("AccountExpires");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -95,7 +93,20 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("coremanage.Data.Models.Entities.IdentityClaim", b =>
+            modelBuilder.Entity("coremanage.Data.Models.Entities.IdentityRoleHierarchy", b =>
+                {
+                    b.Property<string>("RoleId");
+
+                    b.Property<string>("ChildRoleId");
+
+                    b.Property<int>("Id");
+
+                    b.HasKey("RoleId", "ChildRoleId");
+
+                    b.ToTable("IdentityRoleHierarchies");
+                });
+
+            modelBuilder.Entity("coremanage.Data.Models.Entities.PersonalClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -108,31 +119,20 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentityClaim");
+                    b.ToTable("PersonalClaims");
                 });
 
-            modelBuilder.Entity("coremanage.Data.Models.Entities.IdentityRoleHierarchy", b =>
+            modelBuilder.Entity("coremanage.Data.Models.Entities.PersonalTenantClaim", b =>
                 {
-                    b.Property<string>("RoleId");
-
-                    b.Property<string>("ChildRoleId");
-
-                    b.HasKey("RoleId", "ChildRoleId");
-
-                    b.ToTable("IdentityRoleHierarchies");
-                });
-
-            modelBuilder.Entity("coremanage.Data.Models.Entities.IdentityTenantClaim", b =>
-                {
-                    b.Property<int>("IdentityClaimId");
+                    b.Property<int>("PersonalClaimId");
 
                     b.Property<int>("TenantId");
 
-                    b.HasKey("IdentityClaimId", "TenantId");
+                    b.HasKey("PersonalClaimId", "TenantId");
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("IdentityTenantClaim");
+                    b.ToTable("PersonalTenantClaims");
                 });
 
             modelBuilder.Entity("coremanage.Data.Models.Entities.Tenant", b =>
@@ -189,7 +189,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.ToTable("UserProfiles");
                 });
 
-            modelBuilder.Entity("coremanage.Data.Models.Entities.UserTenant", b =>
+            modelBuilder.Entity("coremanage.Data.Models.Entities.UserProfileTenant", b =>
                 {
                     b.Property<string>("UserProfileId");
 
@@ -199,7 +199,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("UserTenants");
+                    b.ToTable("UserProfileTenants");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -286,11 +286,11 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("coremanage.Data.Models.Entities.IdentityTenantClaim", b =>
+            modelBuilder.Entity("coremanage.Data.Models.Entities.PersonalTenantClaim", b =>
                 {
-                    b.HasOne("coremanage.Data.Models.Entities.IdentityClaim", "IdentityClaim")
+                    b.HasOne("coremanage.Data.Models.Entities.PersonalClaim", "PersonalClaim")
                         .WithMany("IdentityTenantClaims")
-                        .HasForeignKey("IdentityClaimId")
+                        .HasForeignKey("PersonalClaimId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("coremanage.Data.Models.Entities.Tenant", "Tenant")
@@ -299,7 +299,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("coremanage.Data.Models.Entities.UserTenant", b =>
+            modelBuilder.Entity("coremanage.Data.Models.Entities.UserProfileTenant", b =>
                 {
                     b.HasOne("coremanage.Data.Models.Entities.Tenant", "Tenant")
                         .WithMany("UserTenants")

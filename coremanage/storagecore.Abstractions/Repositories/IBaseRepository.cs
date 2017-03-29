@@ -88,6 +88,7 @@ namespace storagecore.Abstractions.Repositories
         
         // add
         void Add(TEntity entity);
+        Task AddAsync(TEntity entity);
 
         // update
         TEntity Update(TEntity entity);

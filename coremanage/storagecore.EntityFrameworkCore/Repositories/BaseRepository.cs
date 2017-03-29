@@ -155,6 +155,12 @@ namespace storagecore.EntityFrameworkCore.Repositories
             Context.Set<TEntity>().Add(entity);
         }
 
+        public virtual async Task AddAsync(TEntity entity)
+        {
+            if (entity == null) throw new InvalidOperationException("Unable to add a null entity to the repository.");
+            await Context.Set<TEntity>().AddAsync(entity);
+        }
+
         public virtual TEntity Update(TEntity entity)
         {
             return Context.Set<TEntity>().Update(entity).Entity;

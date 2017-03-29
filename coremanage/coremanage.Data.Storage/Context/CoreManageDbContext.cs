@@ -14,23 +14,23 @@ namespace coremanage.Data.Storage.Context
         {
         }
 
-        // Identity entities
-        //public DbSet<IdentityClaim> IdentityClaims { get; set; }
+        // entities
+        public DbSet<PersonalClaim> PersonalClaims { get; set; }
         public DbSet<IdentityRoleHierarchy> IdentityRoleHierarchies { get; set; }
-        //public DbSet<IdentityTenantClaim> IdentityTenantClaims { get; set; }
+        public DbSet<PersonalTenantClaim> PersonalTenantClaims { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
-        public DbSet<UserTenant> UserTenants { get; set; }
+        public DbSet<UserProfileTenant> UserProfileTenants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<UserTenant>(entity =>
+            builder.Entity<UserProfileTenant>(entity =>
             {
                 entity.HasKey(e => new { e.UserProfileId, e.TenantId });
             });
-            builder.Entity<IdentityTenantClaim>(entity =>
+            builder.Entity<PersonalTenantClaim>(entity =>
             {
-                entity.HasKey(e => new { e.IdentityClaimId, e.TenantId });
+                entity.HasKey(e => new { e.PersonalClaimId, e.TenantId });
             });
             builder.Entity<IdentityRoleHierarchy>(entity =>
             {

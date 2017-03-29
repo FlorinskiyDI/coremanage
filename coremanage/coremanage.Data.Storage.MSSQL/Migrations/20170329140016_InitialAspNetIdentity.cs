@@ -17,8 +17,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    RoleType = table.Column<int>(nullable: false),
-                    TenantId = table.Column<int>(nullable: false)
+                    RoleType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,7 +30,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    AccountExpires = table.Column<DateTime>(nullable: false),
+                    AccountExpires = table.Column<DateTime>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
@@ -52,7 +51,20 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityClaim",
+                name: "IdentityRoleHierarchies",
+                columns: table => new
+                {
+                    RoleId = table.Column<string>(nullable: false),
+                    ChildRoleId = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityRoleHierarchies", x => new { x.RoleId, x.ChildRoleId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonalClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -63,19 +75,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdentityClaim", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "IdentityRoleHierarchies",
-                columns: table => new
-                {
-                    RoleId = table.Column<string>(nullable: false),
-                    ChildRoleId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityRoleHierarchies", x => new { x.RoleId, x.ChildRoleId });
+                    table.PrimaryKey("PK_PersonalClaims", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -219,23 +219,23 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityTenantClaim",
+                name: "PersonalTenantClaims",
                 columns: table => new
                 {
-                    IdentityClaimId = table.Column<int>(nullable: false),
+                    PersonalClaimId = table.Column<int>(nullable: false),
                     TenantId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdentityTenantClaim", x => new { x.IdentityClaimId, x.TenantId });
+                    table.PrimaryKey("PK_PersonalTenantClaims", x => new { x.PersonalClaimId, x.TenantId });
                     table.ForeignKey(
-                        name: "FK_IdentityTenantClaim_IdentityClaim_IdentityClaimId",
-                        column: x => x.IdentityClaimId,
-                        principalTable: "IdentityClaim",
+                        name: "FK_PersonalTenantClaims_PersonalClaims_PersonalClaimId",
+                        column: x => x.PersonalClaimId,
+                        principalTable: "PersonalClaims",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_IdentityTenantClaim_Tenants_TenantId",
+                        name: "FK_PersonalTenantClaims_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
                         principalColumn: "Id",
@@ -243,7 +243,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTenants",
+                name: "UserProfileTenants",
                 columns: table => new
                 {
                     UserProfileId = table.Column<string>(nullable: false),
@@ -251,15 +251,15 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTenants", x => new { x.UserProfileId, x.TenantId });
+                    table.PrimaryKey("PK_UserProfileTenants", x => new { x.UserProfileId, x.TenantId });
                     table.ForeignKey(
-                        name: "FK_UserTenants_Tenants_TenantId",
+                        name: "FK_UserProfileTenants_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserTenants_UserProfiles_UserProfileId",
+                        name: "FK_UserProfileTenants_UserProfiles_UserProfileId",
                         column: x => x.UserProfileId,
                         principalTable: "UserProfiles",
                         principalColumn: "Id",
@@ -284,13 +284,13 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_IdentityTenantClaim_TenantId",
-                table: "IdentityTenantClaim",
+                name: "IX_PersonalTenantClaims_TenantId",
+                table: "PersonalTenantClaims",
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTenants_TenantId",
-                table: "UserTenants",
+                name: "IX_UserProfileTenants_TenantId",
+                table: "UserProfileTenants",
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
@@ -320,10 +320,10 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 name: "IdentityRoleHierarchies");
 
             migrationBuilder.DropTable(
-                name: "IdentityTenantClaim");
+                name: "PersonalTenantClaims");
 
             migrationBuilder.DropTable(
-                name: "UserTenants");
+                name: "UserProfileTenants");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -341,7 +341,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "IdentityClaim");
+                name: "PersonalClaims");
 
             migrationBuilder.DropTable(
                 name: "Tenants");

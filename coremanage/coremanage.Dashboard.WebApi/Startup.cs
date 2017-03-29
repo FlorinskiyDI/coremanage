@@ -50,10 +50,10 @@ namespace coremanage.Dashboard.WebApi
 
             services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
             //services.AddStorageDataAccess(); // registering the repository
-            services.AddCoreServices(); // registering the services
+            services.AddCoreBootstrap(); // registering the services
 
             services.AddMvc();
-            services.AddAutoMapper();
+            //services.AddAutoMapper();
 
             services.AddSingleton(Mapper.Configuration);
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));

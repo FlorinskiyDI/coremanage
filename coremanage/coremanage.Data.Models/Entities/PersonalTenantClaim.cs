@@ -4,10 +4,10 @@ using System.Text;
 
 namespace coremanage.Data.Models.Entities
 {
-    public class IdentityTenantClaim
+    public class PersonalTenantClaim
     {
-        public int IdentityClaimId { get; set; }
-        public IdentityClaim IdentityClaim { get; set; }
+        public int PersonalClaimId { get; set; }
+        public PersonalClaim PersonalClaim { get; set; }
 
         public int TenantId { get; set; }
         public Tenant Tenant { get; set; }

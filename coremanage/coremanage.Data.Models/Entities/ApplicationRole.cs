@@ -8,7 +8,15 @@ namespace coremanage.Data.Models.Entities
 {
     public class ApplicationRole: IdentityRole
     {
-        public int TenantId { get; set; }
+        public ApplicationRole(): base()
+        { 
+        }
+
+        public ApplicationRole(string roleName, int roleType)
+            :base(roleName)
+        {
+            this.RoleType = roleType;
+        }
         public int RoleType { get; set; }
     }
 }

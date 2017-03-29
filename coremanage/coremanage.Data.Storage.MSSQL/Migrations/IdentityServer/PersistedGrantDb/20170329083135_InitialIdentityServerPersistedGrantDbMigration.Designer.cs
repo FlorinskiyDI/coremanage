@@ -8,7 +8,7 @@ using IdentityServer4.EntityFramework.DbContexts;
 namespace coremanage.Data.Storage.MSSQL.Migrations.IdentityServer.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20170328095137_InitialIdentityServerPersistedGrantDbMigration")]
+    [Migration("20170329083135_InitialIdentityServerPersistedGrantDbMigration")]
     partial class InitialIdentityServerPersistedGrantDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
