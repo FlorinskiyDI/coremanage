@@ -12,6 +12,7 @@ using coremanage.Data.Storage.MSSQL;
 using coremanage.Data.Storage.Integration;
 using coremanage.Data.Storage;
 using coremanage.Core.Bootstrap;
+using AutoMapper;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -34,15 +35,14 @@ namespace coremanage.IdentityServer.WebApi
         {
             // Add framework services.
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
+            services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
             services.AddApplicationInsightsTelemetry(Configuration);
+
+
+
             services.AddTransient<IProfileService, IdentityWithAdditionalClaimsProfileService>();
 
-            services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
-            services.AddCoreManagerData(); // registering the repository
-            services.AddCoreManagerBootstrap(); // registering the services
-
-            services.AddMvc();
+            
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
@@ -62,6 +62,12 @@ namespace coremanage.IdentityServer.WebApi
                 .AddConfigurationStoreMSSQL(connectionString)
                 .AddOperationalStoreMSSQL(connectionString)
                 .AddProfileService<IdentityWithAdditionalClaimsProfileService>();
+
+            
+            services.AddCoreManagerData(); // registering the repository
+            services.AddCoreManagerBootstrap(); // registering the services
+            services.AddAutoMapper();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
