@@ -7,11 +7,12 @@
 localhost:5100 - coremanage.IdentityServer.WebApi (asp.net core web api)
 
 // commands for migration
-PM> add-migration -n InitialIdentityServerPersistedGrantDbMigration -c PersistedGrantDbContext -o Migrations/IdentityServer/PersistedGrantDb -StartupProject coremanage.IdentityServer.WebApi
-PM> add-migration -n InitialIdentityServerConfigurationDbMigration -c ConfigurationDbContext -o Migrations/IdentityServer/ConfigurationDb -StartupProject coremanage.IdentityServer.WebApi 
-PM> add-migration -n InitialAspNetIdentity -c IdentityServerDbContext -o Migrations -StartupProject coremanage.IdentityServer.WebApi
-PM> update-database -StartupProject coremanage.IdentityServer.WebApi
-
+add-migration -n InitialIdentityServerPersistedGrantDbMigration -c PersistedGrantDbContext -o Migrations/IdentityServer/PersistedGrantDb -StartupProject coremanage.IdentityServer.WebApi
+add-migration -n InitialIdentityServerConfigurationDbMigration -c ConfigurationDbContext -o Migrations/IdentityServer/ConfigurationDb -StartupProject coremanage.IdentityServer.WebApi 
+add-migration -n IdentityServerDbContext -c CoreManageDbContext -o Migrations -StartupProject coremanage.IdentityServer.WebApi
+update-database -c PersistedGrantDbContext -StartupProject coremanage.IdentityServer.WebApi
+update-database -c ConfigurationDbContext -StartupProject coremanage.IdentityServer.WebApi
+update-database -c CoreManageDbContext -StartupProject coremanage.IdentityServer.WebApi
 
 
 /////////////////////////////////////////

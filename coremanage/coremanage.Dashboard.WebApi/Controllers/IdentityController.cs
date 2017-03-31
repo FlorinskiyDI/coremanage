@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using IdentityModel.Client;
 using coremanage.Dashboard.WebApi.Models;
 using Microsoft.Extensions.Configuration;
+using coremanage.Core.Services.Interfaces.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,10 +23,17 @@ namespace coremanage.Dashboard.WebApi.Controllers
         //{
         //    _userProfileService = userProfileService;
         //}
+        private readonly ITenantService _tenantService;
+        public IdentityController(ITenantService tenantService)
+        {
+            _tenantService = tenantService;
+        }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]LoginModel loginData)
         {
+            //var ccc = _tenantService.GetAll();
+
             var url = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost");
             var clientId = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientId");
             var clientSecret = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientSecret");

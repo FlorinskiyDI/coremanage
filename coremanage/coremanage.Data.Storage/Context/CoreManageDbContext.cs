@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using storagecore.Abstractions.Context;
 
 namespace coremanage.Data.Storage.Context
 {
-    public class CoreManageDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class CoreManageDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IEntityContext
     {
         public CoreManageDbContext(DbContextOptions<CoreManageDbContext> options) : base(options)
         {

@@ -5,27 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using coremanage.Core.Services.Interfaces.Entities;
 
-namespace coremanage.IdentityServer.WebApi.Controllers
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace coremanage.Dashboard.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    public class ValuesController : Controller
+    [Route("api/Tenant")]
+    public class TenantController : Controller
     {
-
-
         private readonly ITenantService _tenantService;
-        public ValuesController(ITenantService tenantService)
+        public TenantController(ITenantService tenantService)
         {
             _tenantService = tenantService;
         }
 
-
-        // GET api/values
+        // GET: api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
             var values = _tenantService.GetAll();
             var values2 = _tenantService.Get(1);
-            return new string[] { "identityServer4", "identityServer4" };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

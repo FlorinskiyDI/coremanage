@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using AutoMapper;
+using coremanage.Core.Services.Interfaces.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using coremanage.Core.Services.Services.Entities;
 
 namespace coremanage.Core.Bootstrap
 {
@@ -9,17 +11,14 @@ namespace coremanage.Core.Bootstrap
 
 
 
-        public static IServiceCollection AddCoreBootstrap(
+        public static IServiceCollection AddCoreManagerBootstrap(
             this IServiceCollection services
         )
         {
+            services.AddScoped<ITenantService, TenantService>();
 
-
-            var config = new AutoMapper.AutoMapperConfig();
-            var cc = Assembly.GetEntryAssembly();
             //services.AddAutoMapper();
-            services.AddAutoMapper(cc);
-            //services.AddScoped<ICompanyService, CompanyService>();
+            
             //services.AddScoped<IUserProfileService, UserProfileService>();
             return services;
         }

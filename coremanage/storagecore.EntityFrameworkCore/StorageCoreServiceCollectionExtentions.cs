@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using storagecore.Abstractions.Context;
 using storagecore.Abstractions.Repositories;
@@ -11,13 +12,13 @@ namespace storagecore.EntityFrameworkCore
 {
     public static class StorageCoreServiceCollectionExtentions
     {
-        public static IServiceCollection AddStorageCoreDataAccess<TEntityContext>(this IServiceCollection services) where TEntityContext : DbContextBase<TEntityContext>
+        public static IServiceCollection AddStorageCoreDataAccess<TEntityContext>(this IServiceCollection services) where TEntityContext : DbContext, IEntityContext
         {
             RegisterStorageCoreDataAccess<TEntityContext>(services);
             return services;
         }
 
-        private static void RegisterStorageCoreDataAccess<TEntityContext>(IServiceCollection services) where TEntityContext : DbContextBase<TEntityContext>
+        private static void RegisterStorageCoreDataAccess<TEntityContext>(IServiceCollection services) where TEntityContext : DbContext, IEntityContext
         {
             services.TryAddSingleton<IUowProvider, UowProvider>();
             services.TryAddTransient<IEntityContext, TEntityContext>();

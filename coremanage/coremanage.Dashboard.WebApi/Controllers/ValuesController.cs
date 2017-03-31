@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using coremanage.Core.Services.Interfaces.Entities;
 
 namespace coremanage.Dashboard.WebApi.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private readonly ITenantService _tenantService;
+        public ValuesController(ITenantService tenantService)
+        {
+            _tenantService = tenantService;
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()

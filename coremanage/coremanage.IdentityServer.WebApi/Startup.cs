@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using coremanage.Data.Storage.MSSQL;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using IdentityServer4.Services;
 using coremanage.IdentityServer.WebApi.Services;
-using Microsoft.EntityFrameworkCore;
 using coremanage.IdentityServer.WebApi.Configurations;
 using coremanage.Data.Models.Entities;
 using coremanage.Data.Storage.Context;
+using coremanage.Data.Storage.MSSQL;
 using coremanage.Data.Storage.Integration;
+using coremanage.Data.Storage;
+using coremanage.Core.Bootstrap;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -32,7 +29,7 @@ namespace coremanage.IdentityServer.WebApi
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime.Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
@@ -40,9 +37,13 @@ namespace coremanage.IdentityServer.WebApi
 
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddTransient<IProfileService, IdentityWithAdditionalClaimsProfileService>();
+
+            services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
+            services.AddCoreManagerData(); // registering the repository
+            services.AddCoreManagerBootstrap(); // registering the services
+
             services.AddMvc();
 
-            services.AddStorageMSSQL(connectionString);
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -53,15 +54,17 @@ namespace coremanage.IdentityServer.WebApi
             .AddEntityFrameworkStores<CoreManageDbContext>()
             .AddDefaultTokenProviders();
 
+            
             services.AddIdentityServer()
-              .AddTemporarySigningCredential()
-              .AddAspNetIdentity<ApplicationUser>()
-              .AddProfileService<IdentityWithAdditionalClaimsProfileService>()
-              .AddConfigurationStoreMSSQL(connectionString)
-              .AddOperationalStoreMSSQL(connectionString);
+                .AddTemporarySigningCredential()
+                .AddAspNetIdentity<ApplicationUser>()
+                //.AddProfileService<IdentityWithAdditionalClaimsProfileService>()
+                .AddConfigurationStoreMSSQL(connectionString)
+                .AddOperationalStoreMSSQL(connectionString)
+                .AddProfileService<IdentityWithAdditionalClaimsProfileService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -69,7 +72,7 @@ namespace coremanage.IdentityServer.WebApi
             app.UseApplicationInsightsRequestTelemetry();
             app.UseApplicationInsightsExceptionTelemetry();
 
-            // this will do the initial DB population
+            //this will do the initial DB population
             IntegrationStorage.InitializeDatabaseAsync(
                 app.ApplicationServices,
                 Clients.Get(),

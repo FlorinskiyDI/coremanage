@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace coremanage.Data.Storage.MSSQL.Migrations
 {
-    public partial class InitialAspNetIdentity : Migration
+    public partial class IdentityServerDbContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,8 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    RoleType = table.Column<int>(nullable: false)
+                    RoleType = table.Column<int>(nullable: false),
+                    TenantId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

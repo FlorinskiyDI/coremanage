@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\coremanage.Data.Models\coremanage.Data.Models.csproj" />
     <ProjectReference Include="..\storagecore.Abstractions\storagecore.Abstractions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

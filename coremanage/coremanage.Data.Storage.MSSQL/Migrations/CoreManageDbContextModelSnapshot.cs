@@ -32,6 +32,8 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.Property<int>("RoleType");
 
+                    b.Property<int>("TenantId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")

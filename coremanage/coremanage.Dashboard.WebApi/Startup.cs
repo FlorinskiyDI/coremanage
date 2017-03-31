@@ -48,15 +48,16 @@ namespace coremanage.Dashboard.WebApi
 
             services.AddCors();
 
+
             services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
-            //services.AddStorageDataAccess(); // registering the repository
-            services.AddCoreBootstrap(); // registering the services
+            services.AddCoreManagerData(); // registering the repository
+            services.AddCoreManagerBootstrap(); // registering the services
 
             services.AddMvc();
-            //services.AddAutoMapper();
 
-            services.AddSingleton(Mapper.Configuration);
-            services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
+            services.AddAutoMapper();
+            //services.AddSingleton(Mapper.Configuration);
+            //services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

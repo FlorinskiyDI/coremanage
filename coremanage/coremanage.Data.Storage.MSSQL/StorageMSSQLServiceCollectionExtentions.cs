@@ -4,7 +4,7 @@ using coremanage.Data.Storage.Context;
 
 namespace coremanage.Data.Storage.MSSQL
 {
-    public static class StorageServiceCollectionExtentions
+    public static class StorageMSSQLServiceCollectionExtentions
     {
         public static IServiceCollection AddStorageMSSQL(
             this IServiceCollection services,
@@ -15,7 +15,7 @@ namespace coremanage.Data.Storage.MSSQL
                 options.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.Data.Storage.MSSQL")));
 
             // init storage core data access
-            services.AddStorageDataAccessMSSQL();
+            //services.AddCoreManagerData();
                
             return services;
         }

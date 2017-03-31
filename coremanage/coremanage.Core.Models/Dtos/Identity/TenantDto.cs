@@ -4,7 +4,7 @@ using coremanage.Core.Common.DTO.Identity;
 
 namespace coremanage.Core.Models.Dtos.Identity
 {
-    public class CompanyDto: BaseDto<int>
+    public class TenantDto : BaseDto<int>
     {
         public string Name { get; set; }
         public bool IsGroup { get; set; }

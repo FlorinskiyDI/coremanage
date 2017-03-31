@@ -1,25 +1,25 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using coremanage.Core.Contracts.Repositories;
 using coremanage.Data.Storage.Context;
 using storagecore.EntityFrameworkCore;
+using coremanage.Data.Storage.Repositories;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace coremanage.Data.Storage
 {
     public static class StorageServiceCollectionExtentions
     {
-        public static IServiceCollection AddStorageDataAccessMSSQL(this IServiceCollection services)
+        public static IServiceCollection AddCoreManagerData(this IServiceCollection services)
         {
-            services.AddStorageCoreDataAccess<GenericDbContext<CoreManageDbContext>>();
+            services.AddStorageCoreDataAccess<CoreManageDbContext>();
             RegisterStorageDataAccess(services);
             return services;
         }
 
         private static void RegisterStorageDataAccess(IServiceCollection services)
         {
-            //services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddTransient<ITenantRepository, TenantRepository>();
+            services.AddScoped<ISecurityRepository, SecurityRepository>();
         }
     }
 }

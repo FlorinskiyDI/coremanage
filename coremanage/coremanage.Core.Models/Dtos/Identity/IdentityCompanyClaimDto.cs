@@ -11,6 +11,6 @@ namespace coremanage.Core.Common.DTO.Identity
         public IdentityClaimDto IdentityClaim { get; set; }
 
         public int CompanyId { get; set; }
-        public CompanyDto Company { get; set; }
+        public TenantDto Company { get; set; }
     }
 }

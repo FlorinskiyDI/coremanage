@@ -8,8 +8,8 @@ using coremanage.Data.Storage.Context;
 namespace coremanage.Data.Storage.MSSQL.Migrations
 {
     [DbContext(typeof(CoreManageDbContext))]
-    [Migration("20170329140016_InitialAspNetIdentity")]
-    partial class InitialAspNetIdentity
+    [Migration("20170331114559_IdentityServerDbContext")]
+    partial class IdentityServerDbContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,8 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                         .HasMaxLength(256);
 
                     b.Property<int>("RoleType");
+
+                    b.Property<int>("TenantId");
 
                     b.HasKey("Id");
 
