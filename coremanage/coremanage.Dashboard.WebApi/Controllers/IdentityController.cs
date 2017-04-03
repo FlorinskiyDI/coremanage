@@ -23,11 +23,11 @@ namespace coremanage.Dashboard.WebApi.Controllers
         //{
         //    _userProfileService = userProfileService;
         //}
-        private readonly ITenantService _tenantService;
-        public IdentityController(ITenantService tenantService)
-        {
-            _tenantService = tenantService;
-        }
+        //private readonly ITenantService _tenantService;
+        //public IdentityController(ITenantService tenantService)
+        //{
+        //    _tenantService = tenantService;
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]LoginModel loginData)

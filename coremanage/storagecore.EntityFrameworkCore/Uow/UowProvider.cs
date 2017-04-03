@@ -26,6 +26,7 @@ namespace storagecore.EntityFrameworkCore.Uow
 
         public IUnitOfWork CreateUnitOfWork(bool trackChanges = true, bool enableLogging = false)
         {
+
             var _context = (DbContext)_serviceProvider.GetService(typeof(IEntityContext));
 
             if (!trackChanges)

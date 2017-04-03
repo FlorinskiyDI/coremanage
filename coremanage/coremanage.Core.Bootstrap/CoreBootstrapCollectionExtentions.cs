@@ -15,10 +15,13 @@ namespace coremanage.Core.Bootstrap
             this IServiceCollection services
         )
         {
+            services.AddAutoMapper();
+
+
             services.AddScoped<ITenantService, TenantService>();
 
-            //services.AddAutoMapper();
-            
+
+
             //services.AddScoped<IUserProfileService, UserProfileService>();
             return services;
         }

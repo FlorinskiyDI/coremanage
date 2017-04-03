@@ -1,4 +1,5 @@
 ﻿using coremanage.Core.Contracts.Repositories;
+using coremanage.Core.Services.Interfaces.Entities;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
@@ -13,16 +14,19 @@ namespace coremanage.IdentityServer.WebApi.Services
     public class IdentityWithAdditionalClaimsProfileService : IProfileService
     {
 
-        private readonly ISecurityRepository _securityRepository;
-        IdentityWithAdditionalClaimsProfileService(ISecurityRepository securityRepository)
+        IAuthRepository _rep;
+
+        public IdentityWithAdditionalClaimsProfileService(IAuthRepository rep)
         {
-            _securityRepository = securityRepository;
+            this._rep = rep;
         }
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            //_tenantRepository.Get(1);
-            //var cc = await _securityRepository.UserProfileGet("", 1);
+
+            //var values = _tenantService.GetAll();
+
+            
             var claims = new List<Claim>
             {
                 new Claim(JwtClaimTypes.Role, "superAdmin"),

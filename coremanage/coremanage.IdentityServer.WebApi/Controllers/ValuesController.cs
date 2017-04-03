@@ -24,8 +24,9 @@ namespace coremanage.IdentityServer.WebApi.Controllers
         public IEnumerable<string> Get()
         {
             var values = _tenantService.GetAll();
+            
             var values2 = _tenantService.Get(1);
-            return new string[] { "identityServer4", "identityServer4" };
+            return new string[] { "identityServer4", "identityServer4"};
         }
 
         // GET api/values/5
