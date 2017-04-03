@@ -18,6 +18,7 @@ namespace coremanage.Data.Storage
 
         private static void RegisterStorageDataAccess(IServiceCollection services)
         {
+            services.AddTransient<IAuthRepository, AuthRepository>();
             services.AddTransient<ITenantRepository, TenantRepository>();
             services.AddScoped<ISecurityRepository, SecurityRepository>();
         }

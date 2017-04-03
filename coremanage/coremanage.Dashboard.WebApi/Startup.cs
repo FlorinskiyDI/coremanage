@@ -40,24 +40,20 @@ namespace coremanage.Dashboard.WebApi
         {
             // Add framework services.
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
             services.AddApplicationInsightsTelemetry(Configuration);
+
             services.AddMvcCore()
                .AddAuthorization()
                .AddJsonFormatters();
-
             services.AddCors();
-
 
             services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
             services.AddCoreManagerData(); // registering the repository
             services.AddCoreManagerBootstrap(); // registering the services
-
-            services.AddMvc();
+            
 
             services.AddAutoMapper();
-            //services.AddSingleton(Mapper.Configuration);
-            //services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

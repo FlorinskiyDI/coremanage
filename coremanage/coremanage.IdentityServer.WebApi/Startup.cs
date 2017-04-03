@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using IdentityServer4.Services;
 using coremanage.IdentityServer.WebApi.Services;
 using coremanage.IdentityServer.WebApi.Configurations;
 using coremanage.Data.Models.Entities;
@@ -13,11 +12,6 @@ using coremanage.Data.Storage.Integration;
 using coremanage.Data.Storage;
 using coremanage.Core.Bootstrap;
 using AutoMapper;
-using coremanage.Core.Services.Interfaces.Entities;
-using coremanage.Core.Services.Services.Entities;
-using IdentityServer4.Validation;
-using coremanage.Core.Contracts.Repositories;
-using coremanage.Data.Storage.Repositories;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -41,26 +35,21 @@ namespace coremanage.IdentityServer.WebApi
             // Add framework services.
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddTransient< IAuthRepository, AuthRepository>();
-            var builderIdnSer4 = services.AddIdentityServer();
-            builderIdnSer4.Services.AddTransient<IAuthRepository, AuthRepository>();
-            //builderIdnSer4.Services.AddTransient<IProfileService, IdentityWithAdditionalClaimsProfileService>();
-            //builderIdnSer4.Services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
-            builderIdnSer4.AddTemporarySigningCredential();
-            builderIdnSer4.AddAspNetIdentity<ApplicationUser>();
-            builderIdnSer4.AddConfigurationStoreMSSQL(connectionString);
-            builderIdnSer4.AddOperationalStoreMSSQL(connectionString);
-            builderIdnSer4.AddProfileService<IdentityWithAdditionalClaimsProfileService>();
 
+            // Configurations for ... .
+            services.AddStorageMSSQL(connectionString); // dbContext
+            services.AddCoreManagerData(); // data access and repositories
+            services.AddCoreManagerBootstrap(); // automapper and services
 
-            services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
-            services.AddCoreManagerBootstrap(); // registering the services
-            services.AddCoreManagerData(); // registering the repository
+            // Configurations for AddIdentityServer 
+            services.AddIdentityServer(options =>{ })
+                .AddTemporarySigningCredential()
+                .AddConfigurationStoreMSSQL(connectionString)
+                .AddOperationalStoreMSSQL(connectionString)
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddProfileService<IdentityWithAdditionalClaimsProfileService>();
 
-
-
-
-
+            // Configurations for Identity
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -71,12 +60,8 @@ namespace coremanage.IdentityServer.WebApi
             .AddEntityFrameworkStores<CoreManageDbContext>()
             .AddDefaultTokenProviders();
 
-
-           
-
             
-            
-            //services.AddAutoMapper();
+            services.AddAutoMapper();
             services.AddMvc();
         }
 

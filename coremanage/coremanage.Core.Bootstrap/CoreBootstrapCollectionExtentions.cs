@@ -8,21 +8,13 @@ namespace coremanage.Core.Bootstrap
 {
     public static class CoreBootstrapCollectionExtentions
     {
-
-
-
         public static IServiceCollection AddCoreManagerBootstrap(
             this IServiceCollection services
         )
         {
-            services.AddAutoMapper();
-
-
             services.AddScoped<ITenantService, TenantService>();
-
-
-
             //services.AddScoped<IUserProfileService, UserProfileService>();
+
             return services;
         }
     }
