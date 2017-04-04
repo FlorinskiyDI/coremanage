@@ -12,20 +12,19 @@ namespace coremanage.IdentityServer.WebApi.Controllers
     {
 
 
-        private readonly ITenantService _tenantService;
-        public ValuesController(ITenantService tenantService)
-        {
-            _tenantService = tenantService;
-        }
+        //private readonly ITenantService _tenantService;
+        //public ValuesController(ITenantService tenantService)
+        //{
+        //    _tenantService = tenantService;
+        //}
 
 
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            var values = _tenantService.GetAll();
-            
-            var values2 = _tenantService.Get(1);
+            //var values = _tenantService.GetAll();
+            //var values2 = _tenantService.Get(1);
             return new string[] { "identityServer4", "identityServer4"};
         }
 

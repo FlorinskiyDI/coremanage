@@ -6,6 +6,10 @@ using IdentityServer4.Services;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityServer4.Extensions;
+using storagecore.Abstractions.Uow;
+using coremanage.Data.Models.Models;
+
 //using coremanage.Core.Contracts.Repositories;
 
 
@@ -13,20 +17,34 @@ namespace coremanage.IdentityServer.WebApi.Services
 {
     public class IdentityWithAdditionalClaimsProfileService : IProfileService
     {
+        //private ISecurityRepository _securityRepository;
+        //public IdentityWithAdditionalClaimsProfileService(ISecurityRepository securityRepository)
+        //{
+        //    this._securityRepository = securityRepository;
+        //}
 
-        IAuthRepository _rep;
-
-        public IdentityWithAdditionalClaimsProfileService(IAuthRepository rep)
+        private readonly IUowProvider _uowProvider;
+        public IdentityWithAdditionalClaimsProfileService(IUowProvider uowProvider)
         {
-            this._rep = rep;
+            this._uowProvider = uowProvider;
         }
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
 
-            //var values = _tenantService.GetAll();
 
-            
+
+            var tenantId = 0; // tenant Id
+            var userId = context.Subject.GetSubjectId();
+            Task<ProfileModel> profileModel;
+
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var _securityRepository = uow.GetCustomRepository<ISecurityRepository>();
+                profileModel = _securityRepository.UserProfileGet(userId, tenantId);
+            }
+
+            var profile = profileModel.Result;
             var claims = new List<Claim>
             {
                 new Claim(JwtClaimTypes.Role, "superAdmin"),
