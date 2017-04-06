@@ -6,7 +6,7 @@ using System.Text;
 
 namespace coremanage.Data.Models.Entities
 {
-    public class UserProfile : BaseEntity<string>, IAuditable, ITenant
+    public class UserProfile : BaseEntity<string>, IAuditable
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,8 +18,8 @@ namespace coremanage.Data.Models.Entities
         public string LastModifiedBy { get; set; }
         public DateTime LastModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
-        // implementation ITenant
-        public int TenantId { get; set; }
+        public  int TenantId { get; set; }
+
 
         public List<UserProfileTenant> UserTenants { get; set; } // many to many
     }

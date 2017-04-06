@@ -23,13 +23,14 @@ namespace client.ResourceOwner
             // user data
             const string userName = "SuperAdmin";
             const string password = "SuperAdmin";
+            const string company = "company1";
             const string scope = "api1";
 
             // discover endpoints from metadata
             var disco = await DiscoveryClient.GetAsync(authority);
             // request token
             var tokenClient = new TokenClient(disco.TokenEndpoint, clientId, clientSecret);
-            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(userName, password, scope);
+            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(userName, password, scope, company);
 
             if (tokenResponse.IsError)
             {

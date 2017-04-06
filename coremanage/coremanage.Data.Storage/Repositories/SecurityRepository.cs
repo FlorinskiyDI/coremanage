@@ -12,6 +12,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using coremanage.Core.Contracts.Repositories;
+using coremanage.Data.Models.Entities.Identity;
 using storagecore.Abstractions.Context;
 using storagecore.EntityFrameworkCore.Repositories;
 

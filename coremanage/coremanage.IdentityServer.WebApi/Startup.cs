@@ -12,6 +12,8 @@ using coremanage.Data.Storage.Integration;
 using coremanage.Data.Storage;
 using coremanage.Core.Bootstrap;
 using AutoMapper;
+using coremanage.Data.Models.Entities.Identity;
+using IdentityServer4.Validation;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -41,13 +43,21 @@ namespace coremanage.IdentityServer.WebApi
             services.AddCoreManagerData(); // data access and repositories
             services.AddCoreManagerBootstrap(); // automapper and services
 
+            //services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             // Configurations for AddIdentityServer 
             services.AddIdentityServer(options =>{ })
                 .AddTemporarySigningCredential()
-                .AddConfigurationStoreMSSQL(connectionString)
-                .AddOperationalStoreMSSQL(connectionString)
+
+                //.AddConfigurationStoreMSSQL(connectionString) // InDatabase
+                //.AddOperationalStoreMSSQL(connectionString) // InDatabase
+
+                //.AddInMemoryIdentityResources(Resources.GetIdentityResources()) // InMemory
+                .AddInMemoryApiResources(Resources.GetApiResources()) // InMemory
+                .AddInMemoryClients(Clients.Get()) // InMemory
+
                 .AddAspNetIdentity<ApplicationUser>()
-                .AddProfileService<IdentityWithAdditionalClaimsProfileService>();
+                //.AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
+                .AddProfileService<ProfileService>();
 
             // Configurations for Identity
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -74,13 +84,13 @@ namespace coremanage.IdentityServer.WebApi
             app.UseApplicationInsightsExceptionTelemetry();
 
             //this will do the initial DB population
-            IntegrationStorage.InitializeDatabaseAsync(
-                app.ApplicationServices,
-                Clients.Get(),
-                Resources.GetApiResources(),
-                null,
-                TestUsers.Get()
-            ).Wait();
+            //IntegrationStorage.InitializeDatabaseAsync(
+            //    app.ApplicationServices,
+            //    Clients.Get(),
+            //    Resources.GetApiResources(),
+            //    null,
+            //    TestUsers.Get()
+            //).Wait();
 
             app.UseIdentity();
             app.UseIdentityServer();

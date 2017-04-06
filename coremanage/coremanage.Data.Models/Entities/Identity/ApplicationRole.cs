@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace coremanage.Data.Models.Entities
+namespace coremanage.Data.Models.Entities.Identity
 {
     public class ApplicationRole : IdentityRole
     {

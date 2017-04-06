@@ -2,6 +2,7 @@
 using coremanage.Core.Common.DTO.Identity;
 using coremanage.Core.Models.Dtos.Identity;
 using coremanage.Data.Models.Entities;
+using coremanage.Data.Models.Entities.Identity;
 using coremanage.Data.Models.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 

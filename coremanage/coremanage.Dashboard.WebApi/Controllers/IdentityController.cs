@@ -8,6 +8,7 @@ using IdentityModel.Client;
 using coremanage.Dashboard.WebApi.Models;
 using Microsoft.Extensions.Configuration;
 using coremanage.Core.Services.Interfaces.Entities;
+using static IdentityServer4.IdentityServerConstants;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,20 +33,20 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]LoginModel loginData)
         {
-            //var ccc = _tenantService.GetAll();
+            var tenantName = "";
 
             var url = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost");
             var clientId = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientId");
             var clientSecret = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientSecret");
-            var api = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName");
+            //var scope = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName");
+            var scope = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName") + " " + StandardScopes.OfflineAccess;
+            var extra = new Dictionary<string, string> { { "tenantName", tenantName } }; // extra property for tenant value
+            
             try
             {
-                // discover endpoints from metadata
-                var disco = await DiscoveryClient.GetAsync(url);
-                // request token
+                var disco = await DiscoveryClient.GetAsync(url); // discover endpoints from metadata
                 var tokenClient = new TokenClient(disco.TokenEndpoint, clientId, clientSecret);
-                var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(loginData.UserName, loginData.Password, api);
-
+                var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(loginData.UserName, loginData.Password, scope, extra);
                 return new JsonResult(tokenResponse);
             }
             catch (Exception e)

@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using coremanage.Data.Models.Entities;
+using coremanage.Data.Models.Entities.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using coremanage.Data.Models.Models;
 using storagecore.Abstractions.Uow;

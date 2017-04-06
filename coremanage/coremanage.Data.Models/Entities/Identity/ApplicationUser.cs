@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace coremanage.Data.Models.Entities
+namespace coremanage.Data.Models.Entities.Identity
 {
     public class ApplicationUser : IdentityUser
     {

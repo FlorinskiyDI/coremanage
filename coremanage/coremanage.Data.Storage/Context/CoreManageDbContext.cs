@@ -4,6 +4,7 @@ using storagecore.EntityFrameworkCore.Context;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using coremanage.Data.Models.Entities.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using storagecore.Abstractions.Context;
 

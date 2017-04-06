@@ -1,5 +1,6 @@
 ﻿using IdentityServer4.Models;
 using System.Collections.Generic;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace coremanage.IdentityServer.WebApi.Configurations
 {
@@ -22,7 +23,7 @@ namespace coremanage.IdentityServer.WebApi.Configurations
             {
                 new ApiResource("api1", "My API")
                 {
-                    UserClaims = { "role", "email", "userId" }
+                    UserClaims = { "role", "tenant", "email", "userId" }
                 }
             };
         }

@@ -15,36 +15,27 @@ using coremanage.Data.Models.Models;
 
 namespace coremanage.IdentityServer.WebApi.Services
 {
-    public class IdentityWithAdditionalClaimsProfileService : IProfileService
+    public class ProfileService : IProfileService
     {
-        //private ISecurityRepository _securityRepository;
-        //public IdentityWithAdditionalClaimsProfileService(ISecurityRepository securityRepository)
-        //{
-        //    this._securityRepository = securityRepository;
-        //}
-
         private readonly IUowProvider _uowProvider;
-        public IdentityWithAdditionalClaimsProfileService(IUowProvider uowProvider)
+        public ProfileService(IUowProvider uowProvider)
         {
             this._uowProvider = uowProvider;
         }
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-
-
-
             var tenantId = 0; // tenant Id
             var userId = context.Subject.GetSubjectId();
-            Task<ProfileModel> profileModel;
+            //Task<ProfileModel> profileModel;
 
-            using (var uow = _uowProvider.CreateUnitOfWork())
-            {
-                var _securityRepository = uow.GetCustomRepository<ISecurityRepository>();
-                profileModel = _securityRepository.UserProfileGet(userId, tenantId);
-            }
+            //using (var uow = _uowProvider.CreateUnitOfWork())
+            //{
+            //    var _securityRepository = uow.GetCustomRepository<ISecurityRepository>();
+            //    profileModel = _securityRepository.UserProfileGet(userId, tenantId);
+            //}
 
-            var profile = profileModel.Result;
+            //var profile = profileModel.Result;
             var claims = new List<Claim>
             {
                 new Claim(JwtClaimTypes.Role, "superAdmin"),
