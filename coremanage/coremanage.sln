@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Core.Services", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client.ResourceOwner", "client.ResourceOwner\client.ResourceOwner.csproj", "{0F39D634-1196-49D8-856A-8642207A91AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Core.Common", "coremanage.Core.Common\coremanage.Core.Common.csproj", "{45F534AB-9313-48E9-9F08-FE83DE18FE93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -210,6 +212,18 @@ Global
 		{0F39D634-1196-49D8-856A-8642207A91AC}.Release|x64.Build.0 = Release|Any CPU
 		{0F39D634-1196-49D8-856A-8642207A91AC}.Release|x86.ActiveCfg = Release|Any CPU
 		{0F39D634-1196-49D8-856A-8642207A91AC}.Release|x86.Build.0 = Release|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Debug|x64.Build.0 = Debug|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Debug|x86.Build.0 = Debug|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Release|x64.ActiveCfg = Release|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Release|x64.Build.0 = Release|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Release|x86.ActiveCfg = Release|Any CPU
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -232,5 +246,6 @@ Global
 		{B8D16719-2E48-4DB5-AA34-29AA2126205B} = {F4EACBFE-9EEC-437B-B777-7AAA9489976C}
 		{6ABBDA98-98C7-4F66-B03B-6FAAFEB360AE} = {F4EACBFE-9EEC-437B-B777-7AAA9489976C}
 		{0F39D634-1196-49D8-856A-8642207A91AC} = {2B66CEFB-6D2D-4055-B9DC-38026A972B8E}
+		{45F534AB-9313-48E9-9F08-FE83DE18FE93} = {F4EACBFE-9EEC-437B-B777-7AAA9489976C}
 	EndGlobalSection
 EndGlobal

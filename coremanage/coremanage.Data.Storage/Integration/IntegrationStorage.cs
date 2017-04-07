@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
+using coremanage.Core.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
@@ -31,103 +33,124 @@ namespace coremanage.Data.Storage.Integration
         {
             using (var serviceScope = serviceProvider.GetService<IServiceScopeFactory>().CreateScope())
             {
-                serviceScope.ServiceProvider.GetRequiredService<CoreManageDbContext>().Database.Migrate();
-                var grantContext = serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>();
-                try { await grantContext.Database.MigrateAsync(); }
-                catch (System.NotImplementedException) { grantContext.Database.Migrate(); }
+                // initialize IdentityServer
+                await InitIdentityServerAsync(
+                    serviceScope,
+                    initialClients,
+                    initialApiResources,
+                    initialIdentityResources);
 
-                var configContext = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
-                try { await configContext.Database.MigrateAsync(); }
-                catch (System.NotImplementedException) { configContext.Database.Migrate(); }
-
-                // intitial clients 
-                if ((initialClients != null) && (!configContext.Clients.Any()))
-                {
-                    foreach (var client in initialClients)
-                    {
-                        var c = client.ToEntity();
-                        configContext.Clients.Add(c);
-                    }
-                    await configContext.SaveChangesAsync();
-                }
-                // intitial apiResources
-                if ((initialApiResources != null) && (!configContext.ApiResources.Any()))
-                {
-                    foreach (var scope in initialApiResources)
-                    {
-                        var s = scope.ToEntity();
-                        configContext.ApiResources.Add(s);
-                    }
-                    await configContext.SaveChangesAsync();
-                }
-                // intitial identityResources
-                if ((initialIdentityResources != null) && (!configContext.IdentityResources.Any()))
-                {
-                    foreach (var scope in initialIdentityResources)
-                    {
-                        var s = scope.ToEntity();
-                        configContext.IdentityResources.Add(s);
-                    }
-                    await configContext.SaveChangesAsync();
-                }
-
-                // intitial roles       
-                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-                if (!roleManager.Roles.Any())
-                {
-                    roleManager.CreateAsync(new ApplicationRole(RoleType.SuperAdmin.ToString(), (int)RoleType.SuperAdmin)).Wait();
-                    roleManager.CreateAsync(new ApplicationRole(RoleType.GroupAdmin.ToString(), (int)RoleType.SuperAdmin)).Wait();
-                    roleManager.CreateAsync(new ApplicationRole(RoleType.TenantAdmin.ToString(), (int)RoleType.GroupAdmin)).Wait();
-                    roleManager.CreateAsync(new ApplicationRole(RoleType.ModuleAdmin.ToString(), (int)RoleType.TenantAdmin)).Wait();
-                    roleManager.CreateAsync(new ApplicationRole("DashboardAdmin", (int)RoleType.TenantAdmin)).Wait(); // module admin
-                }
-
-                //var uowProvider = serviceScope.ServiceProvider.GetRequiredService<IUowProvider>();
-                //using (var uow = uowProvider.CreateUnitOfWork())
-                //{
-                //    var repository = uow.GetRepository<IdentityRoleHierarchy, int>();
-
-                //    repository.AnyAsync();
-                //    uow.SaveChanges();
-                //}
-
-
-                // intitial testUsers 
-                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                if ((testUsers != null) && (!userManager.Users.Any()))
-                {
-                    foreach (var inMemoryUser in testUsers)
-                    {
-                        var identityUser = new ApplicationUser(inMemoryUser.Username);
-                        userManager.CreateAsync(identityUser, inMemoryUser.Password).Wait();
-                        userManager.AddToRoleAsync(identityUser, RoleType.SuperAdmin.ToString()).Wait(); // Set user role "Superadmin"
-                    }
-                }
-
-
-
-
-                //// intitial roles       
-                //var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                //if (!roleManager.Roles.Any())
-                //{
-                //    roleManager.CreateAsync(new IdentityRole(EnumRoles.SuperAdmin.ToString()));
-                //}
-
-                //// intitial testUsers 
-                //var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
-                //if ((testUsers != null) && (!userManager.Users.Any()))
-                //{
-                //    foreach (var inMemoryUser in testUsers)
-                //    {
-                //        var identityUser = new AppUser(inMemoryUser.Username);
-                //        userManager.CreateAsync(identityUser, inMemoryUser.Password).Wait();
-                //        userManager.AddToRoleAsync(identityUser, EnumRoles.SuperAdmin.ToString()).Wait(); // Set user role "Superadmin"
-                //    }
-                //}
-
+                // initialize Identity
+                await InitRolesAsync(serviceScope);
+                await InitRoleHierarchyAsync(serviceScope);
+                await InitUsersAsync(serviceScope, testUsers);
             }
+        }
 
+        private static async Task InitRolesAsync(IServiceScope serviceScope)
+        {
+            var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            if (!DynamicQueryableExtensions.Any(roleManager.Roles))
+            {
+                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.SuperAdmin, (int)RoleType.SuperAdmin));
+                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.GroupAdmin, (int)RoleType.SuperAdmin));
+                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.TenantAdmin, (int)RoleType.GroupAdmin));
+                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.DashboardAdmin, (int)RoleType.TenantAdmin)); // (Module/ApiClient)
+            }
+        }
+
+        private static async Task InitRoleHierarchyAsync(IServiceScope serviceScope)
+        {
+            var dictionary = new Dictionary<string, string>
+            {
+                {SystemRoles.SuperAdmin, SystemRoles.GroupAdmin},
+                {SystemRoles.GroupAdmin, SystemRoles.TenantAdmin},
+                {SystemRoles.TenantAdmin, SystemRoles.DashboardAdmin}
+            };
+
+            var uowProvider = serviceScope.ServiceProvider.GetRequiredService<IUowProvider>();
+            using (var uow = uowProvider.CreateUnitOfWork())
+            {
+                var hierarchyRepository = uow.GetRepository<IdentityRoleHierarchy, int>();
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+
+                foreach (var hierarchy in dictionary)
+                {
+                    var roleId = roleManager.FindByNameAsync(hierarchy.Key).Result.Id;
+                    var childRoleId = roleManager.FindByNameAsync(hierarchy.Value).Result.Id;
+                    await hierarchyRepository.AddAsync(new IdentityRoleHierarchy
+                    {
+                        RoleId = roleId,
+                        ChildRoleId = childRoleId
+                    });
+                }
+                uow.SaveChanges();
+            }
+        }
+
+        private static async Task InitUsersAsync(
+            IServiceScope serviceScope,
+            IEnumerable<TestUser> testUsers = null
+        )
+        {
+            var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            if ((testUsers != null) && (!DynamicQueryableExtensions.Any(userManager.Users)))
+            {
+                foreach (var inMemoryUser in testUsers)
+                {
+                    var identityUser = new ApplicationUser(inMemoryUser.Username);
+                    userManager.CreateAsync(identityUser, inMemoryUser.Password).Wait();
+                    userManager.AddToRoleAsync(identityUser, RoleType.SuperAdmin.ToString()).Wait();
+                }
+            }
+        }
+        
+        private static async Task InitIdentityServerAsync(
+            IServiceScope serviceScope,
+            IEnumerable<Client> initialClients = null,
+            IEnumerable<ApiResource> initialApiResources = null,
+            IEnumerable<IdentityResource> initialIdentityResources = null
+        )
+        {
+            serviceScope.ServiceProvider.GetRequiredService<CoreManageDbContext>().Database.Migrate();
+            var grantContext = serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>();
+            try { await grantContext.Database.MigrateAsync(); }
+            catch (System.NotImplementedException) { grantContext.Database.Migrate(); }
+
+            var configContext = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+            try { await configContext.Database.MigrateAsync(); }
+            catch (System.NotImplementedException) { configContext.Database.Migrate(); }
+
+            // intitial clients 
+            if ((initialClients != null) && (!DynamicQueryableExtensions.Any(configContext.Clients)))
+            {
+                foreach (var client in initialClients)
+                {
+                    var c = client.ToEntity();
+                    configContext.Clients.Add(c);
+                }
+                await configContext.SaveChangesAsync();
+            }
+            // intitial apiResources
+            if ((initialApiResources != null) && (!DynamicQueryableExtensions.Any(configContext.ApiResources)))
+            {
+                foreach (var scope in initialApiResources)
+                {
+                    var s = scope.ToEntity();
+                    configContext.ApiResources.Add(s);
+                }
+                await configContext.SaveChangesAsync();
+            }
+            // intitial identityResources
+            if ((initialIdentityResources != null) && (!DynamicQueryableExtensions.Any(configContext.IdentityResources)))
+            {
+                foreach (var scope in initialIdentityResources)
+                {
+                    var s = scope.ToEntity();
+                    configContext.IdentityResources.Add(s);
+                }
+                await configContext.SaveChangesAsync();
+            }
         }
     }
 }

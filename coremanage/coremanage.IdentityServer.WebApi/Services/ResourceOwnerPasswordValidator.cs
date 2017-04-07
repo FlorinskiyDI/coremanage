@@ -32,38 +32,40 @@ namespace coremanage.IdentityServer.WebApi.Services
             var password = context.Password;
             var tenant = context.Request.Raw.Get("tenant");
 
-            //if (string.IsNullOrWhiteSpace(tenant))
-            //{
-            //    _logger.LogError("'tenant' doesn't exist in ResourceOwnerPasswordValidationContext.Request.Raw collection.");
-            //    context.Result = new GrantValidationResult(TokenRequestErrors.InvalidRequest, "Tenant is required.");
-            //    return Task.FromResult(0);
-            //}
+            if (string.IsNullOrWhiteSpace(tenant))
+            {
+                //_logger.LogError("'tenant' doesn't exist in ResourceOwnerPasswordValidationContext.Request.Raw collection.");
+                context.Result = new GrantValidationResult(TokenRequestErrors.InvalidRequest, "Tenant is required.");
+                return Task.FromResult(0);
+            }
 
-            //if (string.IsNullOrWhiteSpace(username))
-            //{
-            //    _logger.LogError("'username' is null or whitespace.");
-            //    context.Result = new GrantValidationResult(TokenRequestErrors.InvalidRequest, "Username is required.");
-            //    return Task.FromResult(0);
-            //}
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                //_logger.LogError("'username' is null or whitespace.");
+                context.Result = new GrantValidationResult(TokenRequestErrors.InvalidRequest, "Username is required.");
+                return Task.FromResult(0);
+            }
 
-            ////var userRepo = _userRepositoryFactory.GetUserRepositoryForCompany(tenant);
-            ////var user = userRepo.GetUserByUserId(username);
-            //var user = _userManager.FindByNameAsync(username).Result;
+            //var userRepo = _userRepositoryFactory.GetUserRepositoryForCompany(tenant);
+            //var user = userRepo.GetUserByUserId(username);
+            var user = _userManager.FindByNameAsync(username).Result;
 
-            //if (user == null)
-            //{
-            //    _logger.LogError($"No user found for company {tenant} and username {username}.");
-            //    context.Result = new GrantValidationResult(TokenRequestErrors.InvalidRequest, $"No user {username} found for for {tenant}.");
-            //    return Task.FromResult(0);
-            //}
+            if (user == null)
+            {
+                //_logger.LogError($"No user found for company {tenant} and username {username}.");
+                context.Result = new GrantValidationResult(TokenRequestErrors.InvalidRequest, $"No user {username} found for for {tenant}.");
+                return Task.FromResult(0);
+            }
 
             //_logger.LogInformation("Resource owner password validation succeeded.");
 
-            
+            bool rez = _userManager.CheckPasswordAsync(user, password).Result;
 
-            //context.Result = _userManager.CheckPasswordAsync(user, password).Result
-            //    ? new GrantValidationResult(context.UserName, GrantType.ResourceOwnerPassword, new[] { new Claim("tenant", tenant) })
-            //    : new GrantValidationResult(TokenRequestErrors.InvalidRequest, "Invalid username or password.");
+
+            var ResourceOwnerPassword = GrantTypes.ResourceOwnerPassword;
+            context.Result = rez
+                ? new GrantValidationResult(context.UserName, "password")
+                : new GrantValidationResult(TokenRequestErrors.InvalidRequest, "Invalid username or password.");
 
             return Task.FromResult(0);
         }

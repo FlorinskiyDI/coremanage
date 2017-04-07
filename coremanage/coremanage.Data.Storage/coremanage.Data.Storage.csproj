@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\coremanage.Core.Common\coremanage.Core.Common.csproj" />
     <ProjectReference Include="..\coremanage.Core.Contracts\coremanage.Core.Contracts.csproj" />
     <ProjectReference Include="..\coremanage.Data.Models\coremanage.Data.Models.csproj" />
     <ProjectReference Include="..\storagecore.EntityFrameworkCore\storagecore.EntityFrameworkCore.csproj" />

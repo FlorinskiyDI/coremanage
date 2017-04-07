@@ -31,7 +31,9 @@ namespace coremanage.IdentityServer.WebApi.Configurations
                     },
                     AllowedScopes = {
                         "api1",
-                        StandardScopes.OfflineAccess
+                        StandardScopes.OfflineAccess,
+                        StandardScopes.Email,
+                        StandardScopes.Profile
                     }
                 },
             };

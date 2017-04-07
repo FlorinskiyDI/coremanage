@@ -48,16 +48,17 @@ namespace coremanage.IdentityServer.WebApi
             services.AddIdentityServer(options =>{ })
                 .AddTemporarySigningCredential()
 
-                //.AddConfigurationStoreMSSQL(connectionString) // InDatabase
-                //.AddOperationalStoreMSSQL(connectionString) // InDatabase
+                .AddConfigurationStoreMSSQL(connectionString) // InDatabase
+                .AddOperationalStoreMSSQL(connectionString) // InDatabase
 
                 //.AddInMemoryIdentityResources(Resources.GetIdentityResources()) // InMemory
-                .AddInMemoryApiResources(Resources.GetApiResources()) // InMemory
-                .AddInMemoryClients(Clients.Get()) // InMemory
+                //.AddInMemoryApiResources(Resources.GetApiResources()) // InMemory
+                //.AddInMemoryClients(Clients.Get()) // InMemory
 
                 .AddAspNetIdentity<ApplicationUser>()
-                //.AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
-                .AddProfileService<ProfileService>();
+                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
+                .AddProfileService<ProfileService>()
+                ;
 
             // Configurations for Identity
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -84,13 +85,13 @@ namespace coremanage.IdentityServer.WebApi
             app.UseApplicationInsightsExceptionTelemetry();
 
             //this will do the initial DB population
-            //IntegrationStorage.InitializeDatabaseAsync(
-            //    app.ApplicationServices,
-            //    Clients.Get(),
-            //    Resources.GetApiResources(),
-            //    null,
-            //    TestUsers.Get()
-            //).Wait();
+            IntegrationStorage.InitializeDatabaseAsync(
+                app.ApplicationServices,
+                Clients.Get(),
+                Resources.GetApiResources(),
+                null,
+                TestUsers.Get()
+            ).Wait();
 
             app.UseIdentity();
             app.UseIdentityServer();

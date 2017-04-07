@@ -10,8 +10,6 @@ using Microsoft.Extensions.Configuration;
 using coremanage.Core.Services.Interfaces.Entities;
 using static IdentityServer4.IdentityServerConstants;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace coremanage.Dashboard.WebApi.Controllers
 {
     [Produces("application/json")]
@@ -19,34 +17,42 @@ namespace coremanage.Dashboard.WebApi.Controllers
     public class IdentityController : Controller
     {
 
-        //private readonly IUserProfileService _userProfileService;
-        //public IdentityController(IUserProfileService userProfileService)
-        //{
-        //    _userProfileService = userProfileService;
-        //}
-        //private readonly ITenantService _tenantService;
-        //public IdentityController(ITenantService tenantService)
-        //{
-        //    _tenantService = tenantService;
-        //}
-
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]LoginModel loginData)
+        [Route("Refresh")]
+        public async Task<IActionResult> Refresh([FromBody] ReAuthorizeModel model)
         {
-            var tenantName = "";
-
-            var url = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost");
-            var clientId = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientId");
-            var clientSecret = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientSecret");
-            //var scope = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName");
-            var scope = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName") + " " + StandardScopes.OfflineAccess;
-            var extra = new Dictionary<string, string> { { "tenantName", tenantName } }; // extra property for tenant value
-            
+            var tokenClient = this.GetTokenClient();
             try
             {
-                var disco = await DiscoveryClient.GetAsync(url); // discover endpoints from metadata
-                var tokenClient = new TokenClient(disco.TokenEndpoint, clientId, clientSecret);
-                var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(loginData.UserName, loginData.Password, scope, extra);
+                var refreshTokenResponse = await tokenClient.Result.RequestRefreshTokenAsync(
+                    refreshToken: model.RefreshToken,
+                    extra: new Dictionary<string, string> {{"tenant", model.Tenant}}
+                );
+                return new JsonResult(refreshTokenResponse);
+            }
+            catch (Exception e)
+            {
+                return new JsonResult($"{e.Message}\r\n{e.StackTrace}");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] LoginModel model)
+        {
+            var extra = new Dictionary<string, string>();
+            extra.Add("tenant", model.Tenant);
+
+            var tokenClient = this.GetTokenClient();
+            try
+            {
+                var tokenResponse = await tokenClient.Result.RequestResourceOwnerPasswordAsync(
+                    userName: model.UserName,
+                    password: model.Password,
+                    scope:
+                    Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName") + " " +
+                    StandardScopes.OfflineAccess,
+                    extra: extra
+                );
                 return new JsonResult(tokenResponse);
             }
             catch (Exception e)
@@ -56,24 +62,42 @@ namespace coremanage.Dashboard.WebApi.Controllers
         }
 
 
-        // GET api/Identity/Tenant/5
-        [HttpGet]
-        //[Authorize]
-        [Route("Tenant/{id}")]
-        public List<int> GetTenant(string id)
-        {
-            var tenants = new List<int>();
-            //tenants = _userProfileService.GetTenants(id);
-            return tenants;
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> Post([FromBody] ReAuthorizeModel refreshToken)
+        //{
+        //    var tenantName = "testTenant";
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult Get()
+        //    var url = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost");
+        //    var clientId = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientId");
+        //    var clientSecret = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientSecret");
+        //    //var scope = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName");
+        //    var scope = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName") + " " +
+        //                StandardScopes.OfflineAccess;
+        //    var extra = new Dictionary<string, string> {{"tenant", tenantName}}; // extra property for tenant value
+
+        //    try
+        //    {
+        //        var disco = await DiscoveryClient.GetAsync(url); // discover endpoints from metadata
+        //        var tokenClient = new TokenClient(disco.TokenEndpoint, clientId, clientSecret);
+        //        var refreshTokenResponse = await tokenClient.RequestRefreshTokenAsync(refreshToken.RefreshToken, extra);
+        //        return new JsonResult(refreshTokenResponse);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return new JsonResult($"{e.Message}\r\n{e.StackTrace}");
+        //    }
+        //}
+
+        private async Task<TokenClient> GetTokenClient()
         {
-            // Get user claims
-            var result = from c in User.Claims select new { c.Type, c.Value };
-            return new JsonResult(result);
+            var url = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost");
+            var clientId = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientId");
+            var clientSecret = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientSecret");
+
+            var disco = await DiscoveryClient.GetAsync(url);
+            var tokenClient = new TokenClient(disco.TokenEndpoint, clientId, clientSecret);
+
+            return tokenClient;
         }
     }
 }
