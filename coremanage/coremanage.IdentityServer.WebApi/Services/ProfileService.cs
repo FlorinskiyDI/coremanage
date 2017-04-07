@@ -25,6 +25,7 @@ namespace coremanage.IdentityServer.WebApi.Services
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
+            
             var tenantId = 0; // tenant Id
             var userId = context.Subject.GetSubjectId();
             //Task<ProfileModel> profileModel;

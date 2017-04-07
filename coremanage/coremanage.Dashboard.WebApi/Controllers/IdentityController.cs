@@ -40,7 +40,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> Post([FromBody] LoginModel model)
         {
             var extra = new Dictionary<string, string>();
-            extra.Add("tenant", model.Tenant);
+            extra.Add("tenant", "company_1");
 
             var tokenClient = this.GetTokenClient();
             try

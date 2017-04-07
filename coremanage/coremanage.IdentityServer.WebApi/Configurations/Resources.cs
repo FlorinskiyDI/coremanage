@@ -23,7 +23,10 @@ namespace coremanage.IdentityServer.WebApi.Configurations
             {
                 new ApiResource("api1", "My API")
                 {
-                    UserClaims = { "role", "tenant", "email", "userId" }
+                    UserClaims =
+                    {
+                        "role","tenants", "email", "userId"
+                    }
                 }
             };
         }
