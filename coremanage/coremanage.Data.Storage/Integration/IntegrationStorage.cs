@@ -52,10 +52,10 @@ namespace coremanage.Data.Storage.Integration
             var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
             if (!DynamicQueryableExtensions.Any(roleManager.Roles))
             {
-                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.SuperAdmin, (int)RoleType.SuperAdmin));
-                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.GroupAdmin, (int)RoleType.SuperAdmin));
-                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.TenantAdmin, (int)RoleType.GroupAdmin));
-                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.DashboardAdmin, (int)RoleType.TenantAdmin)); // (Module/ApiClient)
+                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.SuperAdmin, (int)SystemRoleTypes.SuperAdmin));
+                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.GroupAdmin, (int)SystemRoleTypes.SuperAdmin));
+                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.TenantAdmin, (int)SystemRoleTypes.GroupAdmin));
+                await roleManager.CreateAsync(new ApplicationRole(SystemRoles.DashboardAdmin, (int)SystemRoleTypes.TenantAdmin)); // (Module/ApiClient)
             }
         }
 
@@ -101,7 +101,7 @@ namespace coremanage.Data.Storage.Integration
                 {
                     var identityUser = new ApplicationUser(inMemoryUser.Username);
                     userManager.CreateAsync(identityUser, inMemoryUser.Password).Wait();
-                    userManager.AddToRoleAsync(identityUser, RoleType.SuperAdmin.ToString()).Wait();
+                    userManager.AddToRoleAsync(identityUser, SystemRoleTypes.SuperAdmin.ToString()).Wait();
                     using (var uow = uowProvider.CreateUnitOfWork())
                     {
                         var userRepository = uow.GetRepository<UserProfile, string>();

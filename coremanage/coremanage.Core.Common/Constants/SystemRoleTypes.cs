@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace coremanage.Data.Models.Models
+﻿namespace coremanage.Core.Common.Constants
 {
-    public enum RoleType
+    public enum SystemRoleTypes
     {
         SuperAdmin = 1,
         GroupAdmin = 2,

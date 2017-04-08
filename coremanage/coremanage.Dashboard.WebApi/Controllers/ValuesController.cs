@@ -31,9 +31,10 @@ namespace coremanage.Dashboard.WebApi.Controllers
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost] 
+        public string Post([FromBody]string value)
         {
+            return "post value";
         }
 
         // PUT api/values/5

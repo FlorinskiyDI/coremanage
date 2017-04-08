@@ -8,6 +8,6 @@ namespace coremanage.Core.Contracts.Repositories
 {
     public interface ISecurityRepository
     {
-       
+        Task<IdentityProfileModel> GetIdentityProfileModel(string userName, string tenant);
     }
 }

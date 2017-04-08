@@ -25,11 +25,11 @@ namespace coremanage.Core.Bootstrap.AutoMapper
             //CreateMap<UserCompany, UserCompanyDto>();
             //CreateMap<UserProfile, UserProfileDto>();
 
-            this.CreateMap<Tenant, CompanyModel>();
-            this.CreateMap<PersonalClaim, ClaimModel>();
-            this.CreateMap<IdentityRoleClaim<string>, ClaimModel>();
-            this.CreateMap<IdentityUserClaim<string>, ClaimModel>();
-            this.CreateMap<ApplicationRole, RoleModel>(MemberList.Destination);
+            //this.CreateMap<Tenant, CompanyModel>();
+            //this.CreateMap<PersonalClaim, ClaimModel>();
+            //this.CreateMap<IdentityRoleClaim<string>, ClaimModel>();
+            //this.CreateMap<IdentityUserClaim<string>, ClaimModel>();
+            //this.CreateMap<ApplicationRole, RoleModel>(MemberList.Destination);
 
         }
         private void DtoToEntity()

@@ -19,7 +19,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
         [HttpPost]
         [Route("Refresh")]
-        public async Task<IActionResult> Refresh([FromBody] ReAuthorizeModel model)
+        public async Task<IActionResult> PostRefresh([FromBody] ReLoginData model)
         {
             var tokenClient = this.GetTokenClient();
             try
