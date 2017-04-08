@@ -26,10 +26,21 @@ namespace coremanage.Data.Storage.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // UserProfileTenant
             builder.Entity<UserProfileTenant>(entity =>
-            {
-                entity.HasKey(e => new { e.UserProfileId, e.TenantId });
-            });
+                {
+                    entity.HasKey(e => new { e.UserProfileId, e.TenantId });
+                });
+            builder.Entity<UserProfileTenant>()
+                .HasOne(pt => pt.UserProfile)
+                .WithMany(p => p.UserTenants)
+                .HasForeignKey(pt => pt.UserProfileId);
+            builder.Entity<UserProfileTenant>()
+                .HasOne(pt => pt.Tenant)
+                .WithMany(t => t.UserTenants)
+                .HasForeignKey(pt => pt.TenantId);
+
+            // PersonalTenantClaim
             builder.Entity<PersonalTenantClaim>(entity =>
             {
                 entity.HasKey(e => new { e.PersonalClaimId, e.TenantId });

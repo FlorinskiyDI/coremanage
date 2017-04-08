@@ -34,11 +34,11 @@ namespace coremanage.Data.Storage.Integration
             using (var serviceScope = serviceProvider.GetService<IServiceScopeFactory>().CreateScope())
             {
                 // initialize IdentityServer
-                await InitIdentityServerAsync(
-                    serviceScope,
-                    initialClients,
-                    initialApiResources,
-                    initialIdentityResources);
+                //await InitIdentityServerAsync(
+                //    serviceScope,
+                //    initialClients,
+                //    initialApiResources,
+                //    initialIdentityResources);
 
                 // initialize Identity
                 await InitRolesAsync(serviceScope);
@@ -93,6 +93,7 @@ namespace coremanage.Data.Storage.Integration
             IEnumerable<TestUser> testUsers = null
         )
         {
+            var uowProvider = serviceScope.ServiceProvider.GetRequiredService<IUowProvider>();
             var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             if ((testUsers != null) && (!DynamicQueryableExtensions.Any(userManager.Users)))
             {
@@ -101,10 +102,27 @@ namespace coremanage.Data.Storage.Integration
                     var identityUser = new ApplicationUser(inMemoryUser.Username);
                     userManager.CreateAsync(identityUser, inMemoryUser.Password).Wait();
                     userManager.AddToRoleAsync(identityUser, RoleType.SuperAdmin.ToString()).Wait();
+                    using (var uow = uowProvider.CreateUnitOfWork())
+                    {
+                        var userRepository = uow.GetRepository<UserProfile, string>();
+                        await userRepository.AddAsync(new UserProfile
+                            {
+                                Id = identityUser.Id,
+                                FirstName = "FirstName",
+                                LastName = "LastName",
+                                EmailAddress = "user@gmail.com",
+                                TenantId = 0
+                            }
+                        );
+
+                        await uow.SaveChangesAsync();
+                    }
                 }
             }
+            
+            
         }
-        
+
         private static async Task InitIdentityServerAsync(
             IServiceScope serviceScope,
             IEnumerable<Client> initialClients = null,

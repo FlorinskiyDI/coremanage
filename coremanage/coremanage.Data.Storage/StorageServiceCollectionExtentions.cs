@@ -3,6 +3,7 @@ using coremanage.Core.Contracts.Repositories;
 using coremanage.Data.Storage.Context;
 using storagecore.EntityFrameworkCore;
 using coremanage.Data.Storage.Repositories;
+using coremanage.Data.Storage.Repositories.Entities;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace coremanage.Data.Storage

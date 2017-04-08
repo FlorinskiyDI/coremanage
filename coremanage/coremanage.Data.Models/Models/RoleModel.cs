@@ -13,5 +13,6 @@ namespace coremanage.Data.Models.Models
         public int CompanyId { get; set; }
 
         public int RoleType { get; set; }
+
     }
 }
