@@ -309,12 +309,13 @@ $RECYCLE.BIN/
 aot/
 
 # TypeScript compilation files
-**/angularApp/app/**/*.js
-**/angularApp/app/**/*.map
-**/angularApp/app/*.js
-**/angularApp/app/*.map
-**/angularApp/*.js
-**/angularApp/*.map
+**/src/app/**/*.js
+**/src/app/**/*.map
+**/src/app/*.js
+**/src/app/*.map
+**/src/*.js
+**/src/*.map
+
 Angular2WebpackVisualStudio/src/Angular2WebpackVisualStudio/wwwroot/
-src/Angular2WebpackVisualStudio/wwwroot/assets
-src/Angular2WebpackVisualStudio/wwwroot/dist
+coremanage.Dashboard.Web\wwwroot/assets
+coremanage.Dashboard.Web\wwwroot/dist
