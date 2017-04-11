@@ -20,14 +20,19 @@ export function sessionReducer(
   case SessionActions.LOGIN_USER_SUCCESS:
     return state.merge({
       token: action.payload.token,
-      user: UserRecord(action.payload),
+      refresh_token: action.payload.refresh_token,
+      tenant: action.payload.tenant,
+      user: UserRecord(action.payload.user),
       hasError: false,
       isLoading: false,
     });
 
+
   case SessionActions.LOGIN_USER_ERROR:
     return state.merge({
       token: null,
+      refresh_token: null,
+      tenant: null,
       user: UserRecord({}),
       hasError: true,
       isLoading: false,

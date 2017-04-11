@@ -5,12 +5,11 @@ import { Observable } from "rxjs/Rx";
 import { NgRedux, select } from '@angular-redux/store';
 
 // app`s import
-import { LoginData } from "../../index.models";
+import { LoginData, ReLoginData } from "../../index.models";
 import { appConstant } from "../../index.constants";
 
 @Injectable()
-export class IdentityService {
-    @select(['session', 'token']) token$: Observable<String>;
+export class IdentityService {    
     protected apiServer: string;
 
     constructor(protected http: Http) {
@@ -22,6 +21,27 @@ export class IdentityService {
         return this.http.post(this.apiServer + "api/Identity", JSON.stringify(loginData))
             .map( (res: Response) => res.json())
             .catch(this.handleError);
+    }
+
+    refresh(reLoginData: ReLoginData): Promise<any>{
+
+        let val = new LoginData();
+        val.isRemember = false;
+        val.password = "SuperAdmin";
+        val.userName = "SuperAdmin";
+       
+        let body = JSON.stringify(val);
+        // return this.http.post(this.apiServer + "api/Identity", body)
+        //     .map( (res: Response) => {
+        //        return res.json()
+        //     })
+        //     .catch(this.handleError);
+        return this.http.post(this.apiServer + "api/Identity", body)
+             .toPromise()
+             .then( (res: Response) => {
+               return res.json()
+             })
+             .catch(this.handleError);
     }
 
     getTenant(id: string): Observable<any> {

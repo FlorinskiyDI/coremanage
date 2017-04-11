@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ValueService } from '../../shared/services/api/entities/value.service';
+import { Http, Response } from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'home-component',
@@ -8,13 +11,22 @@ import { ValueService } from '../../shared/services/api/entities/value.service';
 
 export class HomeComponent implements OnInit {
     constructor(
-        private valueService: ValueService
+        private valueService: ValueService,
+        private http: Http
     ) {
         
     }
     ngOnInit() {
+
+        this.http.get("http://localhost:5200/api/Values/")
+            .do((res: Response) =>{
+                let cc = res.json()
+                console.log(cc);
+            })
+            
+
         let vvv = "v";
-        let cc = this.valueService.getAll()
+        this.valueService.getAll()
             .do(
                 data => {
                     console.log(data)
@@ -22,6 +34,6 @@ export class HomeComponent implements OnInit {
                 error => {
                      console.log(error)
                 });
-        let ddd = cc;
+        let ddd = "cc";
     }
 }

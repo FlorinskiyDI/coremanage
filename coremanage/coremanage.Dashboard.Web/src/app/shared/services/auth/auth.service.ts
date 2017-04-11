@@ -3,7 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 // app`s import
 import { SessionActions } from "../../../redux/actions/session.actions";
-import { LoginData } from "../../index.models";
+import { LoginData, ReLoginData } from "../../index.models";
 import { JwtDecodeService } from "./jwt-decode.service";
 import { IdentityService } from "../api/identity.service";
 import { ISessionDto, IUserDto } from "../../../redux/store/session/session.types";
@@ -26,12 +26,34 @@ export class AuthService {
         this.sessionActions.loginUser();
         return this.identityService.get(loginData)
             .do(
-                data => {
-                    let decodeToken = this.jwtDecodeService.decode(data.accessToken);
-                    // let tenant = this.getUserTenant(decodeToken.sub);
-                    this.loginSuccess(data, decodeToken);
-                },
+                data => { this.loginSuccess(data); },
                 error => { this.loginError(error); }
+            );
+
+        // let val = new ReLoginData();        
+        // val.refreshToken = "SuperAdmin";
+        // val.tenant = "SuperAdmin";
+        // return this.identityService.refresh(val)
+        //     .do(
+        //         data => { this.loginSuccess(data); },
+        //         error => { this.loginError(error); }
+        //     );
+    }
+
+    public reLogin(reloginData: ReLoginData): Promise<any>{
+
+        // this.sessionActions.loginUser();
+
+        let val = new ReLoginData();
+        val.refreshToken = "SuperAdmin";
+        val.tenant = "SuperAdmin";
+        return this.identityService.refresh(val)
+            .then(
+                data => {
+                    this.loginSuccess(data);
+                },
+                error => {
+                    this.loginError(error); }
             );
     }
 
@@ -39,27 +61,25 @@ export class AuthService {
         this.sessionActions.logoutUser();
     }
 
-    // get tanant data by user id
-    private getUserTenant(id: string){
-        return this.identityService.getTenant(id).do(
-                data => { return data },
-                error => { this.loginError(error); }
-            );
-    }
-
-    private loginSuccess(data: any, decodeToken: any){
+    private loginSuccess(data: any){
+        let decode = this.jwtDecodeService.decode(data.accessToken);
+        // console.log("@LOG Decoded token" + decode);
+        console.log("@LOG Decoded token - {0}", decode);
         let user: IUserDto = {
-            firstName: decodeToken.firstName,
-            lastName: decodeToken.lastName,
-            userName: decodeToken.userName,
-            email: decodeToken.email,
-            role: decodeToken.role
+            firstName: decode.name,
+            lastName: decode.family_name,
+            userName: decode.sub,
+            email: decode.email,
+            role: decode.role,
+            tenant_list: decode.tenant_list
         };
         let session: ISessionDto<IUserDto> = {
             token: data.accessToken,
+            refresh_token: data.refreshToken,
             user: user,
             hasError: false,
-            isLoading: false
+            isLoading: false,
+            tenant: decode.tenant
         }
         this.sessionActions.loginUserSuccess(session);
     }

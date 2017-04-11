@@ -6,7 +6,11 @@ import { WorkspaceRoutes } from './workspace-routes.module';
 import { WorkspaceComponent } from './workspace.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
+
+
+
 import { AuthService } from '../../shared/services/auth/auth.service';
+import { IdentityService } from '../../shared/services/api/identity.service';
 
 import { SidebarModule } from 'ng-sidebar';
 
@@ -24,6 +28,7 @@ import { SidebarModule } from 'ng-sidebar';
         HeaderComponent
     ],
     providers:[
+        IdentityService,
         AuthService
     ]
 

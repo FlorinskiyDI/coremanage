@@ -1,7 +1,7 @@
 // external import
 import { Injectable } from "@angular/core";
 
-@Injectable()
+// @Injectable()
 export class JwtDecodeService {
     // get token string
     public decode(token: string) {
