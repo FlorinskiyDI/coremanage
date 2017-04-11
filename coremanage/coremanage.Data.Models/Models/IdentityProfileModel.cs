@@ -15,7 +15,7 @@ namespace coremanage.Data.Models.Models
         public string Email { get; set; }
 
         public string Tenant { get; set; }
-        public string[] TenantList { get; set; }
+        public string[] TenantList  { get; set; }
         public string[] TenantClaims { get; set; }
 
         public string[] Roles { get; set; }

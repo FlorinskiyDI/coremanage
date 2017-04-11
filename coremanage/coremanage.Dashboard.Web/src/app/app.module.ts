@@ -18,7 +18,7 @@ import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
 import { IAppState, ISession, rootReducer } from './redux/store';
 // import { IRootState } from './redux/store/rootState';
 // import RootReducer from './redux/store/rootReducer';
-const createLogger = require('redux-logger');
+const reduxLogger = require('redux-logger');
 
 @NgModule({
     imports: [
@@ -45,13 +45,13 @@ export class AppModule {
     constructor(
         private ngRedux: NgRedux<any>,
         private ngReduxRouter: NgReduxRouter,
-        private devTool: DevToolsExtension
+        private devTools: DevToolsExtension
     ) {
         ngRedux.configureStore(
             rootReducer,
             {},
-            [ createLogger() ],
-            [ devTool.isEnabled() ? devTool.enhancer() : f => f ]
+            [ reduxLogger.createLogger() ],
+            devTools.isEnabled() ? [ devTools.enhancer() ] : []
         );
         ngReduxRouter.initialize();
     }

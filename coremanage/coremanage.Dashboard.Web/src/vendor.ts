@@ -4,7 +4,7 @@ import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
-
+import 'redux-logger'
 
 import '../favicon.ico';
 

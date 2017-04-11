@@ -7,7 +7,7 @@ import { LoginRoutingModule } from './login-routes.module';
 import { LoginComponent } from './login.component';
 
 import { AuthService } from '../../../shared/services/auth/auth.service';
-
+import { IdentityService } from '../../../shared/services/api/identity.service';
 
 
 @NgModule({
@@ -20,7 +20,8 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
         LoginComponent
     ],
     providers: [
-        AuthService              
+        AuthService,
+        IdentityService           
     ]
 })
 

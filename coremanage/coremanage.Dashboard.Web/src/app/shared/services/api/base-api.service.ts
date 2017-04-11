@@ -9,16 +9,16 @@ import { appConstant } from '../../constants/app.constant';
 
 export abstract  class BaseApiService<TEntity> {
     protected apiServer: string;
-    @select(['session', 'token']) token$: Observable<String>;
+    // @select(['session', 'token']) token$: Observable<String>;
 
     constructor(
         private apiRoute: string,
         protected http: Http
     ) {
         this.apiServer = appConstant.apiServer + apiRoute;
-        this.token$.subscribe((value: any) => {
-            console.log("token - "+ value);
-        });
+        // this.token$.subscribe((value: any) => {
+        //     console.log("token - "+ value);
+        // });
     }
 
     update(id: number, entity: TEntity): Observable<any> {

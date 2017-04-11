@@ -12,7 +12,7 @@ export class ValueService extends BaseApiService<Value> {
     constructor(
         http: Http
     ) {
-        super("api/Value/", http);
+        super("api/Values/", http);
     }
 
 }

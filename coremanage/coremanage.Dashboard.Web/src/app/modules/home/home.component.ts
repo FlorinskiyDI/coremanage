@@ -13,5 +13,15 @@ export class HomeComponent implements OnInit {
         
     }
     ngOnInit() {
+        let vvv = "v";
+        let cc = this.valueService.getAll()
+            .do(
+                data => {
+                    console.log(data)
+                },
+                error => {
+                     console.log(error)
+                });
+        let ddd = cc;
     }
 }
