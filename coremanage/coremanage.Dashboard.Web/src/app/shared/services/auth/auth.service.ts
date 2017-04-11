@@ -1,13 +1,14 @@
 // external import
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { NgRedux } from '@angular-redux/store';
 // app`s import
 import { SessionActions } from "../../../redux/actions/session.actions";
 import { LoginData, ReLoginData } from "../../index.models";
 import { JwtDecodeService } from "./jwt-decode.service";
 import { IdentityService } from "../api/identity.service";
 import { ISessionDto, IUserDto } from "../../../redux/store/session/session.types";
-
+import { IAppState } from '../../../redux/store';
 
 @Injectable()
 export class AuthService {
@@ -17,43 +18,30 @@ export class AuthService {
     constructor(
         private jwtDecodeService: JwtDecodeService,
         private identityService: IdentityService,
-        private sessionActions: SessionActions
+        private sessionActions: SessionActions,
+        private ngRedux: NgRedux<IAppState>
     ){
     }
 
     public login(loginData: LoginData): Observable<any>{
-
         this.sessionActions.loginUser();
         return this.identityService.get(loginData)
             .do(
                 data => { this.loginSuccess(data); },
                 error => { this.loginError(error); }
             );
-
-        // let val = new ReLoginData();        
-        // val.refreshToken = "SuperAdmin";
-        // val.tenant = "SuperAdmin";
-        // return this.identityService.refresh(val)
-        //     .do(
-        //         data => { this.loginSuccess(data); },
-        //         error => { this.loginError(error); }
-        //     );
     }
 
-    public reLogin(reloginData: ReLoginData): Promise<any>{
-
-        // this.sessionActions.loginUser();
-
-        let val = new ReLoginData();
-        val.refreshToken = "SuperAdmin";
-        val.tenant = "SuperAdmin";
-        return this.identityService.refresh(val)
-            .then(
-                data => {
-                    this.loginSuccess(data);
-                },
-                error => {
-                    this.loginError(error); }
+    // updating the token through refresh token (with claims)
+    public refreshToken(){
+        let data: ReLoginData = {
+            refreshToken: this.ngRedux.getState().session.refresh_token,
+            tenant: this.ngRedux.getState().session.tenant
+        };
+        this.identityService.refresh(data)        
+            .subscribe(
+                data => { this.loginSuccess(data); },
+                error => { this.loginError(error); }
             );
     }
 

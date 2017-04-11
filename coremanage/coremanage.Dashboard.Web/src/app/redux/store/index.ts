@@ -1,9 +1,10 @@
+
 import { Map, fromJS } from 'immutable';
-import { IAppState, rootReducer, deimmutify, reimmutify } from './store';
-import { ISession } from './session';
+
+import { rootReducer, deimmutify, reimmutify } from './root.reducer';
+import { IAppState } from './root.types';
 
 export {
-  IAppState,
-  ISession,
+  IAppState,  
   rootReducer,
 };

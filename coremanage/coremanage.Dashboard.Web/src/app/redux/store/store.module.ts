@@ -6,27 +6,23 @@ import { NgModule } from '@angular/core';
 // our store and Angular.
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
 import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
+const reduxLogger  = require('redux-logger');
 // import { provideReduxForms } from '@angular-redux/form';
 
-// Redux ecosystem stuff.
-const reduxLogger  = require('redux-logger');
-// import * as reduxLogger from "redux-logger";
-// import createLogger from 'redux-logger'
-
-
-// The top-level reducers and epics that make up our app's logic.
-import { IAppState } from './root.types';
-import { rootReducer } from './root.reducer';
+import { IAppState, rootReducer } from './';
 // import { RootEpics } from './root.epics';
 
 @NgModule({
-  imports: [NgReduxModule, NgReduxRouterModule],
+  imports: [
+    NgReduxModule,
+    NgReduxRouterModule
+  ],
 //   providers: [RootEpics],
 })
 
 export class StoreModule {
   constructor(
-    public store: NgRedux<IAppState>,
+    public ngRedux: NgRedux<IAppState>,
     devTools: DevToolsExtension,
     ngReduxRouter: NgReduxRouter,
     // rootEpics: RootEpics,
@@ -34,7 +30,7 @@ export class StoreModule {
     // Tell Redux about our reducers and epics. If the Redux DevTools
     // chrome extension is available in the browser, tell Redux about
     // it too.
-    store.configureStore(
+    ngRedux.configureStore(
       rootReducer,
       {},
       [ 

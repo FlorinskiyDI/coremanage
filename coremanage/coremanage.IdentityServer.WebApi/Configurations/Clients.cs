@@ -23,6 +23,8 @@ namespace coremanage.IdentityServer.WebApi.Configurations
                     AccessTokenType = AccessTokenType.Jwt, //default already
                     RefreshTokenUsage = TokenUsage.OneTimeOnly,
                     RefreshTokenExpiration = TokenExpiration.Sliding,
+                    UpdateAccessTokenClaimsOnRefresh = true,
+
                     AbsoluteRefreshTokenLifetime = 86400, // one day
                     SlidingRefreshTokenLifetime = 43200, 
                      

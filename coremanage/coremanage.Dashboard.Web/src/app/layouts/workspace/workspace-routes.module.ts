@@ -6,9 +6,9 @@ const routes: Routes = [
     {
         path: '',
         component: WorkspaceComponent,
-        // children: [
-        //     { path: 'home', loadChildren: '../../modules/home/home.module#HomeModule' }
-        // ]
+        children: [
+            { path: 'home', loadChildren: '../../modules/home/home.module#HomeModule' }
+        ]
     }
 ];
 

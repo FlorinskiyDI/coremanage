@@ -1,34 +1,34 @@
+// External
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+// External > controls
 
+// app > modules
 import { SharedModule } from './shared/modules/shared.module';
-// import { LoginModule } from './modules/login/login.module';
-
-import { requestOptionsProvider } from './shared/services/default-request-options.service';
-
-import { appConstant } from './shared/constants/app.constant';
 import { AppRoutingModule } from './app-routes.module';
-
+// app > routes
+// app > components
 import { AppComponent } from './app.component';
-import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
-import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
-import { IAppState, ISession, rootReducer } from './redux/store';
-// import { IRootState } from './redux/store/rootState';
-// import RootReducer from './redux/store/rootReducer';
-const reduxLogger = require('redux-logger');
+// app > services
+// app > models
+// app > constants
+import { appConstant } from './shared/constants/app.constant';
+// app > providers
+import { requestOptionsProvider } from './shared/services/default-request-options.service';
+// app > redux
+import { StoreModule } from './redux/store/store.module';
+
 
 @NgModule({
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpModule,
-        SharedModule.forRoot(),
-        // LoginModule,
-        NgReduxModule,
-        NgReduxRouterModule,
+        SharedModule.forRoot(),        
+        StoreModule
     ],
     declarations: [
         AppComponent
@@ -37,22 +37,11 @@ const reduxLogger = require('redux-logger');
         AppComponent
     ],
     providers: [        
-        requestOptionsProvider        
+        requestOptionsProvider   
     ]
 })
 
 export class AppModule {
-    constructor(
-        private ngRedux: NgRedux<any>,
-        private ngReduxRouter: NgReduxRouter,
-        private devTools: DevToolsExtension
-    ) {
-        ngRedux.configureStore(
-            rootReducer,
-            {},
-            [ reduxLogger.createLogger() ],
-            devTools.isEnabled() ? [ devTools.enhancer() ] : []
-        );
-        ngReduxRouter.initialize();
+    constructor() {        
     }
 }

@@ -23,22 +23,10 @@ export class IdentityService {
             .catch(this.handleError);
     }
 
-    refresh(reLoginData: ReLoginData): Promise<any>{
-
-        let val = new LoginData();
-        val.isRemember = false;
-        val.password = "SuperAdmin";
-        val.userName = "SuperAdmin";
-       
-        let body = JSON.stringify(val);
-        // return this.http.post(this.apiServer + "api/Identity", body)
-        //     .map( (res: Response) => {
-        //        return res.json()
-        //     })
-        //     .catch(this.handleError);
-        return this.http.post(this.apiServer + "api/Identity", body)
-             .toPromise()
-             .then( (res: Response) => {
+    refresh(reLoginData: ReLoginData): Observable<any>{       
+        let body = JSON.stringify(reLoginData);        
+        return this.http.post(this.apiServer + "api/Identity/Refresh", body)             
+             .map( (res: Response) => {
                return res.json()
              })
              .catch(this.handleError);
