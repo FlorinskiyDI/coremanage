@@ -1,10 +1,10 @@
-// External
+// external
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from '../../shared/modules/shared.module';
 
-// External > controls
+// external > controls
 import { SidebarModule } from 'ng-sidebar';
 
 // app > routes

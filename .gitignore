@@ -316,6 +316,7 @@ aot/
 **/src/*.js
 **/src/*.map
 
-Angular2WebpackVisualStudio/src/Angular2WebpackVisualStudio/wwwroot/
-coremanage.Dashboard.Web\wwwroot/assets
-coremanage.Dashboard.Web\wwwroot/dist
+coremanage/coremanage.Dashboard.Web/wwwroot/
+coremanage/coremanage.Dashboard.Web/wwwroot/assets
+coremanage/coremanage.Dashboard.Web/wwwroot/assets
+coremanage/coremanage.Dashboard.Web/wwwroot/dist

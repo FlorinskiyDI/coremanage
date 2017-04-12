@@ -4,11 +4,15 @@ import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
-import 'redux-logger';
-
 import '../favicon.ico';
-import 'font-awesome-sass-loader';
 
-// Other vendors for example jQuery, Lodash or Bootstrap
-// You can import js, ts, css, sass, ...
+import 'font-awesome-sass-loader';
+import 'roboto-fontface/css/roboto/roboto-fontface.css';
+
+
+// primeng styles
+import 'primeui/themes/delta/theme.css';
+import 'primeng/resources/primeng.min.css';
+// import 'primeui/primeui-ng-all.min.css'; // ??????????????
+
 

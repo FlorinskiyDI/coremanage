@@ -1,14 +1,16 @@
+// external
 import { NgModule } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../../shared/index.modules';
+// external > controls
 
+// app
 import { LoginRoutingModule } from './login-routes.module';
+import { SharedModule } from '../../../shared/index.modules';
+// app > components
 import { LoginComponent } from './login.component';
-
+// app > services
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { IdentityService } from '../../../shared/services/api/identity.service';
-
 
 @NgModule({
     imports: [
@@ -21,7 +23,7 @@ import { IdentityService } from '../../../shared/services/api/identity.service';
     ],
     providers: [
         AuthService,
-        IdentityService           
+        IdentityService
     ]
 })
 

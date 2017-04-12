@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 
 // styles
-import './header.component.scss';
+// import './header.component.scss';
 
 
 
 @Component({
     selector: 'header-component',
-    templateUrl: 'header.component.html'
-    
+    templateUrl: 'header.component.html',
+    styleUrls: ['./header.component.scss']    
 })
 
 export class HeaderComponent {

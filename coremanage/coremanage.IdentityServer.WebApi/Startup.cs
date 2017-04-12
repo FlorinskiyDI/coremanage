@@ -36,6 +36,7 @@ namespace coremanage.IdentityServer.WebApi
         {
             // Add framework services.
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var idnSrv4ConnectionString = Configuration.GetConnectionString("IdnSrv4Connection");
             services.AddApplicationInsightsTelemetry(Configuration);
 
             // Configurations for ... .
@@ -48,8 +49,8 @@ namespace coremanage.IdentityServer.WebApi
             services.AddIdentityServer(options =>{ })
                 .AddTemporarySigningCredential()
 
-                //.AddConfigurationStoreMSSQL(connectionString) // InDatabase
-                //.AddOperationalStoreMSSQL(connectionString) // InDatabase
+                //.AddConfigurationStoreMSSQL(idSrv4ConnectionString) // InDatabase
+                //.AddOperationalStoreMSSQL(idSrv4ConnectionString) // InDatabase
 
                 //.AddInMemoryIdentityResources(Resources.GetIdentityResources()) // InMemory
                 .AddInMemoryApiResources(Resources.GetApiResources()) // InMemory

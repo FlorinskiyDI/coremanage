@@ -1,0 +1,55 @@
+/* Create a medium height at 40px */
+.navbar-md {min-height:40px}
+.navbar-md .navbar-brand,
+.navbar-md .navbar-nav>li>a {padding-top:10px; padding-bottom:10px}
+.navbar-md .navbar-brand {height: 40px}  
+.navbar-md .navbar-toggle {margin: 6px 12px 6px 0px; padding: 6px 7px 6px 7px;}
+.navbar-md .navbar-toggle .icon-bar {width: 19px;}
+.user-icon{
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background: #ccc;
+    &:hover{
+        background: #777;
+    }
+}
+.navbar-md .navbar-nav > li > a{
+    padding: 10px;
+    
+}
+.navbar-default { box-shadow: none; border-bottom: none; background: #eee; }
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .active > a{
+    box-shadow: none;    
+}
+.navbar-md .navbar-nav > li > a.user-toggle{
+     padding: 7px;
+}
+.container-fluid{
+    padding: 0px 20px;
+}
+
+.dropdown-menu > li > a{
+    font-size: 12px;
+}
+
+.dropdown-header{
+    font-size: 11px;
+}
+
+.user-dropdown-menu{
+    width: 210px;
+}
+
+.navbar-brand-img{
+    width: 40px;
+    float: left;
+}
+
+.navbar-brand{
+    font-size: 14px;
+    padding: 11px 12px;
+}
+.navbar-default .navbar-brand{
+    color: #333;
+}

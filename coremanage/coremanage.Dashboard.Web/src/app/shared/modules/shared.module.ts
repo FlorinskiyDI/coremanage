@@ -1,6 +1,7 @@
 import { appConstant } from '../index.constants';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import {
     NgModule,
@@ -20,12 +21,14 @@ import { ACTION_PROVIDERS } from '../../redux/actions';
     imports: [
         CommonModule,
         RouterModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule
     ],
     declarations: [
     ],
     exports: [
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule
     ],
     providers: [
         JwtDecodeService,

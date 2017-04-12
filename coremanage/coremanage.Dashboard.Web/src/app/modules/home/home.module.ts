@@ -1,11 +1,14 @@
+// external
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
+// app
 import { HomeRoutes } from './home-routes.module';
+// app > components
 import { HomeComponent } from './home.component';
-
+// app > services
 import { ValueService } from '../../shared/services/api/entities/value.service';
 
 @NgModule({

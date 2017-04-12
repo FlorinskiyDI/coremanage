@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginData } from '../../../shared/index.models';
-import './login.component.scss';
 
+import { LoginData } from '../../../shared/index.models';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 
 @Component({
     selector: 'login-component',
-    templateUrl: 'login.component.html'
+    templateUrl: 'login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 
 export class LoginComponent implements OnInit{
-    
-
     loginForm: FormGroup;
     loginData: LoginData;
     formErrors: any = {
@@ -21,12 +19,8 @@ export class LoginComponent implements OnInit{
         'password': ''
     };
     validationMessages: any = {
-        'userName': {
-            'required': 'Username or Email is required.'
-        },
-        'password': {
-            'required': 'Password is required.'
-        }
+        'userName': { 'required': 'Username or Email is required.' },
+        'password': { 'required': 'Password is required.' }
     };
 
     constructor(
@@ -48,9 +42,9 @@ export class LoginComponent implements OnInit{
             .subscribe(
                 () => {                    
                     // Get the redirect URL from our auth service. If no redirect has been set, use the default
-                    let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/home';
-                    // Redirect the user
-                    this.router.navigate([redirect]);                    
+                    let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/home';                    
+                    // this.router.navigate([redirect]);                    
+                    this.router.navigate(['/welcome']);
                 },
                 error => {
                     alert(" error - Authorization \n message: " + error);
@@ -58,7 +52,7 @@ export class LoginComponent implements OnInit{
             );
     }
 
-    buildForm(): void {
+    private buildForm(): void {
         this.loginForm = this.fb.group({
             userName: new FormControl(this.loginData.userName, Validators.required),
             password: new FormControl(this.loginData.password, Validators.required),
@@ -83,5 +77,5 @@ export class LoginComponent implements OnInit{
                 }
             }
         }
-    }    
+    }
 }
