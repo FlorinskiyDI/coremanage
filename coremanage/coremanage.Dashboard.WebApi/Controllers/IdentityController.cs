@@ -19,14 +19,14 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
         [HttpPost]
         [Route("Refresh")]
-        public async Task<IActionResult> PostRefresh([FromBody] ReLoginData model)
+        public async Task<IActionResult> Refresh([FromBody] ReLoginData model)
         {
             var tokenClient = this.GetTokenClient();
             try
             {
                 var refreshTokenResponse = await tokenClient.Result.RequestRefreshTokenAsync(
-                    refreshToken: model.RefreshToken,
-                    extra: new Dictionary<string, string> {{"tenant", model.Tenant}}
+                    model.RefreshToken,
+                    new Dictionary<string, string> {{"tenant", model.Tenant}}
                 );
                 return new JsonResult(refreshTokenResponse);
             }
@@ -39,18 +39,17 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] LoginModel model)
         {
-            var extra = new Dictionary<string, string>();
-            extra.Add("tenant", "company_1");
+            var extra = new Dictionary<string, string> {
+                {"tenant", "company_1"}
+            };
 
             var tokenClient = this.GetTokenClient();
             try
             {
                 var tokenResponse = await tokenClient.Result.RequestResourceOwnerPasswordAsync(
-                    userName: model.UserName,
-                    password: model.Password,
-                    scope:
-                    Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName") + " " +
-                    StandardScopes.OfflineAccess,
+                    model.UserName,
+                    model.Password,
+                    Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName") + " " + StandardScopes.OfflineAccess,
                     extra: extra
                 );
                 return new JsonResult(tokenResponse);
@@ -61,33 +60,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
             }
         }
 
-
-        //[HttpPost]
-        //public async Task<IActionResult> Post([FromBody] ReAuthorizeModel refreshToken)
-        //{
-        //    var tenantName = "testTenant";
-
-        //    var url = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost");
-        //    var clientId = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientId");
-        //    var clientSecret = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ClientSecret");
-        //    //var scope = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName");
-        //    var scope = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName") + " " +
-        //                StandardScopes.OfflineAccess;
-        //    var extra = new Dictionary<string, string> {{"tenant", tenantName}}; // extra property for tenant value
-
-        //    try
-        //    {
-        //        var disco = await DiscoveryClient.GetAsync(url); // discover endpoints from metadata
-        //        var tokenClient = new TokenClient(disco.TokenEndpoint, clientId, clientSecret);
-        //        var refreshTokenResponse = await tokenClient.RequestRefreshTokenAsync(refreshToken.RefreshToken, extra);
-        //        return new JsonResult(refreshTokenResponse);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return new JsonResult($"{e.Message}\r\n{e.StackTrace}");
-        //    }
-        //}
-
+        
         private async Task<TokenClient> GetTokenClient()
         {
             var url = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost");

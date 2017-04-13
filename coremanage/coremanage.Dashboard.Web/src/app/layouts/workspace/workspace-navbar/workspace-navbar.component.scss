@@ -1,0 +1,60 @@
+
+
+/* Create a medium height at 35px */
+.navbar-md {min-height:40px}
+.navbar-md .navbar-brand,
+.navbar-md .navbar-nav>li>a { padding-top: 11px; padding-bottom: 4px; }
+.navbar-md .navbar-brand {height: 40px}  
+.navbar-md .navbar-toggle {margin: 5px 12px 5px 0px; padding: 5px 4px; }
+.navbar-md .navbar-toggle .icon-bar {width: 19px;}
+.navbar-default {    
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,0);
+    border: none;
+    background: #eee;
+    top: 40px;
+}
+// .navbar-default .navbar-nav > li > a:hover {
+//     color: #000;
+// }
+.navbar-md .navbar-nav > li > a{
+    padding: 11px 10px 9px 10px;    
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .active > a{
+    box-shadow: none;    
+}
+.navbar-md .navbar-nav > li > a.user-toggle{
+     padding: 7px;
+}
+.container-fluid{
+    padding: 0px 20px;
+}
+
+.dropdown-menu > li > a{
+    font-size: 14px;
+}
+
+.dropdown-header{
+    font-size: 13px;
+}
+
+.tenant-dropdown-menu{
+    width: 260px;
+    margin-left: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.navbar-brand-img{
+    width: 40px;
+    float: left;
+}
+
+.navbar-brand{
+    font-size: 14px;
+    padding: 11px 12px;
+    &:hover { background-color: #DCDCDC }
+    > font { padding: 0px 5px; }
+}
+.navbar-default .navbar-brand{ color: #333; }
+.navbar-default { background: #eee; }
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus { background-image: none; background-color: #F3F3F3;  }

@@ -10,12 +10,12 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
 
 
 @Component({
-    selector: 'header-component',
-    templateUrl: 'header.component.html',
-    styleUrls: ['./header.component.scss']    
+    selector: 'workspace-header-component',
+    templateUrl: 'workspace-header.component.html',
+    styleUrls: ['./workspace-header.component.scss']    
 })
 
-export class HeaderComponent {
+export class WorkspaceHeaderComponent {
     constructor(
         private authService: AuthService,
         private router: Router,
