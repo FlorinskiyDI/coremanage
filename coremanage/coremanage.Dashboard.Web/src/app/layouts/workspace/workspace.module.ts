@@ -14,7 +14,6 @@ import { WorkspaceRoutes } from './workspace-routes.module';
 import { WorkspaceComponent } from './workspace.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WorkspaceHeaderComponent } from './workspace-header/workspace-header.component';
-import { WorkspaceNavbarComponent } from './workspace-navbar/workspace-navbar.component';
 // app > services
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { IdentityService } from '../../shared/services/api/identity.service';
@@ -33,7 +32,6 @@ import { IdentityService } from '../../shared/services/api/identity.service';
     declarations: [
         WorkspaceComponent,
         WorkspaceHeaderComponent,
-        WorkspaceNavbarComponent,
         SidebarComponent        
     ],
     providers:[

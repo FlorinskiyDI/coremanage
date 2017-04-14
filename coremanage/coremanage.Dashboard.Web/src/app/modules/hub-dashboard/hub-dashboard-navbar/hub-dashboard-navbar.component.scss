@@ -17,7 +17,16 @@
 //     color: #000;
 // }
 .navbar-md .navbar-nav > li > a{
-    padding: 11px 10px 9px 10px;    
+    padding: 13px 10px 5px 5px;    
+}
+.navbar-md .navbar-nav > li > a > i{
+    padding-right: 5px;
+}
+.navbar-md .navbar-nav > li > a > i.fa.fa-object-group{
+    font-size: 13px;
+}
+.navbar-md .navbar-nav > li > a.active{
+    border-bottom: 2px solid #777;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .active > a{
     box-shadow: none;    

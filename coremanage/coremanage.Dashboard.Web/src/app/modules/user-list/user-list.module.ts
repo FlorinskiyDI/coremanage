@@ -3,20 +3,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // app > routes
-import { DashboardRoutes } from './dashboard-routes.module';
+import { UserLisRoutes } from './user-list-routes.module';
 // app > components
-import { DashboardComponent } from './dashboard.component';
+import { UserLisComponent } from './user-list.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        DashboardRoutes
+        UserLisRoutes
     ],
 
     declarations: [
-        DashboardComponent
+        UserLisComponent
     ],
 
 })
 
-export class DashboardModule { }
+export class UserListModule { }

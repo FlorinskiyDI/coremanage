@@ -8,7 +8,7 @@ export const routes: Routes = [
     { path: 'welcome', loadChildren: './layouts/welcome/welcome.module#WelcomeModule' },
     // { path: '', loadChildren: './modules/login/login.module#LoginModule' },
     { path: 'login', loadChildren: './modules/unauthorized/login/login.module#LoginModule' },
-    { path: 'about', loadChildren: './modules/about/about.module#AboutModule' },
+    // { path: 'about', loadChildren: './modules/about/about.module#AboutModule' },
 ];
 
 @NgModule({

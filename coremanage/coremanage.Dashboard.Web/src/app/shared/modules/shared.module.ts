@@ -11,11 +11,12 @@ import { CommonModule } from '@angular/common';
 
 // Services
 import { JwtDecodeService } from '../services/auth/jwt-decode.service';
-// import { IdentityService } from '../services/api/identity.service';
 
 // Actions
 import { ACTION_PROVIDERS } from '../../redux/actions';
 
+
+import { RefreshSelectTenantComponent } from '../index.components';
 
 @NgModule({
     imports: [
@@ -25,14 +26,15 @@ import { ACTION_PROVIDERS } from '../../redux/actions';
         FormsModule
     ],
     declarations: [
+        RefreshSelectTenantComponent
     ],
     exports: [
+        RefreshSelectTenantComponent,
         ReactiveFormsModule,
         FormsModule
     ],
     providers: [
         JwtDecodeService,
-        // IdentityService,
         ACTION_PROVIDERS
     ]    
 })
@@ -44,7 +46,7 @@ export class SharedModule {
                 JwtDecodeService,
                 // IdentityService,
                 ACTION_PROVIDERS
-            ]
+            ]            
         };
     }
 }
