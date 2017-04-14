@@ -68,9 +68,23 @@
 .navbar-default { background: #eee; }
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus { background-image: none; background-color: #F3F3F3;  }
 
-.dropdown-menu{
-    width: 260px;
-    margin-left: 5px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.navbar-md .navbar-nav.navbar-right > li > a{
+    background-image: none;
+    border: 1.1px solid transparent;
+    margin: 9px 0px 1px 0px;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-size: 13px;
+    border-radius: 2px;
+    color: #666;
+    // border-color: #ccc;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.navbar-md .navbar-nav.navbar-right > li > a:hover{
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.0196078));
+    border: 1.1px solid rgb(211, 211, 211);    
+    color: #333;    
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
