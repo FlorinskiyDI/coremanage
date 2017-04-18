@@ -12,17 +12,16 @@ import { Observable } from 'rxjs/Observable';
 
 export class RefreshSelectTenantComponent {    
     // private tenantList$: Observable<string[]>;
-    private appState: IAppState;
-
-
-    @select(['session', 'user', 'tenant_list']) tenantList$: Observable<any>;
+    private appState: IAppState;    
+    private tenantList$: Observable<any>;
     constructor(       
         private ngRedux: NgRedux<IAppState>
     ){
-        // this.tenantList$ = this.ngRedux.select('tenant_list');
+        
     }
 
-    ngOnInit() {
+    ngOnInit() {        
+        this.tenantList$ = this.ngRedux.select(state=>state.session.user.tenant_list);
         this.tenantList$.subscribe((value: any) => {
             if (value) {
                 console.log(value);
