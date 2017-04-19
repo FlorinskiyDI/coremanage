@@ -37,9 +37,9 @@
     "bootstrap": "^3.3.7",
     "ie-shim": "~0.1.0",
 
-    
-    "ng-sidebar": "4.0.0",
-    "primeng": "^4.0.0-rc.2",
+    "angular-split": "0.2.0",
+    "ng-sidebar": "4.1.1",
+    "primeng": "4.0.0-rc.3",
     "font-awesome-sass-loader": "2.0.1",
     "roboto-fontface": "0.7.0", 
 

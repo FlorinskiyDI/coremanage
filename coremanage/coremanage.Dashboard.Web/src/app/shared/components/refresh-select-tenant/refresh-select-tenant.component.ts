@@ -3,18 +3,20 @@ import { Router } from '@angular/router';
 import { NgRedux, select } from '@angular-redux/store';
 import { IAppState } from '../../../redux/store';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../../../shared/services/auth/auth.service';
 
 @Component({
     selector: 'refresh-select-tenant-component',
     templateUrl: 'refresh-select-tenant.component.html',
-    styleUrls: ['./refresh-select-tenant.component.scss'],
+    styleUrls: ['./refresh-select-tenant.component.scss']
 })
 
 export class RefreshSelectTenantComponent {    
-    // private tenantList$: Observable<string[]>;
-    private appState: IAppState;    
     private tenantList$: Observable<any>;
-    constructor(       
+    private tenant$: Observable<any>;
+
+    constructor(
+        private authService: AuthService,
         private ngRedux: NgRedux<IAppState>
     ){
         
@@ -22,14 +24,14 @@ export class RefreshSelectTenantComponent {
 
     ngOnInit() {        
         this.tenantList$ = this.ngRedux.select(state=>state.session.user.tenant_list);
-        this.tenantList$.subscribe((value: any) => {
-            if (value) {
-                console.log(value);
-            }
+        this.tenant$ = this.ngRedux.select(state=>state.session.tenant);
+        this.tenant$.subscribe((value: any) => {
+            if (!value) { console.error("tenant not found!!!"); }
         });
-    }
-    // 
-    haveSubTopics(event: any): void {
         
+    }
+
+    public refreshToken(tenantName: string){
+        this.authService.refreshToken(tenantName);
     }
 }

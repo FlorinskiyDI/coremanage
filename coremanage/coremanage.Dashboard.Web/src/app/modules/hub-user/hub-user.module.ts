@@ -1,7 +1,8 @@
 // external
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+// external > controls
+import { AngularSplitModule } from 'angular-split';
 
 //app
 import { SharedModule } from '../../shared/modules/shared.module';
@@ -18,7 +19,7 @@ import { HubUserNavbarComponent } from './hub-user-navbar/hub-user-navbar.compon
         CommonModule,
         HubUserRoutes,
         SharedModule,
-        SharedModule
+        AngularSplitModule
     ],    
     declarations: [
         HubUserComponent,

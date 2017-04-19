@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'tenant-list-component',
-    templateUrl: 'tenant-list.component.html'
+    templateUrl: 'tenant-list.component.html',
+    styleUrls: ['./tenant-list.component.scss']
 })
-export class TenantLisComponent {
+export class TenantListComponent {
 }

@@ -9,8 +9,6 @@ import { SharedModule } from '../../../shared/index.modules';
 // app > components
 import { LoginComponent } from './login.component';
 // app > services
-import { AuthService } from '../../../shared/services/auth/auth.service';
-import { IdentityService } from '../../../shared/services/api/identity.service';
 
 @NgModule({
     imports: [
@@ -22,8 +20,8 @@ import { IdentityService } from '../../../shared/services/api/identity.service';
         LoginComponent
     ],
     providers: [
-        AuthService,
-        IdentityService
+        // AuthService,
+        // IdentityService
     ]
 })
 

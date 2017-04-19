@@ -27,13 +27,25 @@ namespace coremanage.Data.Storage.Repositories
             this._userManager = userManager;
         }
 
+        public async Task<bool> CheckTenantforUserAsync(string userName, string tenant)
+        {
+            var isTenant = await (from users in this.Context.UserProfiles
+                            join idn in this.Context.Users on users.Id equals idn.Id
+                            join users_tenants in this.Context.UserProfileTenants on idn.Id equals users_tenants.UserProfileId
+                            join tenants in this.Context.Tenants on users_tenants.TenantId equals tenants.Id
+                            where users.IsDeleted == false && idn.UserName == userName
+                            where tenants.IsDeleted == false && tenants.Name == tenant
+                                  select tenants)
+                            .AnyAsync();
+            return isTenant;
+        }
+
         public async Task<IdentityProfileModel> GetIdentityProfileModel(string userName, string tenant)
         {
             // getting user
             var query = from users in this.Context.UserProfiles
                         join idn in this.Context.Users on users.Id equals idn.Id
-                        where users.IsDeleted == false
-                        && idn.UserName == userName
+                        where users.IsDeleted == false && idn.UserName == userName
                         select new IdentityProfileModel
                         {
                             UserId = users.Id,

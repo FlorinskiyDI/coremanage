@@ -1,6 +1,7 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityServer4.Extensions;
@@ -25,8 +26,10 @@ namespace coremanage.IdentityServer.WebApi.Services
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
+            // get sub from subject
             var sub = context.Subject.GetSubjectId();
-            var tenant = context.Subject.FindFirst(item => item.Type == ExtUserClaimTypes.Tenant).Value;
+            // get tenant claim from client
+            var tenant = context.Client.Claims.ToList().Find(s => s.Type == ExtJwtClaimTypes.Tenant).Value;
 
             IdentityProfileModel isentityProfile;
             using (var uow = _uowProvider.CreateUnitOfWork())
@@ -34,7 +37,6 @@ namespace coremanage.IdentityServer.WebApi.Services
                 var securityRepository = uow.GetCustomRepository<ISecurityRepository>();
                 isentityProfile = await securityRepository.GetIdentityProfileModel(sub, tenant);
             }
-            
 
             var jwtClaims = new List<Claim>
             {
@@ -42,8 +44,9 @@ namespace coremanage.IdentityServer.WebApi.Services
                 new Claim(JwtClaimTypes.MiddleName, isentityProfile.FirstName),
                 new Claim(JwtClaimTypes.FamilyName, isentityProfile.LastName),
                 new Claim(JwtClaimTypes.Email, isentityProfile.Email),
-                new Claim(ExtJwtClaimTypes.Tenant, context.Subject.FindFirst(item => item.Type == "tenant").Value)
+                new Claim(ExtJwtClaimTypes.Tenant, tenant)
             };
+            
             foreach (var tenantName in isentityProfile.TenantList)
             {
                 jwtClaims.Add(new Claim(ExtJwtClaimTypes.TenantList, tenantName));

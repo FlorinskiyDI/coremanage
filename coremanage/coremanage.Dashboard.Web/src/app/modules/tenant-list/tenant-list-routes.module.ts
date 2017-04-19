@@ -1,9 +1,9 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { TenantLisComponent } from './tenant-list.component';
+import { TenantListComponent } from './tenant-list.component';
 
 const routes: Routes = [
-    { path: '', component: TenantLisComponent }
+    { path: '', component: TenantListComponent }
 ];
 
-export const TenantLisRoutes = RouterModule.forChild(routes);
+export const TenantListRoutes = RouterModule.forChild(routes);

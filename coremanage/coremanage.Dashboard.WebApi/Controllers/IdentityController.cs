@@ -21,12 +21,16 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [Route("Refresh")]
         public async Task<IActionResult> Refresh([FromBody] ReLoginData model)
         {
+            var extra = new Dictionary<string, string> {
+                {"tenant", model.Tenant}
+            };
+
             var tokenClient = this.GetTokenClient();
             try
             {
                 var refreshTokenResponse = await tokenClient.Result.RequestRefreshTokenAsync(
                     model.RefreshToken,
-                    new Dictionary<string, string> {{"tenant", model.Tenant}}
+                    extra
                 );
                 return new JsonResult(refreshTokenResponse);
             }
@@ -40,7 +44,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> Post([FromBody] LoginModel model)
         {
             var extra = new Dictionary<string, string> {
-                {"tenant", "company_1"}
+                {"tenant", model.Tenant}
             };
 
             var tokenClient = this.GetTokenClient();

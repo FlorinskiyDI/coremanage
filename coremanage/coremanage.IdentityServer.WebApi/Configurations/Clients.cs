@@ -1,5 +1,6 @@
 ﻿using IdentityServer4.Models;
 using System.Collections.Generic;
+using System.Security.Claims;
 using static IdentityServer4.IdentityServerConstants;
 
 namespace coremanage.IdentityServer.WebApi.Configurations
@@ -24,7 +25,8 @@ namespace coremanage.IdentityServer.WebApi.Configurations
                     RefreshTokenUsage = TokenUsage.OneTimeOnly,
                     RefreshTokenExpiration = TokenExpiration.Sliding,
                     UpdateAccessTokenClaimsOnRefresh = true,
-
+                    AlwaysSendClientClaims = true,
+                    
                     AbsoluteRefreshTokenLifetime = 86400, // one day
                     SlidingRefreshTokenLifetime = 43200, 
                      
@@ -36,7 +38,8 @@ namespace coremanage.IdentityServer.WebApi.Configurations
                         StandardScopes.OfflineAccess,
                         StandardScopes.Email,
                         StandardScopes.Profile
-                    }
+                    },
+                    
                 },
             };
         }

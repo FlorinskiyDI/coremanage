@@ -1,7 +1,6 @@
 // external
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 // external > controls
@@ -17,8 +16,6 @@ import { WelcomeHeaderComponent } from './welcome-header/welcome-header.componen
 import { WelcomeNavbarComponent } from './welcome-navbar/welcome-navbar.component';
 import { TenantSelectionComponent } from './tenant-selection/tenant-selection.component';
 // app > services
-import { AuthService } from '../../shared/services/auth/auth.service';
-import { IdentityService } from '../../shared/services/api/identity.service';
 
 
 
@@ -40,8 +37,6 @@ import { IdentityService } from '../../shared/services/api/identity.service';
         TenantSelectionComponent
     ],
     providers:[
-        IdentityService,
-        AuthService
     ]
 
 })

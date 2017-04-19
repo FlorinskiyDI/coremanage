@@ -15,10 +15,12 @@ export class LoginComponent implements OnInit{
     loginForm: FormGroup;
     loginData: LoginData;
     formErrors: any = {
+        'tenant':'',
         'userName': '',
         'password': ''
     };
     validationMessages: any = {
+        'tenant': { 'required': 'Tenant is required.' },
         'userName': { 'required': 'Username or Email is required.' },
         'password': { 'required': 'Password is required.' }
     };
@@ -54,6 +56,7 @@ export class LoginComponent implements OnInit{
 
     private buildForm(): void {
         this.loginForm = this.fb.group({
+            tenant: new FormControl(this.loginData.tenant, Validators.required),
             userName: new FormControl(this.loginData.userName, Validators.required),
             password: new FormControl(this.loginData.password, Validators.required),
             isRemember: new FormControl(this.loginData.isRemember)

@@ -59,6 +59,9 @@ namespace coremanage.IdentityServer.WebApi
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
                 .AddProfileService<ProfileService>()
+                .AddCustomTokenRequestValidator<CustomTokenRequestValidator>()
+                
+                //.AddExtensionGrantValidator<DynamicParameterExtensionGrantValidator>()
                 ;
 
             // Configurations for Identity

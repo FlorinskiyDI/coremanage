@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 
 // Services
 import { JwtDecodeService } from '../services/auth/jwt-decode.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
+import { IdentityService } from '../../shared/services/api/identity.service';
 
 // Actions
 import { ACTION_PROVIDERS } from '../../redux/actions';
@@ -35,6 +37,8 @@ import { RefreshSelectTenantComponent } from '../index.components';
     ],
     providers: [
         JwtDecodeService,
+        IdentityService,
+        AuthService,
         ACTION_PROVIDERS
     ]    
 })
@@ -44,7 +48,8 @@ export class SharedModule {
             ngModule: SharedModule,
             providers: [
                 JwtDecodeService,
-                // IdentityService,
+                IdentityService,
+                AuthService,
                 ACTION_PROVIDERS
             ]            
         };

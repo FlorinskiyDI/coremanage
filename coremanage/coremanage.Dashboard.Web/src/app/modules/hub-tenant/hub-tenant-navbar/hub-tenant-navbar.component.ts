@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TenantActions } from "../../../redux/actions/tenant.actions";
 
 @Component({
     selector: 'hub-tenant-navbar-component',
@@ -8,5 +9,14 @@ import { Router } from '@angular/router';
 })
 
 export class HubTenantNavbarComponent {
-    tenantpach: string = "test-tenant-pach";  
+    tenantpach: string = "test-tenant-pach"; 
+
+    constructor(
+        private tenantActions: TenantActions,
+    ){
+    }
+
+    showTenantDialogAdd() {
+        this.tenantActions.openTenantDialogAdd(true);
+    }
 }

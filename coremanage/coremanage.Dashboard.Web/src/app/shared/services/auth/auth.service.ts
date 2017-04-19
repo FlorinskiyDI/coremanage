@@ -33,10 +33,12 @@ export class AuthService {
     }
 
     // updating the token through refresh token (with claims)
-    public refreshToken(){
+    public refreshToken(
+        tenant: string = this.ngRedux.getState().session.tenant
+        ){
         let data: ReLoginData = {
             refreshToken: this.ngRedux.getState().session.refresh_token,
-            tenant: this.ngRedux.getState().session.tenant
+            tenant: tenant
         };
         this.identityService.refresh(data)        
             .subscribe(
