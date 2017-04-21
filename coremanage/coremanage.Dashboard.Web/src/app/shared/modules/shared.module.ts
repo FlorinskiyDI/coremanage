@@ -18,7 +18,6 @@ import { IdentityService } from '../../shared/services/api/identity.service';
 import { ACTION_PROVIDERS } from '../../redux/actions';
 
 
-import { RefreshSelectTenantComponent } from '../index.components';
 
 @NgModule({
     imports: [
@@ -28,10 +27,9 @@ import { RefreshSelectTenantComponent } from '../index.components';
         FormsModule
     ],
     declarations: [
-        RefreshSelectTenantComponent
+       
     ],
     exports: [
-        RefreshSelectTenantComponent,
         ReactiveFormsModule,
         FormsModule
     ],

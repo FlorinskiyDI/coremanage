@@ -11,8 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceRoutes } from './workspace-routes.module';
 // app > components
 import { WorkspaceComponent } from './workspace.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { WorkspaceHeaderComponent } from './workspace-header/workspace-header.component';
+import { TenantSelectorNavMenuComponent } from './tenant-selector-nav-menu/tenant-selector-nav-menu.component';
 // app > services
 
 
@@ -29,7 +29,7 @@ import { WorkspaceHeaderComponent } from './workspace-header/workspace-header.co
     declarations: [
         WorkspaceComponent,
         WorkspaceHeaderComponent,
-        SidebarComponent        
+        TenantSelectorNavMenuComponent                
     ],
     providers:[        
     ]

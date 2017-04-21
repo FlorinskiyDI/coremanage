@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
     templateUrl: 'user-list.component.html'
 })
 export class UserLisComponent {
+
+    constructor(){
+        
+    }
 }

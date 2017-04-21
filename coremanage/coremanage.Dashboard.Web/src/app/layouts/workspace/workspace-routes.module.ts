@@ -7,10 +7,8 @@ const routes: Routes = [
         path: '',
         component: WorkspaceComponent,
         children: [
-            { path: 'home', loadChildren: '../../modules/home/home.module#HomeModule' },
-            { path: 'dashboard', loadChildren: '../../modules/hub-dashboard/hub-dashboard.module#HubDashboardModule' },
-            { path: 'tenant', loadChildren: '../../modules/hub-tenant/hub-tenant.module#HubTenantModule' },
-            { path: 'user', loadChildren: '../../modules/hub-user/hub-user.module#HubUserModule' }
+            { path: 'dashboard', loadChildren: '../../modules/group-dashboard/group-dashboard.module#GroupDashboardModule' },
+            { path: 'settings', loadChildren: '../../modules/group-settings/group-settings.module#GroupSettingsModule' }
         ]
     }
 ];

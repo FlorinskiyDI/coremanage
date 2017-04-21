@@ -1,6 +1,6 @@
 ﻿<nav class="navbar navbar-default navbar-fixed-top navbar-md">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Brand and toggle get grouped for better mobile display -->        
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -8,16 +8,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>                
             </button>
-            
-            <a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">                
-                <font>Administration app</font>
-            </a>
+            <tenant-selector-nav-menu-component></tenant-selector-nav-menu-component>            
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">                
                 <li class="dropdown"><a routerLink="/workspace/tenant-test/dashboard/overview" routerLinkActive="active" class="dropdown-toggle">Dashboard</a></li>
-                <li class="dropdown"><a routerLink="/workspace/tenant-test/tenant/tenants" routerLinkActive="active" class="dropdown-toggle">Manage tenants</a></li>
-                <li class="dropdown"><a routerLink="/workspace/tenant-test/user/users" routerLinkActive="active" class="dropdown-toggle">Manage users</a></li>              
+                <li class="dropdown"><a routerLink="/workspace/tenant-test/settings/overview" routerLinkActive="active" class="dropdown-toggle">Settings</a></li>              
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">                    
