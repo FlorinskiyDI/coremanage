@@ -92,7 +92,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     LastModifiedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    ParentCompanyId = table.Column<int>(nullable: true)
+                    ParentTenantId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -106,13 +106,14 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     Id = table.Column<string>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(nullable: true),
-                    EmailAddress = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
+                    LastAccess = table.Column<DateTime>(nullable: false),
                     LastModifiedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    TenantId = table.Column<int>(nullable: false)
+                    MiddleName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

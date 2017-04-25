@@ -7,7 +7,7 @@ import { SessionActions } from "../../../redux/actions/session.actions";
 import { LoginData, ReLoginData } from "../../index.models";
 import { JwtDecodeService } from "./jwt-decode.service";
 import { IdentityService } from "../api/identity.service";
-import { ISessionDto, IUserDto } from "../../../redux/store/session/session.types";
+import { ISession, IdentityState } from "../../../redux/store/session/session.types";
 import { IAppState } from '../../../redux/store';
 
 @Injectable()
@@ -55,7 +55,7 @@ export class AuthService {
         let decode = this.jwtDecodeService.decode(data.accessToken);
         // console.log("@LOG Decoded token" + decode);
         console.log("@LOG Decoded token - {0}", decode);
-        let user: IUserDto = {
+        let user: IdentityState = {
             firstName: decode.name,
             lastName: decode.family_name,
             userName: decode.sub,
@@ -63,7 +63,7 @@ export class AuthService {
             role: decode.role,
             tenant_list: decode.tenant_list
         };
-        let session: ISessionDto<IUserDto> = {
+        let session: ISession = {
             token: data.accessToken,
             refresh_token: data.refreshToken,
             user: user,

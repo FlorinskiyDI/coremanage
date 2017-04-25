@@ -52,7 +52,7 @@ namespace coremanage.Data.Storage.Repositories
                             FirstName = users.FirstName,
                             MiddleName = users.FirstName,
                             LastName = users.LastName,
-                            Email = users.EmailAddress
+                            Email = users.Email
                         };
             var profile = query.FirstOrDefaultAsync().Result;
 
@@ -88,7 +88,7 @@ namespace coremanage.Data.Storage.Repositories
             {
                 int[] groupCompanyId = profileRoles.Where(r => r.RoleType == (int)SystemRoleTypes.GroupAdmin).Select(r => r.TenantId).ToArray();
                 var companies = (from cmp in this.Context.Tenants
-                                 where cmp.IsDeleted == false && ((cmp.ParentCompanyId != null && groupCompanyId.Contains(cmp.ParentCompanyId.Value)) || groupCompanyId.Contains(cmp.Id))
+                                 where cmp.IsDeleted == false && ((cmp.ParentTenantId != null && groupCompanyId.Contains(cmp.ParentTenantId.Value)) || groupCompanyId.Contains(cmp.Id))
                                  select cmp.Name).ToListAsync().Result;
                 model.TenantList = companies.Union(model.TenantList).ToArray();
                 //model.Roles = profileRoles.Where(r => r.RoleType == (int)SystemRoleTypes.GroupAdmin).Select(r => r.Name).ToArray();

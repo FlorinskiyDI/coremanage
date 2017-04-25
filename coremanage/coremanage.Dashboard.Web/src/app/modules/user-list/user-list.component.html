@@ -1,24 +1,9 @@
 ﻿<div class="">
-
-<p>user-list</p>
-<p>user-list</p>
-<p>user-list</p>
-<p>user-list</p>
-<p>user-list</p>
-<p>user-list</p>
-
-<p>user-list</p>
-<p>user-list</p>
-<p>user-list</p>
-<p>user-list</p>
-
-<p>user-list</p>
-<p>user-list</p>
-<p>user-list</p>
-
-<p>user-list</p>
-<p>user-list</p>
-
-
-
+    <p>user-list</p>
+    <p-dataTable [value]="userList" [rows]="5" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[2,5,7]">
+        <p-header>List of users</p-header>
+        <p-column field="id" header="id"></p-column>
+        <p-column field="firstName" header="first name"></p-column>
+        <p-column field="lastName" header="last name"></p-column>   
+    </p-dataTable>
 </div>

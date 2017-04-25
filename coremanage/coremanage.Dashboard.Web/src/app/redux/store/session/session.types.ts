@@ -1,35 +1,5 @@
-import { Record, Map } from 'immutable';
 
-// objects
-export const UserRecord = Record({
-  firstName: '',
-  lastName: '',
-  userName: '',
-  email: '',
-  tenant_list: [],
-  role: []
-});
-export const SessionRecord = Record({
-  token: '',
-  refresh_token: '',
-  tenant: '',
-  user: UserRecord(),
-  hasError: false,
-  isLoading: false,
-});
-
-// immutable
-export interface IUser extends Map<string, any>, IUserDto {
-  set: (prop: string, val: any) => IUser;
-};
-export interface ISession extends Map<string, any>, ISessionDto<IUser> {
-  set: (prop: string, val: any) => ISession;
-  merge: (other: any) => ISession;
-};
-
-
-// dto interface
-export interface IUserDto{
+export interface IdentityState{
   firstName: string;
   lastName: string;
   userName: string;
@@ -37,11 +7,11 @@ export interface IUserDto{
   tenant_list: string[];
   role: string[];
 };
-export interface ISessionDto<T> {
+export interface ISession {
   token: string;
   refresh_token: string;
   tenant: string;
-  user: T;
+  user: IdentityState;
   hasError: boolean;
   isLoading: boolean;
 };

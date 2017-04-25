@@ -108,10 +108,10 @@ namespace coremanage.Data.Storage.Integration
                         await userRepository.AddAsync(new UserProfile
                             {
                                 Id = identityUser.Id,
-                                FirstName = "FirstName",
-                                LastName = "LastName",
-                                EmailAddress = "user@gmail.com",
-                                TenantId = 0
+                                FirstName = "SuperAdmin",
+                                MiddleName = "SuperAdmin",
+                                LastName = "SuperAdmin",
+                                Email = "admin@gmail.com"
                             }
                         );
 

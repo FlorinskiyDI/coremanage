@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../store';
 import { LoginData } from '../../shared/index.models';
-import { ISessionDto, IUserDto } from '../../redux/store/session';
+import { ISession, IdentityState } from '../../redux/store/session';
 
 @Injectable()
 export class SessionActions {
@@ -26,7 +26,7 @@ export class SessionActions {
     });
   };
 
-  public loginUserSuccess(data: ISessionDto<IUserDto>){
+  public loginUserSuccess(data: ISession){
     this.ngRedux.dispatch({
       type: SessionActions.LOGIN_USER_SUCCESS,
       payload: data
@@ -34,14 +34,18 @@ export class SessionActions {
   }
 
   public loginUserError() {
-    this.ngRedux.dispatch({ type: SessionActions.LOGIN_USER_ERROR });
+    this.ngRedux.dispatch({
+      type: SessionActions.LOGIN_USER_ERROR
+    });
   };
 
   public logoutUser() {
-    this.ngRedux.dispatch({ type: SessionActions.LOGOUT_USER });
+    this.ngRedux.dispatch({
+      type: SessionActions.LOGOUT_USER
+    });
   };
 
-  public setTenant(data: ISessionDto<IUserDto>){
+  public setTenant(data: ISession){
     this.ngRedux.dispatch({
       type: SessionActions.SET_TENANT,
       payload: data

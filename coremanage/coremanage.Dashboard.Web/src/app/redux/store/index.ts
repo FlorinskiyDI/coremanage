@@ -1,8 +1,7 @@
 
 import { Map, fromJS } from 'immutable';
 
-import { rootReducer, deimmutify, reimmutify } from './root.reducer';
-import { IAppState } from './root.types';
+import { rootReducer, IAppState } from './root.reducer';
 
 export {
   IAppState,  

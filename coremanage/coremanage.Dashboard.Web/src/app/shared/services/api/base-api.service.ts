@@ -9,6 +9,7 @@ import { appConstant } from '../../constants/app.constant';
 
 export abstract  class BaseApiService<TEntity> {
     protected apiServer: string;
+    // protected optionRequest: RequestOptions;
     // @select(['session', 'token']) token$: Observable<String>;
 
     constructor(
@@ -16,6 +17,8 @@ export abstract  class BaseApiService<TEntity> {
         protected http: Http
     ) {
         this.apiServer = appConstant.apiServer + apiRoute;
+        let headers = new Headers({ 'Content-Type': "application/json" });
+        // this.optionRequest = new RequestOptions({ headers: headers });
         // this.token$.subscribe((value: any) => {
         //     console.log("token - "+ value);
         // });

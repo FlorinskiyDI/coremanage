@@ -16,7 +16,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 .HasAnnotation("ProductVersion", "1.1.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("coremanage.Data.Models.Entities.ApplicationRole", b =>
+            modelBuilder.Entity("coremanage.Data.Models.Entities.Identity.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -43,7 +43,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("coremanage.Data.Models.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("coremanage.Data.Models.Entities.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -156,7 +156,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("ParentCompanyId");
+                    b.Property<int?>("ParentTenantId");
 
                     b.HasKey("Id");
 
@@ -172,11 +172,13 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.Property<string>("CreatedBy");
 
-                    b.Property<string>("EmailAddress");
+                    b.Property<string>("Email");
 
                     b.Property<string>("FirstName");
 
                     b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastAccess");
 
                     b.Property<DateTime>("LastModifiedAt");
 
@@ -184,7 +186,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<int>("TenantId");
+                    b.Property<string>("MiddleName");
 
                     b.HasKey("Id");
 
@@ -316,7 +318,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("coremanage.Data.Models.Entities.ApplicationRole")
+                    b.HasOne("coremanage.Data.Models.Entities.Identity.ApplicationRole")
                         .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -324,7 +326,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("coremanage.Data.Models.Entities.ApplicationUser")
+                    b.HasOne("coremanage.Data.Models.Entities.Identity.ApplicationUser")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -332,7 +334,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("coremanage.Data.Models.Entities.ApplicationUser")
+                    b.HasOne("coremanage.Data.Models.Entities.Identity.ApplicationUser")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -340,12 +342,12 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("coremanage.Data.Models.Entities.ApplicationRole")
+                    b.HasOne("coremanage.Data.Models.Entities.Identity.ApplicationRole")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("coremanage.Data.Models.Entities.ApplicationUser")
+                    b.HasOne("coremanage.Data.Models.Entities.Identity.ApplicationUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

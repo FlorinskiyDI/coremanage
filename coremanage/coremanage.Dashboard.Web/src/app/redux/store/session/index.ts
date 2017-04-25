@@ -1,12 +1,8 @@
-import { ISession, ISessionDto, IUserDto  } from './session.types';
+import { ISession, IdentityState  } from './session.types';
 import { sessionReducer } from './session.reducer';
-import { deimmutifySession, reimmutifySession } from './session.transforms';
 
 export {
+  IdentityState,
   ISession,
-  sessionReducer,
-  deimmutifySession,
-  reimmutifySession,
-  ISessionDto,
-  IUserDto
+  sessionReducer  
 }
