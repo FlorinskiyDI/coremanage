@@ -5,14 +5,13 @@ import { Observable } from 'rxjs/Rx';
 import { UserProfileEntity } from "../../../index.models";
 
 // app`s import
-import { BaseApiService } from '../base-api.service';
+import { BaseApiService } from '../base.api.service';
 
 @Injectable()
-export class UserProfileService extends BaseApiService<UserProfileEntity> {
+export class UserProfileApiService extends BaseApiService<UserProfileEntity> {
     constructor(
         http: Http
     ) {
         super("api/UserProfile/", http);
     }
-
 }

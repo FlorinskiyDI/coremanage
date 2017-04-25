@@ -6,7 +6,7 @@ import { NgRedux } from '@angular-redux/store';
 import { SessionActions } from "../../../redux/actions/session.actions";
 import { LoginData, ReLoginData } from "../../index.models";
 import { JwtDecodeService } from "./jwt-decode.service";
-import { IdentityService } from "../api/identity.service";
+import { IdentityApiService } from "../api/entities/identity.api.service";
 import { ISession, IdentityState } from "../../../redux/store/session/session.types";
 import { IAppState } from '../../../redux/store';
 
@@ -17,7 +17,7 @@ export class AuthService {
 
     constructor(
         private jwtDecodeService: JwtDecodeService,
-        private identityService: IdentityService,
+        private identityApiService: IdentityApiService,
         private sessionActions: SessionActions,
         private ngRedux: NgRedux<IAppState>
     ){
@@ -25,7 +25,7 @@ export class AuthService {
 
     public login(loginData: LoginData): Observable<any>{
         this.sessionActions.loginUser();
-        return this.identityService.get(loginData)
+        return this.identityApiService.get(loginData)
             .do(
                 data => { this.loginSuccess(data); },
                 error => { this.loginError(error); }
@@ -40,7 +40,7 @@ export class AuthService {
             refreshToken: this.ngRedux.getState().session.refresh_token,
             tenant: tenant
         };
-        this.identityService.refresh(data)        
+        this.identityApiService.refresh(data)        
             .subscribe(
                 data => { this.loginSuccess(data); },
                 error => { this.loginError(error); }

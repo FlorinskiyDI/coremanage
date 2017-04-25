@@ -5,11 +5,11 @@ import { Observable } from "rxjs/Rx";
 import { NgRedux, select } from '@angular-redux/store';
 
 // app`s import
-import { LoginData, ReLoginData } from "../../index.models";
-import { appConstant } from "../../index.constants";
+import { LoginData, ReLoginData } from "../../../index.models";
+import { appConstant } from "../../../index.constants";
 
 @Injectable()
-export class IdentityService {    
+export class IdentityApiService {    
     protected apiServer: string;
 
     constructor(protected http: Http) {
@@ -32,11 +32,11 @@ export class IdentityService {
              .catch(this.handleError);
     }
 
-    getTenant(id: string): Observable<any> {
-        return this.http.get(this.apiServer + "api/Identity/Tenant/" + id)
-            .map((res: Response) => res.json())
-            .catch(this.handleError);
-    }
+    // getTenant(id: string): Observable<any> {
+    //     return this.http.get(this.apiServer + "api/Identity/Tenant/" + id)
+    //         .map((res: Response) => res.json())
+    //         .catch(this.handleError);
+    // }
 
     private handleError (error: Response | any) {
         // In a real world app, we might use a remote logging infrastructure

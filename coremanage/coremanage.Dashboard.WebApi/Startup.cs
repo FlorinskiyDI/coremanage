@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using coremanage.Dashboard.WebApi.Extensions;
 
 namespace coremanage.Dashboard.WebApi
 {
@@ -78,7 +79,7 @@ namespace coremanage.Dashboard.WebApi
                 .AllowAnyMethod()
                 .AllowAnyOrigin()
                 .AllowCredentials());
-
+            app.UseProfileMiddleware();
             app.UseMvc();
         }
     }

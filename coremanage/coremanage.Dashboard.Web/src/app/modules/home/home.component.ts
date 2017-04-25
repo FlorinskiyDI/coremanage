@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ValueService } from '../../shared/services/api/entities/value.service';
+import { ValueApiService } from '../../shared/services/api/entities/value.api.service';
 import { Http, Response } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 
 export class HomeComponent implements OnInit {
     constructor(
-        private valueService: ValueService,
+        private valueApiService: ValueApiService,
         private http: Http
     ) {
         
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
             
 
         let vvv = "v";
-        this.valueService.getAll()
+        this.valueApiService.getAll()
             .do(
                 data => {
                     console.log(data)

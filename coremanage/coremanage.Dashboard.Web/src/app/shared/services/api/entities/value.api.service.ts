@@ -5,10 +5,10 @@ import { Observable } from 'rxjs/Rx';
 import { Value } from "../../../index.models";
 
 // app`s import
-import { BaseApiService } from '../base-api.service';
+import { BaseApiService } from '../base.api.service';
 
 @Injectable()
-export class ValueService extends BaseApiService<Value> {
+export class ValueApiService extends BaseApiService<Value> {
     constructor(
         http: Http
     ) {

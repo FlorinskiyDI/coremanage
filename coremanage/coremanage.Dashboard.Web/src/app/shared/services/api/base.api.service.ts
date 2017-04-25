@@ -1,27 +1,31 @@
 // external import
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
 import { NgRedux, select } from '@angular-redux/store';
-
+import { IAppState } from '../../../redux/store';
+import { Observable } from 'rxjs/Observable';
 // app`s import
 import { appConstant } from '../../constants/app.constant';
 
 
 export abstract  class BaseApiService<TEntity> {
     protected apiServer: string;
-    // protected optionRequest: RequestOptions;
-    // @select(['session', 'token']) token$: Observable<String>;
+    protected optionRequest: RequestOptions;
+    protected optionRequestAuth: RequestOptions;
+    private accessToken$: Observable<any>;
 
     constructor(
         private apiRoute: string,
-        protected http: Http
+        protected http: Http,
+        private ngRedux: NgRedux<IAppState>
     ) {
         this.apiServer = appConstant.apiServer + apiRoute;
-        let headers = new Headers({ 'Content-Type': "application/json" });
-        // this.optionRequest = new RequestOptions({ headers: headers });
-        // this.token$.subscribe((value: any) => {
-        //     console.log("token - "+ value);
-        // });
+        this.setOptionRequest();
+
+        // accessToken observable
+        this.accessToken$ = this.ngRedux.select(state=>state.session.token);
+        this.accessToken$.subscribe((value: any) => {
+            if (value) { this.setOptionRequestAuth(value) }
+        });        
     }
 
     update(id: number, entity: TEntity): Observable<any> {
@@ -29,7 +33,7 @@ export abstract  class BaseApiService<TEntity> {
             .map( (res: Response) => res.json())
             .catch(this.handleError);
     }
-
+    
     add(entity: TEntity): Observable<TEntity> {
         return this.http.post(this.apiServer, JSON.stringify(entity))
             .map((res: Response) => res.json())
@@ -66,5 +70,18 @@ export abstract  class BaseApiService<TEntity> {
         }
         // console.error(errMsg);
         return Observable.throw(errMsg);
-    }   
+    }
+    
+    private setOptionRequest() {
+        let headers: Headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        this.optionRequest = new RequestOptions({headers: headers});       
+    }
+
+    private setOptionRequestAuth(accessToken: string) {
+        let headers: Headers = new Headers();
+        headers.append('Content-Type', 'application/json');        
+        headers.append("Authorization", "Bearer " + accessToken);
+        this.optionRequestAuth = new RequestOptions({headers: headers});
+    }
 }

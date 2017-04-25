@@ -9,7 +9,7 @@ import { HomeRoutes } from './home-routes.module';
 // app > components
 import { HomeComponent } from './home.component';
 // app > services
-import { ValueService } from '../../shared/services/api/entities/value.service';
+import { ValueApiService } from '../../shared/services/api/entities/value.api.service';
 
 @NgModule({
     imports: [
@@ -25,7 +25,7 @@ import { ValueService } from '../../shared/services/api/entities/value.service';
         HomeComponent
     ],
     providers: [
-        ValueService
+        ValueApiService
     ]
 
 })

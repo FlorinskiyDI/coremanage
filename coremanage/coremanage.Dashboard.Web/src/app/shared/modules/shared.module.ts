@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 // Services
 import { JwtDecodeService } from '../services/auth/jwt-decode.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
-import { IdentityService } from '../../shared/services/api/identity.service';
+import { IdentityApiService } from '../../shared/services/api/entities/identity.api.service';
 
 // Actions
 import { ACTION_PROVIDERS } from '../../redux/actions';
@@ -35,7 +35,7 @@ import { ACTION_PROVIDERS } from '../../redux/actions';
     ],
     providers: [
         JwtDecodeService,
-        IdentityService,
+        IdentityApiService,
         AuthService,
         ACTION_PROVIDERS
     ]    
@@ -46,7 +46,7 @@ export class SharedModule {
             ngModule: SharedModule,
             providers: [
                 JwtDecodeService,
-                IdentityService,
+                IdentityApiService,
                 AuthService,
                 ACTION_PROVIDERS
             ]            

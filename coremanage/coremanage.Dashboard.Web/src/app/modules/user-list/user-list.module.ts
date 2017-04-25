@@ -8,7 +8,7 @@ import { UserLisRoutes } from './user-list-routes.module';
 // app > components
 import { UserLisComponent } from './user-list.component';
 // app > services
-import { UserProfileService } from "../../shared/services/api/entities/user-profile.service";
+import { UserProfileApiService } from "../../shared/services/api/entities/user-profile.api.service";
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { UserProfileService } from "../../shared/services/api/entities/user-prof
         UserLisComponent
     ],
     providers: [
-        UserProfileService
+        UserProfileApiService
     ]
 
 })

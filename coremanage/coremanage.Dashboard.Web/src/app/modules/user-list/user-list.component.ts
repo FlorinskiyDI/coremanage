@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserProfileService } from "../../shared/services/api/entities/user-profile.service";
+import { UserProfileApiService } from "../../shared/services/api/entities/user-profile.api.service";
 
 @Component({
     selector: 'user-list-component',
@@ -13,11 +13,11 @@ export class UserLisComponent implements OnInit {
     userList: any;
 
     constructor(
-        private userProfileService: UserProfileService
+        private userProfileApiService: UserProfileApiService
     ) { }
 
     ngOnInit() {
-        this.userProfileService.getAll()
+        this.userProfileApiService.getAll()
             .subscribe(
                 data => { 
                     // this.loginSuccess(data);

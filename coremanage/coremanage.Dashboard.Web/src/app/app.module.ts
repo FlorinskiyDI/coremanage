@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routes.module';
 // app > components
 import { AppComponent } from './app.component';
 // app > providers
-import { requestOptionsProvider } from './shared/services/default-request-options.service';
+// import { requestOptionsProvider } from './shared/services/api/default-request-options.service';
 // app > redux
 import { StoreModule } from './redux/store/store.module';
 
@@ -33,7 +33,7 @@ import { StoreModule } from './redux/store/store.module';
         AppComponent
     ],
     providers: [        
-        requestOptionsProvider   
+        // requestOptionsProvider
     ]
 })
 
