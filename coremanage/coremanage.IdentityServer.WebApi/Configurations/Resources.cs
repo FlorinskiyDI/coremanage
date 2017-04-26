@@ -1,4 +1,5 @@
-﻿using coremanage.IdentityServer.WebApi.Models;
+﻿
+using coremanage.Core.Common.Types;
 using IdentityModel;
 using IdentityServer4.Models;
 using System.Collections.Generic;

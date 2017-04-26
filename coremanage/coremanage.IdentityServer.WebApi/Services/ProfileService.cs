@@ -10,6 +10,7 @@ using coremanage.IdentityServer.WebApi.Models;
 using IdentityModel;
 using coremanage.Data.Models.Models;
 using coremanage.Core.Contracts.Repositories;
+using coremanage.Core.Common.Types;
 
 //using coremanage.Core.Contracts.Repositories;
 

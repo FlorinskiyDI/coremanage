@@ -2,58 +2,63 @@
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { NgRedux, select } from '@angular-redux/store';
 import { IAppState } from '../../../redux/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 // app`s import
 import { appConstant } from '../../constants/app.constant';
-
+import { CustomRequestOptions } from './custom-request-options.service';
 
 export abstract  class BaseApiService<TEntity> {
-    protected apiServer: string;
-    protected optionRequest: RequestOptions;
-    protected optionRequestAuth: RequestOptions;
-    private accessToken$: Observable<any>;
+    protected apiServer: string;    
 
     constructor(
         private apiRoute: string,
-        protected http: Http,
-        private ngRedux: NgRedux<IAppState>
+        private http: Http,
+        protected customRequestOptions: CustomRequestOptions
     ) {
-        this.apiServer = appConstant.apiServer + apiRoute;
-        this.setOptionRequest();
-
-        // accessToken observable
-        this.accessToken$ = this.ngRedux.select(state=>state.session.token);
-        this.accessToken$.subscribe((value: any) => {
-            if (value) { this.setOptionRequestAuth(value) }
-        });        
+        this.apiServer = appConstant.apiServer + apiRoute;               
     }
 
-    update(id: number, entity: TEntity): Observable<any> {
-        return this.http.put(this.apiServer + id, JSON.stringify(entity))
+    update(
+        id: number,
+        entity: TEntity,
+        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+    ): Observable<any> {
+        return this.http.put(this.apiServer + id, JSON.stringify(entity), optionRequest)
             .map( (res: Response) => res.json())
             .catch(this.handleError);
     }
     
-    add(entity: TEntity): Observable<TEntity> {
-        return this.http.post(this.apiServer, JSON.stringify(entity))
+    add(
+        entity: TEntity,
+        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+    ): Observable<TEntity> {
+        return this.http.post(this.apiServer, JSON.stringify(entity), optionRequest)
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 
-    get(id: number): Observable<TEntity> {
-        return this.http.get(this.apiServer + id)
+    get(
+        id: number,
+        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+    ): Observable<TEntity> {
+        return this.http.get(this.apiServer + id, optionRequest)
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 
-    getAll(): Observable<TEntity[]> {
-        return this.http.get(this.apiServer)
+    getAll(
+        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+    ): Observable<TEntity[]> {
+        return this.http.get(this.apiServer, optionRequest)
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 
-    delete(id: number): Observable<TEntity> {
-        return this.http.delete(this.apiServer + id)
+    delete(
+        id: number,
+        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+    ): Observable<TEntity> {
+        return this.http.delete(this.apiServer + id, optionRequest)
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -70,18 +75,6 @@ export abstract  class BaseApiService<TEntity> {
         }
         // console.error(errMsg);
         return Observable.throw(errMsg);
-    }
+    }   
     
-    private setOptionRequest() {
-        let headers: Headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        this.optionRequest = new RequestOptions({headers: headers});       
-    }
-
-    private setOptionRequestAuth(accessToken: string) {
-        let headers: Headers = new Headers();
-        headers.append('Content-Type', 'application/json');        
-        headers.append("Authorization", "Bearer " + accessToken);
-        this.optionRequestAuth = new RequestOptions({headers: headers});
-    }
 }

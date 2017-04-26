@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using coremanage.Core.Common.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
@@ -19,6 +20,8 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
         public IEnumerable<string> Get()
         {
+            string name = NTContext.Context.UserName;
+            var http = NTContext.HttpContext;
             return new string[] { "value1", "value2" };
         }
 

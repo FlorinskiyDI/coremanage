@@ -11,9 +11,12 @@ namespace coremanage.Dashboard.WebApi.Extensions
     {
         public static IApplicationBuilder UseProfileMiddleware(this IApplicationBuilder app)
         {
-            return app.UseMiddleware<ProfileMiddleware>();
+            return app.UseMiddleware<ProfileMiddleWare>();
         }
-
+        public static IApplicationBuilder UseContextMiddleware(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<ContextMiddleWare>();
+        }
         //public static IServiceCollection CachePageClaimsRoles(this IServiceCollection services)
         //{
         //    SecurityRepository repository = services.BuildServiceProvider().GetRequiredService<SecurityRepository>();

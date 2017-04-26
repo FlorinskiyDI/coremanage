@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using coremanage.IdentityServer.WebApi.Models;
+using coremanage.Core.Common.Types;
 
 namespace coremanage.IdentityServer.WebApi.Services
 {

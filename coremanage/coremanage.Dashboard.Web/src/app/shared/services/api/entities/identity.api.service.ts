@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Rx";
 import { NgRedux, select } from '@angular-redux/store';
+import { CustomRequestOptions } from '../custom-request-options.service';
 
 // app`s import
 import { LoginData, ReLoginData } from "../../../index.models";
@@ -12,20 +13,23 @@ import { appConstant } from "../../../index.constants";
 export class IdentityApiService {    
     protected apiServer: string;
 
-    constructor(protected http: Http) {
+    constructor(
+        private http: Http,
+        private customRequestOptions: CustomRequestOptions
+    ) {
         this.apiServer = appConstant.apiServer;
     }
 
     // retern token
     get( loginData: LoginData ): Observable<any> {
-        return this.http.post(this.apiServer + "api/Identity", JSON.stringify(loginData))
+        return this.http.post(this.apiServer + "api/Identity", JSON.stringify(loginData), this.customRequestOptions.optionRequest)
             .map( (res: Response) => res.json())
             .catch(this.handleError);
     }
 
     refresh(reLoginData: ReLoginData): Observable<any>{       
         let body = JSON.stringify(reLoginData);        
-        return this.http.post(this.apiServer + "api/Identity/Refresh", body)             
+        return this.http.post(this.apiServer + "api/Identity/Refresh", body,  this.customRequestOptions.optionRequestAuth)             
              .map( (res: Response) => {
                return res.json()
              })

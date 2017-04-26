@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using coremanage.Core.Common.Context;
+using coremanage.Core.Common.Types;
+using IdentityModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace coremanage.Dashboard.WebApi.Middleware
 {
-    public class ProfileMiddleware
+    public class ProfileMiddleWare
     {
         private RequestDelegate next;
 
-        public ProfileMiddleware(RequestDelegate next)
+        public ProfileMiddleWare(RequestDelegate next)
         {
             this.next = next;
         }
@@ -40,22 +44,29 @@ namespace coremanage.Dashboard.WebApi.Middleware
         public void SetNTContext(HttpContext context)
         {
             var claims = context.User.Claims;
-            //string companyId = context.Request.Headers[SecurityConstants.HeaderCompanyId];
-            //companyId = companyId ?? claims.Where(c => c.Type == NTClaimTypes.CompanyId).Select(c => c.Value).FirstOrDefault();
+            string companyId = context.Request.Headers[ExtJwtClaimTypes.Tenant];
+            companyId = companyId ?? claims.Where(c => c.Type == ExtJwtClaimTypes.Tenant).Select(c => c.Value).FirstOrDefault();
 
-            //NTContextModel model = new NTContextModel()
-            //{
-            //    UserId = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value,
-            //    UserName = context.User.Identity.Name,
-            //    FirstName = claims.First(c => c.Type == NTClaimTypes.FirstName).Value,
-            //    LastName = claims.First(c => c.Type == NTClaimTypes.LastName).Value,
-            //    CompanyId = Convert.ToInt32(companyId ?? "0"),
-            //};
 
-            //// setting the Group CompanyId
+
+
+            string userName = context.User.Identity.Name;
+            string firstName = claims.First(c => c.Type == JwtClaimTypes.Name).Value;
+            string lastName = claims.First(c => c.Type == JwtClaimTypes.FamilyName).Value;
+            string tenantName = claims.First(c => c.Type == ExtJwtClaimTypes.Tenant).Value;
+
+            NTContextModel model = new NTContextModel()
+            {
+                UserName = userName,
+                FirstName = firstName,
+                LastName = lastName,
+                TenantName = tenantName,
+            };
+
+            // setting the Group CompanyId
             //model.GroupCompanyId = PageService.CompanyClaims[model.CompanyId]?.ParentCompanyId ?? model.CompanyId;
 
-            //NTContext.Context = model;
+            NTContext.Context = model;
         }
     }
 }

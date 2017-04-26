@@ -79,6 +79,8 @@ namespace coremanage.Dashboard.WebApi
                 .AllowAnyMethod()
                 .AllowAnyOrigin()
                 .AllowCredentials());
+
+            app.UseContextMiddleware();
             app.UseProfileMiddleware();
             app.UseMvc();
         }
