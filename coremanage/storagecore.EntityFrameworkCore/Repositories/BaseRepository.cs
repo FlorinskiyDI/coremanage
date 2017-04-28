@@ -20,11 +20,13 @@ namespace storagecore.EntityFrameworkCore.Repositories
     {
         private readonly OrderBy<TEntity> DefaultOrderBy = new OrderBy<TEntity>(qry => qry.OrderBy(e => e.Id));
 
-        protected BaseRepository(ILogger<LoggerDataAccess> logger, TContext context) : base(logger, context)
+        protected BaseRepository(ILogger<LoggerDataAccess> logger, TContext context)
+            : base(logger, context)
         {
         }
 
-        public virtual IEnumerable<TEntity> GetAll(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+        public virtual IEnumerable<TEntity> GetAll(
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             var result = QueryDb(null, orderBy, includes);
@@ -39,21 +41,25 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return await result.ToListAsync();
         }
 
-        public virtual void Load(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+        public virtual void Load(
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             var result = QueryDb(null, orderBy, includes);
             result.Load();
         }
 
-        public virtual async Task LoadAsync(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+        public virtual async Task LoadAsync(
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             var result = QueryDb(null, orderBy, includes);
             await result.LoadAsync();
         }
 
-        public virtual IEnumerable<TEntity> GetPage(int startRow, int pageLength,
+        public virtual IEnumerable<TEntity> GetPage(
+            int startRow,
+            int pageLength,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
@@ -63,7 +69,9 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return result.Skip(startRow).Take(pageLength).ToList();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetPageAsync(int startRow, int pageLength,
+        public virtual async Task<IEnumerable<TEntity>> GetPageAsync(
+            int startRow,
+            int pageLength,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
@@ -73,7 +81,9 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return await result.Skip(startRow).Take(pageLength).ToListAsync();
         }
 
-        public virtual TEntity Get(TKey id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        public virtual TEntity Get(
+            TKey id,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -85,7 +95,9 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return query.Where("Id = @0", id).FirstOrDefault();
         }
 
-        public virtual Task<TEntity> GetAsync(TKey id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        public virtual Task<TEntity> GetAsync(
+            TKey id,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -97,7 +109,8 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return query.Where("Id = @0", id).FirstOrDefaultAsync();
         }
 
-        public virtual IEnumerable<TEntity> Query(Expression<Func<TEntity, bool>> filter,
+        public virtual IEnumerable<TEntity> Query(
+            Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
@@ -105,7 +118,8 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return result.ToList();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> filter,
+        public virtual async Task<IEnumerable<TEntity>> QueryAsync(
+            Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
@@ -113,7 +127,8 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return await result.ToListAsync();
         }
 
-        public virtual void Load(Expression<Func<TEntity, bool>> filter,
+        public virtual void Load(
+            Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
@@ -121,7 +136,8 @@ namespace storagecore.EntityFrameworkCore.Repositories
             result.Load();
         }
 
-        public virtual async Task LoadAsync(Expression<Func<TEntity, bool>> filter,
+        public virtual async Task LoadAsync(
+            Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
@@ -129,8 +145,11 @@ namespace storagecore.EntityFrameworkCore.Repositories
             await result.LoadAsync();
         }
 
-        public virtual IEnumerable<TEntity> QueryPage(int startRow, int pageLength,
-            Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+        public virtual IEnumerable<TEntity> QueryPage(
+            int startRow,
+            int pageLength,
+            Expression<Func<TEntity, bool>> filter,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             if (orderBy == null) orderBy = DefaultOrderBy.Expression;
@@ -139,8 +158,11 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return result.Skip(startRow).Take(pageLength).ToList();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> QueryPageAsync(int startRow, int pageLength,
-            Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+        public virtual async Task<IEnumerable<TEntity>> QueryPageAsync(
+            int startRow,
+            int pageLength,
+            Expression<Func<TEntity, bool>> filter,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             if (orderBy == null) orderBy = DefaultOrderBy.Expression;
@@ -203,7 +225,8 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return query.AnyAsync();
         }
 
-        public virtual int Count(Expression<Func<TEntity, bool>> filter = null)
+        public virtual int Count(
+            Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -215,7 +238,8 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return query.Count();
         }
 
-        public virtual Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null)
+        public virtual Task<int> CountAsync(
+            Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -227,7 +251,8 @@ namespace storagecore.EntityFrameworkCore.Repositories
             return query.CountAsync();
         }
 
-        protected IQueryable<TEntity> QueryDb(Expression<Func<TEntity, bool>> filter,
+        protected IQueryable<TEntity> QueryDb(
+            Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
             Func<IQueryable<TEntity>, IQueryable<TEntity>> includes)
         {

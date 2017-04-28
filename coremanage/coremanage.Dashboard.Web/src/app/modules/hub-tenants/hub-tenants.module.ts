@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // external > controls
 import { AngularSplitModule } from 'angular-split';
-import { DialogModule } from 'primeng/primeng';
+import {
+    DialogModule,
+    TreeModule    
+} from 'primeng/primeng';
 
 //app
 import { SharedModule } from '../../shared/modules/shared.module';
@@ -11,7 +14,7 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { HubTenantsRoutes } from './hub-tenants-routes.module';
 // app > components
 import { HubTenantsComponent } from './hub-tenants.component';
-import { TenantListSectionComponent } from './tenant-list-section/tenant-list-section.component';
+import { TenantTreeSectionComponent } from './tenant-tree-section/tenant-tree-section.component';
 // app > services
 
 
@@ -21,11 +24,11 @@ import { TenantListSectionComponent } from './tenant-list-section/tenant-list-se
         HubTenantsRoutes,
         SharedModule,
         AngularSplitModule,
-        DialogModule
+        DialogModule, TreeModule // primeng controls       
     ],    
     declarations: [
         HubTenantsComponent,
-        TenantListSectionComponent
+        TenantTreeSectionComponent
     ],
     providers:[
     ]

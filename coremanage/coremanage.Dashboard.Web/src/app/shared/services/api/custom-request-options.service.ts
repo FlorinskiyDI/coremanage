@@ -15,8 +15,8 @@ export class CustomRequestOptions{
     private ngRedux: NgRedux<IAppState>
   ) {
     this.setOptionRequest();
-    this.accessToken$ = this.ngRedux.select(state=>state.session.token);
-      this.accessToken$.subscribe((value: any) => {
+    this.accessToken$ = this.ngRedux.select(state=>state.session.access_token);
+    this.accessToken$.subscribe((value: any) => {
         if (value) { this.setOptionRequestAuth(value) }
         else { console.warn("access token not found!!!"); }
     });

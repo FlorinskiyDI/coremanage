@@ -1,3 +1,4 @@
+import { Action } from 'redux';
 /**
  *  * This function coerces a string into a string literal type.
  * Using tagged union types in TypeScript 2.0, this enables
@@ -11,12 +12,15 @@
  */
 
 let typeCache: { [label: string]: boolean } = {};
-export function type<T>(label: T | ''): T {
+export function type<T>(label: T | ''): T
+{
   if (typeCache[<string>label]) {
     throw new Error(`Action type "${label}" is not unique"`);
   }
-
   typeCache[<string>label] = true;
-
   return <T>label;
+}
+
+export interface IPayloadAction<T> extends Action {
+  payload?: T;
 }

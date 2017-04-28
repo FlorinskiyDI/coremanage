@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./hub-tenants.component.scss']
 })
 
-export class HubTenantsComponent {
+export class HubTenantsComponent  {
     constructor() {
     }
 }

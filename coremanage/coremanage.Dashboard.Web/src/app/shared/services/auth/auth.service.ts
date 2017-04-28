@@ -64,7 +64,7 @@ export class AuthService {
             tenant_list: decode.tenant_list
         };
         let session: ISession = {
-            token: data.accessToken,
+            access_token: data.accessToken,
             refresh_token: data.refreshToken,
             user: user,
             hasError: false,

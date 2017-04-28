@@ -8,7 +8,7 @@ export interface IdentityState{
   role: string[];
 };
 export interface ISession {
-  token: string;
+  access_token: string;
   refresh_token: string;
   tenant: string;
   user: IdentityState;

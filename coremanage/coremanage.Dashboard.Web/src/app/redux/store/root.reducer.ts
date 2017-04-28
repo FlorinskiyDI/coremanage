@@ -7,7 +7,7 @@ import * as fromUser from './user';
 
 export interface IAppState {
   session?: fromSession.ISession;
-  tenant?: fromTenant.ITenant;
+  tenant?: fromTenant.TenantState;
   user?: fromUser.UserState
 };
 

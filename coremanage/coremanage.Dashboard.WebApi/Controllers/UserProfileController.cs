@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using coremanage.Core.Common.Context;
+using coremanage.Core.Common.DTO.Identity;
+using coremanage.Dashboard.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
@@ -17,12 +19,15 @@ namespace coremanage.Dashboard.WebApi.Controllers
     {
         // GET: api/values
         [HttpGet]
-
-        public IEnumerable<string> Get()
+        //[Authorize(Roles = "SuperAdmin, Admin, Manager, ")]
+        public List<UserProfileViewModel> Get()
         {
+            var userProfileList = new List<UserProfileViewModel>();
+
             string name = NTContext.Context.UserName;
             var http = NTContext.HttpContext;
-            return new string[] { "value1", "value2" };
+
+            return userProfileList;
         }
 
         // GET api/values/5

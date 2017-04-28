@@ -10,6 +10,7 @@ using storagecore.EntityFrameworkCore.Repositories;
 using System.Threading.Tasks;
 using coremanage.Core.Common.Constants;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace coremanage.Data.Storage.Repositories
 {
@@ -55,13 +56,14 @@ namespace coremanage.Data.Storage.Repositories
                             Email = users.Email
                         };
             var profile = query.FirstOrDefaultAsync().Result;
-
+            var ccc = IdentityAdminRolesGet();
+            var vvv = GetGroupCompanyIds();
             // getting roles and claims
             await this.ProfileGetRolesClaims(profile);
 
             return profile;
         }
-
+        
         private async Task ProfileGetRolesClaims(IdentityProfileModel model)
         {
             // getting all roles for the current user
@@ -94,6 +96,38 @@ namespace coremanage.Data.Storage.Repositories
                 //model.Roles = profileRoles.Where(r => r.RoleType == (int)SystemRoleTypes.GroupAdmin).Select(r => r.Name).ToArray();
                 
             }
+        }
+
+        public async Task<int[]> GetGroupCompanyIds()
+        {
+            var groupCompanyId = 2;
+            return await (from cmp in this.Context.Tenants
+                          where cmp.Id == groupCompanyId || cmp.ParentTenantId == groupCompanyId
+                          select cmp.Id).ToArrayAsync();
+        }
+
+
+        public List<ListItem<string, string>> IdentityAdminRolesGet()
+        {
+            var dbroles = (from roles in this.Context.IdentityRoleHierarchies
+                           join role in this.Context.Roles on roles.RoleId equals role.Id
+                           join child in this.Context.Roles on roles.ChildRoleId equals child.Id
+                           select new ListItem<string, string>() { Key = role.Name, Item = child.Name }).ToList();
+
+            var hierarchy = dbroles.SelectMany(r => this.GetChildren(dbroles, r)).Distinct(new ListItemStringComparer()).OrderBy(r => r.Key).ToList();
+
+            return hierarchy;
+        }
+        private List<ListItem<string, string>> GetChildren(List<ListItem<string, string>> roles, ListItem<string, string> parent)
+        {
+            var childroles = roles.Where(r => r.Key == parent.Item).SelectMany(r => this.GetChildren(roles, r));
+            var newroles = childroles.Select(r => new ListItem<string, string>() { Key = parent.Key, Item = r.Item }).ToList();
+
+            // adding itself
+            newroles.Add(new ListItem<string, string>() { Key = parent.Key, Item = parent.Key });
+            newroles.Add(new ListItem<string, string>() { Key = parent.Item, Item = parent.Item });
+            newroles.Add(parent);
+            return newroles;
         }
     }
 }

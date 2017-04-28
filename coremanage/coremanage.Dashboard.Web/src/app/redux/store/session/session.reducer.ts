@@ -1,11 +1,11 @@
 import { Map } from 'immutable';
-import { IPayloadAction } from '../../actions';
+import { IPayloadAction } from '../../util';
 import { SessionActions } from '../../actions/session.actions';
 import { ISession, IdentityState } from './session.types';
 // import { INITIAL_STATE } from './session.initial-state';
 
 
-   const INITIAL_USER_STATE: IdentityState = {
+const INITIAL_USER_STATE: IdentityState = {
     firstName: '',
     lastName: '',
     userName: '',
@@ -14,8 +14,8 @@ import { ISession, IdentityState } from './session.types';
     role: []
   };
 
- const INITIAL_STATE: ISession = {
-  token: null,
+const INITIAL_STATE: ISession = {
+  access_token: null,
   refresh_token: null,
   tenant: null,
   user: INITIAL_USER_STATE,
@@ -31,17 +31,17 @@ export function sessionReducer(
 ): ISession {
   switch (action.type) {
   case SessionActions.LOGIN_USER:
-     return Object.assign({}, state, {
-      token: null,
+    return Object.assign({}, state, {
+      access_token: null,
       user: {},
       hasError: false,
       isLoading: true
     });
 
   case SessionActions.LOGIN_USER_SUCCESS:
-  const user = action.payload.user;
-     return Object.assign({}, state, {
-      token: action.payload.token,
+    const user = action.payload.user;
+    return Object.assign({}, state, {
+      access_token: action.payload.access_token,
       refresh_token: action.payload.refresh_token,
       tenant: action.payload.tenant,
       user: action.payload.user,
@@ -52,7 +52,7 @@ export function sessionReducer(
 
   case SessionActions.LOGIN_USER_ERROR:
      return Object.assign({}, state, {
-      token: null,
+      access_token: null,
       refresh_token: null,
       tenant: null,
       user:{},

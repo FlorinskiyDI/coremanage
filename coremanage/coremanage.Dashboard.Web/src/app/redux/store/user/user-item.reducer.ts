@@ -1,4 +1,4 @@
-import { IPayloadAction } from '../../actions';
+import { IPayloadAction } from '../../util';
 import { UserActions, UserActionTypes } from '../../actions/user.actions';
 import { UserProfileEntity } from "../../../shared/index.models";
 

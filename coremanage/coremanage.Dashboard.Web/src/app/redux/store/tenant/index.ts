@@ -1,11 +1,12 @@
-import { ITenant, ITenantDto } from './tenant.types';
-import { tenantReducer } from './tenant.reducer';
-import { deimmutifyTenant, reimmutifyTenant } from './tenant.transforms';
+import { combineReducers } from 'redux';
 
-export {
-  ITenant,
-  tenantReducer,
-  deimmutifyTenant,
-  reimmutifyTenant,
-  ITenantDto
-}
+import { TenantTreeSelectReducer, TenantTreeSelectState } from './tenant-tree-select.reducer';
+
+
+export interface TenantState {
+  tenantTreeSelect?: TenantTreeSelectState;
+};
+
+export const tenantReducer = combineReducers({
+  tenantTreeSelect: TenantTreeSelectReducer
+});

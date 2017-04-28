@@ -12,7 +12,7 @@ export abstract  class BaseApiService<TEntity> {
 
     constructor(
         private apiRoute: string,
-        private http: Http,
+        protected http: Http,
         protected customRequestOptions: CustomRequestOptions
     ) {
         this.apiServer = appConstant.apiServer + apiRoute;               
@@ -63,7 +63,7 @@ export abstract  class BaseApiService<TEntity> {
             .catch(this.handleError);
     }
 
-    private handleError (error: Response | any) {
+    protected handleError (error: Response | any) {
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {

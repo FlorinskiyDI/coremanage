@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Text;
 using System.Threading.Tasks;
 using coremanage.Core.Common.Constants;
 using Microsoft.EntityFrameworkCore;
@@ -15,8 +13,6 @@ using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using coremanage.Data.Models.Entities;
 using coremanage.Data.Models.Entities.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using coremanage.Data.Models.Models;
 using storagecore.Abstractions.Uow;
 
 namespace coremanage.Data.Storage.Integration
@@ -63,9 +59,9 @@ namespace coremanage.Data.Storage.Integration
         {
             var dictionary = new Dictionary<string, string>
             {
-                {SystemRoles.SuperAdmin, SystemRoles.GroupAdmin},
-                {SystemRoles.GroupAdmin, SystemRoles.TenantAdmin},
-                {SystemRoles.TenantAdmin, SystemRoles.DashboardAdmin}
+                { SystemRoles.SuperAdmin, SystemRoles.GroupAdmin },
+                { SystemRoles.GroupAdmin, SystemRoles.TenantAdmin },
+                { SystemRoles.TenantAdmin, SystemRoles.DashboardAdmin }
             };
 
             var uowProvider = serviceScope.ServiceProvider.GetRequiredService<IUowProvider>();

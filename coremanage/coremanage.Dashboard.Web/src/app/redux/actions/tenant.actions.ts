@@ -1,32 +1,50 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../store';
-import { ITenantDto } from '../../redux/store/tenant';
+import { type } from "../util";
+
+
+
+export const TenantActionTypes =  {
+  /*
+    tenant-tree-select action types
+  */
+  LOAD_TENANT_TREE_NODE: type('[TenantTreeSelect] load tenant treeNode'),
+  LOAD_TENANT_TREE_NODE_SUCCESS: type('[TenantTreeSelect] successfully loaded tenant treeNode'),
+  LOAD_TENANT_TREE_NODE_FAILURE: type('[TenantTreeSelect] failed to load tenant treeNode'),
+  SET_TENANT_TREE: type('[TenantTreeSelect] set to the tree value'),
+}
+
 
 @Injectable()
 export class TenantActions {
-  // action with
-  static ADD_TENANT: string = "ADD_TENANT";
-  static OPEN_TENANT_DIALOG_ADD: string = "OPEN_TENANT_DIALOG_ADD";
-
-  constructor(
-    private ngRedux: NgRedux<IAppState>
-  ) {}
+  constructor( private ngRedux: NgRedux<IAppState> )
+  { }
   
-  
-
-  public addTenant(data: ITenantDto){
+  /*
+    tenant-tree-select actions
+  */
+  public loadTenantTreeNodeAction(){
     this.ngRedux.dispatch({
-      type: TenantActions.ADD_TENANT,
+      type: TenantActionTypes.LOAD_TENANT_TREE_NODE
+    });
+  }
+  public loadTenantTreeNodeSuccessAction(data: any){
+    this.ngRedux.dispatch({
+      type: TenantActionTypes.LOAD_TENANT_TREE_NODE_SUCCESS,
       payload: data
     });
   }
-
-  public openTenantDialogAdd(data: boolean){
+  public loadTenantTreeNodeFailedAction(data: any){
     this.ngRedux.dispatch({
-      type: TenantActions.OPEN_TENANT_DIALOG_ADD,
+      type: TenantActionTypes.LOAD_TENANT_TREE_NODE_FAILURE,
       payload: data
     });
   }
-
+  public setTenantTreeAction(data: any){
+    this.ngRedux.dispatch({
+      type: TenantActionTypes.SET_TENANT_TREE,
+      payload: data
+    });
+  }
 }

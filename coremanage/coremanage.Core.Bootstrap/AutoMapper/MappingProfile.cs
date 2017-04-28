@@ -23,7 +23,7 @@ namespace coremanage.Core.Bootstrap.AutoMapper
             //CreateMap<IdentityClaim, IdentityClaimDto>();
             //CreateMap<IdentityCompanyClaim, IdentityCompanyClaimDto>();
             //CreateMap<UserCompany, UserCompanyDto>();
-            //CreateMap<UserProfile, UserProfileDto>();
+            CreateMap<UserProfile, UserProfileDto>();
 
             //this.CreateMap<Tenant, CompanyModel>();
             //this.CreateMap<PersonalClaim, ClaimModel>();
@@ -38,7 +38,7 @@ namespace coremanage.Core.Bootstrap.AutoMapper
             //CreateMap<IdentityClaim, IdentityClaimDto>();
             //CreateMap<IdentityCompanyClaim, IdentityCompanyClaimDto>();
             //CreateMap<UserCompany, UserCompanyDto>();
-            //CreateMap<UserProfile, UserProfileDto>();
+            CreateMap<UserProfile, UserProfileDto>();
         }
     }
 }
