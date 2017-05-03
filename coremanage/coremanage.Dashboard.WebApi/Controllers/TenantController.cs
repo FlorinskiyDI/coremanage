@@ -12,7 +12,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/Tenant")]
-    [Authorize]
+    //[Authorize]
     public class TenantController : Controller
     {
         private readonly ITenantService _tenantService;

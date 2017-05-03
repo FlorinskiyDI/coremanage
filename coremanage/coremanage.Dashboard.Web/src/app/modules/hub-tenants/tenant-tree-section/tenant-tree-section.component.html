@@ -1,25 +1,39 @@
 ﻿<div class="tenant-tree-section-component">
-    <p-tree [value]="tenantTree$ | async" (onNodeExpand)="loadNode($event)"></p-tree>
-    {{tenantTree$ | async}}
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
-    <p>tenant-tree-section-component</p>
+    <p-tree
+        selectionMode="single"
+        [value]="pTreeNodes$ | async"
+        [contextMenu]="cm"
+        (onNodeExpand)="loadNode($event)"
+        (onNodeSelect)="selectNode($event)"
+        [(selection)]="selectedNode"        
+        >
+        <ng-template let-node  pTemplate="default">            
+            <p>{{node.label}} - {{node.id}} </p>
+        </ng-template>
+    </p-tree>
+    <p-contextMenu #cm [model]="pContexMenuItems" >
+    </p-contextMenu>  
 
+    <!--{{ selectedNode | json }}-->
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    <p>tenant-tree-section-component</p>
+    
 </div>

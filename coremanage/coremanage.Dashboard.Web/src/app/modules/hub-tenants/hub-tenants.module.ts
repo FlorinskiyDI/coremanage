@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 import { AngularSplitModule } from 'angular-split';
 import {
     DialogModule,
-    TreeModule    
+    TreeModule,
+    ContextMenuModule   
 } from 'primeng/primeng';
 
 //app
@@ -24,7 +25,7 @@ import { TenantTreeSectionComponent } from './tenant-tree-section/tenant-tree-se
         HubTenantsRoutes,
         SharedModule,
         AngularSplitModule,
-        DialogModule, TreeModule // primeng controls       
+        DialogModule, TreeModule, ContextMenuModule // primeng controls       
     ],    
     declarations: [
         HubTenantsComponent,

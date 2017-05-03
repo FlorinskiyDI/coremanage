@@ -13,6 +13,7 @@ export const TenantActionTypes =  {
   LOAD_TENANT_TREE_NODE_SUCCESS: type('[TenantTreeSelect] successfully loaded tenant treeNode'),
   LOAD_TENANT_TREE_NODE_FAILURE: type('[TenantTreeSelect] failed to load tenant treeNode'),
   SET_TENANT_TREE: type('[TenantTreeSelect] set to the tree value'),
+  SELECT_TENANT_TREE_NODE: type('[TenantTreeSelect] selected treeNode'),
 }
 
 
@@ -44,6 +45,12 @@ export class TenantActions {
   public setTenantTreeAction(data: any){
     this.ngRedux.dispatch({
       type: TenantActionTypes.SET_TENANT_TREE,
+      payload: data
+    });
+  }
+  public selectTenantTreeNodeAction(data: any){
+    this.ngRedux.dispatch({
+      type: TenantActionTypes.SELECT_TENANT_TREE_NODE,
       payload: data
     });
   }
