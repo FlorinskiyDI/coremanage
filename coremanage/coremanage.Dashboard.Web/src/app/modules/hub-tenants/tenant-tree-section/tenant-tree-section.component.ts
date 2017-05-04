@@ -28,9 +28,6 @@ export class TenantTreeSectionComponent implements OnInit{
         this.pTreeNodes$ = this.ngRedux.select(state=>state.tenant.tenantTreeSelect.tree);
         this.pTreeNodes$.subscribe((value: any) => {
             console.log("set tenant tree data");
-        },
-        (value2: any) => {
-            console.log("set tenant tree data");
         }); 
     }
 
