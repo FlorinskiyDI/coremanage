@@ -1,5 +1,5 @@
 
-import { Record, Map } from 'immutable';
+import { Record, Map, List} from 'immutable';
 
 // models
 export interface LoadedNodesModel{
@@ -21,7 +21,7 @@ export interface TenantTreeSelectState extends Map<string, any>, TenantTreeSelec
 
 // record
 export const TenantTreeSelectRecord = Record({
-  tree: null,
-  selectedNode: null,
-  loadedNodes: null
+  tree: List([]),
+  selectedNode: {},
+  loadedNodes: {}
 });

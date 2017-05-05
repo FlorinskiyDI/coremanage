@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux';
 
-import { TenantTreeSelectReducer, TenantTreeSelectState } from './tenant-tree-select.reducer';
-// import { TenantTreeSelectState } from './tenant-tree-select.types';
+import { TenantTreeSelectReducer } from './tenant-tree-select.reducer';
+import { TenantTreeSelectState } from './tenant-tree-select.types';
 
 
 export interface TenantState {
   tenantTreeSelect?: TenantTreeSelectState;
 };
 
-export const tenantReducer = combineReducers({
+export const tenantReducer = combineReducers<TenantTreeSelectState>({
   tenantTreeSelect: TenantTreeSelectReducer
 });
+export {TenantTreeSelectReducer};

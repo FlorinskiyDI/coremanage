@@ -1,7 +1,7 @@
 ﻿<div class="tenant-tree-section-component">
     <p-tree
         selectionMode="single"
-        [value]="pTreeNodes$ | async"
+        [value]="files"
         [contextMenu]="cm"
         (onNodeExpand)="loadNode($event)"
         (onNodeSelect)="selectNode($event)"
