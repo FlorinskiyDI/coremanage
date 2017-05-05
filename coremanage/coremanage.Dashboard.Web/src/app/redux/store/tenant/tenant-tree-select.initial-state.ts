@@ -6,7 +6,7 @@ export const INITIAL_STATE = new TenantTreeSelectRecord(
       {},
       {
         tree: List([]),
-        selectedNode: {},
+        selectedNodeId: new Map(),
         loadedNodes: {}
       },
       {}

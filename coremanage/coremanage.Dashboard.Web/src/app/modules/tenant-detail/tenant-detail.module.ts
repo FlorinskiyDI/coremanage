@@ -3,20 +3,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // app > routes
-import { TenantListRoutes } from './tenant-list-routes.module';
+import { TenantDetailRoutes } from './tenant-detail-routes.module';
 // app > components
-import { TenantListComponent } from './tenant-list.component';
+import { TenantDetailComponent } from './tenant-detail.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        TenantListRoutes
+        TenantDetailRoutes
     ],
 
     declarations: [
-        TenantListComponent
+        TenantDetailComponent
     ],
 
 })
 
-export class TenantListModule { }
+export class TenantDetailModule { }

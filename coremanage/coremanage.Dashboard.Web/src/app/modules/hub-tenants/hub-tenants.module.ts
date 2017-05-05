@@ -15,7 +15,8 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { HubTenantsRoutes } from './hub-tenants-routes.module';
 // app > components
 import { HubTenantsComponent } from './hub-tenants.component';
-import { TenantTreeSectionComponent } from './tenant-tree-section/tenant-tree-section.component';
+import { TreeSectionComponent } from './tree-section/tree-section.component';
+import { MainSectionComponent } from './main-section/main-section.component';
 // app > services
 
 
@@ -29,7 +30,8 @@ import { TenantTreeSectionComponent } from './tenant-tree-section/tenant-tree-se
     ],    
     declarations: [
         HubTenantsComponent,
-        TenantTreeSectionComponent
+        TreeSectionComponent,
+        MainSectionComponent
     ],
     providers:[
     ]

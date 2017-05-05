@@ -38,7 +38,8 @@ namespace coremanage.Dashboard.WebApi.Controllers
                     data = "Node 0",
                     expandedIcon = "fa-folder-open",
                     collapsedIcon = "fa-folder",
-                    leaf = false
+                    leaf = false,
+                    selectable = true
                 },
                 new
                 {
@@ -47,7 +48,8 @@ namespace coremanage.Dashboard.WebApi.Controllers
                     data = "Node 1",
                     expandedIcon = "fa-folder-open",
                     collapsedIcon = "fa-folder",
-                    leaf = false
+                    leaf = false,
+                    selectable = true
                 },
                 new
                 {
@@ -56,7 +58,8 @@ namespace coremanage.Dashboard.WebApi.Controllers
                     data = "Node 2",
                     expandedIcon = "fa-folder-open",
                     collapsedIcon = "fa-folder",
-                    leaf = false
+                    leaf = false,
+                    selectable = true
                 }
             };
             return new JsonResult(fff);

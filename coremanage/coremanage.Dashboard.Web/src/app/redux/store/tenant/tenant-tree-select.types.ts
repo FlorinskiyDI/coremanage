@@ -8,8 +8,8 @@ export interface LoadedNodesModel{
   loading: boolean; // property of request 
 }
 export interface TenantTreeSelectModel {
-  tree: any[];  
-  selectedNode: any;
+  tree: any;  
+  selectedNodeId: number;
   loadedNodes: LoadedNodesModel;
 };
 
@@ -22,6 +22,6 @@ export interface TenantTreeSelectState extends Map<string, any>, TenantTreeSelec
 // record
 export const TenantTreeSelectRecord = Record({
   tree: List([]),
-  selectedNode: {},
+  selectedNodeId: null,
   loadedNodes: {}
 });

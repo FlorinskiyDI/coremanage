@@ -7,7 +7,6 @@ const routes: Routes = [
         path: '',
         component: HubOverviewDashboardComponent,
         // children: [
-        //     { path: 'tenants', loadChildren: '../../modules/tenant-list/tenant-list.module#TenantListModule' },
         //     { path: 'roles', loadChildren: '../../modules/tenant-roles/tenant-roles.module#TenantRolesModule' }
         // ]
     }

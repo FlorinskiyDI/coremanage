@@ -9,13 +9,14 @@ import { TenantActions } from "../../../redux/actions";
 import { fromJS, Map, List, Record } from 'immutable';
 
 @Component({
-    selector: 'tenant-tree-section-component',
-    templateUrl: 'tenant-tree-section.component.html',
-    styleUrls: ['./tenant-tree-section.component.scss']
+    selector: 'tree-section-component',
+    templateUrl: 'tree-section.component.html',
+    styleUrls: ['./tree-section.component.scss']
 })
 
-export class TenantTreeSectionComponent implements OnInit{
+export class TreeSectionComponent implements OnInit{
     private pTreeNodes$: Observable<any>
+    private pSelectedNode$: Observable<any>
     private pContexMenuItems: MenuItem[];
     private selectedNode: TreeNode;
     private files: any;
@@ -26,76 +27,65 @@ export class TenantTreeSectionComponent implements OnInit{
         private router: Router,
         private tenantActions: TenantActions
     ){
-        this.pTreeNodes$ = this.ngRedux.select(state=>state.tenant.tenantTreeSelect);
+        this.pTreeNodes$ = this.ngRedux.select(state=>state.tenant.tenantTreeSelect.tree);
         this.pTreeNodes$.subscribe((value: any) => {
             if(value !== undefined)
             {
-                let val = value.getIn(['tree']);   
-                this.files = value.tree.toJS();          
-                console.log("tree value - {1}", value);  
+                this.files = value.toJS();
             }         
-        }); 
+        });       
     }
 
     // init component 
     ngOnInit() {
           this._initTreeNodes();
           this._initContextMenu();
-    }    
+    }
+
     private _initTreeNodes(){
         let tenantName = this.ngRedux.getState().session.tenant;
-        // this.tenantActions.loadTenantTreeNodeAction();
+        this.tenantActions.loadTenantTreeNodeAction();
         this.tenantApiService.getTenantTreeNode(tenantName)
         .subscribe(
             data => {
-                // this.tenantActions.loadTenantTreeNodeSuccessAction(data);                
+                this.tenantActions.loadTenantTreeNodeSuccessAction(data);
                 this.tenantActions.setTenantTreeAction(<TreeNode[]> data);
-                // this.tenantActions.selectTenantTreeNodeAction(data[0]);
+                this.tenantActions.selectTenantTreeNodeAction(data[0]);
             },
             error => { console.log(error); }
         );
     }
+
     private _initContextMenu(){
         this.pContexMenuItems = [
             {
                 label: 'Add user'
             },
             {
-                label: 'Overview',                
+                label: 'Overview',
                 routerLink: ['/pagename']
             }
         ]       
     }
 
-
     // events of tree
     loadNode(event: any) {
-        if(event.node && event.node.children == undefined) {            
+        if(event.node && event.node.children == undefined) {
             let tenantName = event.node.label;
 
-            // this.tenantActions.loadTenantTreeNodeAction();
-            this.tenantApiService.getTenantTreeNode(tenantName)           
+            this.tenantActions.loadTenantTreeNodeAction();
+            this.tenantApiService.getTenantTreeNode(tenantName)
             .subscribe(
                 data => {
-                    // this.tenantActions.loadTenantTreeNodeSuccessAction(data);
-
-                    // set tree with new children nodes
-                    let tenantTreeSelect = this.ngRedux.getState().tenant.tenantTreeSelect;
-                    let tenantTree = this.ngRedux.getState().tenant.tenantTreeSelect;                    
-                    let val = tenantTree.getIn(['tree']).toJS();
-                    
-                    let node = this._getNodeById(event.node.id, val);
+                    let tenantTree = this.ngRedux.getState().tenant.tenantTreeSelect.tree.toJS();
+                    // finding a child node in the tree
+                    // adding children to node
+                    let node = this._getNodeById(event.node.id, tenantTree);
                     node.children = data;
                     node.expanded = true;
-                    // let cccRecord = Record(tenantTreeSelect);
-                    // let ccc1 = new cccRecord(tenantTreeSelect);
-                    // let ccc2 = ccc.toJS();
-                    // let node = this._getNodeById(event.node.id, ccc2.tree);
-                    // node.children = data;
 
-                    // let treeNodes = List(tree).toJS(); // immutable
-                    let ccc = this.files;
-                    this.tenantActions.setTenantTreeAction(<TreeNode[]> val);                 
+                    this.tenantActions.loadTenantTreeNodeSuccessAction(data);
+                    this.tenantActions.setTenantTreeAction(<TreeNode[]> tenantTree);
                 },
                 error => { console.log(error); }
             );
@@ -103,10 +93,9 @@ export class TenantTreeSectionComponent implements OnInit{
     }
     selectNode(event: any){
         let treeNode = event.node;
-        // this.tenantActions.selectTenantTreeNodeAction(treeNode);
+        this.tenantActions.selectTenantTreeNodeAction(treeNode);
         console.log(event);
     }
-
 
     // navigation/routing
     goToRoute(tenantName: string){
@@ -118,9 +107,6 @@ export class TenantTreeSectionComponent implements OnInit{
         var reduce = [].reduce;
         function runner(result: any, node: any): any{
             if(result || !node) return result;
-            // if(node.children !== undefined){
-            //     node.children.toJS()
-            // }
             return node.id === id && node || //is this the proper node?                
                 runner(null, node.children) || //process this nodes children
                 reduce.call(Object(node), runner, result);  //maybe this is some ArrayLike Structure
