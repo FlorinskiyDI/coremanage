@@ -1,5 +1,13 @@
 ﻿<div class="tree-section-component">
     <p>Tenant-tree-section</p>
+    <tenant-modal-add-component>        
+    </tenant-modal-add-component>  
+    <button pButton
+        type="text"        
+        label="Add new tenant"
+        (click)="showDialog()"
+        ></button>
+        
     <p-tree
         selectionMode="single"
         [value]="files"
@@ -14,6 +22,6 @@
     </p-tree>
     
     <p-contextMenu #cm [model]="pContexMenuItems" >
-    </p-contextMenu> 
-       
+    </p-contextMenu>
+
 </div>

@@ -6,11 +6,13 @@ import { AngularSplitModule } from 'angular-split';
 import {
     DialogModule,
     TreeModule,
-    ContextMenuModule   
+    ContextMenuModule,
+    ButtonModule
 } from 'primeng/primeng';
 
 //app
 import { SharedModule } from '../../shared/modules/shared.module';
+import { TenantModalAddModule } from '../tenant-modal-add/tenant-modal-add.module';
 // app > routes
 import { HubTenantsRoutes } from './hub-tenants-routes.module';
 // app > components
@@ -26,7 +28,8 @@ import { MainSectionComponent } from './main-section/main-section.component';
         HubTenantsRoutes,
         SharedModule,
         AngularSplitModule,
-        DialogModule, TreeModule, ContextMenuModule // primeng controls       
+        TenantModalAddModule,
+        DialogModule, TreeModule, ContextMenuModule, ButtonModule// primeng controls       
     ],    
     declarations: [
         HubTenantsComponent,

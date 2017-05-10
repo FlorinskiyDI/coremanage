@@ -2,13 +2,18 @@ import { appConstant } from '../index.constants';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser'
+import { DialogModule } from 'primeng/primeng';
 
 import {
     NgModule,
     ModuleWithProviders
 } from '@angular/core';
-// import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
+
+// app > components
+import { TemplateModalComponent } from '../index.components';
 // Services
 import { JwtDecodeService } from '../services/auth/jwt-decode.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
@@ -22,15 +27,17 @@ import { ACTION_PROVIDERS } from '../../redux/actions';
 
 @NgModule({
     imports: [
-        // CommonModule,
+        CommonModule,
         RouterModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        DialogModule
     ],
     declarations: [
-       
+       TemplateModalComponent
     ],
     exports: [
+        TemplateModalComponent,
         ReactiveFormsModule,
         FormsModule
     ],

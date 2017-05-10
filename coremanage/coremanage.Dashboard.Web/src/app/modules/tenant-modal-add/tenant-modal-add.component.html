@@ -1,0 +1,25 @@
+﻿<div class="">
+
+<!--<p-dialog
+    header="Title"
+    [(visible)]="display"
+    >
+    Content
+</p-dialog>-->
+
+    <div>
+       <input type="text" [(ngModel)]="value">
+          {{value | json}}
+      <template-modal-component [items]="cars" [columns]="myView">
+         <input type="text" [(ngModel)]="value">
+          {{value | json}}
+        <ng-template #model let-item2="item2">model: {{item2.model}} model: {{item2.color}}
+          <input type="text" [(ngModel)]="value">
+          {{value | json}}
+          {{item2.model | json}}
+        </ng-template>
+        <!--<ng-template #model let-item2="item2">model3: {{item2.model}} model3: {{item2.color}}</ng-template>-->
+      </template-modal-component>
+    </div>
+
+</div>

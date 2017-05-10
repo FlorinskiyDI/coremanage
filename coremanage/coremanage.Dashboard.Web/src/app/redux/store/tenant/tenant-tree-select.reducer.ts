@@ -7,9 +7,7 @@ import { List, Map, Record, fromJS} from 'immutable';
 export function TenantTreeSelectReducer(
   state = INITIAL_STATE,
   action: IPayloadAction<TenantTreeSelectState>
-): any {
-  let state2 = INITIAL_STATE;
-  
+): any {  
   switch (action.type) {
 
     case TenantActionTypes.LOAD_TENANT_TREE_NODE:

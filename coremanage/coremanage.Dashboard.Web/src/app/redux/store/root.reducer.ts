@@ -3,18 +3,21 @@ import { routerReducer } from '@angular-redux/router';
 
 import * as fromSession from './session';
 import * as fromTenant from './tenant';
+import * as fromLayout from './layout';
 import * as fromUser from './user';
 
 export interface IAppState {
   session?: fromSession.ISession;
   tenant?: fromTenant.TenantState;
   user?: fromUser.UserState
+  layout?: fromLayout.LayoutState
 };
 
 export const rootReducer = combineReducers<IAppState>({
   router: routerReducer,
+  layout: fromLayout.layoutReducer,
   session: fromSession.sessionReducer,
-  tenant: fromTenant.tenantReducer,
+  tenant: fromTenant.tenantReducer,  
   user: fromUser.userReducer
 });
 

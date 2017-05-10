@@ -5,7 +5,8 @@ import { IAppState } from '../../../redux/store';
 import { Observable } from 'rxjs/Observable';
 import { TenantApiService } from "../../../shared/services/api/entities/tenant.api.service";
 import { Router } from '@angular/router';
-import { TenantActions } from "../../../redux/actions";
+import { TenantActions, LayoutActions } from "../../../redux/actions";
+
 import { fromJS, Map, List, Record } from 'immutable';
 
 @Component({
@@ -25,7 +26,8 @@ export class TreeSectionComponent implements OnInit{
         private tenantApiService: TenantApiService,
         private ngRedux: NgRedux<IAppState>,
         private router: Router,
-        private tenantActions: TenantActions
+        private tenantActions: TenantActions,
+        private layoutActions: LayoutActions
     ){
         this.pTreeNodes$ = this.ngRedux.select(state=>state.tenant.tenantTreeSelect.tree);
         this.pTreeNodes$.subscribe((value: any) => {
@@ -112,6 +114,15 @@ export class TreeSectionComponent implements OnInit{
                 reduce.call(Object(node), runner, result);  //maybe this is some ArrayLike Structure
         }
         return runner(null, node);
+    }
+
+    // open dialog for adding new tenant
+    showDialog(){
+        this.layoutActions.openLayoutModalAction({
+            isOpen: true,
+            modelName: 'TenantModalAdd',
+            extraData: {}
+        });
     }
     
 }
