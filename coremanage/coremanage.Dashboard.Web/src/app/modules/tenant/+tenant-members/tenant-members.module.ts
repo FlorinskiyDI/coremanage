@@ -4,8 +4,7 @@ import { CommonModule } from '@angular/common';
 
 
 //app
-import { SharedModule } from '../../shared/modules/shared.module';
-import { TenantModalAddModule } from '../tenant-modal-add/tenant-modal-add.module';
+import { SharedModule } from '../../../shared/modules/shared.module';
 // app > routes
 import { TenantMembersRoutes } from './tenant-members-routes.module';
 // app > components
@@ -14,9 +13,8 @@ import { TenantMembersComponent } from './tenant-members.component';
 @NgModule({
     imports: [
         SharedModule,
-        CommonModule,        
+        CommonModule, 
         TenantMembersRoutes,
-        TenantModalAddModule
     ],
 
     declarations: [

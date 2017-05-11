@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode, MenuItem } from 'primeng/primeng';
 import { NgRedux, select } from '@angular-redux/store';
-import { IAppState } from '../../../redux/store';
+import { IAppState } from '../../../../redux/store';
 import { Observable } from 'rxjs/Observable';
-import { TenantApiService } from "../../../shared/services/api/entities/tenant.api.service";
+import { TenantApiService } from "../../../../shared/services/api/entities/tenant.api.service";
 import { Router } from '@angular/router';
-import { TenantActions, LayoutActions } from "../../../redux/actions";
+import { TenantActions, LayoutActions } from "../../../../redux/actions";
 
 import { fromJS, Map, List, Record } from 'immutable';
 
 @Component({
-    selector: 'tree-section-component',
-    templateUrl: 'tree-section.component.html',
-    styleUrls: ['./tree-section.component.scss']
+    selector: 'section-tenant-tree-component',
+    templateUrl: 'section-tenant-tree.component.html',
+    styleUrls: ['./section-tenant-tree.component.scss']
 })
 
-export class TreeSectionComponent implements OnInit{
+export class SectionTenantTreeComponent implements OnInit{
     private pTreeNodes$: Observable<any>
     private pSelectedNode$: Observable<any>
     private pContexMenuItems: MenuItem[];

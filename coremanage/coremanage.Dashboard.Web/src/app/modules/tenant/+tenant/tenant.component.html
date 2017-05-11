@@ -1,15 +1,13 @@
 ﻿
 <!--<sidebar-component></sidebar-component>
 <header-component></header-component>-->
-<div class="hub-tenant-component">
+<div class="tenant-component">
     <split direction="horizontal" gutterSize="4">
         <split-area [size]="15">
-            <tree-section-component></tree-section-component>
+            <section-tenant-tree-component></section-tenant-tree-component>
         </split-area>
-        <split-area [size]="85">
-            <tenant-modal-add-component>        
-            </tenant-modal-add-component>  
-            <main-section-component></main-section-component>            
+        <split-area [size]="85">            
+            <section-tenant-manage-component></section-tenant-manage-component>            
         </split-area>          
     </split>
     

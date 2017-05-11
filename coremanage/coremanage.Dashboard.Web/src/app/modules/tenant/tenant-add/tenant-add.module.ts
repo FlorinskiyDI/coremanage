@@ -6,7 +6,7 @@ import { DialogModule } from 'primeng/primeng';
 // app
 import { SharedModule } from '../../shared/modules/shared.module';
 // app > components
-import { TenantModalAddComponent } from './tenant-modal-add.component';
+import { TenantAddComponent } from './tenant-add.component';
 
 @NgModule({
     imports: [
@@ -16,13 +16,13 @@ import { TenantModalAddComponent } from './tenant-modal-add.component';
     ],
 
     declarations: [
-        TenantModalAddComponent
+        TenantAddComponent
     ],
     exports: [
-        TenantModalAddComponent
+        TenantAddComponent
     ]
 })
 
-export class TenantModalAddModule {
+export class TenantAddModule {
     
 }
