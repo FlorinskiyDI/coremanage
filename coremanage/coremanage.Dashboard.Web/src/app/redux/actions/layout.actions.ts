@@ -27,10 +27,9 @@ export class LayoutActions {
       payload: data
     });
   }
-  public closeLayoutModalAction(data: any){
+  public closeLayoutModalAction(){
     this.ngRedux.dispatch({
-      type: LayoutActionTypes.CLOSE_LAYOUT_MODAL,
-      payload: data
+      type: LayoutActionTypes.CLOSE_LAYOUT_MODAL
     });
   }  
 }

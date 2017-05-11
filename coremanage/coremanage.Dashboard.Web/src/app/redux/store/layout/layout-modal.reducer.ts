@@ -46,7 +46,7 @@ export function LayoutModalReducer(
      return state.merge({       
           isOpen: action.payload.isOpen,
           modelName: action.payload.modelName,
-          extraData: action.payload.extraData     
+          extraData: Map(action.payload.extraData)    
       });
 
     case LayoutActionTypes.CLOSE_LAYOUT_MODAL:        

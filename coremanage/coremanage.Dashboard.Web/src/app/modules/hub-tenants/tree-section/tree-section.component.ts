@@ -120,7 +120,14 @@ export class TreeSectionComponent implements OnInit{
     showDialog(){
         this.layoutActions.openLayoutModalAction({
             isOpen: true,
-            modelName: 'TenantModalAdd',
+            modelName: 'firstmodal',
+            extraData: {}
+        });
+    }
+    showDialog2(){
+        this.layoutActions.openLayoutModalAction({
+            isOpen: true,
+            modelName: 'firstmodal2',
             extraData: {}
         });
     }

@@ -10,15 +10,26 @@
     <div>
        <input type="text" [(ngModel)]="value">
           {{value | json}}
-      <template-modal-component [items]="cars" [columns]="myView">
-         <input type="text" [(ngModel)]="value">
-          {{value | json}}
+      <template-modal-component [items]="cars" [columns]="myView" [name]="nameOfModal">        
         <ng-template #model let-item2="item2">model: {{item2.model}} model: {{item2.color}}
-          <input type="text" [(ngModel)]="value">
+          <input type="text" [(ngModel)]="item2.model">
           {{value | json}}
           {{item2.model | json}}
         </ng-template>
-        <!--<ng-template #model let-item2="item2">model3: {{item2.model}} model3: {{item2.color}}</ng-template>-->
+      </template-modal-component>
+
+       <template-modal-component [items]="cars2" [columns]="myView2" [name]="nameOfModal2">        
+        <ng-template #model2 let-item2="item2">model: {{item2.model}} model: {{item2.color}}
+          <input type="text" [(ngModel)]="item2.model">
+          {{value | json}}
+          {{item2.model | json}}
+          <input type="text" [(ngModel)]="item2.color">
+          <input type="text" [(ngModel)]="item2.color">
+          <input type="text" [(ngModel)]="item2.color">
+          <input type="text" [(ngModel)]="item2.color">
+          <input type="text" [(ngModel)]="item2.color">
+          <input type="text" [(ngModel)]="item2.color">
+        </ng-template>
       </template-modal-component>
     </div>
 
