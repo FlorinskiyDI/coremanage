@@ -1,0 +1,31 @@
+﻿<div class="tenant-tree-component">
+    <p>tenant-tree</p>
+    
+    <button pButton
+        type="text"        
+        label="Add new tenant"
+        (click)="showDialog()"
+        ></button>
+        <button pButton
+        type="text"        
+        label="Add new tenant2"
+        (click)="showDialog2()"
+        ></button>
+        
+    <p-tree
+        selectionMode="single"
+        [value]="files"
+        [contextMenu]="cm"
+        (onNodeExpand)="loadNode($event)"
+        (onNodeSelect)="selectNode($event)"
+        [(selection)]="selectedNode"        
+        >
+        <ng-template let-node  pTemplate="default">            
+            <p>{{node.label}} - {{node.id}} </p>
+        </ng-template>
+    </p-tree>
+    
+    <p-contextMenu #cm [model]="pContexMenuItems" >
+    </p-contextMenu>
+
+</div>

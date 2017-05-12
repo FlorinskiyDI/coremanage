@@ -6,7 +6,7 @@ import { AngularSplitModule } from 'angular-split';
 import { DialogModule } from 'primeng/primeng';
 
 //app
-import { SharedModule } from '../../shared/modules/shared.module';
+import { SharedModule } from '../../modules-shared/shared.module';
 // app > routes
 import { HubUsersRoutes } from './hub-users-routes.module';
 // app > components
@@ -21,12 +21,11 @@ import { HubUsersComponent } from './hub-users.component';
         SharedModule,
         AngularSplitModule,
         DialogModule
-    ],    
-    declarations: [
-        HubUsersComponent    
     ],
-    providers:[
-    ]
+    declarations: [
+        HubUsersComponent
+    ],
+    providers: [ ]
 })
 
 export class HubUsersModule { }

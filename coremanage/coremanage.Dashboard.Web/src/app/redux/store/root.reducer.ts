@@ -17,7 +17,7 @@ export const rootReducer = combineReducers<IAppState>({
   router: routerReducer,
   layout: fromLayout.layoutReducer,
   session: fromSession.sessionReducer,
-  tenant: fromTenant.tenantReducer,  
+  tenant: fromTenant.tenantReducer,
   user: fromUser.userReducer
 });
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ValueApiService } from '../../shared/services/api/entities/value.api.service';
+import { ValueApiService } from '../../common/services/api/entities/value.api.service';
 import { Http, Response } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';

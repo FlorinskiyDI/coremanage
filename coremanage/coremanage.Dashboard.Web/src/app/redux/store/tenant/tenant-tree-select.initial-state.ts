@@ -12,7 +12,3 @@ export const INITIAL_STATE = new TenantTreeSelectRecord(
       {}
     )
   ) as TenantTreeSelectState;
-  
-  
-  
- 

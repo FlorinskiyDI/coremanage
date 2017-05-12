@@ -6,7 +6,7 @@ import { AngularSplitModule } from 'angular-split';
 import { DialogModule } from 'primeng/primeng';
 
 //app
-import { SharedModule } from '../../shared/modules/shared.module';
+import { SharedModule } from '../../modules-shared/shared.module';
 // app > routes
 import { HubOverviewSettingsRoutes } from './hub-overview-settings-routes.module';
 // app > components
@@ -21,12 +21,11 @@ import { HubOverviewSettingsComponent } from './hub-overview-settings.component'
         SharedModule,
         AngularSplitModule,
         DialogModule
-    ],    
-    declarations: [
-        HubOverviewSettingsComponent    
     ],
-    providers:[
-    ]
+    declarations: [
+        HubOverviewSettingsComponent
+    ],
+    providers: [ ]
 })
 
 export class HubOverviewSettingsModule { }

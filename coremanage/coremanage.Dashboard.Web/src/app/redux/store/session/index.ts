@@ -4,5 +4,5 @@ import { sessionReducer } from './session.reducer';
 export {
   IdentityState,
   ISession,
-  sessionReducer  
+  sessionReducer
 }

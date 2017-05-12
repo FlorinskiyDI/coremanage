@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 // app
 import { LoginRoutingModule } from './login-routes.module';
-import { SharedModule } from '../../../shared/index.modules';
+import { SharedModule } from '../../../modules-shared/shared.module';
 // app > components
 import { LoginComponent } from './login.component';
 // app > services

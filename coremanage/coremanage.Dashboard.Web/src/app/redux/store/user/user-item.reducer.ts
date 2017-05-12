@@ -1,11 +1,11 @@
 import { IPayloadAction } from '../../util';
 import { UserActions, UserActionTypes } from '../../actions/user.actions';
-import { UserProfileEntity } from "../../../shared/index.models";
+import { UserProfileEntity } from '../../../common/index.models';
 
 export interface UserItemState {
   item: UserProfileEntity;
-  error: any; // property of request 
-  loading: boolean; // property of request 
+  error: any; // property of request
+  loading: boolean; // property of request
 };
 
 const initialState: UserItemState = {
@@ -22,7 +22,7 @@ export function userItemReducer(
   switch (action.type) {
 
     case UserActionTypes.LOAD_USER_ITEM:
-        return Object.assign({}, state, {      
+        return Object.assign({}, state, {
         item: null,
         error: null,
         loading: true
@@ -43,7 +43,7 @@ export function userItemReducer(
         item: null,
         error: error,
         loading: false
-        });  
+        });
 
     default:
         return state;

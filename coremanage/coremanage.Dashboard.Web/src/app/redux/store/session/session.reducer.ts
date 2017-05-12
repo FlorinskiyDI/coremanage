@@ -55,7 +55,7 @@ export function sessionReducer(
       access_token: null,
       refresh_token: null,
       tenant: null,
-      user:{},
+      user: {},
       hasError: true,
       isLoading: false,
     });

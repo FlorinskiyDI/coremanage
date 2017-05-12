@@ -9,7 +9,7 @@ import { HomeRoutes } from './home-routes.module';
 // app > components
 import { HomeComponent } from './home.component';
 // app > services
-import { ValueApiService } from '../../shared/services/api/entities/value.api.service';
+import { ValueApiService } from '../../common/services/api/entities/value.api.service';
 
 @NgModule({
     imports: [

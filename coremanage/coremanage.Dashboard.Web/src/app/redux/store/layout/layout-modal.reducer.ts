@@ -4,7 +4,7 @@ import { List, Map, Record, fromJS} from 'immutable';
 
 // model
 export interface LayoutModalModel {
-  isOpen: boolean;  
+  isOpen: boolean;
   modelName: string;
   extraData: any;
 };
@@ -27,7 +27,7 @@ export const INITIAL_STATE = new LayoutModalRecord(
     (<any>Object).assign(
       {},
       {
-        isOpen: false, 
+        isOpen: false,
         modelName: '',
         extraData: null
       },
@@ -39,21 +39,21 @@ export const INITIAL_STATE = new LayoutModalRecord(
 export function LayoutModalReducer(
   state = INITIAL_STATE,
   action: IPayloadAction<LayoutModalState>
-): any {  
+): any {
   switch (action.type) {
 
     case LayoutActionTypes.OPEN_LAYOUT_MODAL:
-     return state.merge({       
+     return state.merge({
           isOpen: action.payload.isOpen,
           modelName: action.payload.modelName,
-          extraData: Map(action.payload.extraData)    
+          extraData: Map(action.payload.extraData)
       });
 
-    case LayoutActionTypes.CLOSE_LAYOUT_MODAL:        
-      return state.merge({        
+    case LayoutActionTypes.CLOSE_LAYOUT_MODAL:
+      return state.merge({
           isOpen: false,
           modelName: '',
-          extraData: null        
+          extraData: null
       });
 
     default:

@@ -33,7 +33,7 @@ export class StoreModule {
     ngRedux.configureStore(
       rootReducer,
       {},
-      [ 
+      [
         reduxLogger.createLogger(),
         // ...rootEpics.createEpics()
       ],

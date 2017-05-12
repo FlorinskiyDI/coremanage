@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../store';
-import { type } from "../util";
+import { type } from '../util';
 
 
 
@@ -24,24 +24,26 @@ export const UserActionTypes =  {
 
 @Injectable()
 export class UserActions {
-  constructor( private ngRedux: NgRedux<IAppState> )
-  { }
-  
+  constructor(
+    private ngRedux: NgRedux<IAppState>
+  ) {
+  }
+
   /*
     user-list actions
   */
-  public loadUserListAction(){
+  public loadUserListAction() {
     this.ngRedux.dispatch({
       type: UserActionTypes.LOAD_USER_LIST
     });
   }
-  public loadUserListSuccessAction(data: any){
+  public loadUserListSuccessAction(data: any) {
     this.ngRedux.dispatch({
       type: UserActionTypes.LOAD_USER_LIST_SUCCESS,
       payload: data
     });
   }
-   public loadUserListFailedAction(data: any){
+   public loadUserListFailedAction(data: any) {
     this.ngRedux.dispatch({
       type: UserActionTypes.LOAD_USER_LIST_FAILURE,
       payload: data
@@ -51,18 +53,18 @@ export class UserActions {
   /*
     user-list actions
   */
-  public loadUserItemAction(){
+  public loadUserItemAction() {
     this.ngRedux.dispatch({
       type: UserActionTypes.LOAD_USER_ITEM
     });
   }
-  public loadUserItemSuccessAction(data: any){
+  public loadUserItemSuccessAction(data: any) {
     this.ngRedux.dispatch({
       type: UserActionTypes.LOAD_USER_ITEM_SUCCESS,
       payload: data
     });
   }
-   public loadUserItemFailedAction(data: any){
+   public loadUserItemFailedAction(data: any) {
     this.ngRedux.dispatch({
       type: UserActionTypes.LOAD_USER_ITEM_FAILURE,
       payload: data

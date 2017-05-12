@@ -1,15 +1,15 @@
 import { IPayloadAction } from '../../util';
 import { UserActions, UserActionTypes } from '../../actions/user.actions';
-import { UserProfileEntity } from "../../../shared/index.models";
+import { UserProfileEntity } from '../../../common/index.models';
 
 export interface UserListState {
-  items: UserProfileEntity[]  
-  error: any; // property of request 
-  loading: boolean; // property of request 
+  items: UserProfileEntity []
+  error: any; // property of request
+  loading: boolean; // property of request
 };
 
 const initialState: UserListState = {
-  items: [],   
+  items: [],
   error: null,
   loading: false
 };
@@ -22,7 +22,7 @@ export function userListReducer(
   switch (action.type) {
 
     case UserActionTypes.LOAD_USER_LIST:
-        return Object.assign({}, state, {      
+        return Object.assign({}, state, {
         items: [],
         error: null,
         loading: true
@@ -43,7 +43,7 @@ export function userListReducer(
         items: [],
         error: error,
         loading: false
-        });  
+        });
 
     default:
         return state;

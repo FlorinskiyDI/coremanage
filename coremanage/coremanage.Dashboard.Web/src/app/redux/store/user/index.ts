@@ -6,7 +6,7 @@ import { userItemReducer, UserItemState } from './user-item.reducer';
 
 export interface UserState {
   userList?: UserListState;
-  userItem?: UserItemState; 
+  userItem?: UserItemState;
 };
 
 export const userReducer = combineReducers<UserState>({

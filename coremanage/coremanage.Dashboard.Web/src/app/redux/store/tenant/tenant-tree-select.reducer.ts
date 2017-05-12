@@ -7,7 +7,7 @@ import { List, Map, Record, fromJS} from 'immutable';
 export function TenantTreeSelectReducer(
   state = INITIAL_STATE,
   action: IPayloadAction<TenantTreeSelectState>
-): any {  
+): any {
   switch (action.type) {
 
     case TenantActionTypes.LOAD_TENANT_TREE_NODE:
@@ -19,13 +19,13 @@ export function TenantTreeSelectReducer(
         }
       });
 
-    case TenantActionTypes.LOAD_TENANT_TREE_NODE_SUCCESS:   
+    case TenantActionTypes.LOAD_TENANT_TREE_NODE_SUCCESS:
       return state.merge({
         loadedNodes: {
           treeNodes: action.payload,
           error: null,
           loading: false
-        }        
+        }
       });
 
     case TenantActionTypes.LOAD_TENANT_TREE_NODE_FAILURE:
@@ -35,7 +35,7 @@ export function TenantTreeSelectReducer(
           treeNodes: null,
           error: error,
           loading: false
-        }             
+        }
       });
 
     case TenantActionTypes.SET_TENANT_TREE:

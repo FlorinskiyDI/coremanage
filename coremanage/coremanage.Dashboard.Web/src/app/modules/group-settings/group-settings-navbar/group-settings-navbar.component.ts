@@ -8,5 +8,5 @@ import { Router } from '@angular/router';
 })
 
 export class GroupSettingsNavbarComponent {
-    tenantpach: string = "test-tenant-pach";  
+    tenantpach = 'test-tenant-pach';
 }

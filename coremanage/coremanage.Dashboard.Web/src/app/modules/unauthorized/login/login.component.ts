@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { LoginData } from '../../../shared/index.models';
-import { AuthService } from '../../../shared/services/auth/auth.service';
+import { LoginData } from '../../../common/index.models';
+import { AuthService } from '../../../common/services/auth/auth.service';
 
 @Component({
     selector: 'login-component',
@@ -11,11 +11,11 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
     styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loginData: LoginData;
     formErrors: any = {
-        'tenant':'',
+        'tenant': '',
         'userName': '',
         'password': ''
     };
@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit{
         private authService: AuthService,
         private fb: FormBuilder,
         private router: Router
-    ){
-        this.loginData = new LoginData();        
+    ) {
+        this.loginData = new LoginData();
     }
 
     ngOnInit() {
@@ -39,17 +39,17 @@ export class LoginComponent implements OnInit{
 
     onSubmit() {
         let loginData = Object.assign({}, this.loginData, this.loginForm.value) as LoginData;
-        let obj2 = this.loginForm.value as LoginData;        
+        let obj2 = this.loginForm.value as LoginData;
         this.authService.login(loginData)
             .subscribe(
-                () => {                    
+                () => {
                     // Get the redirect URL from our auth service. If no redirect has been set, use the default
-                    let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/home';                    
-                    // this.router.navigate([redirect]);                    
+                    let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/home';
+                    // this.router.navigate([redirect]);
                     this.router.navigate(['/workspace/tenant-test/dashboard/overview']);
                 },
                 error => {
-                    alert(" error - Authorization \n message: " + error);
+                    alert('error - Authorization \n message: ' + error);
                 }
             );
     }

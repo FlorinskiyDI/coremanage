@@ -6,7 +6,7 @@ import { AngularSplitModule } from 'angular-split';
 import { DialogModule } from 'primeng/primeng';
 
 //app
-import { SharedModule } from '../../shared/modules/shared.module';
+import { SharedModule } from '../../modules-shared/shared.module';
 // app > routes
 import { HubOverviewDashboardRoutes } from './hub-overview-dashboard-routes.module';
 // app > components
@@ -21,12 +21,11 @@ import { HubOverviewDashboardComponent } from './hub-overview-dashboard.componen
         SharedModule,
         AngularSplitModule,
         DialogModule
-    ],    
-    declarations: [
-        HubOverviewDashboardComponent    
     ],
-    providers:[
-    ]
+    declarations: [
+        HubOverviewDashboardComponent
+    ],
+    providers: [ ]
 })
 
 export class HubOverviewDashboardModule { }

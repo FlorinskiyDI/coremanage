@@ -2,13 +2,13 @@
 import { Record, Map, List} from 'immutable';
 
 // models
-export interface LoadedNodesModel{
+export interface LoadedNodesModel {
   treeNodes: any[];
-  error: any; // property of request 
-  loading: boolean; // property of request 
+  error: any; // property of request
+  loading: boolean; // property of request
 }
 export interface TenantTreeSelectModel {
-  tree: any;  
+  tree: any;
   selectedNodeId: number;
   loadedNodes: LoadedNodesModel;
 };

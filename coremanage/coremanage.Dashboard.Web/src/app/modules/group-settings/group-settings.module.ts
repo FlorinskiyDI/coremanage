@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AngularSplitModule } from 'angular-split';
 
 //app
-import { SharedModule } from '../../shared/modules/shared.module';
+import { SharedModule } from '../../modules-shared/shared.module';
 // app > routes
 import { GroupSettingsRoutes } from './group-settings-routes.module';
 // app > components
@@ -20,12 +20,12 @@ import { GroupSettingsNavbarComponent } from './group-settings-navbar/group-sett
         GroupSettingsRoutes,
         SharedModule,
         AngularSplitModule
-    ],    
+    ],
     declarations: [
         GroupSettingsComponent,
-        GroupSettingsNavbarComponent        
+        GroupSettingsNavbarComponent
     ],
-    providers:[       
+    providers: [
     ]
 
 })

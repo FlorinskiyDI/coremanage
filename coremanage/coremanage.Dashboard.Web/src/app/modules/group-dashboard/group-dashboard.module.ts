@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // app
-import { SharedModule } from '../../shared/modules/shared.module';
+import { SharedModule } from '../../modules-shared/shared.module';
 // app > routes
 import { GroupDashboardRoutes } from './group-dashboard-routes.module';
 // app > components
@@ -19,7 +19,7 @@ import { GroupDashboardNavbarComponent } from './group-dashboard-navbar/group-da
 
     declarations: [
         GroupDashboardComponent,
-        GroupDashboardNavbarComponent,        
+        GroupDashboardNavbarComponent,
     ],
 
 })

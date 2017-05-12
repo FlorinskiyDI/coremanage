@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../store';
-import { type } from "../util";
+import { type } from '../util';
 
 
 
@@ -19,36 +19,37 @@ export const TenantActionTypes =  {
 
 @Injectable()
 export class TenantActions {
-  constructor( private ngRedux: NgRedux<IAppState> )
-  { }
-  
+  constructor(
+    private ngRedux: NgRedux<IAppState>
+  ) { }
+
   /*
     tenant-tree-select actions
   */
-  public loadTenantTreeNodeAction(){
+  public loadTenantTreeNodeAction() {
     this.ngRedux.dispatch({
       type: TenantActionTypes.LOAD_TENANT_TREE_NODE
     });
   }
-  public loadTenantTreeNodeSuccessAction(data: any){
+  public loadTenantTreeNodeSuccessAction(data: any) {
     this.ngRedux.dispatch({
       type: TenantActionTypes.LOAD_TENANT_TREE_NODE_SUCCESS,
       payload: data
     });
   }
-  public loadTenantTreeNodeFailedAction(data: any){
+  public loadTenantTreeNodeFailedAction(data: any) {
     this.ngRedux.dispatch({
       type: TenantActionTypes.LOAD_TENANT_TREE_NODE_FAILURE,
       payload: data
     });
   }
-  public setTenantTreeAction(data: any){
+  public setTenantTreeAction(data: any) {
     this.ngRedux.dispatch({
       type: TenantActionTypes.SET_TENANT_TREE,
       payload: data
     });
   }
-  public selectTenantTreeNodeAction(data: any){
+  public selectTenantTreeNodeAction(data: any) {
     this.ngRedux.dispatch({
       type: TenantActionTypes.SELECT_TENANT_TREE_NODE,
       payload: data

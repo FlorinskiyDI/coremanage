@@ -7,12 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // app
-import { SharedModule } from './shared/modules/shared.module';
+import { SharedModule } from './modules-shared/shared.module';
 import { AppRoutingModule } from './app-routes.module';
 // app > components
 import { AppComponent } from './app.component';
 // app > providers
-// import { requestOptionsProvider } from './shared/services/api/default-request-options.service';
+// import { requestOptionsProvider } from './common/services/api/default-request-options.service';
 // app > redux
 import { StoreModule } from './redux/store/store.module';
 
@@ -23,7 +23,7 @@ import { StoreModule } from './redux/store/store.module';
         BrowserAnimationsModule,
         AppRoutingModule,
         HttpModule,
-        SharedModule.forRoot(),        
+        SharedModule.forRoot(),
         StoreModule
     ],
     declarations: [
@@ -32,12 +32,12 @@ import { StoreModule } from './redux/store/store.module';
     bootstrap: [
         AppComponent
     ],
-    providers: [        
+    providers: [
         // requestOptionsProvider
     ]
 })
 
 export class AppModule {
-    constructor() {        
+    constructor() {
     }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../store';
-import { type } from "../util";
+import { type } from '../util';
 
 
 
@@ -15,21 +15,22 @@ export const LayoutActionTypes =  {
 
 @Injectable()
 export class LayoutActions {
-  constructor( private ngRedux: NgRedux<IAppState> )
-  { }
-  
+  constructor(
+    private ngRedux: NgRedux<IAppState>
+  ) { }
+
   /*
     layout-modal actions
   */
-  public openLayoutModalAction(data: any){
+  public openLayoutModalAction(data: any) {
     this.ngRedux.dispatch({
       type: LayoutActionTypes.OPEN_LAYOUT_MODAL,
       payload: data
     });
   }
-  public closeLayoutModalAction(){
+  public closeLayoutModalAction() {
     this.ngRedux.dispatch({
       type: LayoutActionTypes.CLOSE_LAYOUT_MODAL
     });
-  }  
+  }
 }
