@@ -1,19 +1,25 @@
 // external
-import { NgModule } from '@angular/core';
+import { NgModule, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { DialogModule, ButtonModule} from 'primeng/primeng';
 
 /* component */ import { TenantAddDialogComponent } from './tenant-add-dialog.component';
 /* component */ import { TenantAddComponent } from './comp-tenant-add/tenant-add.component';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        DialogModule,
+        ButtonModule
     ],
     declarations: [
-        TenantAddDialogComponent,
-        TenantAddComponent
+        TenantAddComponent,
+        TenantAddDialogComponent        
+    ],
+    exports: [
+        TenantAddDialogComponent
     ]
 })
 
-export class TenantAddDialogModule { }
+export class TenantAddDialogModule {
+}

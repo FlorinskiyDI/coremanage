@@ -1,31 +1,30 @@
 ﻿<div class="tenant-tree-component">
     <p>tenant-tree</p>
     
-    <button pButton
-        type="text"        
-        label="Add new tenant"
-        (click)="showDialog()"
-        ></button>
-        <button pButton
-        type="text"        
-        label="Add new tenant2"
-        (click)="showDialog2()"
-        ></button>
-        
-    <p-tree
-        selectionMode="single"
-        [value]="files"
-        [contextMenu]="cm"
-        (onNodeExpand)="loadNode($event)"
-        (onNodeSelect)="selectNode($event)"
-        [(selection)]="selectedNode"        
-        >
-        <ng-template let-node  pTemplate="default">            
-            <p>{{node.label}} - {{node.id}} </p>
-        </ng-template>
-    </p-tree>
+    <!-- add section-->
+    <div>
+        <button pButton type="text" label="Add new tenant" (click)="isOpenD = !isOpenD">
+        </button>
+        {{isOpenD | json}}
+        <tenant-add-dialog-component [isOpen]="isOpenD">            
+        </tenant-add-dialog-component>
+    </div><!-- END add section-->
     
-    <p-contextMenu #cm [model]="pContexMenuItems" >
-    </p-contextMenu>
-
+    <!-- tree section-->
+    <div>
+        <p-tree
+            selectionMode="single"
+            [value]="files"
+            [contextMenu]="cm"
+            (onNodeExpand)="loadNode($event)"
+            (onNodeSelect)="selectNode($event)"
+            [(selection)]="selectedNode"        
+            >
+            <ng-template let-node  pTemplate="default">            
+                <p>{{node.label}} - {{node.id}} </p>
+            </ng-template>
+        </p-tree>    
+        <p-contextMenu #cm [model]="pContexMenuItems" >
+        </p-contextMenu>
+    </div><!-- END tree section-->
 </div>

@@ -16,6 +16,7 @@ import { fromJS, Map, List, Record } from 'immutable';
 })
 
 export class TenantTreeComponent implements OnInit {
+    public isOpenD = false;
     private pTreeNodes$: Observable<any>
     private pSelectedNode$: Observable<any>
     private pContexMenuItems: MenuItem[];
@@ -42,7 +43,6 @@ export class TenantTreeComponent implements OnInit {
           this._initTreeNodes();
           this._initContextMenu();
     }
-
     private _initTreeNodes() {
         let tenantName = this.ngRedux.getState().session.tenant;
         this.tenantActions.loadTenantTreeNodeAction();
@@ -56,7 +56,6 @@ export class TenantTreeComponent implements OnInit {
             error => { console.log(error); }
         );
     }
-
     private _initContextMenu() {
         this.pContexMenuItems = [
             {
