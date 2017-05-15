@@ -25,7 +25,7 @@ export class TemplateModalComponent {
         this.layoutModal$.subscribe((value: any) => {
             let val = value.toJS();
             console.log(val);
-            if(this.name == val.modelName && val.isOpen == true)
+            if(this.name == val.modalType && val.isOpen == true)
             {
                 this.showDialog()
             }

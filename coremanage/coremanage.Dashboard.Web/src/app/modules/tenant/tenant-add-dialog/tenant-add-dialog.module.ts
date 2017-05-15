@@ -1,4 +1,3 @@
-// external
 import { NgModule, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogModule, ButtonModule} from 'primeng/primeng';
@@ -14,7 +13,7 @@ import { DialogModule, ButtonModule} from 'primeng/primeng';
     ],
     declarations: [
         TenantAddComponent,
-        TenantAddDialogComponent        
+        TenantAddDialogComponent
     ],
     exports: [
         TenantAddDialogComponent

@@ -1,7 +1,8 @@
 ﻿<div class="">
 
-    <p-dialog header="Godfather I" width="300" responsive="true"
-        [(visible)]="isOpen" [(modal)]="fon" modal="isOpen">
+    <p-dialog header="Add" width="300" responsive="true"
+        [(visible)]="dialogObj.isOpen" [(modal)]="dialogModal"
+        (onHide)="onHideDialog()">
 
         <tenant-add-component>        
         </tenant-add-component>

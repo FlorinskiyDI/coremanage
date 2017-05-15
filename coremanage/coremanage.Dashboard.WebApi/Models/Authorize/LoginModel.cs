@@ -1,4 +1,4 @@
-﻿namespace coremanage.Dashboard.WebApi.Models
+﻿namespace coremanage.Dashboard.WebApi.Models.Authorize
 {
     public class LoginModel
     {

@@ -1,5 +1,10 @@
 ﻿<div class="tenant-manage-component">
     <p>tenant-manage</p>
+    <button pButton type="text" label="Edit selected tenant" (click)="showTenantEditDialog()">    
+    </button>
+    <tenant-edit-dialog-component>            
+    </tenant-edit-dialog-component>
+
     <ul class="nav nav-pills">
         <li role="presentation" class="">
             <a routerLink="/workspace/tenant-test/settings/tenants/detail" routerLinkActive="active">Detail</a>

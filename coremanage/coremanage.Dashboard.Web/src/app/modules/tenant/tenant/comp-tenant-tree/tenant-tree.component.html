@@ -3,10 +3,9 @@
     
     <!-- add section-->
     <div>
-        <button pButton type="text" label="Add new tenant" (click)="isOpenD = !isOpenD">
-        </button>
-        {{isOpenD | json}}
-        <tenant-add-dialog-component [isOpen]="isOpenD">            
+        <button pButton type="text" label="Add new tenant" (click)="showTenantAddDialog()">
+        </button>        
+        <tenant-add-dialog-component>            
         </tenant-add-dialog-component>
     </div><!-- END add section-->
     

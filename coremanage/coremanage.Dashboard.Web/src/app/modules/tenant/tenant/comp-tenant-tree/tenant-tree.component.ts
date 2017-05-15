@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TreeNode, MenuItem } from 'primeng/primeng';
 import { NgRedux, select } from '@angular-redux/store';
-import { IAppState } from '../../../../redux/store';
 import { Observable } from 'rxjs/Observable';
-import { TenantApiService } from '../../../../common/services/api/entities/tenant.api.service';
-import { Router } from '@angular/router';
-import { TenantActions, LayoutActions } from '../../../../redux/actions';
-
 import { fromJS, Map, List, Record } from 'immutable';
+
+/* service */ import { TenantApiService } from '../../../../common/services/api/entities/tenant.api.service';
+/* constant */ import { ModalDialogTypes } from '../../../../common/index.constants';
+/* action */ import { TenantActions, LayoutActions } from '../../../../redux/actions';
+/* state */ import { IAppState } from '../../../../redux/store';
 
 @Component({
     selector: 'tenant-tree-component',
@@ -117,18 +118,11 @@ export class TenantTreeComponent implements OnInit {
     }
 
     // open dialog for adding new tenant
-    showDialog() {
+    showTenantAddDialog() {
         this.layoutActions.openLayoutModalAction({
             isOpen: true,
-            modelName: 'firstmodal',
-            extraData: {}
-        });
-    }
-    showDialog2() {
-        this.layoutActions.openLayoutModalAction({
-            isOpen: true,
-            modelName: 'firstmodal2',
-            extraData: {}
+            modalType: ModalDialogTypes.ADD_TENANT_TYPE,
+            extraData: { }
         });
     }
 }
