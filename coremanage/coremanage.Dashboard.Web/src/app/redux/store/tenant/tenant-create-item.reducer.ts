@@ -3,27 +3,27 @@ import { TenantActions, TenantActionTypes } from '../../actions/tenant.actions';
 import { List, Map, Record } from 'immutable';
 
 // model
-export interface TenantItemModel {
+export interface TenantCreateItemModel {
   item: any,
   error: any,
   loading: boolean
 };
 
 // states
-export interface TenantItemState extends Map<string, any>, TenantItemModel {
-  set: (prop: string, val: any) => TenantItemState;
-  merge: (other: any) => TenantItemState;
+export interface TenantCreateItemState extends Map<string, any>, TenantCreateItemModel {
+  set: (prop: string, val: any) => TenantCreateItemState;
+  merge: (other: any) => TenantCreateItemState;
 };
 
 // record
-export const TenantItemModalRecord = Record({
+export const TenantCreateItemModalRecord = Record({
   item: null,
   error: null,
   loading: false
 });
 
 // init
-export const INITIAL_STATE = new TenantItemModalRecord(
+export const INITIAL_STATE = new TenantCreateItemModalRecord(
     (<any>Object).assign(
       {},
       {
@@ -33,13 +33,13 @@ export const INITIAL_STATE = new TenantItemModalRecord(
       },
       {}
     )
-  ) as TenantItemState;
+  ) as TenantCreateItemState;
 
 
-export function TenantItemReducer(
-  state: TenantItemState = INITIAL_STATE,
+export function TenantCreateItemReducer(
+  state: TenantCreateItemState = INITIAL_STATE,
   action: IPayloadAction<any>
-): TenantItemState {
+): TenantCreateItemState {
   switch (action.type) {
 
     case TenantActionTypes.LOAD_TENANT_ITEM:

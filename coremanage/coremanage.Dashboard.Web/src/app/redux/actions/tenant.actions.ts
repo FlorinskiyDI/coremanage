@@ -18,9 +18,9 @@ export const TenantActionTypes =  {
    /*
     tenant-tree-select action types
   */
-  LOAD_TENANT_ITEM: type('[TenantItem] load tenant item'),
-  LOAD_TENANT_ITEM_SUCCESS: type('[TenantItem] successfully loaded tenant item'),
-  LOAD_TENANT_ITEM_FAILURE: type('[TenantItem] failed to load tenant item'),
+  LOAD_TENANT_ITEM: type('[TenantCreateItem] load tenant item'),
+  LOAD_TENANT_ITEM_SUCCESS: type('[TenantCreateItem] successfully loaded tenant item'),
+  LOAD_TENANT_ITEM_FAILURE: type('[TenantCreateItem] failed to load tenant item'),
 }
 
 
@@ -66,18 +66,18 @@ export class TenantActions {
   /*
     tenant-tree-select actions
   */
-  public loadTenantItemAction() {
+  public loadTenantCreateItemAction() {
     this.ngRedux.dispatch({
       type: TenantActionTypes.LOAD_TENANT_ITEM
     });
   }
-  public loadTenantItemSuccessAction(data: any) {
+  public loadTenantCreateItemSuccessAction(data: any) {
     this.ngRedux.dispatch({
       type: TenantActionTypes.LOAD_TENANT_ITEM_SUCCESS,
       payload: data
     });
   }
-  public loadTenantItemFailedAction(data: any) {
+  public loadTenantCreateItemFailedAction(data: any) {
     this.ngRedux.dispatch({
       type: TenantActionTypes.LOAD_TENANT_ITEM_FAILURE,
       payload: data

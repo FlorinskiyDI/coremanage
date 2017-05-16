@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 // our store and Angular.
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
 import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
+import { RootEpics } from './root.epics';
 const reduxLogger  = require('redux-logger');
 // import { provideReduxForms } from '@angular-redux/form';
 
@@ -17,7 +18,7 @@ import { IAppState, rootReducer } from './';
     NgReduxModule,
     NgReduxRouterModule
   ],
-//   providers: [RootEpics],
+  providers: [RootEpics],
 })
 
 export class StoreModule {
@@ -25,6 +26,7 @@ export class StoreModule {
     public ngRedux: NgRedux<IAppState>,
     devTools: DevToolsExtension,
     ngReduxRouter: NgReduxRouter,
+    rootEpics: RootEpics,
     // rootEpics: RootEpics,
   ) {
     // Tell Redux about our reducers and epics. If the Redux DevTools
@@ -35,7 +37,7 @@ export class StoreModule {
       {},
       [
         reduxLogger.createLogger(),
-        // ...rootEpics.createEpics()
+        ...rootEpics.createEpics()
       ],
       devTools.isEnabled() ? [ devTools.enhancer() ] : []);
 

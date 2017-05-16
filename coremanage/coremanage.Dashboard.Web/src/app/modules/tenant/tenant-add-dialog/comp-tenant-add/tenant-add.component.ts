@@ -13,7 +13,8 @@ import { SelectItem } from 'primeng/primeng';
     selector: 'tenant-add-component',
     templateUrl: 'tenant-add.component.html'
 })
-export class TenantAddComponent implements OnInit {
+export class TenantAddComponent implements OnInit {    
+    private tenantCreateItem$: Observable<any>
     tenantCreateForm: FormGroup;
     tenantCreateData: TenantCreateModel;
     tenantList: SelectItem[];
@@ -35,32 +36,33 @@ export class TenantAddComponent implements OnInit {
     ) {
         this.tenantCreateData = new TenantCreateModel();
         this.tenantList = [];
-        // this.pTreeNodes$ = this.ngRedux.select(state => state.tenant.tenantTreeSelect.tree);
-        // this.pTreeNodes$.subscribe((value: any) => {
-        //     if (value !== undefined) {
-        //         this.files = value.toJS();
-        //     }
-        // });
+        this.tenantCreateItem$ = this.ngRedux.select(state => state.tenant.tenantCreateItem);
+        this.tenantCreateItem$.subscribe((value: any) => {                     
+            let data = value.toJS();
+
+            
+            if (data.item !== null) {
+                // init options of dropdown
+                this.tenantList.push({label: "Without parent tenant", value:{ id: 0, name: "Without tenant" }});
+                data.item.tenantList.forEach((element: any) => {
+                    this.tenantList.push({label: element.name, value:{ id: element.id, name: element.name }});
+                });
+            }
+            console.log(data);
+        });
     }
 
     ngOnInit() {
 
-        this.tenantActions.loadTenantItemAction();
-        this.tenantApiService.getTenantCreate().subscribe(
-            data => {
-                this.tenantCreateData = Object.assign(this.tenantCreateData, data);
-                
-                // init options of dropdown
-                this.tenantList.push({label: "Without parent tenant", value:{ id: 0, name: "Without tenant" }});
-                data.tenantList.forEach((element: any) => {
-                    this.tenantList.push({label: element.name, value:{ id: element.id, name: element.name }});
-                } );
-                this.tenantActions.loadTenantItemSuccessAction(data);
-                // this.tenantActions.setTenantTreeAction(<TreeNode[]> data);
-                // this.tenantActions.selectTenantTreeNodeAction(data[0]);
-            },
-            error => { console.log(error); }
-        );
+        this.tenantActions.loadTenantCreateItemAction();
+        // this.tenantApiService.getTenantCreate().subscribe(
+        //     data => {
+        //         this.tenantActions.loadTenantCreateItemSuccessAction(data);                
+        //     },
+        //     error => {
+        //         console.log(error);
+        //     }
+        // );
         this.buildForm();
     }
 
@@ -70,19 +72,7 @@ export class TenantAddComponent implements OnInit {
             this.tenantCreateForm.value,
             { parentId: this.tenantCreateForm.value.parentId.id }
         ) as TenantCreateModel;
-        console.log(data);
-        // this.authService.login(loginData)
-        //     .subscribe(
-        //         () => {
-        //             // Get the redirect URL from our auth service. If no redirect has been set, use the default
-        //             let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/home';
-        //             // this.router.navigate([redirect]);
-        //             this.router.navigate(['/workspace/tenant-test/dashboard/overview']);
-        //         },
-        //         error => {
-        //             alert('error - Authorization \n message: ' + error);
-        //         }
-        //     );
+        console.log(data);        
     }
 
     private buildForm(): void {

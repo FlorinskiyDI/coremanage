@@ -19,7 +19,7 @@ import { CustomRequestOptions } from '../common/services/api/custom-request-opti
 import { TenantApiService } from '../common/services/api/entities/tenant.api.service';
 // Actions
 import { ACTION_PROVIDERS } from '../redux/actions';
-
+import { EPICS_PROVIDERS } from '../redux/store'
 
 
 @NgModule({
@@ -44,7 +44,8 @@ import { ACTION_PROVIDERS } from '../redux/actions';
         CustomRequestOptions,
         TenantApiService,
         AuthService,
-        ACTION_PROVIDERS
+        ACTION_PROVIDERS,
+        EPICS_PROVIDERS
     ]
 })
 export class SharedModule {
@@ -58,7 +59,8 @@ export class SharedModule {
                 JwtDecodeService,
                 IdentityApiService,
                 AuthService,
-                ACTION_PROVIDERS
+                ACTION_PROVIDERS,
+                EPICS_PROVIDERS
             ]
         };
     }
