@@ -25,4 +25,11 @@ export class TenantApiService extends BaseApiService<any> {
             .catch(this.handleError);
     }
 
+    getTenantCreate( ): Observable<any> {
+        let url = this.apiServer + 'Create/';
+        return this.http.get(url, this.customRequestOptions.optionRequestAuth)
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
 }

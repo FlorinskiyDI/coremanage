@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using coremanage.Core.Services.Interfaces.Entities;
+using coremanage.Dashboard.WebApi.Models.Tenant;
 using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,6 +21,32 @@ namespace coremanage.Dashboard.WebApi.Controllers
         {
             _tenantService = tenantService;
         }
+
+        [HttpGet]
+        [Route("Create")]
+        public async Task<IActionResult> GetTenantCreate()
+        {
+            var tenantCreate = new TenantCreateViewModel();
+            tenantCreate.TenantList = new List<TenantModel>
+            {
+                new TenantModel { Id = 1, Name = "tenant_1"},
+                new TenantModel { Id = 2, Name = "tenant_2"},
+                new TenantModel { Id = 3, Name = "tenant_3"},
+                new TenantModel { Id = 4, Name = "tenant_4"},
+                new TenantModel { Id = 5, Name = "tenant_5"}
+            };
+
+            return new JsonResult(tenantCreate);
+        }
+
+        [HttpPost]
+        [Route("Create")]
+        public async Task<IActionResult> PostTenantCreate([FromBody] TenantCreateViewModel model)
+        {
+            var tenantCreate = new TenantCreateViewModel();
+            return new JsonResult(tenantCreate);
+        }
+
 
         [HttpGet]
         [Route("TreeNode/{tenantName}")]

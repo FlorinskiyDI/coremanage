@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace coremanage.Dashboard.WebApi.Models.Tenant
 {
-    public class UpdateTenantViewModel
+    public class TenantModel
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
