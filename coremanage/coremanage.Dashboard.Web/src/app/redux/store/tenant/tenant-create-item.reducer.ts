@@ -38,25 +38,25 @@ export const INITIAL_STATE = new TenantCreateItemModalRecord(
 
 export function TenantCreateItemReducer(
   state: TenantCreateItemState = INITIAL_STATE,
-  action: IPayloadAction<any>
+  action: IPayloadAction<any, any>
 ): TenantCreateItemState {
   switch (action.type) {
 
-    case TenantActionTypes.LOAD_TENANT_ITEM:
+    case TenantActionTypes.GET_REQUEST_TENANT_CREATE_ITEM:
         return state.merge({
             item: null,
             error: null,
             loading: true
         });    
 
-    case TenantActionTypes.LOAD_TENANT_ITEM_SUCCESS:
+    case TenantActionTypes.REQUEST_TENANT_CREATE_ITEM_SUCCESS:
         return state.merge({
             item: action.payload,
             error: null,
             loading: false
         });
 
-    case TenantActionTypes.LOAD_TENANT_ITEM_FAILURE:
+    case TenantActionTypes.REQUEST_TENANT_CREATE_ITEM_FAILURE:
         return state.merge({
             item: null,
             error: action.payload,

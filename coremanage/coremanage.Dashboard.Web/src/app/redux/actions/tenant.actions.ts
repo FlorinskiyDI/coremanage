@@ -18,9 +18,11 @@ export const TenantActionTypes =  {
    /*
     tenant-tree-select action types
   */
-  LOAD_TENANT_ITEM: type('[TenantCreateItem] load tenant item'),
-  LOAD_TENANT_ITEM_SUCCESS: type('[TenantCreateItem] successfully loaded tenant item'),
-  LOAD_TENANT_ITEM_FAILURE: type('[TenantCreateItem] failed to load tenant item'),
+  GET_REQUEST_TENANT_CREATE_ITEM: type('[TenantCreateItem] get request tenant item'),
+  POST_REQUEST_TENANT_CREATE_ITEM: type('[TenantCreateItem] post request tenant item'),
+  REQUEST_TENANT_CREATE_ITEM_SUCCESS: type('[TenantCreateItem] successfully requested  tenant item'),
+  REQUEST_TENANT_CREATE_ITEM_FAILURE: type('[TenantCreateItem] failed to request tenant item'),
+
 }
 
 
@@ -66,21 +68,29 @@ export class TenantActions {
   /*
     tenant-tree-select actions
   */
-  public loadTenantCreateItemAction() {
-    this.ngRedux.dispatch({
-      type: TenantActionTypes.LOAD_TENANT_ITEM
-    });
+  public getRequestTenantCreateItemAction() {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_CREATE_ITEM
+    };
   }
-  public loadTenantCreateItemSuccessAction(data: any) {
-    this.ngRedux.dispatch({
-      type: TenantActionTypes.LOAD_TENANT_ITEM_SUCCESS,
-      payload: data
-    });
+
+  public postRequestTenantCreateItemAction(data: any) {
+    return {
+      type: TenantActionTypes.POST_REQUEST_TENANT_CREATE_ITEM,
+      meta: data,
+    };
   }
-  public loadTenantCreateItemFailedAction(data: any) {
-    this.ngRedux.dispatch({
-      type: TenantActionTypes.LOAD_TENANT_ITEM_FAILURE,
+
+  public requestTenantCreateItemSuccessAction(data: any) {
+    return {
+      type: TenantActionTypes.REQUEST_TENANT_CREATE_ITEM_SUCCESS,
       payload: data
-    });
+    };
+  }
+  public requestTenantCreateItemFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.REQUEST_TENANT_CREATE_ITEM_FAILURE,
+      payload: data
+    };
   }
 }

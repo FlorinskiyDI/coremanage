@@ -41,12 +41,14 @@ export class TenantAddComponent implements OnInit {
             let data = value.toJS();
 
             
-            if (data.item !== null) {
-                // init options of dropdown
-                this.tenantList.push({label: "Without parent tenant", value:{ id: 0, name: "Without tenant" }});
-                data.item.tenantList.forEach((element: any) => {
-                    this.tenantList.push({label: element.name, value:{ id: element.id, name: element.name }});
-                });
+            if (data.item !== null) {                
+                if( data.item.tenantList !== null){
+                    //init options of dropdown
+                    this.tenantList.push({label: "Without parent tenant", value:{ id: 0, name: "Without tenant" }});
+                    data.item.tenantList.forEach((element: any) => {
+                        this.tenantList.push({label: element.name, value:{ id: element.id, name: element.name }});
+                    });
+                }
             }
             console.log(data);
         });
@@ -54,10 +56,11 @@ export class TenantAddComponent implements OnInit {
 
     ngOnInit() {
 
-        this.tenantActions.loadTenantCreateItemAction();
+        this.ngRedux.dispatch(this.tenantActions.getRequestTenantCreateItemAction());
+        // this.tenantActions.getRequestTenantCreateItemAction();
         // this.tenantApiService.getTenantCreate().subscribe(
         //     data => {
-        //         this.tenantActions.loadTenantCreateItemSuccessAction(data);                
+        //         this.tenantActions.requestTenantCreateItemSuccessAction(data);                
         //     },
         //     error => {
         //         console.log(error);
@@ -72,6 +75,8 @@ export class TenantAddComponent implements OnInit {
             this.tenantCreateForm.value,
             { parentId: this.tenantCreateForm.value.parentId.id }
         ) as TenantCreateModel;
+        this.ngRedux.dispatch(this.tenantActions.postRequestTenantCreateItemAction(data));
+        
         console.log(data);        
     }
 

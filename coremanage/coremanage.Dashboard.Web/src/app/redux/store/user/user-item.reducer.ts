@@ -17,7 +17,7 @@ const initialState: UserItemState = {
 
 export function userItemReducer(
   state: UserItemState = initialState,
-  action: IPayloadAction<any>
+  action: IPayloadAction<any, any>
 ): UserItemState {
   switch (action.type) {
 

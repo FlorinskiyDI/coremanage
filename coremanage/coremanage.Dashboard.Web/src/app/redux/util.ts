@@ -20,6 +20,12 @@ export function type<T>(label: T | ''): T {
   return <T>label;
 }
 
-export interface IPayloadAction<T> extends Action {
-  payload?: T;
+// export interface IPayloadAction<T> extends Action {
+//   payload?: T;
+// }
+
+export interface IPayloadAction<P, M> extends Action {
+  payload?: P;
+  error?: any;
+	meta?: M;
 }

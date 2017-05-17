@@ -28,7 +28,7 @@ export class TenantAddDialogComponent implements OnInit {
        
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
          this.layoutModal$.subscribe((value: any) => {
             let val = value.toJS();
             this.dialogObj.isOpen = (this.dialogObj.modalType == val.modalType && this.dialogObj.modalType != null) ? true : false;
@@ -40,9 +40,9 @@ export class TenantAddDialogComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    // ngOnInit() {
     
-    }
+    // }
 
     onHideDialog(cccc: any = null){
         console.log("Close dialog => " + this.dialogObj.modalType);

@@ -6,7 +6,7 @@ import { List, Map, Record, fromJS} from 'immutable';
 
 export function TenantTreeSelectReducer(
   state = INITIAL_STATE,
-  action: IPayloadAction<TenantTreeSelectState>
+  action: IPayloadAction<TenantTreeSelectState, any>
 ): any {
   switch (action.type) {
 

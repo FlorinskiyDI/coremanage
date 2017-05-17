@@ -27,7 +27,7 @@ const INITIAL_STATE: ISession = {
 
 export function sessionReducer(
   state: ISession = INITIAL_STATE,
-  action: IPayloadAction<ISession>
+  action: IPayloadAction<ISession, string>
 ): ISession {
   switch (action.type) {
   case SessionActions.LOGIN_USER:

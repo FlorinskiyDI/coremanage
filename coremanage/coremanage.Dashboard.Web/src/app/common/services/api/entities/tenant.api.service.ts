@@ -31,5 +31,11 @@ export class TenantApiService extends BaseApiService<any> {
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }
+    addTenantCreate( data: any ): Observable<any> {
+        let url = this.apiServer + 'Create/';
+        return this.http.post(url, JSON.stringify(data), this.customRequestOptions.optionRequestAuth)
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
 
 }

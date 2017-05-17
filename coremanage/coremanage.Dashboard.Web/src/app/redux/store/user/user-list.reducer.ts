@@ -17,7 +17,7 @@ const initialState: UserListState = {
 
 export function userListReducer(
   state: UserListState = initialState,
-  action: IPayloadAction<any>
+  action: IPayloadAction<any, any>
 ): UserListState {
   switch (action.type) {
 

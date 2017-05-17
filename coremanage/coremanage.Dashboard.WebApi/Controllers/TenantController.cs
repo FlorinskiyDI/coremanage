@@ -44,7 +44,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> PostTenantCreate([FromBody] TenantCreateViewModel model)
         {
             var tenantCreate = new TenantCreateViewModel();
-            return new JsonResult(tenantCreate);
+            return new JsonResult(model);
         }
 
 

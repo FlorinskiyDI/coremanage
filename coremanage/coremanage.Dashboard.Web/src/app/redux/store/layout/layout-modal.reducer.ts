@@ -38,7 +38,7 @@ export const INITIAL_STATE = new LayoutModalRecord(
 
 export function LayoutModalReducer(
   state = INITIAL_STATE,
-  action: IPayloadAction<LayoutModalState>
+  action: IPayloadAction<LayoutModalState, string>
 ): any {
   switch (action.type) {
 
