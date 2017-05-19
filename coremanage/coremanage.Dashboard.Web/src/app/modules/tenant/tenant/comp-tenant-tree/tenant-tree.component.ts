@@ -17,26 +17,53 @@ import { fromJS, Map, List, Record } from 'immutable';
 })
 
 export class TenantTreeComponent implements OnInit {
-    public isOpenD = false;
-    private pTreeNodes$: Observable<any>
-    private pSelectedNode$: Observable<any>
-    private pContexMenuItems: MenuItem[];
+    
+    private loadedNodes$: Observable<any>
+    private selectedNode$: Observable<any>
     private selectedNode: TreeNode;
-    private files: any;
+    private pContexMenuItems: MenuItem[];
+    private files: any = [];
 
-    constructor(
-        private tenantApiService: TenantApiService,
+    constructor(        
         private ngRedux: NgRedux<IAppState>,
         private router: Router,
+        private tenantApiService: TenantApiService,
         private tenantActions: TenantActions,
         private layoutActions: LayoutActions
     ) {
-        this.pTreeNodes$ = this.ngRedux.select(state => state.tenant.tenantTreeSelect.tree);
-        this.pTreeNodes$.subscribe((value: any) => {
+
+
+        this.loadedNodes$ = this.ngRedux.select(state => state.tenant.tenantTree.loadedNodes);
+        this.selectedNode$ = this.ngRedux.select(state => state.tenant.tenantTree.selectedNode);
+        this.loadedNodes$.subscribe((value: any) => {
             if (value !== undefined) {
-                this.files = value.toJS();
+
+                let data = value.toJS();
+                if ( data.byNodeName == 0 && data.treeNodes != null){
+                    this.selectedNode = data.treeNodes[0];
+                    this.files = data.treeNodes;
+                    return;
+                }
+
+                if (data.treeNodes == null && data.byNodeName != null) {
+                    let node = this._getNodeById(data.byNodeName, this.files);
+                    if (node != null){
+                        node.children = null;
+                        node.expanded = false;
+                        node.selectable = true;
+                    }
+                } else {
+                    let node = this._getNodeById(data.byNodeName, this.files);
+                    if (node != null){
+                        node.children = data.treeNodes;
+                        node.expanded = true;
+                    }
+                }
+
             }
         });
+
+        
     }
 
     // init component
@@ -46,16 +73,7 @@ export class TenantTreeComponent implements OnInit {
     }
     private _initTreeNodes() {
         let tenantName = this.ngRedux.getState().session.tenant;
-        this.tenantActions.loadTenantTreeNodeAction();
-        this.tenantApiService.getTenantTreeNode(tenantName)
-        .subscribe(
-            data => {
-                this.tenantActions.loadTenantTreeNodeSuccessAction(data);
-                this.tenantActions.setTenantTreeAction(<TreeNode[]> data);
-                this.tenantActions.selectTenantTreeNodeAction(data[0]);
-            },
-            error => { console.log(error); }
-        );
+        this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(0));
     }
     private _initContextMenu() {
         this.pContexMenuItems = [
@@ -71,31 +89,16 @@ export class TenantTreeComponent implements OnInit {
 
     // events of tree
     loadNode(event: any) {
-        if (event.node && event.node.children == undefined) {
-            let tenantName = event.node.label;
-
-            this.tenantActions.loadTenantTreeNodeAction();
-            this.tenantApiService.getTenantTreeNode(tenantName)
-            .subscribe(
-                data => {
-                    let tenantTree = this.ngRedux.getState().tenant.tenantTreeSelect.tree.toJS();
-                    // finding a child node in the tree
-                    // adding children to node
-                    let node = this._getNodeById(event.node.id, tenantTree);
-                    node.children = data;
-                    node.expanded = true;
-
-                    this.tenantActions.loadTenantTreeNodeSuccessAction(data);
-                    this.tenantActions.setTenantTreeAction(<TreeNode[]> tenantTree);
-                },
-                error => { console.log(error); }
-            );
-        }
+         if (event.node.children == undefined) {
+            let tenantId = event.node.id;
+            this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(tenantId));
+         }
     }
+
     selectNode(event: any) {
         let treeNode = event.node;
         this.tenantActions.selectTenantTreeNodeAction(treeNode);
-        console.log(event);
+        console.log(treeNode);
     }
 
     // navigation/routing

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 /* interface */ import { IModalDialog } from '../../../common/index.interfaces';
 /* constant */ import { ModalDialogTypes } from '../../../common/index.constants';
-/* action */ import { LayoutActions } from "../../../redux/actions";
+/* action */ import { LayoutActions, TenantActions } from "../../../redux/actions";
 /* state */ import { IAppState } from '../../../redux/store';
 
 @Component({
@@ -22,7 +22,8 @@ export class TenantEditDialogComponent implements OnInit {
 
     constructor(
         private ngRedux: NgRedux<IAppState>,
-        private layoutActions: LayoutActions
+        private layoutActions: LayoutActions,        
+        private tenantActions: TenantActions,
     ){
         this.layoutModal$ = this.ngRedux.select(state=>state.layout.layoutModal);        
     }
@@ -30,12 +31,13 @@ export class TenantEditDialogComponent implements OnInit {
     ngAfterViewInit() {
          this.layoutModal$.subscribe((value: any) => {
             let val = value.toJS();
-            this.dialogObj.isOpen = (this.dialogObj.modalType == val.modalType && this.dialogObj.modalType != null) ? true : false;
-            // if (this.dialogObj.modalType == val.modalType && this.dialogObj.modalType != null) {
-            //     this.dialogObj.isOpen = true;
-            // } else {
-            //     this.dialogObj.isOpen = false;
-            // }            
+           
+            if (this.dialogObj.modalType == val.modalType && this.dialogObj.modalType != null) {
+                this.dialogObj.isOpen = true;
+                this.ngRedux.dispatch(this.tenantActions.getRequestTenantItemUpdateAction());
+            } else {
+                this.dialogObj.isOpen = false;
+            }            
         });
     }
 

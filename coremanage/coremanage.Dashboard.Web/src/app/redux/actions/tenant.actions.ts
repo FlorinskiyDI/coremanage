@@ -6,22 +6,25 @@ import { type } from '../util';
 
 
 export const TenantActionTypes =  {
-  /*
-    tenant-tree-select action types
-  */
-  LOAD_TENANT_TREE_NODE: type('[TenantTreeSelect] load tenant treeNode'),
-  LOAD_TENANT_TREE_NODE_SUCCESS: type('[TenantTreeSelect] successfully loaded tenant treeNode'),
-  LOAD_TENANT_TREE_NODE_FAILURE: type('[TenantTreeSelect] failed to load tenant treeNode'),
-  SET_TENANT_TREE: type('[TenantTreeSelect] set to the tree value'),
-  SELECT_TENANT_TREE_NODE: type('[TenantTreeSelect] selected treeNode'),
 
-   /*
-    tenant-tree-select action types
-  */
-  GET_REQUEST_TENANT_CREATE_ITEM: type('[TenantCreateItem] get request tenant item'),
-  POST_REQUEST_TENANT_CREATE_ITEM: type('[TenantCreateItem] post request tenant item'),
-  REQUEST_TENANT_CREATE_ITEM_SUCCESS: type('[TenantCreateItem] successfully requested  tenant item'),
-  REQUEST_TENANT_CREATE_ITEM_FAILURE: type('[TenantCreateItem] failed to request tenant item'),
+  /* tenant-tree action types */
+  GET_REQUEST_TENANT_TREE_NODE: type('[TenantTree] load tenant tree nodes'),
+  REQUEST_TENANT_TREE_NODE_SUCCESS: type('[TenantTree] successfully loaded tenant tree nodes'),
+  REQUEST_TENANT_TREE_NODE_FAILURE: type('[TenantTree] failed to load tenant tree nodes'),
+  SET_TENANT_TREE: type('[TenantTree] set to the tree value'),
+  SELECT_TENANT_TREE_NODE: type('[TenantTree] selected tree nodes'),
+
+  /* tenant-item-create action types */
+  GET_REQUEST_TENANT_ITEM_CREATE: type('[TenantItemCreate] get request tenant item'),
+  POST_REQUEST_TENANT_ITEM_CREATE: type('[TenantItemCreate] post request tenant item'),
+  REQUEST_TENANT_ITEM_CREATE_SUCCESS: type('[TenantItemCreate] successfully requested  tenant item'),
+  REQUEST_TENANT_ITEM_CREATE_FAILURE: type('[TenantItemCreate] failed to request tenant item'),
+
+  /* tenant-item-update action types */
+  GET_REQUEST_TENANT_ITEM_UPDATE: type('[TenantItemUpdate] get request tenant item'),
+  POST_REQUEST_TENANT_ITEM_UPDATE: type('[TenantItemUpdate] post request tenant item'),
+  REQUEST_TENANT_ITEM_UPDATE_SUCCESS: type('[TenantItemUpdate] successfully requested  tenant item'),
+  REQUEST_TENANT_ITEM_UPDATE_FAILURE: type('[TenantItemUpdate] failed to request tenant item'),
 
 }
 
@@ -32,25 +35,25 @@ export class TenantActions {
     private ngRedux: NgRedux<IAppState>
   ) { }
 
-  /*
-    tenant-tree-select actions
-  */
-  public loadTenantTreeNodeAction() {
-    this.ngRedux.dispatch({
-      type: TenantActionTypes.LOAD_TENANT_TREE_NODE
-    });
+  /* tenant-tree actions */
+  public getRequestTenantTreeNodesAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_TREE_NODE,
+      meta: data,
+    };
   }
-  public loadTenantTreeNodeSuccessAction(data: any) {
-    this.ngRedux.dispatch({
-      type: TenantActionTypes.LOAD_TENANT_TREE_NODE_SUCCESS,
+  public requestTenantTreeNodesSuccessAction(data: any, meta: any) {
+    return {
+      type: TenantActionTypes.REQUEST_TENANT_TREE_NODE_SUCCESS,
+      meta: meta,
       payload: data
-    });
+    };
   }
-  public loadTenantTreeNodeFailedAction(data: any) {
-    this.ngRedux.dispatch({
-      type: TenantActionTypes.LOAD_TENANT_TREE_NODE_FAILURE,
+  public requestTenantTreeNodesFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.REQUEST_TENANT_TREE_NODE_FAILURE,
       payload: data
-    });
+    };
   }
   public setTenantTreeAction(data: any) {
     this.ngRedux.dispatch({
@@ -65,31 +68,52 @@ export class TenantActions {
     });
   }
 
-  /*
-    tenant-tree-select actions
-  */
-  public getRequestTenantCreateItemAction() {
+  /* tenant-tree-select actions */
+  public getRequestTenantItemCreateAction() {
     return {
-      type: TenantActionTypes.GET_REQUEST_TENANT_CREATE_ITEM
+      type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE
     };
   }
-
-  public postRequestTenantCreateItemAction(data: any) {
+  public postRequestTenantItemCreateAction(data: any) {
     return {
-      type: TenantActionTypes.POST_REQUEST_TENANT_CREATE_ITEM,
+      type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE,
       meta: data,
     };
   }
-
-  public requestTenantCreateItemSuccessAction(data: any) {
+  public requestTenantItemCreateSuccessAction(data: any) {
     return {
-      type: TenantActionTypes.REQUEST_TENANT_CREATE_ITEM_SUCCESS,
+      type: TenantActionTypes.REQUEST_TENANT_ITEM_CREATE_SUCCESS,
       payload: data
     };
   }
-  public requestTenantCreateItemFailedAction(data: any) {
+  public requestTenantItemCreateFailedAction(data: any) {
     return {
-      type: TenantActionTypes.REQUEST_TENANT_CREATE_ITEM_FAILURE,
+      type: TenantActionTypes.REQUEST_TENANT_ITEM_CREATE_FAILURE,
+      payload: data
+    };
+  }
+
+  /* tenant-item-update actions */
+  public getRequestTenantItemUpdateAction() {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE
+    };
+  }
+  public postRequestTenantItemUpdateAction(data: any) {
+    return {
+      type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_UPDATE,
+      meta: data,
+    };
+  }
+  public requestTenantItemUpdateSuccessAction(data: any) {
+    return {
+      type: TenantActionTypes.REQUEST_TENANT_ITEM_UPDATE_SUCCESS,
+      payload: data
+    };
+  }
+  public requestTenantItemUpdateFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.REQUEST_TENANT_ITEM_UPDATE_FAILURE,
       payload: data
     };
   }

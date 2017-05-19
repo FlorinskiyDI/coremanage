@@ -7,5 +7,7 @@ namespace coremanage.Core.Services.Interfaces.Entities
 {
     public interface ITenantService : IBaseService<TenantDto, int>
     {
+        IEnumerable<TenantDto> GetAllByParentId(int id);
+        TenantDto GetByName(string name);
     }
 }

@@ -16,10 +16,10 @@ export class TenantApiService extends BaseApiService<any> {
         super('api/Tenant/', http, requestOptions);
     }
 
-    getTenantTreeNode(
-        tenantName: string
+    getTenantTreeNodes(
+        tenantname: string
     ): Observable<any> {
-        let url = this.apiServer + 'TreeNode/' + tenantName;
+        let url = this.apiServer + 'TreeNode/' + tenantname;
         return this.http.get(url, this.customRequestOptions.optionRequestAuth)
             .map((res: Response) => res.json())
             .catch(this.handleError);
@@ -33,6 +33,19 @@ export class TenantApiService extends BaseApiService<any> {
     }
     addTenantCreate( data: any ): Observable<any> {
         let url = this.apiServer + 'Create/';
+        return this.http.post(url, JSON.stringify(data), this.customRequestOptions.optionRequestAuth)
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+
+    getTenantUpdate( ): Observable<any> {
+        let url = this.apiServer + 'Update/';
+        return this.http.get(url, this.customRequestOptions.optionRequestAuth)
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+    addTenantUpdate( data: any ): Observable<any> {
+        let url = this.apiServer + 'Update/';
         return this.http.post(url, JSON.stringify(data), this.customRequestOptions.optionRequestAuth)
             .map((res: Response) => res.json());
             // .catch(this.handleError);

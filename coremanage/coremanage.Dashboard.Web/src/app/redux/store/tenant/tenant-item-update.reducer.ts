@@ -3,27 +3,27 @@ import { TenantActions, TenantActionTypes } from '../../actions/tenant.actions';
 import { List, Map, Record } from 'immutable';
 
 // model
-export interface TenantCreateItemModel {
+export interface TenantItemUpdateModel {
   item: any,
   error: any,
   loading: boolean
 };
 
 // states
-export interface TenantCreateItemState extends Map<string, any>, TenantCreateItemModel {
-  set: (prop: string, val: any) => TenantCreateItemState;
-  merge: (other: any) => TenantCreateItemState;
+export interface TenantItemUpdateState extends Map<string, any>, TenantItemUpdateModel {
+  set: (prop: string, val: any) => TenantItemUpdateState;
+  merge: (other: any) => TenantItemUpdateState;
 };
 
 // record
-export const TenantCreateItemModalRecord = Record({
+export const TenantItemUpdateModalRecord = Record({
   item: null,
   error: null,
   loading: false
 });
 
 // init
-export const INITIAL_STATE = new TenantCreateItemModalRecord(
+export const INITIAL_STATE = new TenantItemUpdateModalRecord(
     (<any>Object).assign(
       {},
       {
@@ -33,30 +33,37 @@ export const INITIAL_STATE = new TenantCreateItemModalRecord(
       },
       {}
     )
-  ) as TenantCreateItemState;
+  ) as TenantItemUpdateState;
 
 
-export function TenantCreateItemReducer(
-  state: TenantCreateItemState = INITIAL_STATE,
+export function TenantItemUpdateReducer(
+  state: TenantItemUpdateState = INITIAL_STATE,
   action: IPayloadAction<any, any>
-): TenantCreateItemState {
+): TenantItemUpdateState {
   switch (action.type) {
 
-    case TenantActionTypes.GET_REQUEST_TENANT_CREATE_ITEM:
+    case TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE:
+        return state.merge({
+            item: null,
+            error: null,
+            loading: true
+        });
+
+    case TenantActionTypes.POST_REQUEST_TENANT_ITEM_UPDATE:
         return state.merge({
             item: null,
             error: null,
             loading: true
         });    
 
-    case TenantActionTypes.REQUEST_TENANT_CREATE_ITEM_SUCCESS:
+    case TenantActionTypes.REQUEST_TENANT_ITEM_UPDATE_SUCCESS:
         return state.merge({
             item: action.payload,
             error: null,
             loading: false
         });
 
-    case TenantActionTypes.REQUEST_TENANT_CREATE_ITEM_FAILURE:
+    case TenantActionTypes.REQUEST_TENANT_ITEM_UPDATE_FAILURE:
         return state.merge({
             item: null,
             error: action.payload,

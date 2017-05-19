@@ -7,5 +7,11 @@ namespace coremanage.Dashboard.WebApi.Models.Tenant
 {
     public class TenantUpdateViewModel
     {
+        public string Name { get; set; }
+        public int ParentId { get; set; }
+        public string Description { get; set; }
+
+        // additional properties
+        public List<TenantModel> TenantList { get; set; }
     }
 }

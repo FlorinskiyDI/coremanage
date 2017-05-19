@@ -13,6 +13,7 @@ namespace coremanage.Core.Services.Interfaces
         //Task<IEnumerable<TDto>> GetPageAsync();
 
         TDto Get(TKey id);
+
         Task<TDto> GetAsync(TKey id);
 
         void Add(TDto entity);
@@ -21,7 +22,7 @@ namespace coremanage.Core.Services.Interfaces
 
         void Remove(TDto entity);
         void Remove(TKey id);
-
+        
         //bool Any();
         //Task<bool> AnyAsync();
 

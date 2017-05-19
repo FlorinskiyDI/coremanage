@@ -49,46 +49,58 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
 
         [HttpGet]
+        [Route("Update")]
+        public async Task<IActionResult> GetTenantUpdate()
+        {
+            var tenantUpdate = new TenantUpdateViewModel();
+            tenantUpdate.Name = "GetName";
+            tenantUpdate.Description = "GetDescription";
+            tenantUpdate.ParentId = 2;
+            tenantUpdate.TenantList = new List<TenantModel>
+            {
+                new TenantModel { Id = 1, Name = "tenant_update_1"},
+                new TenantModel { Id = 2, Name = "tenant_update_2"},
+                new TenantModel { Id = 3, Name = "tenant_update_3"},
+                new TenantModel { Id = 4, Name = "tenant_update_4"},
+                new TenantModel { Id = 5, Name = "tenant_update_5"}
+            };
+
+            return new JsonResult(tenantUpdate);
+        }
+
+        [HttpPost]
+        [Route("Update")]
+        public async Task<IActionResult> PostTenantUpdate([FromBody] TenantUpdateViewModel model)
+        {
+            var tenantUpdate= new TenantUpdateViewModel();
+            return new JsonResult(model);
+        }
+
+
+        [HttpGet]
         [Route("TreeNode/{tenantName}")]
-        public IActionResult TreeNode(string tenantName)
+        public IActionResult TreeNode(int tenantId)
         {
 
             var random = new Random();
+            var result = _tenantService.GetAllByParentId(tenantId);
 
-            var ccc = tenantName;
-            var fff = new List<object>
+
+            var fff = new List<object>();
+
+            for (int i = 0; i < 3; i++)
             {
-                new
-                {
-                    id = random.Next(0, 1000),
-                    label = "Lazy Node 0",
+                var rand = random.Next(0, 1000);
+                fff.Add(new {
+                    id = rand,
+                    label = "Lazy_Node_" + rand,
                     data = "Node 0",
                     expandedIcon = "fa-folder-open",
                     collapsedIcon = "fa-folder",
                     leaf = false,
                     selectable = true
-                },
-                new
-                {
-                    id = random.Next(0, 1000),
-                    label = "Lazy Node 1",
-                    data = "Node 1",
-                    expandedIcon = "fa-folder-open",
-                    collapsedIcon = "fa-folder",
-                    leaf = false,
-                    selectable = true
-                },
-                new
-                {
-                    id = random.Next(0, 1000),
-                    label = "Lazy Node 2",
-                    data = "Node 2",
-                    expandedIcon = "fa-folder-open",
-                    collapsedIcon = "fa-folder",
-                    leaf = false,
-                    selectable = true
-                }
-            };
+                });
+            }
             return new JsonResult(fff);
         }
 

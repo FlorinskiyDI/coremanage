@@ -14,7 +14,7 @@ import { SelectItem } from 'primeng/primeng';
     templateUrl: 'tenant-add.component.html'
 })
 export class TenantAddComponent implements OnInit {    
-    private tenantCreateItem$: Observable<any>
+    private tenantItemCreate$: Observable<any>
     tenantCreateForm: FormGroup;
     tenantCreateData: TenantCreateModel;
     tenantList: SelectItem[];
@@ -28,6 +28,7 @@ export class TenantAddComponent implements OnInit {
         'description': { 'required': 'Description is required.' },
         'parentId': { 'required': 'parentId is required.' }
     };
+
     constructor(
         private tenantApiService: TenantApiService,
         private ngRedux: NgRedux<IAppState>,
@@ -36,8 +37,8 @@ export class TenantAddComponent implements OnInit {
     ) {
         this.tenantCreateData = new TenantCreateModel();
         this.tenantList = [];
-        this.tenantCreateItem$ = this.ngRedux.select(state => state.tenant.tenantCreateItem);
-        this.tenantCreateItem$.subscribe((value: any) => {                     
+        this.tenantItemCreate$ = this.ngRedux.select(state => state.tenant.tenantItemCreate);
+        this.tenantItemCreate$.subscribe((value: any) => {                     
             let data = value.toJS();
 
             
@@ -54,18 +55,7 @@ export class TenantAddComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
-
-        this.ngRedux.dispatch(this.tenantActions.getRequestTenantCreateItemAction());
-        // this.tenantActions.getRequestTenantCreateItemAction();
-        // this.tenantApiService.getTenantCreate().subscribe(
-        //     data => {
-        //         this.tenantActions.requestTenantCreateItemSuccessAction(data);                
-        //     },
-        //     error => {
-        //         console.log(error);
-        //     }
-        // );
+    ngOnInit() {        
         this.buildForm();
     }
 
@@ -75,7 +65,7 @@ export class TenantAddComponent implements OnInit {
             this.tenantCreateForm.value,
             { parentId: this.tenantCreateForm.value.parentId.id }
         ) as TenantCreateModel;
-        this.ngRedux.dispatch(this.tenantActions.postRequestTenantCreateItemAction(data));
+        this.ngRedux.dispatch(this.tenantActions.postRequestTenantItemCreateAction(data));
         
         console.log(data);        
     }
@@ -106,5 +96,4 @@ export class TenantAddComponent implements OnInit {
             }
         }
     }
-
 }

@@ -89,6 +89,7 @@ namespace coremanage.Core.Services.Services
             var item = Mapper.Map<TDto, TEntity>(entity);
             using (var uow = UowProvider.CreateUnitOfWork())
             {
+                
                 var repository = uow.GetRepository<TEntity, TKey>();
                 repository.Update(item);
                 uow.SaveChanges();

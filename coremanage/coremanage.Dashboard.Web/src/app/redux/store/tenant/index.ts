@@ -1,17 +1,19 @@
 import { combineReducers } from 'redux';
 
-import { TenantTreeSelectReducer } from './tenant-tree-select.reducer';
-import { TenantTreeSelectState } from './tenant-tree-select.types';
-import { TenantCreateItemReducer, TenantCreateItemState } from './tenant-create-item.reducer';
+import { TenantTreeReducer, TenantTreeState } from './tenant-tree.reducer';
+import { TenantItemCreateReducer, TenantItemCreateState } from './tenant-item-create.reducer';
+import { TenantItemUpdateReducer, TenantItemUpdateState } from './tenant-item-update.reducer';
 
 
 export interface TenantState {
-  tenantTreeSelect?: TenantTreeSelectState;
-  tenantCreateItem?: TenantCreateItemState
+  tenantTree?: TenantTreeState,
+  tenantItemCreate?: TenantItemCreateState,
+  tenantItemUpdate?: TenantItemCreateState
 };
 
 // reducer
 export const tenantReducer = combineReducers<TenantState>({
-  tenantTreeSelect: TenantTreeSelectReducer,
-  tenantCreateItem: TenantCreateItemReducer
+  tenantTree: TenantTreeReducer,
+  tenantItemCreate: TenantItemCreateReducer,
+  tenantItemUpdate: TenantItemUpdateReducer
 });

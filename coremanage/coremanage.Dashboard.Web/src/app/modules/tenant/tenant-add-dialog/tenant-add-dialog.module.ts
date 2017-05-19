@@ -1,4 +1,4 @@
-import { NgModule, Input} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogModule, ButtonModule, DropdownModule} from 'primeng/primeng';
 
@@ -11,7 +11,7 @@ import { DialogModule, ButtonModule, DropdownModule} from 'primeng/primeng';
     imports: [
         SharedModule,
         CommonModule,
-        DialogModule,ButtonModule, DropdownModule,
+        DialogModule, ButtonModule, DropdownModule,
     ],
     declarations: [
         TenantAddComponent,
