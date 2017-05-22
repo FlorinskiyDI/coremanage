@@ -27,14 +27,17 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> GetTenantCreate()
         {
             var tenantCreate = new TenantCreateViewModel();
-            tenantCreate.TenantList = new List<TenantModel>
+            tenantCreate.TenantList = new List<TenantViewModel>
             {
-                new TenantModel { Id = 1, Name = "tenant_1"},
-                new TenantModel { Id = 2, Name = "tenant_2"},
-                new TenantModel { Id = 3, Name = "tenant_3"},
-                new TenantModel { Id = 4, Name = "tenant_4"},
-                new TenantModel { Id = 5, Name = "tenant_5"}
+                new TenantViewModel { Id = 1, Name = "tenant_1"},
+                new TenantViewModel { Id = 2, Name = "tenant_2"},
+                new TenantViewModel { Id = 3, Name = "tenant_3"},
+                new TenantViewModel { Id = 4, Name = "tenant_4"},
+                new TenantViewModel { Id = 5, Name = "tenant_5"}
             };
+
+
+            
 
             return new JsonResult(tenantCreate);
         }
@@ -56,13 +59,13 @@ namespace coremanage.Dashboard.WebApi.Controllers
             tenantUpdate.Name = "GetName";
             tenantUpdate.Description = "GetDescription";
             tenantUpdate.ParentId = 2;
-            tenantUpdate.TenantList = new List<TenantModel>
+            tenantUpdate.TenantList = new List<TenantViewModel>
             {
-                new TenantModel { Id = 1, Name = "tenant_update_1"},
-                new TenantModel { Id = 2, Name = "tenant_update_2"},
-                new TenantModel { Id = 3, Name = "tenant_update_3"},
-                new TenantModel { Id = 4, Name = "tenant_update_4"},
-                new TenantModel { Id = 5, Name = "tenant_update_5"}
+                new TenantViewModel { Id = 1, Name = "tenant_update_1"},
+                new TenantViewModel { Id = 2, Name = "tenant_update_2"},
+                new TenantViewModel { Id = 3, Name = "tenant_update_3"},
+                new TenantViewModel { Id = 4, Name = "tenant_update_4"},
+                new TenantViewModel { Id = 5, Name = "tenant_update_5"}
             };
 
             return new JsonResult(tenantUpdate);
@@ -79,29 +82,32 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
         [HttpGet]
         [Route("TreeNode/{tenantName}")]
-        public IActionResult TreeNode(int tenantId)
+        public async Task<IActionResult> TreeNodeAsync(int tenantName)
         {
+            var tenantList = new List<TenantViewModel>();
+            var result = await _tenantService.GetAllByParentName(tenantName);
+            tenantList = result.Select(c => new TenantViewModel {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList();
+            
 
-            var random = new Random();
-            var result = _tenantService.GetAllByParentId(tenantId);
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    var rand = random.Next(0, 1000);
+            //    fff.Add(new
+            //    {
+            //        id = rand,
+            //        label = "Lazy_Node_" + rand,
+            //        data = "Node 0",
+            //        expandedIcon = "fa-folder-open",
+            //        collapsedIcon = "fa-folder",
+            //        leaf = false,
+            //        selectable = true
+            //    });
+            //}
 
-
-            var fff = new List<object>();
-
-            for (int i = 0; i < 3; i++)
-            {
-                var rand = random.Next(0, 1000);
-                fff.Add(new {
-                    id = rand,
-                    label = "Lazy_Node_" + rand,
-                    data = "Node 0",
-                    expandedIcon = "fa-folder-open",
-                    collapsedIcon = "fa-folder",
-                    leaf = false,
-                    selectable = true
-                });
-            }
-            return new JsonResult(fff);
+            return new JsonResult(tenantList);
         }
 
         // GET: api/values

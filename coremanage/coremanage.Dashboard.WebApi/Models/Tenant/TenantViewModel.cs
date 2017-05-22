@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace coremanage.Dashboard.WebApi.Models.Tenant
 {
-    public class TenantModel
+    public class TenantViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

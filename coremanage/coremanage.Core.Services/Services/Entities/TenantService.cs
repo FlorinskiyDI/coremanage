@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using coremanage.Core.Contracts.Repositories;
 using coremanage.Core.Models.Dtos.Identity;
 using coremanage.Core.Services.Interfaces.Entities;
 using coremanage.Data.Models.Entities;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace coremanage.Core.Services.Services.Entities
 {
@@ -43,6 +45,20 @@ namespace coremanage.Core.Services.Services.Entities
                 item = repository.Query(s => s.Name == name).FirstOrDefault();
             }
             return Mapper.Map<Tenant, TenantDto>(item);
+        }
+
+        public async Task<List<TenantDto>> GetAllByParentName(int name)
+        {
+            var cc = new List<Tenant>();
+            
+            using (var uow = UowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetCustomRepository<ITenantRepository>();
+                //var id = (name != null) ? repository.Query(s => s.Name == name).FirstOrDefault().Id: 0;
+                cc = await repository.GetAllByParentName("SuperAdmin", name);
+            }
+
+            return Mapper.Map<List<Tenant>, List<TenantDto>>(cc);
         }
 
     }

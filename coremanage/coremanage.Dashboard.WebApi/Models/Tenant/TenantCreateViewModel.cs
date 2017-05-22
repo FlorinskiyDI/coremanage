@@ -12,7 +12,7 @@ namespace coremanage.Dashboard.WebApi.Models.Tenant
         public string Description { get; set; }
 
         // additional properties
-        public  List<TenantModel> TenantList { get; set; }
+        public  List<TenantViewModel> TenantList { get; set; }
     }
 
     

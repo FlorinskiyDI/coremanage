@@ -39,31 +39,29 @@ export class TenantTreeComponent implements OnInit {
             if (value !== undefined) {
 
                 let data = value.toJS();
-                if ( data.byNodeName == 0 && data.treeNodes != null){
-                    this.selectedNode = data.treeNodes[0];
-                    this.files = data.treeNodes;
+                if ( data.byNodeName === null && data.treeNodes != null){
+                    let result = this.upCastToMenuItem(data.treeNodes);
+                    this.selectedNode = result[0];
+                    this.files = result;
                     return;
                 }
 
                 if (data.treeNodes == null && data.byNodeName != null) {
-                    let node = this._getNodeById(data.byNodeName, this.files);
+                    let node = this.getNodeById(data.byNodeName, this.files);
                     if (node != null){
                         node.children = null;
                         node.expanded = false;
                         node.selectable = true;
                     }
                 } else {
-                    let node = this._getNodeById(data.byNodeName, this.files);
+                    let node = this.getNodeById(data.byNodeName, this.files);
                     if (node != null){
-                        node.children = data.treeNodes;
+                        node.children = this.upCastToMenuItem(data.treeNodes);
                         node.expanded = true;
                     }
                 }
-
             }
-        });
-
-        
+        });        
     }
 
     // init component
@@ -73,7 +71,7 @@ export class TenantTreeComponent implements OnInit {
     }
     private _initTreeNodes() {
         let tenantName = this.ngRedux.getState().session.tenant;
-        this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(0));
+        this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(null));
     }
     private _initContextMenu() {
         this.pContexMenuItems = [
@@ -107,7 +105,7 @@ export class TenantTreeComponent implements OnInit {
     }
 
     // function getting node by nodeId
-    private _getNodeById(id: any, node: any) {
+    private getNodeById(id: any, node: any) {
         let reduce = [].reduce;
         function runner(result: any, node: any): any {
             if (result || !node) {
@@ -120,6 +118,26 @@ export class TenantTreeComponent implements OnInit {
         return runner(null, node);
     }
 
+    private upCastToMenuItem(list: any[]){
+        let listMenuItem: any[];
+        listMenuItem = [];
+        if (list != undefined) {        
+            list.forEach(s => {
+                listMenuItem.push({
+                    id: s.id,
+                    label: s.name,
+                    data: s.name,
+                    expandedIcon: "fa-folder-open",
+                    collapsedIcon: "fa-folder",
+                    leaf: false,
+                    selectable: true
+                });
+            });
+        }
+        return listMenuItem
+        
+    }
+
     // open dialog for adding new tenant
     showTenantAddDialog() {
         this.layoutActions.openLayoutModalAction({
@@ -128,4 +146,5 @@ export class TenantTreeComponent implements OnInit {
             extraData: { }
         });
     }
+
 }

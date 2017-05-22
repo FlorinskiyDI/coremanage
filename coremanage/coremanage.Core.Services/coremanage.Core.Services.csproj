@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\coremanage.Core.Contracts\coremanage.Core.Contracts.csproj" />
     <ProjectReference Include="..\coremanage.Core.Models\coremanage.Core.Models.csproj" />
     <ProjectReference Include="..\coremanage.Data.Models\coremanage.Data.Models.csproj" />
     <ProjectReference Include="..\storagecore.Abstractions\storagecore.Abstractions.csproj" />

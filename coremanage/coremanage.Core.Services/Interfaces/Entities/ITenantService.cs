@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace coremanage.Core.Services.Interfaces.Entities
 {
@@ -9,5 +10,6 @@ namespace coremanage.Core.Services.Interfaces.Entities
     {
         IEnumerable<TenantDto> GetAllByParentId(int id);
         TenantDto GetByName(string name);
+        Task<List<TenantDto>> GetAllByParentName(int name);
     }
 }
