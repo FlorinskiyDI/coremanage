@@ -12,8 +12,8 @@ namespace coremanage.Core.Common.Context
         public string LastName { get; set; }
         public string FullName => this.FirstName + " " + this.LastName;
 
-        //public int CompanyId { get; set; }
-        public  string TenantName { get; set; }
+        public int TenantId { get; set; }
+        public string TenantName { get; set; }
         public int? GroupCompanyId { get; set; }
         public int? DashboardPageId { get; set; }
     }

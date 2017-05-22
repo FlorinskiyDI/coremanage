@@ -11,6 +11,7 @@ using IdentityModel;
 using coremanage.Data.Models.Models;
 using coremanage.Core.Contracts.Repositories;
 using coremanage.Core.Common.Types;
+using coremanage.Data.Models.Entities;
 
 //using coremanage.Core.Contracts.Repositories;
 
@@ -30,27 +31,31 @@ namespace coremanage.IdentityServer.WebApi.Services
             // get sub from subject
             var sub = context.Subject.GetSubjectId();
             // get tenant claim from client
-            var tenant = context.Client.Claims.ToList().Find(s => s.Type == ExtJwtClaimTypes.Tenant).Value;
+            var tenantName = context.Client.Claims.ToList().Find(s => s.Type == ExtJwtClaimTypes.TenantName).Value;
 
             IdentityProfileModel isentityProfile;
+            Tenant tenant;
             using (var uow = _uowProvider.CreateUnitOfWork())
             {
                 var securityRepository = uow.GetCustomRepository<ISecurityRepository>();
-                isentityProfile = await securityRepository.GetIdentityProfileModel(sub, tenant);
+                isentityProfile = await securityRepository.GetIdentityProfileModel(sub, tenantName);
+                tenant = await securityRepository.GetTenantByName(tenantName);
             }
 
             var jwtClaims = new List<Claim>
             {
+                new Claim(JwtClaimTypes.Id, isentityProfile.UserId),
                 new Claim(JwtClaimTypes.Name, isentityProfile.FirstName),
                 new Claim(JwtClaimTypes.MiddleName, isentityProfile.FirstName),
                 new Claim(JwtClaimTypes.FamilyName, isentityProfile.LastName),
                 new Claim(JwtClaimTypes.Email, isentityProfile.Email),
-                new Claim(ExtJwtClaimTypes.Tenant, tenant)
+                new Claim(ExtJwtClaimTypes.TenantId, tenant.Id.ToString()),
+                new Claim(ExtJwtClaimTypes.TenantName, tenantName)
             };
             
-            foreach (var tenantName in isentityProfile.TenantList)
+            foreach (var item in isentityProfile.TenantList)
             {
-                jwtClaims.Add(new Claim(ExtJwtClaimTypes.TenantList, tenantName));
+                jwtClaims.Add(new Claim(ExtJwtClaimTypes.TenantList, item));
             }
 
             context.IssuedClaims = jwtClaims;

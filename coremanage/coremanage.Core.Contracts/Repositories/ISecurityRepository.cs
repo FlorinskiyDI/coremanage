@@ -1,4 +1,5 @@
-﻿using coremanage.Data.Models.Models;
+﻿using coremanage.Data.Models.Entities;
+using coremanage.Data.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,5 +11,6 @@ namespace coremanage.Core.Contracts.Repositories
     {
         Task<IdentityProfileModel> GetIdentityProfileModel(string userName, string tenant);
         Task<bool> CheckTenantforUserAsync(string userName, string tenant);
+        Task<Tenant> GetTenantByName(string name);
     }
 }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using coremanage.Core.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using coremanage.Data.Models.Entities;
 
 namespace coremanage.Data.Storage.Repositories
 {
@@ -39,6 +40,13 @@ namespace coremanage.Data.Storage.Repositories
                                   select tenants)
                             .AnyAsync();
             return isTenant;
+        }
+
+        public async Task<Tenant> GetTenantByName(string name)
+        {
+            return await (from tenants in this.Context.Tenants
+                        where tenants.IsDeleted == false && tenants.Name == name
+                          select tenants).FirstOrDefaultAsync();
         }
 
         public async Task<IdentityProfileModel> GetIdentityProfileModel(string userName, string tenant)

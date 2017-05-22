@@ -14,13 +14,13 @@ namespace coremanage.IdentityServer.WebApi.Services
     {
         public Task ValidateAsync(CustomTokenRequestValidationContext context)
         {
-            var tenant = context.Result.ValidatedRequest.Raw.Get(ExtJwtClaimTypes.Tenant);
+            var tenant = context.Result.ValidatedRequest.Raw.Get(ExtJwtClaimTypes.TenantName);
 
             // get tenant claim and remove it
-            var сlaimForRemoval = context.Result.ValidatedRequest.Client.Claims.FirstOrDefault(x => x.Type == ExtJwtClaimTypes.Tenant);
+            var сlaimForRemoval = context.Result.ValidatedRequest.Client.Claims.FirstOrDefault(x => x.Type == ExtJwtClaimTypes.TenantName);
             context.Result.ValidatedRequest.Client.Claims.Remove(сlaimForRemoval);
             // add tenant claim to client
-            context.Result.ValidatedRequest.Client.Claims.Add(new Claim(ExtJwtClaimTypes.Tenant, tenant));
+            context.Result.ValidatedRequest.Client.Claims.Add(new Claim(ExtJwtClaimTypes.TenantName, tenant));
 
             return Task.FromResult(0);
         }

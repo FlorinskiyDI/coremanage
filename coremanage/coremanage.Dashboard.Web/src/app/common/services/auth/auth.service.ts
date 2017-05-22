@@ -68,7 +68,7 @@ export class AuthService {
             user: user,
             hasError: false,
             isLoading: false,
-            tenant: decode.tenant
+            tenant: decode.tenant_name
         }
         this.sessionActions.loginUserSuccess(session);
     }

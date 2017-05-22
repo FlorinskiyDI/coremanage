@@ -29,6 +29,7 @@ namespace coremanage.IdentityServer.WebApi.Configurations
                     UserClaims =
                     {
                         // jwt claims
+                        JwtClaimTypes.Id,
                         JwtClaimTypes.Name,
                         JwtClaimTypes.MiddleName,
                         JwtClaimTypes.FamilyName,
@@ -36,7 +37,8 @@ namespace coremanage.IdentityServer.WebApi.Configurations
                         JwtClaimTypes.Role,
 
                         // extend jwt claims
-                        ExtJwtClaimTypes.Tenant,
+                        ExtJwtClaimTypes.TenantName,
+                        ExtJwtClaimTypes.TenantId,
                         ExtJwtClaimTypes.TenantClaims,
                         ExtJwtClaimTypes.TenantList
                     }

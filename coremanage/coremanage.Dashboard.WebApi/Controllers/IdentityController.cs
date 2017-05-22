@@ -23,7 +23,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> Refresh([FromBody] ReLoginData model)
         {
             var extra = new Dictionary<string, string> {
-                {"tenant", model.Tenant}
+                {"tenant_name", model.Tenant}
             };
 
             var tokenClient = this.GetTokenClient();
@@ -45,7 +45,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> Post([FromBody] LoginModel model)
         {
             var extra = new Dictionary<string, string> {
-                {"tenant", model.Tenant}
+                {"tenant_name", model.Tenant}
             };
 
             var tokenClient = this.GetTokenClient();

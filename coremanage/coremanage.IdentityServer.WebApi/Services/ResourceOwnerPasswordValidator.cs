@@ -1,4 +1,5 @@
-﻿using coremanage.Core.Contracts.Repositories;
+﻿using coremanage.Core.Common.Types;
+using coremanage.Core.Contracts.Repositories;
 using coremanage.Data.Models.Entities.Identity;
 using coremanage.IdentityServer.WebApi.Models;
 using IdentityServer4.Models;
@@ -34,7 +35,7 @@ namespace coremanage.IdentityServer.WebApi.Services
             //context.Request.Client.Claims.Add(new Claim("tenant2","tenant2"));
             var username = context.UserName;
             var password = context.Password;
-            var tenant = context.Request.Raw.Get("tenant");
+            var tenant = context.Request.Raw.Get(ExtJwtClaimTypes.TenantName);
 
             if (string.IsNullOrWhiteSpace(tenant))
             {

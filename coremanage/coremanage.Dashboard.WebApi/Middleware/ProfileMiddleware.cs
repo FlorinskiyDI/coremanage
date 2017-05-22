@@ -2,13 +2,9 @@
 using coremanage.Core.Common.Types;
 using IdentityModel;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using IdentityServer4.Extensions;
 
 namespace coremanage.Dashboard.WebApi.Middleware
 {
@@ -45,17 +41,18 @@ namespace coremanage.Dashboard.WebApi.Middleware
         public void SetNTContext(HttpContext context)
         {
             var claims = context.User.Claims;
-            string companyId = context.Request.Headers[ExtJwtClaimTypes.Tenant];
-            companyId = companyId ?? claims.Where(c => c.Type == ExtJwtClaimTypes.Tenant).Select(c => c.Value).FirstOrDefault();
+            string companyId = context.Request.Headers[ExtJwtClaimTypes.TenantName];
+            companyId = companyId ?? claims.Where(c => c.Type == ExtJwtClaimTypes.TenantName).Select(c => c.Value).FirstOrDefault();
 
 
 
 
             string userName = context.User.Identity.Name;
-            string userId= context.User.Identity.GetSubjectId();
+            string userId = claims.First(c => c.Type == JwtClaimTypes.Id).Value;
             string firstName = claims.First(c => c.Type == JwtClaimTypes.Name).Value;
             string lastName = claims.First(c => c.Type == JwtClaimTypes.FamilyName).Value;
-            string tenantName = claims.First(c => c.Type == ExtJwtClaimTypes.Tenant).Value;
+            string tenantName = claims.First(c => c.Type == ExtJwtClaimTypes.TenantName).Value;
+            int tenantId = Convert.ToInt32(claims.First(c => c.Type == ExtJwtClaimTypes.TenantId).Value);
 
             NTContextModel model = new NTContextModel()
             {
@@ -63,6 +60,7 @@ namespace coremanage.Dashboard.WebApi.Middleware
                 UserName = userName,
                 FirstName = firstName,
                 LastName = lastName,
+                TenantId = tenantId,
                 TenantName = tenantName,
             };
 
