@@ -36,11 +36,11 @@ export class TenantAddComponent implements OnInit {
         private fb: FormBuilder,
     ) {
         this.tenantCreateData = new TenantCreateModel();
-        this.tenantList = [];
+        // this.tenantList = [];
         this.tenantItemCreate$ = this.ngRedux.select(state => state.tenant.tenantItemCreate);
         this.tenantItemCreate$.subscribe((value: any) => {                     
             let data = value.toJS();
-
+            this.tenantList = [];
             
             if (data.item !== null) {                
                 if( data.item.tenantList !== null){

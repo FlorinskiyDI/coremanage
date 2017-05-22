@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityServer4.Extensions;
 
 namespace coremanage.Dashboard.WebApi.Middleware
 {
@@ -51,12 +52,14 @@ namespace coremanage.Dashboard.WebApi.Middleware
 
 
             string userName = context.User.Identity.Name;
+            string userId= context.User.Identity.GetSubjectId();
             string firstName = claims.First(c => c.Type == JwtClaimTypes.Name).Value;
             string lastName = claims.First(c => c.Type == JwtClaimTypes.FamilyName).Value;
             string tenantName = claims.First(c => c.Type == ExtJwtClaimTypes.Tenant).Value;
 
             NTContextModel model = new NTContextModel()
             {
+                UserId = userId,
                 UserName = userName,
                 FirstName = firstName,
                 LastName = lastName,

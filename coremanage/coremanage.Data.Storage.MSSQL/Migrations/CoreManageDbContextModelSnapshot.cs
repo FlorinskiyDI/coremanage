@@ -142,15 +142,15 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime?>("CreatedAt");
 
                     b.Property<string>("CreatedBy");
 
-                    b.Property<bool>("IsDeleted");
+                    b.Property<bool?>("IsDeleted");
 
-                    b.Property<bool>("IsGroup");
+                    b.Property<bool?>("IsGroup");
 
-                    b.Property<DateTime>("LastModifiedAt");
+                    b.Property<DateTime?>("LastModifiedAt");
 
                     b.Property<string>("LastModifiedBy");
 
@@ -168,7 +168,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime?>("CreatedAt");
 
                     b.Property<string>("CreatedBy");
 
@@ -176,11 +176,11 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<bool>("IsDeleted");
+                    b.Property<bool?>("IsDeleted");
 
                     b.Property<DateTime>("LastAccess");
 
-                    b.Property<DateTime>("LastModifiedAt");
+                    b.Property<DateTime?>("LastModifiedAt");
 
                     b.Property<string>("LastModifiedBy");
 

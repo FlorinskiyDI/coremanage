@@ -7,11 +7,11 @@ namespace coremanage.Data.Models.Interfaces
     public interface IAuditable
     {
         string CreatedBy { get; set; }
-        DateTime CreatedAt { get; set; }
+        DateTime? CreatedAt { get; set; }
         string LastModifiedBy { get; set; }
-        DateTime LastModifiedAt { get; set; }
+        DateTime? LastModifiedAt { get; set; }
 
         // Soft Delete
-        bool IsDeleted { get; set; }
+        bool? IsDeleted { get; set; }
     }
 }

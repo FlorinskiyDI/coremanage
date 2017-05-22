@@ -8,7 +8,7 @@ namespace coremanage.Core.Models.Dtos.Identity
     {
         public string Name { get; set; }
         public bool IsGroup { get; set; }
-        public int? ParentCompanyId { get; set; }
+        public int? ParentTenantId { get; set; }
 
         // Auditable
         public string CreatedBy { get; set; }

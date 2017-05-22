@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using coremanage.Core.Models.Dtos.Identity;
 using Microsoft.AspNetCore.Mvc;
 using coremanage.Core.Services.Interfaces.Entities;
 using coremanage.Dashboard.WebApi.Models.Tenant;
@@ -47,6 +48,14 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> PostTenantCreate([FromBody] TenantCreateViewModel model)
         {
             var tenantCreate = new TenantCreateViewModel();
+            var tenantDto = new TenantDto
+            {
+                Name = model.Name,
+                ParentTenantId = model.ParentId,
+                
+            };
+            _tenantService.Add(tenantDto);
+
             return new JsonResult(model);
         }
 
