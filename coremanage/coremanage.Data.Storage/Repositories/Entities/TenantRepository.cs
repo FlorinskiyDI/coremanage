@@ -18,18 +18,33 @@ namespace coremanage.Data.Storage.Repositories.Entities
         {
         }
 
-        public async Task<List<Tenant>> GetAllByParentName(string userName, int parentId)
+        public async Task<List<Tenant>> GetByParentId(string userId, int parentId)
         {
-            var tenantList = await (from users in this.Context.UserProfiles
-                                  join idn in this.Context.Users on users.Id equals idn.Id
-                                  join usersTenants in this.Context.UserProfileTenants on idn.Id equals usersTenants.UserProfileId
-                                  join tenants in this.Context.Tenants on usersTenants.TenantId equals tenants.Id
-                                  where users.IsDeleted == false && idn.UserName == userName
-                                  where tenants.IsDeleted == false && tenants.ParentTenantId == parentId
-                                    select tenants)
-                            .ToListAsync();
+            var tenantList = await (
+                from users in this.Context.UserProfiles
+                join idn in this.Context.Users on users.Id equals idn.Id
+                join usersTenants in this.Context.UserProfileTenants on idn.Id equals usersTenants.UserProfileId
+                join tenants in this.Context.Tenants on usersTenants.TenantId equals tenants.Id
+                where users.IsDeleted == false && idn.Id == userId
+                where tenants.IsDeleted == false && tenants.ParentTenantId == parentId
+                select tenants)
+            .ToListAsync();
+
             return tenantList;
         }
 
+        public async Task<List<Tenant>> GetByUserId(string userId)
+        {
+            var tenantList = await (
+                from users in this.Context.UserProfiles
+                join idn in this.Context.Users on users.Id equals idn.Id
+                join usersTenants in this.Context.UserProfileTenants on idn.Id equals usersTenants.UserProfileId
+                join tenants in this.Context.Tenants on usersTenants.TenantId equals tenants.Id
+                where users.IsDeleted == false && idn.Id == userId
+                select tenants)
+            .ToListAsync();
+
+            return tenantList;
+        }
     }
 }

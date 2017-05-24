@@ -9,7 +9,7 @@ namespace storagecore.Abstractions.Repositories
 {
     public interface IBaseRepository<TEntity, in TKey>
     {
-        Expression<Func<TEntity, bool>> PreFilter { get; set; }
+        //Expression<Func<TEntity, bool>> PreFilter { get; set; }
 
         // get all
         IEnumerable<TEntity> GetAll(

@@ -6,7 +6,7 @@ import { SelectItem } from 'primeng/primeng';
 
 /* service */ import { TenantApiService } from '../../../../common/services/api/entities/tenant.api.service';
 /* model */ import { TenantUpdateModel } from '../../../../common/index.models';
-/* action */ import { TenantActions } from "../../../../redux/actions";
+/* action */ import { TenantActions, LayoutActions } from "../../../../redux/actions";
 /* state */ import { IAppState } from '../../../../redux/store';
 
 @Component({
@@ -35,7 +35,8 @@ export class TenantEditComponent implements OnInit {
     constructor(
         private tenantApiService: TenantApiService,
         private ngRedux: NgRedux<IAppState>,
-        private tenantActions: TenantActions,
+        private tenantActions: TenantActions,                
+        private layoutActions: LayoutActions,
         private fb: FormBuilder,
     ) {
         this.tenantUpdateData = new TenantUpdateModel();
@@ -43,28 +44,31 @@ export class TenantEditComponent implements OnInit {
         this.tenantItemUpdate$ = this.ngRedux.select(state => state.tenant.tenantItemUpdate);
         this.tenantItemUpdate$.subscribe((value: any) => {                     
             let data = value.toJS();                      
-            if (data.item !== null) {   
+            if (data.getItem !== null) {   
                 this.tenantUpdateData = Object.assign({},
                     this.tenantUpdateData,
-                    data.item
+                    data.getItem
                 ) as TenantUpdateModel;
-                if( data.item.tenantList !== null){
+                if( data.getItem.tenantList !== null){
                     //init options of dropdown
 
                     this.tenantList.push({label: "Without parent tenant", value:{ id: 0, name: "Without tenant" }});
-                    data.item.tenantList.forEach((element: any) => {
+                    data.getItem.tenantList.forEach((element: any) => {
                         let selectItem = {
                             label: element.name,
                             value:{ id: element.id, name: element.name }
                         }
                         this.tenantList.push(selectItem);
-                        if (element.id == data.item.parentId){
+                        if (element.id == data.getItem.parentId){
                             this.tenantUpdateData.parentId = selectItem.value;
                         }
                     });
                 }
                 this.buildForm();
-            }            
+            }
+            if (data.postItem !== null) {
+                // this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction())
+            }
         });
     }
 

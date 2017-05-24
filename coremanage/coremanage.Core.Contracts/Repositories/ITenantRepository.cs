@@ -9,7 +9,7 @@ namespace coremanage.Core.Contracts.Repositories
 {
     public interface ITenantRepository : IBaseRepository<Tenant, int>
     {
-
-        Task<List<Tenant>> GetAllByParentName(string userName, int parentId);
+        Task<List<Tenant>> GetByParentId(string userId, int parentId);
+        Task<List<Tenant>> GetByUserId(string userId);
     }
 }

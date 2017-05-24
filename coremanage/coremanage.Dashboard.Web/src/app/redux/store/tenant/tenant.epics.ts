@@ -43,15 +43,15 @@ export class TenantEpics {
         return (action$: any) => action$
             .ofType(TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE)
             .switchMap((payload: any) => this.tenantApiService.getTenantCreate()
-                .map(data  => this.tenantActions.requestTenantItemCreateSuccessAction(data))
-                .catch( error => of(this.tenantActions.requestTenantItemCreateFailedAction(error))));
+                .map(data  => this.tenantActions.getRequestTenantItemCreateSuccessAction(data))
+                .catch( error => of(this.tenantActions.getRequestTenantItemCreateFailedAction(error))));
     }
     private createPostRequestTenantEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE)
             .switchMap((payload: any) => this.tenantApiService.addTenantCreate(payload.meta)
-                .map(data  => this.tenantActions.requestTenantItemCreateSuccessAction(data))
-                .catch( error => of(this.tenantActions.requestTenantItemCreateFailedAction(error))));
+                .map(data  => this.tenantActions.postRequestTenantItemCreateSuccessAction(data))
+                .catch( error => of(this.tenantActions.postRequestTenantItemCreateFailedAction(error))));
     }
 
     // tenant-item-update 
@@ -59,14 +59,14 @@ export class TenantEpics {
         return (action$: any) => action$
             .ofType(TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE)
             .switchMap((payload: any) => this.tenantApiService.getTenantUpdate()
-                .map(data  => this.tenantActions.requestTenantItemUpdateSuccessAction(data))
-                .catch( error => of(this.tenantActions.requestTenantItemUpdateFailedAction(error))));
+                .map(data  => this.tenantActions.getRequestTenantItemUpdateSuccessAction(data))
+                .catch( error => of(this.tenantActions.getRequestTenantItemUpdateFailedAction(error))));
     }
     private updatePostRequestTenantEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.POST_REQUEST_TENANT_ITEM_UPDATE)
             .switchMap((payload: any) => this.tenantApiService.addTenantUpdate(payload.meta)
-                .map(data  => this.tenantActions.requestTenantItemUpdateSuccessAction(data))
-                .catch( error => of(this.tenantActions.requestTenantItemUpdateFailedAction(error))));
+                .map(data  => this.tenantActions.postRequestTenantItemUpdateSuccessAction(data))
+                .catch( error => of(this.tenantActions.postRequestTenantItemUpdateFailedAction(error))));
     }
 }

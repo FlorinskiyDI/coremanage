@@ -28,17 +28,11 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> GetTenantCreate()
         {
             var tenantCreate = new TenantCreateViewModel();
-            tenantCreate.TenantList = new List<TenantViewModel>
-            {
-                new TenantViewModel { Id = 1, Name = "tenant_1"},
-                new TenantViewModel { Id = 2, Name = "tenant_2"},
-                new TenantViewModel { Id = 3, Name = "tenant_3"},
-                new TenantViewModel { Id = 4, Name = "tenant_4"},
-                new TenantViewModel { Id = 5, Name = "tenant_5"}
-            };
-
-
-            
+            var result = await _tenantService.GetTenants();
+            tenantCreate.TenantList = result.Select(c => new TenantViewModel {
+                Id = c.Id,
+                Name = c.Name
+            }).ToList();
 
             return new JsonResult(tenantCreate);
         }
@@ -47,14 +41,12 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [Route("Create")]
         public async Task<IActionResult> PostTenantCreate([FromBody] TenantCreateViewModel model)
         {
-            var tenantCreate = new TenantCreateViewModel();
-            var tenantDto = new TenantDto
-            {
+
+            var tenantDto = new TenantDto {
                 Name = model.Name,
-                ParentTenantId = model.ParentId,
-                
+                ParentTenantId = model.ParentId
             };
-            _tenantService.Add(tenantDto);
+            var model2 = _tenantService.CreateTenant(tenantDto);
 
             return new JsonResult(model);
         }
@@ -76,7 +68,6 @@ namespace coremanage.Dashboard.WebApi.Controllers
                 new TenantViewModel { Id = 4, Name = "tenant_update_4"},
                 new TenantViewModel { Id = 5, Name = "tenant_update_5"}
             };
-
             return new JsonResult(tenantUpdate);
         }
 
@@ -90,67 +81,15 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
 
         [HttpGet]
-        [Route("TreeNode/{tenantName}")]
-        public async Task<IActionResult> TreeNodeAsync(int tenantName)
+        [Route("TreeNode/{parentId}")]
+        public async Task<IActionResult> TreeNodeAsync(int parentId)
         {
-            var tenantList = new List<TenantViewModel>();
-            var result = await _tenantService.GetAllByParentName(tenantName);
-            tenantList = result.Select(c => new TenantViewModel {
+            var result = await _tenantService.GetTenantsByParentId(parentId);
+            var tenantList = result.Select(c => new TenantViewModel {
                     Id = c.Id,
                     Name = c.Name
                 }).ToList();
-            
-
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    var rand = random.Next(0, 1000);
-            //    fff.Add(new
-            //    {
-            //        id = rand,
-            //        label = "Lazy_Node_" + rand,
-            //        data = "Node 0",
-            //        expandedIcon = "fa-folder-open",
-            //        collapsedIcon = "fa-folder",
-            //        leaf = false,
-            //        selectable = true
-            //    });
-            //}
-
             return new JsonResult(tenantList);
-        }
-
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            var values = _tenantService.GetAll();
-            var values2 = _tenantService.Get(1);
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

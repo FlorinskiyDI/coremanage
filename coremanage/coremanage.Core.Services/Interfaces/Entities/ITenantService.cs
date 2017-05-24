@@ -8,8 +8,11 @@ namespace coremanage.Core.Services.Interfaces.Entities
 {
     public interface ITenantService : IBaseService<TenantDto, int>
     {
-        IEnumerable<TenantDto> GetAllByParentId(int id);
-        TenantDto GetByName(string name);
-        Task<List<TenantDto>> GetAllByParentName(int name);
+
+        Task<TenantDto> CreateTenant(TenantDto tenantDto);
+
+        Task<List<TenantDto>> GetTenants();
+        Task<List<TenantDto>> GetTenantsByParentId(int tenantId);
+
     }
 }

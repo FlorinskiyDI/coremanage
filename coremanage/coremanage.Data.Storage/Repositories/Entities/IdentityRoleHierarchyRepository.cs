@@ -16,7 +16,5 @@ namespace coremanage.Data.Storage.Repositories.Entities
         protected IdentityRoleHierarchyRepository(ILogger<LoggerDataAccess> logger, CoreManageDbContext context)
             : base(logger, context)
         { }
-
-        
     }
 }

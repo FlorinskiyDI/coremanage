@@ -6,7 +6,7 @@ import { SelectItem } from 'primeng/primeng';
 
 /* service */ import { TenantApiService } from '../../../../common/services/api/entities/tenant.api.service';
 /* model */ import { TenantCreateModel } from '../../../../common/index.models';
-/* action */ import { TenantActions } from "../../../../redux/actions";
+/* action */ import { TenantActions, LayoutActions } from "../../../../redux/actions";
 /* state */ import { IAppState } from '../../../../redux/store';
 
 @Component({
@@ -32,26 +32,34 @@ export class TenantAddComponent implements OnInit {
     constructor(
         private tenantApiService: TenantApiService,
         private ngRedux: NgRedux<IAppState>,
-        private tenantActions: TenantActions,
+        private tenantActions: TenantActions,        
+        private layoutActions: LayoutActions,
         private fb: FormBuilder,
     ) {
-        this.tenantCreateData = new TenantCreateModel();
+        // this.tenantCreateData = new TenantCreateModel();
         // this.tenantList = [];
         this.tenantItemCreate$ = this.ngRedux.select(state => state.tenant.tenantItemCreate);
-        this.tenantItemCreate$.subscribe((value: any) => {                     
+        this.tenantItemCreate$.subscribe((value: any) => {
             let data = value.toJS();
             this.tenantList = [];
-            
-            if (data.item !== null) {                
-                if( data.item.tenantList !== null){
+            this.tenantCreateData = new TenantCreateModel();
+
+            if (data.getItem !== null) {
+                if( data.getItem.tenantList !== null){
                     //init options of dropdown
                     this.tenantList.push({label: "Without parent tenant", value:{ id: 0, name: "Without tenant" }});
-                    data.item.tenantList.forEach((element: any) => {
+                    data.getItem.tenantList.forEach((element: any) => {
                         this.tenantList.push({label: element.name, value:{ id: element.id, name: element.name }});
                     });
                 }
+                this.buildForm();
             }
-            console.log(data);
+            if (data.postItem !== null && data.error === null) {
+                this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction());
+                this.tenantCreateData = new TenantCreateModel();
+            }
+
+            
         });
     }
 
@@ -60,10 +68,11 @@ export class TenantAddComponent implements OnInit {
     }
 
     onSubmit() {
+        let parentId = this.tenantCreateForm.value.parentId ? this.tenantCreateForm.value.parentId.id : 0;
         let data = Object.assign({},
             this.tenantCreateData,
             this.tenantCreateForm.value,
-            { parentId: this.tenantCreateForm.value.parentId.id }
+            { parentId: parentId }
         ) as TenantCreateModel;
         this.ngRedux.dispatch(this.tenantActions.postRequestTenantItemCreateAction(data));
         

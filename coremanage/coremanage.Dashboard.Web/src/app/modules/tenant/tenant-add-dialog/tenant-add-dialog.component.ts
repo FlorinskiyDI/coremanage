@@ -38,13 +38,13 @@ export class TenantAddDialogComponent implements OnInit {
                 this.ngRedux.dispatch(this.tenantActions.getRequestTenantItemCreateAction());
             } else {
                 this.dialogObj.isOpen = false;
-            }            
+            }
         });
     }
 
 
     onHideDialog(cccc: any = null){
         console.log("Close dialog => " + this.dialogObj.modalType);
-        this.layoutActions.closeLayoutModalAction();
+        this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction());
     }
 }

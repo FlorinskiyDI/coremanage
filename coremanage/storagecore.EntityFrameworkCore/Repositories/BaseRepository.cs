@@ -20,12 +20,12 @@ namespace storagecore.EntityFrameworkCore.Repositories
     {
         private readonly OrderBy<TEntity> DefaultOrderBy = new OrderBy<TEntity>(qry => qry.OrderBy(e => e.Id));
 
-        public Expression<Func<TEntity, bool>> PreFilter { get; set; }
+        //public Expression<Func<TEntity, bool>> PreFilter { get; set; }
 
         protected BaseRepository(ILogger<LoggerDataAccess> logger, TContext context)
             : base(logger, context)
         {
-            this.PreFilter = null;
+            //this.PreFilter = null;
         }
 
         public virtual IEnumerable<TEntity> GetAll(
@@ -261,10 +261,10 @@ namespace storagecore.EntityFrameworkCore.Repositories
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
-            if (PreFilter != null)
-            {
-                query = query.Where(PreFilter);
-            }
+            //if (PreFilter != null)
+            //{
+            //    query = query.Where(PreFilter);
+            //}
 
             if (filter != null)
             {

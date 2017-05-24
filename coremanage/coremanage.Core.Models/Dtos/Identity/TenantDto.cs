@@ -17,7 +17,7 @@ namespace coremanage.Core.Models.Dtos.Identity
         public DateTime LastModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
 
-        public List<UserCompanyDto> UserCompanies { get; set; } // many to many
+        public List<UserCompanyDto> UserTenants { get; set; } // many to many
         public List<IdentityCompanyClaimDto> IdentityCompanyClaims { get; set; } // many to many
     }
 }

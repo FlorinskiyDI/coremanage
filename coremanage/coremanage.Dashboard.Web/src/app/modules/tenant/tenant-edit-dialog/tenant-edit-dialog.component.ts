@@ -48,6 +48,6 @@ export class TenantEditDialogComponent implements OnInit {
 
     onHideDialog(cccc: any = null){
         console.log("Close dialog => " + this.dialogObj.modalType);
-        this.layoutActions.closeLayoutModalAction();
+        this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction());
     }
 }

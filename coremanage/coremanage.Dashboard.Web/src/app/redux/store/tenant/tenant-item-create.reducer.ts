@@ -4,7 +4,8 @@ import { List, Map, Record } from 'immutable';
 
 // model
 export interface TenantItemCreateModel {
-  item: any,
+  getItem: any,
+  postItem: any,
   error: any,
   loading: boolean
 };
@@ -17,7 +18,8 @@ export interface TenantItemCreateState extends Map<string, any>, TenantItemCreat
 
 // record
 export const TenantItemCreateModalRecord = Record({
-  item: null,
+  getItem: null,
+  postItem: null,
   error: null,
   loading: false
 });
@@ -27,7 +29,8 @@ export const INITIAL_STATE = new TenantItemCreateModalRecord(
     (<any>Object).assign(
       {},
       {
-        item: null,
+        getItem: null,
+        postItem: null,
         error: null,
         loading: false
       },
@@ -44,28 +47,44 @@ export function TenantItemCreateReducer(
 
     case TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE:
         return state.merge({
-            item: null,
+            getItem: null,
+            postItem: null,
             error: null,
             loading: true
         });
-    
-    case TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE:
-        return state.merge({
-            item: null,
-            error: null,
-            loading: true
-        });    
 
-    case TenantActionTypes.REQUEST_TENANT_ITEM_CREATE_SUCCESS:
+    case TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE_SUCCESS:
         return state.merge({
-            item: action.payload,
+            getItem: action.payload,
             error: null,
             loading: false
         });
 
-    case TenantActionTypes.REQUEST_TENANT_ITEM_CREATE_FAILURE:
+    case TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE_FAILURE:
         return state.merge({
-            item: null,
+            getItem: null,
+            error: action.payload,
+            loading: false
+        });
+
+    case TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE:
+        return state.merge({
+            getItem: null,
+            postItem: null,
+            error: null,
+            loading: true
+        });
+
+    case TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE_SUCCESS:
+        return state.merge({
+            postItem: action.payload,
+            error: null,
+            loading: false
+        });
+
+    case TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE_FAILURE:
+        return state.merge({
+            postItem: null,
             error: action.payload,
             loading: false
         });

@@ -16,15 +16,19 @@ export const TenantActionTypes =  {
 
   /* tenant-item-create action types */
   GET_REQUEST_TENANT_ITEM_CREATE: type('[TenantItemCreate] get request tenant item'),
+  GET_REQUEST_TENANT_ITEM_CREATE_SUCCESS: type('[TenantItemCreate] successfully get requested  tenant item'),
+  GET_REQUEST_TENANT_ITEM_CREATE_FAILURE: type('[TenantItemCreate] failed to request get tenant item'),
   POST_REQUEST_TENANT_ITEM_CREATE: type('[TenantItemCreate] post request tenant item'),
-  REQUEST_TENANT_ITEM_CREATE_SUCCESS: type('[TenantItemCreate] successfully requested  tenant item'),
-  REQUEST_TENANT_ITEM_CREATE_FAILURE: type('[TenantItemCreate] failed to request tenant item'),
+  POST_REQUEST_TENANT_ITEM_CREATE_SUCCESS: type('[TenantItemCreate] successfully post requested  tenant item'),
+  POST_REQUEST_TENANT_ITEM_CREATE_FAILURE: type('[TenantItemCreate] failed to request post tenant item'),
 
   /* tenant-item-update action types */
   GET_REQUEST_TENANT_ITEM_UPDATE: type('[TenantItemUpdate] get request tenant item'),
+  GET_REQUEST_TENANT_ITEM_UPDATE_SUCCESS: type('[TenantItemUpdate] successfully get requested  tenant item'),
+  GET_REQUEST_TENANT_ITEM_UPDATE_FAILURE: type('[TenantItemUpdate] failed to request get tenant item'),
   POST_REQUEST_TENANT_ITEM_UPDATE: type('[TenantItemUpdate] post request tenant item'),
-  REQUEST_TENANT_ITEM_UPDATE_SUCCESS: type('[TenantItemUpdate] successfully requested  tenant item'),
-  REQUEST_TENANT_ITEM_UPDATE_FAILURE: type('[TenantItemUpdate] failed to request tenant item'),
+  POST_REQUEST_TENANT_ITEM_UPDATE_SUCCESS: type('[TenantItemUpdate] successfully post requested  tenant item'),
+  POST_REQUEST_TENANT_ITEM_UPDATE_FAILURE: type('[TenantItemUpdate] failed to request post tenant item'),
 
 }
 
@@ -74,21 +78,33 @@ export class TenantActions {
       type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE
     };
   }
+   public getRequestTenantItemCreateSuccessAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE_SUCCESS,
+      payload: data
+    };
+  }
+  public getRequestTenantItemCreateFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE_FAILURE,
+      payload: data
+    };
+  }
   public postRequestTenantItemCreateAction(data: any) {
     return {
       type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE,
       meta: data,
     };
   }
-  public requestTenantItemCreateSuccessAction(data: any) {
+  public postRequestTenantItemCreateSuccessAction(data: any) {
     return {
-      type: TenantActionTypes.REQUEST_TENANT_ITEM_CREATE_SUCCESS,
+      type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE_SUCCESS,
       payload: data
     };
   }
-  public requestTenantItemCreateFailedAction(data: any) {
+  public postRequestTenantItemCreateFailedAction(data: any) {
     return {
-      type: TenantActionTypes.REQUEST_TENANT_ITEM_CREATE_FAILURE,
+      type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE_FAILURE,
       payload: data
     };
   }
@@ -99,21 +115,33 @@ export class TenantActions {
       type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE
     };
   }
+  public getRequestTenantItemUpdateSuccessAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE_SUCCESS,
+      payload: data
+    };
+  }
+  public getRequestTenantItemUpdateFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE_FAILURE,
+      payload: data
+    };
+  }
   public postRequestTenantItemUpdateAction(data: any) {
     return {
       type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_UPDATE,
       meta: data,
     };
   }
-  public requestTenantItemUpdateSuccessAction(data: any) {
+  public postRequestTenantItemUpdateSuccessAction(data: any) {
     return {
-      type: TenantActionTypes.REQUEST_TENANT_ITEM_UPDATE_SUCCESS,
+      type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_UPDATE_SUCCESS,
       payload: data
     };
   }
-  public requestTenantItemUpdateFailedAction(data: any) {
+  public postRequestTenantItemUpdateFailedAction(data: any) {
     return {
-      type: TenantActionTypes.REQUEST_TENANT_ITEM_UPDATE_FAILURE,
+      type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_UPDATE_FAILURE,
       payload: data
     };
   }

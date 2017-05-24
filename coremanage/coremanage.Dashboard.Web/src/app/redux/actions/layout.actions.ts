@@ -23,14 +23,14 @@ export class LayoutActions {
     layout-modal actions
   */
   public openLayoutModalAction(data: any) {
-    this.ngRedux.dispatch({
+    return {
       type: LayoutActionTypes.OPEN_LAYOUT_MODAL,
       payload: data
-    });
+    };
   }
   public closeLayoutModalAction() {
-    this.ngRedux.dispatch({
+    return {
       type: LayoutActionTypes.CLOSE_LAYOUT_MODAL
-    });
+    };
   }
 }
