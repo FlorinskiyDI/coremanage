@@ -42,6 +42,7 @@ export class TenantTreeComponent implements OnInit {
                 if ( data.byNodeName === null && data.treeNodes != null){
                     let result = this.upCastToMenuItem(data.treeNodes);
                     this.selectedNode = result[0];
+                    this.tenantActions.selectTenantTreeNodeAction(this.selectedNode);
                     this.files = result;
                     return;
                 }

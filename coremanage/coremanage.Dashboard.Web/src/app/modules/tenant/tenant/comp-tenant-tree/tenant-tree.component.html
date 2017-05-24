@@ -20,10 +20,10 @@
             [(selection)]="selectedNode"        
             >
             <ng-template let-node  pTemplate="default">            
-                <p>{{node.label}} - {{node.id}} </p>
+                <p   >{{node.label}} - {{node.id}} </p>
             </ng-template>
         </p-tree>    
-        <p-contextMenu #cm [model]="pContexMenuItems" >
+        <p-contextMenu #cm [model]="pContexMenuItems" appendTo="body" >
         </p-contextMenu>
     </div><!-- END tree section-->
 </div>

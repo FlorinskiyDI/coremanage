@@ -1,7 +1,11 @@
 ﻿<div class="tenant-manage-component">
+    
     <p>tenant-manage</p>
-    <button pButton type="text" label="Edit selected tenant" (click)="showTenantEditDialog()">    
-    </button>
+    <p>{{tenantName}}</p>
+    <p-splitButton label="Edit... " [model]="itemsManage"></p-splitButton>
+
+    <!--<button pButton type="text" label="Edit selected tenant" (click)="showTenantEditDialog()">    
+    </button>-->
     <tenant-edit-dialog-component>            
     </tenant-edit-dialog-component>
 

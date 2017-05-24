@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
+import { MenuItem } from 'primeng/primeng';
 
 /* action */ import { LayoutActions } from '../../../../redux/actions';
 /* constant */ import { ModalDialogTypes } from '../../../../common/index.constants';
@@ -13,21 +14,53 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class TenantManageComponent implements OnInit {
+    private selectedTenant$: Observable<any>
+    private tenantName: string;
+    private tenantId: number;
+    private itemsManage: MenuItem[];
     constructor(
         private layoutActions: LayoutActions,
         private ngRedux: NgRedux<IAppState>,
     ) {
+        this.selectedTenant$ = this.ngRedux.select(state=>state.tenant.tenantTree.selectedNode);
     }
-
-    // init component
+    
     ngOnInit() {
+        this.itemsManage = [
+            { label: 'Edit tenant', command: (event) => { this.editTenant(event) } },
+            { label: 'Delete', command: (event) => { this.deleteTenant(event) } }
+        ]
+
+        this.selectedTenant$.subscribe((value: any) => {
+            let val = value.toJS();
+            this.tenantName = val.label;
+            this.tenantId = val.id;
+            console.log(val);
+        });
     }
 
-    showTenantEditDialog() {
+    // showTenantEditDialog() {
+    //     this.ngRedux.dispatch(this.layoutActions.openLayoutModalAction({
+    //         isOpen: true,
+    //         modalType: ModalDialogTypes.EDIT_TENANT_TYPE,
+    //         extraData: { }
+    //     }));
+    // }
+
+    private editTenant(event: any){
+
         this.ngRedux.dispatch(this.layoutActions.openLayoutModalAction({
             isOpen: true,
             modalType: ModalDialogTypes.EDIT_TENANT_TYPE,
-            extraData: { }
+            extraData: { tenantId: this.tenantId }
         }));
+
+        console.log("Edit");
+        console.log(event);
+    }
+
+    private deleteTenant(event: any){
+        console.log("Delete");
+        console.log(event);
     }
 }

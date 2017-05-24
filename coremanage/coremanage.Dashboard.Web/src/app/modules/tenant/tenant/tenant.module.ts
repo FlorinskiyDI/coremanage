@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // external > controls
 import { AngularSplitModule } from 'angular-split';
-import { DialogModule, TreeModule, ContextMenuModule, ButtonModule } from 'primeng/primeng';
+import { DialogModule, TreeModule, ContextMenuModule, ButtonModule, SplitButtonModule, MenuModule } from 'primeng/primeng';
 
 /* module */ import { SharedModule } from '../../../modules-shared/shared.module';
 /* module */ import { TenantEditDialogModule } from '../tenant-edit-dialog/tenant-edit-dialog.module';
@@ -21,7 +21,7 @@ import { DialogModule, TreeModule, ContextMenuModule, ButtonModule } from 'prime
         TenantEditDialogModule,
         TenantAddDialogModule,
         AngularSplitModule,
-        DialogModule, TreeModule, ContextMenuModule, ButtonModule// primeng controls
+        DialogModule, TreeModule, ContextMenuModule, ButtonModule, SplitButtonModule, MenuModule// primeng controls
     ],
     declarations: [
         TenantComponent,

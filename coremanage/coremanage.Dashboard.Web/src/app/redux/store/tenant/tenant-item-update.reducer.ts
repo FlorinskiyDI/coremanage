@@ -20,7 +20,8 @@ export interface TenantItemUpdateState extends Map<string, any>, TenantItemUpdat
 export const TenantItemUpdateModalRecord = Record({
   getItem: null,
   postItem: null,
-  loading: false
+  loading: false,
+  error: null
 });
 
 // init

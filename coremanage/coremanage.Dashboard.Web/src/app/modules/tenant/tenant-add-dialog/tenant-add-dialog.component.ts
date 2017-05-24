@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
     templateUrl: 'tenant-add-dialog.component.html'
 })
 export class TenantAddDialogComponent implements OnInit {
-    layoutModal$: Observable<any>
+    private layoutModal$: Observable<any>
     dialogModal = true;
     dialogObj: IModalDialog = {
         modalType: ModalDialogTypes.ADD_TENANT_TYPE,
@@ -25,8 +25,7 @@ export class TenantAddDialogComponent implements OnInit {
         private layoutActions: LayoutActions,
         private tenantActions: TenantActions,
     ){
-        this.layoutModal$ = this.ngRedux.select(state=>state.layout.layoutModal);
-       
+        this.layoutModal$ = this.ngRedux.select(state=>state.layout.layoutModal);        
     }
 
     ngOnInit() {
@@ -39,7 +38,7 @@ export class TenantAddDialogComponent implements OnInit {
             } else {
                 this.dialogObj.isOpen = false;
             }
-        });
+        });        
     }
 
 
