@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using IdentityServer4.Services;
 using coremanage.IdentityServer.WebApi.Services;
-using coremanage.IdentityServer.Storage.EFCore.Common.Entities;
-using coremanage.IdentityServer.Storage.EFCore.MSSQL;
-using Microsoft.EntityFrameworkCore;
-using coremanage.IdentityServer.Storage.EFCore.Common;
 using coremanage.IdentityServer.WebApi.Configurations;
+using coremanage.Data.Models.Entities;
+using coremanage.Data.Storage.Context;
+using coremanage.Data.Storage.MSSQL;
+using coremanage.Data.Storage.Integration;
+using coremanage.Data.Storage;
+using coremanage.Core.Bootstrap;
+using AutoMapper;
+using coremanage.Data.Models.Entities.Identity;
+using IdentityServer4.Validation;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -31,27 +31,56 @@ namespace coremanage.IdentityServer.WebApi
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime.Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
+            var idnSrv4ConnectionString = Configuration.GetConnectionString("IdnSrv4Connection");
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddTransient<IProfileService, IdentityWithAdditionalClaimsProfileService>();
+
+            // Configurations for ... .
+            services.AddStorageMSSQL(connectionString); // dbContext
+            services.AddCoreManagerData(); // data access and repositories
+            services.AddCoreManagerBootstrap(); // automapper and services
+
+            //services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
+            // Configurations for AddIdentityServer 
+            services.AddIdentityServer(options =>{ })
+                .AddTemporarySigningCredential()
+
+                //.AddConfigurationStoreMSSQL(idSrv4ConnectionString) // InDatabase
+                //.AddOperationalStoreMSSQL(idSrv4ConnectionString) // InDatabase
+
+                //.AddInMemoryIdentityResources(Resources.GetIdentityResources()) // InMemory
+                .AddInMemoryApiResources(Resources.GetApiResources()) // InMemory
+                .AddInMemoryClients(Clients.Get()) // InMemory
+
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
+                .AddProfileService<ProfileService>()
+                .AddCustomTokenRequestValidator<CustomTokenRequestValidator>()
+                
+                //.AddExtensionGrantValidator<DynamicParameterExtensionGrantValidator>()
+                ;
+
+            // Configurations for Identity
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+            })
+            .AddEntityFrameworkStores<CoreManageDbContext>()
+            .AddDefaultTokenProviders();
+
+            
+            services.AddAutoMapper();
             services.AddMvc();
-
-            services.AddIdentityServerStorageEFCoreMSSQL(connectionString);
-            services.AddIdentityServer()
-              .AddTemporarySigningCredential()
-              .AddAspNetIdentity<AppUser>()
-              .AddProfileService<IdentityWithAdditionalClaimsProfileService>()
-              .AddConfigurationStore(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.IdentityServer.Storage.EFCore.MSSQL")))
-              .AddOperationalStore(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("coremanage.IdentityServer.Storage.EFCore.MSSQL")));
-
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -59,14 +88,15 @@ namespace coremanage.IdentityServer.WebApi
             app.UseApplicationInsightsRequestTelemetry();
             app.UseApplicationInsightsExceptionTelemetry();
 
-            // this will do the initial DB population
-            IdentityServerIntegrationEFCoreStorage.InitializeDatabaseAsync(
-                app.ApplicationServices,
-                Clients.Get(),
-                Resources.GetApiResources(),
-                null,
-                TestUsers.Get()
-            ).Wait();
+            //this will do the initial DB population
+
+            //IntegrationStorage.InitializeDatabaseAsync(
+            //    app.ApplicationServices,
+            //    Clients.Get(),
+            //    Resources.GetApiResources(),
+            //    null,
+            //    TestUsers.Get()
+            //).Wait();
 
             app.UseIdentity();
             app.UseIdentityServer();

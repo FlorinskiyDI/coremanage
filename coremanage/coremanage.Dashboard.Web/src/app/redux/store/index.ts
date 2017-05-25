@@ -1,9 +1,14 @@
+
 import { Map, fromJS } from 'immutable';
-import { IAppState, rootReducer, deimmutify, reimmutify } from './store';
-import { ISession } from './session';
+import { rootReducer, IAppState } from './root.reducer';
+
+import { TenantEpics } from './tenant/tenant.epics';
 
 export {
   IAppState,
-  ISession,
   rootReducer,
 };
+
+export const EPICS_PROVIDERS: any[] = [
+    TenantEpics
+];

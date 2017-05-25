@@ -53,10 +53,7 @@ module.exports = {
                     'tslint-loader'
                 ]
             },
-            {
-                test: /\.(png|jpg|gif|woff|woff2|ttf|svg|eot)$/,
-                loader: 'file-loader?name=assets/[name]-[hash:6].[ext]'
-            },
+            
             {
                 test: /favicon.ico$/,
                 loader: 'file-loader?name=/[name].[ext]'
@@ -68,17 +65,35 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
-                loaders: ['style-loader', 'css-loader', 'sass-loader']
+                loaders: ['raw-loader','sass-loader']
             },
             {
                 test: /\.html$/,
                 loader: 'raw-loader'
+            },
+            {
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [
+                {
+                    loader: 'url-loader',
+                    options: {
+                    limit: 10000,
+                    mimetype: 'application/font-woff'
+                    }
+                }
+                ]
+            },
+            {
+                test: /\.(png|jpe?g|gif|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [
+                { loader: 'file-loader' }
+                ]
             }
         ],
         exprContextCritical: false
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({ name: ['app', 'polyfills'] }),
+        new webpack.optimize.CommonsChunkPlugin({ name: ['vendor', 'polyfills'] }),
 
         new CleanWebpackPlugin(
             [

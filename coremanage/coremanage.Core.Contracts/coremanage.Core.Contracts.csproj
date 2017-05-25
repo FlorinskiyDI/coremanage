@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\coremanage.Data.Models\coremanage.Data.Models.csproj" />
+    <ProjectReference Include="..\storagecore.Abstractions\storagecore.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

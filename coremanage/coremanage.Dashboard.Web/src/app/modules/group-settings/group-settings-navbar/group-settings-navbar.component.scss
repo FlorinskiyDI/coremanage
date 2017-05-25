@@ -1,0 +1,90 @@
+
+
+/* Create a medium height at 35px */
+.navbar-md {min-height:40px}
+.navbar-md .navbar-brand,
+.navbar-md .navbar-nav>li>a { padding-top: 11px; padding-bottom: 4px; }
+.navbar-md .navbar-brand {height: 40px}  
+.navbar-md .navbar-toggle {margin: 5px 12px 5px 0px; padding: 5px 4px; }
+.navbar-md .navbar-toggle .icon-bar {width: 19px;}
+.navbar-default {    
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,0);
+    border: none;
+    background: #eee;
+    top: 40px;
+}
+// .navbar-default .navbar-nav > li > a:hover {
+//     color: #000;
+// }
+.navbar-md .navbar-nav > li > a{
+    padding: 13px 10px 5px 5px;    
+}
+.navbar-md .navbar-nav > li > a > i{
+    padding-right: 5px;
+}
+.navbar-md .navbar-nav > li > a > i.fa.fa-object-group{
+    font-size: 13px;
+}
+.navbar-md .navbar-nav > li > a.active{
+    border-bottom: 2px solid #777;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .active > a{
+    box-shadow: none;    
+}
+.navbar-md .navbar-nav > li > a.user-toggle{
+     padding: 7px;
+}
+.container-fluid{
+    padding: 0px 20px;
+}
+
+.dropdown-menu > li > a{
+    font-size: 14px;
+}
+
+.dropdown-header{
+    font-size: 13px;
+}
+
+.tenant-dropdown-menu{
+    width: 260px;
+    margin-left: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.navbar-brand-img{
+    width: 40px;
+    float: left;
+}
+
+.navbar-brand{
+    font-size: 14px;
+    padding: 13px 12px 4px 12px;
+    &:hover { background-color: #DCDCDC }
+    > font { padding: 0px 5px; }
+}
+.navbar-default .navbar-brand{ color: #333; }
+.navbar-default { background: #eee; }
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus { background-image: none; background-color: #F3F3F3;  }
+
+.navbar-md .navbar-nav.navbar-right > li > a{
+    background-image: none;
+    border: 1.1px solid transparent;
+    margin: 9px 0px 1px 0px;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-size: 13px;
+    border-radius: 2px;
+    color: #666;
+    // border-color: #ccc;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.navbar-md .navbar-nav.navbar-right > li > a:hover{
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.0196078));
+    border: 1.1px solid rgb(211, 211, 211);    
+    color: #333;    
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}

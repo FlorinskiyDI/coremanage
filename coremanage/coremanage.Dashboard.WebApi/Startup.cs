@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using coremanage.Data.Storage.EFCore.MSSQL;
+using AutoMapper;
+using coremanage.Core.Bootstrap;
+using coremanage.Data.Storage;
+using coremanage.Data.Storage.MSSQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using coremanage.Dashboard.WebApi.Extensions;
 
 namespace coremanage.Dashboard.WebApi
 {
@@ -37,15 +41,19 @@ namespace coremanage.Dashboard.WebApi
         {
             // Add framework services.
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
             services.AddApplicationInsightsTelemetry(Configuration);
+
             services.AddMvcCore()
                .AddAuthorization()
                .AddJsonFormatters();
-
             services.AddCors();
-            services.AddCoreManageStorageEFCoreMSSQL(connectionString);
 
+            services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
+            services.AddCoreManagerData(); // registering the repository
+            services.AddCoreManagerBootstrap(); // registering the services
+            
+
+            services.AddAutoMapper();
             services.AddMvc();
         }
 
@@ -72,6 +80,8 @@ namespace coremanage.Dashboard.WebApi
                 .AllowAnyOrigin()
                 .AllowCredentials());
 
+            app.UseContextMiddleware();
+            app.UseProfileMiddleware();
             app.UseMvc();
         }
     }

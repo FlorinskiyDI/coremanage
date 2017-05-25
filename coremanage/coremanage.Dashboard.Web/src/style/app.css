@@ -1,0 +1,13 @@
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+   /*
+   Correct display of the navbar when opening a dialog (primeng)
+   Default value 1030
+   */
+   z-index: 1000;
+}

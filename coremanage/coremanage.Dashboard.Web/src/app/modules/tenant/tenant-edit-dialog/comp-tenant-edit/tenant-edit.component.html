@@ -1,0 +1,38 @@
+﻿<div class="tenant-edit-component">
+
+    <div class="panel-body">
+        <form role="form" [formGroup]="tenantUpdateForm" (ngSubmit)="onSubmit()">
+            <div class="form-group form-group-sm">
+                <label for="name">
+                    Name
+                </label>
+                <input type="text" id="name" class="form-control" formControlName="name" required placeholder="name">
+                <div *ngIf="formErrors.name" class="alert alert-danger">
+                    {{ formErrors.name }}
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label for="description">
+                    description
+                </label>
+                <input type="text" id="description" class="form-control" formControlName="description" required placeholder="description">
+                <div *ngIf="formErrors.description" class="alert alert-danger">
+                    {{ formErrors.description }}
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label for="parentTenantId">
+                    parent tenant
+                </label>
+                <div>
+                    <p-dropdown [options]="tenantList" formControlName="parentTenantId" autoWidth="false" [style]="{'width':'100%'}"></p-dropdown>
+                </div>                
+            </div>            
+            <button type="submit" class="btn btn-default" [disabled]="!tenantUpdateForm.valid">
+                Sign in
+            </button>
+        </form>
+        <!--{{tenantSelected | json}}-->
+    </div>
+    {{tenantUpdateForm.parentTenantId | json}}
+</div>

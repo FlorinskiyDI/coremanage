@@ -1,5 +1,9 @@
-﻿using IdentityServer4.Models;
+﻿
+using coremanage.Core.Common.Types;
+using IdentityModel;
+using IdentityServer4.Models;
 using System.Collections.Generic;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace coremanage.IdentityServer.WebApi.Configurations
 {
@@ -22,7 +26,22 @@ namespace coremanage.IdentityServer.WebApi.Configurations
             {
                 new ApiResource("api1", "My API")
                 {
-                    UserClaims = { "role", "email", "userId" }
+                    UserClaims =
+                    {
+                        // jwt claims
+                        JwtClaimTypes.Id,
+                        JwtClaimTypes.Name,
+                        JwtClaimTypes.MiddleName,
+                        JwtClaimTypes.FamilyName,
+                        JwtClaimTypes.Email,
+                        JwtClaimTypes.Role,
+
+                        // extend jwt claims
+                        ExtJwtClaimTypes.TenantName,
+                        ExtJwtClaimTypes.TenantId,
+                        ExtJwtClaimTypes.TenantClaims,
+                        ExtJwtClaimTypes.TenantList
+                    }
                 }
             };
         }

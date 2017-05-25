@@ -1,0 +1,14 @@
+<div class="template-modal-component">
+    Hello world!!!
+</div>
+
+<p-dialog header="Godfather I" [(visible)]="display" [(modal)]="fon" modal="modal" (onHide)="hideDialog()" width="300" responsive="true">
+
+<div>It is name of modal - {{name}}</div>
+    <div *ngFor="let item of items">
+        <ng-template
+            [ngTemplateOutlet]="columns"        
+            [ngTemplateOutletContext]="{ item2: item }"></ng-template>
+    </div>
+</p-dialog>
+<button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button>

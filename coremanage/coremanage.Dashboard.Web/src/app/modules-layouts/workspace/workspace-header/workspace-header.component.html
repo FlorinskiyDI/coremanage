@@ -1,0 +1,71 @@
+﻿<nav class="navbar navbar-default navbar-fixed-top navbar-md">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->        
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>                
+            </button>
+            <tenant-selector-nav-menu-component></tenant-selector-nav-menu-component>            
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">                
+                <li class="dropdown"><a routerLink="/workspace/tenant-test/dashboard/overview" routerLinkActive="active" class="dropdown-toggle">Dashboard</a></li>
+                <li class="dropdown"><a routerLink="/workspace/tenant-test/settings/overview" routerLinkActive="active" class="dropdown-toggle">Settings</a></li>              
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">                    
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bell"></i>
+                    </a>
+                </li>               
+                <li class="dropdown">                    
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-heart"></i>
+                    </a>
+                </li>       
+                <li class="dropdown">                    
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <!--<a class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                       
+                        <div class="user-icon">
+                        </div>
+                    </a>-->
+                    <a href="#" class="dropdown-toggle user-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                         <div class="user-icon">
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu user-dropdown-menu">
+                        <li class="dropdown-header">actions</li>
+                        <li><a  (click)="logout()">Log out</a></li>
+                        <li><a href="#">My profile</a></li>
+                        <li><a href="#">Notifications</a></li>                  
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">user info</li>
+                        <li><a href="#">email: user.@gmail.com</a></li>
+                        <li><a href="#">role: user roles</a></li>
+                        <li><a href="#">------------------------------</a></li>
+                        <li><a  (click)="reLogin()">Re-login Example</a></li>              
+                    </ul>
+                </li>                
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

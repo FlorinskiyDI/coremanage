@@ -12,6 +12,15 @@
             <div class="panel-body">                
                 <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit(dt)">
                     <div class="form-group form-group-sm">
+                        <label for="tenant">
+                            Tenant                          
+                        </label>
+                        <input type="text" id="tenant" class="form-control" formControlName="tenant" required placeholder="tenant">
+                        <div *ngIf="formErrors.tenant" class="alert alert-danger">
+                            {{ formErrors.tenant }}
+                        </div>
+                    </div>  
+                    <div class="form-group form-group-sm">
                         <label for="userName">
                             Username or Email                            
                         </label>
@@ -25,7 +34,7 @@
                             Password
                             <a href="/sessions/forgot_password">(forgot password)</a>
                         </label>
-                        <input type="password" id="password" class="form-control" formControlName="password" required placeholder="Password">
+                        <input type="password" id="password" class="form-control" formControlName="password" required placeholder="password">
                         <div *ngIf="formErrors.password" class="alert alert-danger">
                             {{ formErrors.password }}
                         </div>

@@ -1,0 +1,18 @@
+﻿<div class="row tenant-selection-component">
+  <div class="col-md-12 col-lg-12">
+    <div class="center-block" style="width:1110px;">
+      <p style="padding-left: 15px; font-size: 18px; font-weight: 300;">Select tenant</p>
+      <ul class="list-group">
+        <li class="list-group-item"><p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue" label="Tenant 1"></p-radioButton></li>
+        <li class="list-group-item"><p-radioButton name="groupname" value="val2" [(ngModel)]="selectedValue" label="Tenant 2"></p-radioButton></li>
+        <li class="list-group-item"> <i class="fa fa-sign-out" aria-hidden="true"></i> Tenant 3</li>
+        <li class="list-group-item"> <i class="fa fa-sign-out" aria-hidden="true"></i> Tenant 4</li>
+      </ul>
+      
+      <button type="button" class="btn btn-default" aria-label="Left Align">
+        <i class="fa fa-sign-out" aria-hidden="true">log in</i>
+      </button>
+      {{selectedValue | json}}
+    </div>
+  </div>
+</div>
