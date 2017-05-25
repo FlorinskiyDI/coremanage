@@ -53,21 +53,20 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
 
         [HttpGet]
-        [Route("Update")]
-        public async Task<IActionResult> GetTenantUpdate()
+        [Route("Update/{tenantId}")]
+        public async Task<IActionResult> GetTenantUpdate(int tenantId)
         {
-            var tenantUpdate = new TenantUpdateViewModel();
-            tenantUpdate.Name = "GetName";
-            tenantUpdate.Description = "GetDescription";
-            tenantUpdate.ParentId = 2;
-            tenantUpdate.TenantList = new List<TenantViewModel>
+            var tenantDto = await _tenantService.GetTenant(tenantId);
+            var tenants = await _tenantService.GetTenants();
+            var tenantUpdate = new TenantUpdateViewModel
             {
-                new TenantViewModel { Id = 1, Name = "tenant_update_1"},
-                new TenantViewModel { Id = 2, Name = "tenant_update_2"},
-                new TenantViewModel { Id = 3, Name = "tenant_update_3"},
-                new TenantViewModel { Id = 4, Name = "tenant_update_4"},
-                new TenantViewModel { Id = 5, Name = "tenant_update_5"}
+                Tenant = tenantDto,
+                TenantList = tenants.Select(c => new TenantViewModel {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList(),
             };
+            
             return new JsonResult(tenantUpdate);
         }
 
@@ -75,7 +74,9 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [Route("Update")]
         public async Task<IActionResult> PostTenantUpdate([FromBody] TenantUpdateViewModel model)
         {
-            var tenantUpdate= new TenantUpdateViewModel();
+            var tenant = await _tenantService.UpdateTenant(model.Tenant);
+            model.Tenant = tenant;
+
             return new JsonResult(model);
         }
 

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using coremanage.Core.Common.DTO.Identity;
 using coremanage.Core.Models.Dtos.Identity;
 using coremanage.Data.Models.Entities;
 using coremanage.Data.Models.Entities.Identity;
 using coremanage.Data.Models.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace coremanage.Core.Bootstrap.AutoMapper
 {
@@ -19,26 +19,30 @@ namespace coremanage.Core.Bootstrap.AutoMapper
 
         private void EntityToDto()
         {
+            CreateMap<PersonalClaim, PersonalClaimDto>();
+            //CreateMap<PersonalTenantClaim, PersonalTenantClaimDto>();
             CreateMap<Tenant, TenantDto>();
+            CreateMap<UserProfile, UserProfileDto>();
+            CreateMap<UserProfileTenant, UserProfileTenantDto>();
+
+            //CreateMap<ICollection<UserProfileTenant>, ICollection<UserProfileTenantDto>>();
+
             //CreateMap<IdentityClaim, IdentityClaimDto>();
             //CreateMap<IdentityCompanyClaim, IdentityCompanyClaimDto>();
             //CreateMap<UserCompany, UserCompanyDto>();
-            CreateMap<UserProfile, UserProfileDto>();
 
-            //this.CreateMap<Tenant, CompanyModel>();
-            //this.CreateMap<PersonalClaim, ClaimModel>();
-            //this.CreateMap<IdentityRoleClaim<string>, ClaimModel>();
-            //this.CreateMap<IdentityUserClaim<string>, ClaimModel>();
-            //this.CreateMap<ApplicationRole, RoleModel>(MemberList.Destination);
 
         }
         private void DtoToEntity()
         {
+            CreateMap<PersonalClaimDto, PersonalClaim>();
+            //CreateMap<PersonalTenantClaimDto, PersonalTenantClaim>();
             CreateMap<TenantDto, Tenant>();
-            //CreateMap<IdentityClaim, IdentityClaimDto>();
-            //CreateMap<IdentityCompanyClaim, IdentityCompanyClaimDto>();
-            //CreateMap<UserCompany, UserCompanyDto>();
-            CreateMap<UserProfile, UserProfileDto>();
+            CreateMap<UserProfileDto, UserProfile>();
+            CreateMap<UserProfileTenantDto, UserProfileTenant>();
+            //CreateMap<ICollection<UserProfileTenantDto>, ICollection<UserProfileTenant>>();
+
+
         }
     }
 }

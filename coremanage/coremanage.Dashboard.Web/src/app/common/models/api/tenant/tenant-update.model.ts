@@ -1,10 +1,12 @@
 export class TenantUpdateModel {
 
-    name: string;	
-    parentId: any;
+    id: number;
+	name: string;
 	description: string;
+	isGroup: boolean;
+	parentTenantId: any;
 
     // additional properties
-	tenantList: any[];
+	// tenantList: any[];
 
 }

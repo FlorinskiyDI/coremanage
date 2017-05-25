@@ -38,8 +38,8 @@ export class TenantApiService extends BaseApiService<any> {
             // .catch(this.handleError);
     }
 
-    getTenantUpdate( ): Observable<any> {
-        let url = this.apiServer + 'Update/';
+    getTenantUpdate(data: any): Observable<any> {
+        let url = this.apiServer + 'Update/'+data;
         return this.http.get(url, this.customRequestOptions.optionRequestAuth)
             .map((res: Response) => res.json());
             // .catch(this.handleError);

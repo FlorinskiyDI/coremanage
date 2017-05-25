@@ -58,7 +58,7 @@ export class TenantEpics {
     private updateGetRequestTenantEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE)
-            .switchMap((payload: any) => this.tenantApiService.getTenantUpdate()
+            .switchMap((payload: any) => this.tenantApiService.getTenantUpdate(payload.meta)
                 .map(data  => this.tenantActions.getRequestTenantItemUpdateSuccessAction(data))
                 .catch( error => of(this.tenantActions.getRequestTenantItemUpdateFailedAction(error))));
     }

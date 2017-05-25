@@ -146,6 +146,8 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
 
                     b.Property<string>("CreatedBy");
 
+                    b.Property<string>("Description");
+
                     b.Property<bool?>("IsDeleted");
 
                     b.Property<bool?>("IsGroup");
@@ -298,7 +300,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("coremanage.Data.Models.Entities.Tenant", "Tenant")
-                        .WithMany("IdentityTenantClaims")
+                        .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -306,12 +308,12 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
             modelBuilder.Entity("coremanage.Data.Models.Entities.UserProfileTenant", b =>
                 {
                     b.HasOne("coremanage.Data.Models.Entities.Tenant", "Tenant")
-                        .WithMany("UserTenants")
+                        .WithMany("UserProfileTenants")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("coremanage.Data.Models.Entities.UserProfile", "UserProfile")
-                        .WithMany("UserTenants")
+                        .WithMany("UserProfileTenants")
                         .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

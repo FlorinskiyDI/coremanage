@@ -31,14 +31,14 @@ namespace coremanage.Data.Storage.Context
                 {
                     entity.HasKey(e => new { e.UserProfileId, e.TenantId });
                 });
-            builder.Entity<UserProfileTenant>()
-                .HasOne(pt => pt.UserProfile)
-                .WithMany(p => p.UserTenants)
-                .HasForeignKey(pt => pt.UserProfileId);
-            builder.Entity<UserProfileTenant>()
-                .HasOne(pt => pt.Tenant)
-                .WithMany(t => t.UserTenants)
-                .HasForeignKey(pt => pt.TenantId);
+            //builder.Entity<UserProfileTenant>()
+            //    .HasOne(pt => pt.UserProfile)
+            //    .WithMany(p => p.UserProfileTenants)
+            //    .HasForeignKey(pt => pt.UserProfileId);
+            //builder.Entity<UserProfileTenant>()
+            //    .HasOne(pt => pt.Tenant)
+            //    .WithMany(t => t.UserProfileTenants)
+            //    .HasForeignKey(pt => pt.TenantId);
 
             // PersonalTenantClaim
             builder.Entity<PersonalTenantClaim>(entity =>

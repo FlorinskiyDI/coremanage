@@ -93,7 +93,7 @@ export class TenantActions {
   public postRequestTenantItemCreateAction(data: any) {
     return {
       type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE,
-      meta: data,
+      meta: data
     };
   }
   public postRequestTenantItemCreateSuccessAction(data: any) {
@@ -110,9 +110,10 @@ export class TenantActions {
   }
 
   /* tenant-item-update actions */
-  public getRequestTenantItemUpdateAction() {
+  public getRequestTenantItemUpdateAction(data: any) {
     return {
-      type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE
+      type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE,
+      meta: data
     };
   }
   public getRequestTenantItemUpdateSuccessAction(data: any) {

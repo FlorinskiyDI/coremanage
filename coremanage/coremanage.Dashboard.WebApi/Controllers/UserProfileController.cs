@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using coremanage.Core.Common.Context;
-using coremanage.Core.Common.DTO.Identity;
 using coremanage.Dashboard.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;

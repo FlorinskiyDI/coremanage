@@ -14,13 +14,13 @@ namespace coremanage.Data.Models.Entities
         public string Email { get; set; }
         public DateTime LastAccess { get; set; }
 
-    // implementation IAuditable
-    public string CreatedBy { get; set; }
+        // implementation IAuditable
+        public string CreatedBy { get; set; }
         public DateTime? CreatedAt { get; set; }
         public string LastModifiedBy { get; set; }
         public DateTime? LastModifiedAt { get; set; }
         public bool? IsDeleted { get; set; }
 
-        public List<UserProfileTenant> UserTenants { get; set; } // many to many
+        public virtual ICollection<UserProfileTenant> UserProfileTenants { get; set; } // many to many
     }
 }

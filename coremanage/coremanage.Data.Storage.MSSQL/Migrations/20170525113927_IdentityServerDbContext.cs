@@ -87,6 +87,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true),
                     IsGroup = table.Column<bool>(nullable: true),
                     LastModifiedAt = table.Column<DateTime>(nullable: true),

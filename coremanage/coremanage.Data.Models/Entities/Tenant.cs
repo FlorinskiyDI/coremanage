@@ -8,7 +8,14 @@ namespace coremanage.Data.Models.Entities
 {
     public class Tenant : BaseEntity<int>, IAuditable
     {
+
+        public Tenant()
+        {
+            this.UserProfileTenants = new List<UserProfileTenant>();
+        }
+
         public string Name { get; set; }
+        public string Description { get; set; }
         public bool? IsGroup { get; set; }
         public int? ParentTenantId { get; set; }
 
@@ -19,7 +26,7 @@ namespace coremanage.Data.Models.Entities
         public DateTime? LastModifiedAt { get; set; }
         public bool? IsDeleted { get; set; }
         
-        public List<UserProfileTenant> UserTenants { get; set; } // many to many
+        public List<UserProfileTenant> UserProfileTenants { get; set; } // many to many
         public List<PersonalTenantClaim> IdentityTenantClaims { get; set; } // many to many
 
     }

@@ -34,7 +34,7 @@ export class TenantEditDialogComponent implements OnInit {
            
             if (this.dialogObj.modalType == val.modalType && this.dialogObj.modalType != null) {
                 this.dialogObj.isOpen = true;
-                this.ngRedux.dispatch(this.tenantActions.getRequestTenantItemUpdateAction());
+                this.ngRedux.dispatch(this.tenantActions.getRequestTenantItemUpdateAction(val.extraData.tenantId));
             } else {
                 this.dialogObj.isOpen = false;
             }            

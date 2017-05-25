@@ -48,6 +48,7 @@ export function TenantItemUpdateReducer(
     case TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE:
         return state.merge({
             getItem: null,
+            postItem: null,
             error: null,
             loading: true
         });
@@ -69,6 +70,7 @@ export function TenantItemUpdateReducer(
 
     case TenantActionTypes.POST_REQUEST_TENANT_ITEM_UPDATE:
         return state.merge({
+            getItem: null,
             postItem: null,
             error: null,
             loading: true

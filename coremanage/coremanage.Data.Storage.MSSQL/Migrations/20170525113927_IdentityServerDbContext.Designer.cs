@@ -8,7 +8,7 @@ using coremanage.Data.Storage.Context;
 namespace coremanage.Data.Storage.MSSQL.Migrations
 {
     [DbContext(typeof(CoreManageDbContext))]
-    [Migration("20170522113924_IdentityServerDbContext")]
+    [Migration("20170525113927_IdentityServerDbContext")]
     partial class IdentityServerDbContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,6 +146,8 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.Property<DateTime?>("CreatedAt");
 
                     b.Property<string>("CreatedBy");
+
+                    b.Property<string>("Description");
 
                     b.Property<bool?>("IsDeleted");
 
@@ -299,7 +301,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("coremanage.Data.Models.Entities.Tenant", "Tenant")
-                        .WithMany("IdentityTenantClaims")
+                        .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -307,12 +309,12 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
             modelBuilder.Entity("coremanage.Data.Models.Entities.UserProfileTenant", b =>
                 {
                     b.HasOne("coremanage.Data.Models.Entities.Tenant", "Tenant")
-                        .WithMany("UserTenants")
+                        .WithMany("UserProfileTenants")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("coremanage.Data.Models.Entities.UserProfile", "UserProfile")
-                        .WithMany("UserTenants")
+                        .WithMany("UserProfileTenants")
                         .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

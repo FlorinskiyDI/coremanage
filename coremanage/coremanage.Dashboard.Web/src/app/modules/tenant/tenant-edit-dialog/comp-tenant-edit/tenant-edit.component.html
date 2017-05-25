@@ -21,11 +21,11 @@
                 </div>
             </div>
             <div class="form-group form-group-sm">
-                <label for="parentId">
+                <label for="parentTenantId">
                     parent tenant
                 </label>
                 <div>
-                    <p-dropdown [options]="tenantList" formControlName="parentId" autoWidth="false" [style]="{'width':'100%'}"></p-dropdown>
+                    <p-dropdown [options]="tenantList" formControlName="parentTenantId" autoWidth="false" [style]="{'width':'100%'}"></p-dropdown>
                 </div>                
             </div>            
             <button type="submit" class="btn btn-default" [disabled]="!tenantUpdateForm.valid">
@@ -34,5 +34,5 @@
         </form>
         <!--{{tenantSelected | json}}-->
     </div>
-    {{tenantUpdateForm.parentId | json}}
+    {{tenantUpdateForm.parentTenantId | json}}
 </div>

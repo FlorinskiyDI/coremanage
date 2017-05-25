@@ -56,6 +56,7 @@ export class TenantAddComponent implements OnInit {
             }
             if (data.postItem !== null && data.error === null) {
                 this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction());
+                this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(null));
                 this.tenantCreateData = new TenantCreateModel();
             }
 

@@ -22,12 +22,12 @@ export class TenantEditComponent implements OnInit {
     formErrors: any = {
         'name': '',
         'description': '',
-        'parentId': ''
+        'parentTenantId': ''
     };
     validationMessages: any = {
         'name': { 'required': 'Name is required.' },
         'description': { 'required': 'Description is required.' },
-        'parentId': { 'required': 'parentId is required.' }
+        'parentTenantId': { 'required': 'parentTenantId is required.' }
     };
 
     
@@ -39,19 +39,21 @@ export class TenantEditComponent implements OnInit {
         private layoutActions: LayoutActions,
         private fb: FormBuilder,
     ) {
-        this.tenantUpdateData = new TenantUpdateModel();
-        this.tenantList = [];
+        // this.tenantUpdateData = new TenantUpdateModel();
+        // this.tenantList = [];
         this.tenantItemUpdate$ = this.ngRedux.select(state => state.tenant.tenantItemUpdate);
         this.tenantItemUpdate$.subscribe((value: any) => {                     
-            let data = value.toJS();                      
+            let data = value.toJS();
+            this.tenantList = [];
+            this.tenantUpdateData = new TenantUpdateModel();
+                      
             if (data.getItem !== null) {   
                 this.tenantUpdateData = Object.assign({},
                     this.tenantUpdateData,
-                    data.getItem
+                    data.getItem.tenant
                 ) as TenantUpdateModel;
                 if( data.getItem.tenantList !== null){
                     //init options of dropdown
-
                     this.tenantList.push({label: "Without parent tenant", value:{ id: 0, name: "Without tenant" }});
                     data.getItem.tenantList.forEach((element: any) => {
                         let selectItem = {
@@ -59,29 +61,34 @@ export class TenantEditComponent implements OnInit {
                             value:{ id: element.id, name: element.name }
                         }
                         this.tenantList.push(selectItem);
-                        if (element.id == data.getItem.parentId){
-                            this.tenantUpdateData.parentId = selectItem.value;
+                        if (element.id == data.getItem.tenant.parentTenantId){
+                            this.tenantUpdateData.parentTenantId = selectItem.value;
                         }
                     });
                 }
                 this.buildForm();
             }
-            if (data.postItem !== null) {
-                // this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction())
+            if (data.postItem !== null && data.error === null) {
+                this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction())
+                this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(null));
+                this.tenantUpdateData = new TenantUpdateModel();
             }
         });
     }
 
-    ngOnInit() {        
+    ngOnInit() {
         this.buildForm();
     }
 
     onSubmit() {
-        let data = Object.assign({},
-            this.tenantUpdateData,
-            this.tenantUpdateForm.value,
-            { parentId: this.tenantUpdateForm.value.parentId.id }
-        ) as TenantUpdateModel;
+        let parentId = this.tenantUpdateForm.value.parentTenantId ? this.tenantUpdateForm.value.parentTenantId.id : 0;
+        let data = {
+            tenant: Object.assign({},                
+                this.tenantUpdateData,
+                this.tenantUpdateForm.value,
+                { parentTenantId: parentId }
+            ) as TenantUpdateModel
+        }
         this.ngRedux.dispatch(this.tenantActions.postRequestTenantItemUpdateAction(data));
         
         console.log(data);        
@@ -91,7 +98,7 @@ export class TenantEditComponent implements OnInit {
         this.tenantUpdateForm = this.fb.group({
             name: new FormControl(this.tenantUpdateData.name, Validators.required),
             description: new FormControl(this.tenantUpdateData.description, Validators.required),
-            parentId: new FormControl(this.tenantUpdateData.parentId),
+            parentTenantId: new FormControl(this.tenantUpdateData.parentTenantId),
         });
         this.tenantUpdateForm.valueChanges
             .subscribe(data => this.onValueChanged(data));
