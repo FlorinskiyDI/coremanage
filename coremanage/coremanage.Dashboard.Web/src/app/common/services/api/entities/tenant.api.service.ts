@@ -25,6 +25,13 @@ export class TenantApiService extends BaseApiService<any> {
             .catch(this.handleError);
     }
 
+    getTenantMemberList(data: any){
+        let url = this.apiServer + 'Member/' + data;
+        return this.http.get(url, this.customRequestOptions.optionRequestAuth)
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+
     getTenantCreate( ): Observable<any> {
         let url = this.apiServer + 'Create/';
         return this.http.get(url, this.customRequestOptions.optionRequestAuth)
@@ -39,7 +46,7 @@ export class TenantApiService extends BaseApiService<any> {
     }
 
     getTenantUpdate(data: any): Observable<any> {
-        let url = this.apiServer + 'Update/'+data;
+        let url = this.apiServer + 'Update/'+ data;
         return this.http.get(url, this.customRequestOptions.optionRequestAuth)
             .map((res: Response) => res.json());
             // .catch(this.handleError);

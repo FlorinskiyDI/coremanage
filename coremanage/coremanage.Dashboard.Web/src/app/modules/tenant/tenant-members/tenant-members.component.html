@@ -6,5 +6,12 @@
     <p>tenant-members</p>
     <p>tenant-members</p>
 
+    <members-grid-component
+        [items]="games$ | async"
+        [totalItems]="gamesCount$ | async"
+        [pageNumber]="gamesPage$ | async"
+        [loading]="gamesLoading$ | async"
+        (onPageChanged)="onGamesPageChanged($event)">        
+    </members-grid-component>
     
 </div>

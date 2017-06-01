@@ -1,0 +1,30 @@
+﻿<div class="members-grid-component">
+
+members-grid
+
+<p>members</p>
+    <p-dataTable [value]="memberList" [rows]="5" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[2,5,7]">
+        <p-header>Members of tenant</p-header>
+        <p-column field="id" header="id"></p-column>
+        <p-column field="firstName" header="first name"></p-column>
+        <p-column field="lastName" header="last name"></p-column>   
+    </p-dataTable>
+
+
+    <p-dataTable
+            [value]="items"
+            [lazy]="true"
+            [rows]="10"
+            [paginator]="true"
+            [totalRecords]="totalItems"
+            [loading]= "loading"
+            (onLazyLoad)="onPageChanged.emit($event)">
+
+        <p-header>List of Cars</p-header>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
+        </p-dataTable>
+
+</div>

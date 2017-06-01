@@ -1,4 +1,4 @@
-﻿namespace coremanage.Dashboard.WebApi.Models.Authorize
+﻿namespace coremanage.Dashboard.WebApi.Models.Identity
 {
     public class ReLoginData
     {

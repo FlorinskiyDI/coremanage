@@ -14,6 +14,12 @@ export const TenantActionTypes =  {
   SET_TENANT_TREE: type('[TenantTree] set to the tree value'),
   SELECT_TENANT_TREE_NODE: type('[TenantTree] selected tree nodes'),
 
+  /* tenant-member-grid action types */
+  GET_REQUEST_TENANT_MEMBER_GRID: type('[TenantMemberGrid] load tenant member grid'),
+  GET_REQUEST_TENANT_MEMBER_GRID_SUCCESS: type('[TenantMemberGrid] successfully loaded tenant member grid'),
+  GET_REQUEST_TENANT_MEMBER_GRID_FAILURE: type('[TenantMemberGrid] failed to load tenant member grid'),
+
+
   /* tenant-item-create action types */
   GET_REQUEST_TENANT_ITEM_CREATE: type('[TenantItemCreate] get request tenant item'),
   GET_REQUEST_TENANT_ITEM_CREATE_SUCCESS: type('[TenantItemCreate] successfully get requested  tenant item'),
@@ -72,13 +78,34 @@ export class TenantActions {
     });
   }
 
+  /* tenant-member-grid actions */
+  public getRequestTenantMemberGridAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID,
+      meta: data,
+    };
+  }
+  public getRequestTenantMemberGridSuccessAction(data: any, meta: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID_SUCCESS,
+      meta: meta,
+      payload: data
+    };
+  }
+  public getRequestTenantMemberGridFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID_FAILURE,
+      payload: data
+    };
+  }
+
   /* tenant-tree-select actions */
   public getRequestTenantItemCreateAction() {
     return {
       type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE
     };
   }
-   public getRequestTenantItemCreateSuccessAction(data: any) {
+  public getRequestTenantItemCreateSuccessAction(data: any) {
     return {
       type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE_SUCCESS,
       payload: data

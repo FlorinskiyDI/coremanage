@@ -9,11 +9,16 @@ namespace coremanage.Core.Services.Interfaces.Entities
     public interface ITenantService : IBaseService<TenantDto, int>
     {
 
+        Task<TenantDto> GetTenant(int tenantId);
         Task<TenantDto> CreateTenant(TenantDto tenantDto);
         Task<TenantDto> UpdateTenant(TenantDto tenantDto);
-        Task<TenantDto> GetTenant(int tenantId);
-        Task<List<TenantDto>> GetTenants();
-        Task<List<TenantDto>> GetTenantsByParentId(int parentId);
+        Task<TenantDto> DeleteTenant(int tenantId);
 
+        Task<List<TenantDto>> GetTenantList();
+        Task<List<TenantDto>> GetTenantListByParentId(int parentId);
+
+        Task<List<UserProfileDto>> GetTenantMemberListByTenantId(int tenantId);
+        Task<List<UserProfileDto>> CreateTenantMember(UserProfileDto userProfileDto);
+        Task<List<UserProfileDto>> DeleteTenantMember(int userProfileId);
     }
 }

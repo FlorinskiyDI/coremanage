@@ -41,7 +41,7 @@ export class TenantEditComponent implements OnInit {
     ) {
         // this.tenantUpdateData = new TenantUpdateModel();
         // this.tenantList = [];
-        this.tenantItemUpdate$ = this.ngRedux.select(state => state.tenant.tenantItemUpdate);
+        this.tenantItemUpdate$ = this.ngRedux.select(state => state.tenant.tenantItem.itemUpdate);
         this.tenantItemUpdate$.subscribe((value: any) => {                     
             let data = value.toJS();
             this.tenantList = [];

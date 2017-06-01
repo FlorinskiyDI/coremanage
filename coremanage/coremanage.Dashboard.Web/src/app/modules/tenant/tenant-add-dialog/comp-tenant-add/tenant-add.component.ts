@@ -38,7 +38,7 @@ export class TenantAddComponent implements OnInit {
     ) {
         // this.tenantCreateData = new TenantCreateModel();
         // this.tenantList = [];
-        this.tenantItemCreate$ = this.ngRedux.select(state => state.tenant.tenantItemCreate);
+        this.tenantItemCreate$ = this.ngRedux.select(state => state.tenant.tenantItem.itemCreate);
         this.tenantItemCreate$.subscribe((value: any) => {
             let data = value.toJS();
             this.tenantList = [];

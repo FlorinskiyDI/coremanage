@@ -28,7 +28,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> GetTenantCreate()
         {
             var tenantCreate = new TenantCreateViewModel();
-            var result = await _tenantService.GetTenants();
+            var result = await _tenantService.GetTenantList();
             tenantCreate.TenantList = result.Select(c => new TenantViewModel {
                 Id = c.Id,
                 Name = c.Name
@@ -36,7 +36,6 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
             return new JsonResult(tenantCreate);
         }
-
         [HttpPost]
         [Route("Create")]
         public async Task<IActionResult> PostTenantCreate([FromBody] TenantCreateViewModel model)
@@ -46,7 +45,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
                 Name = model.Name,
                 ParentTenantId = model.ParentId
             };
-            var model2 = _tenantService.CreateTenant(tenantDto);
+            var model2 = await _tenantService.CreateTenant(tenantDto);
 
             return new JsonResult(model);
         }
@@ -57,7 +56,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         public async Task<IActionResult> GetTenantUpdate(int tenantId)
         {
             var tenantDto = await _tenantService.GetTenant(tenantId);
-            var tenants = await _tenantService.GetTenants();
+            var tenants = await _tenantService.GetTenantList();
             var tenantUpdate = new TenantUpdateViewModel
             {
                 Tenant = tenantDto,
@@ -69,7 +68,6 @@ namespace coremanage.Dashboard.WebApi.Controllers
             
             return new JsonResult(tenantUpdate);
         }
-
         [HttpPost]
         [Route("Update")]
         public async Task<IActionResult> PostTenantUpdate([FromBody] TenantUpdateViewModel model)
@@ -79,18 +77,41 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
             return new JsonResult(model);
         }
-
-
+        
         [HttpGet]
         [Route("TreeNode/{parentId}")]
-        public async Task<IActionResult> TreeNodeAsync(int parentId)
+        public async Task<IActionResult> GetTreeNode(int parentId)
         {
-            var result = await _tenantService.GetTenantsByParentId(parentId);
+            var result = await _tenantService.GetTenantListByParentId(parentId);
             var tenantList = result.Select(c => new TenantViewModel {
                     Id = c.Id,
                     Name = c.Name
                 }).ToList();
             return new JsonResult(tenantList);
+        }
+
+        [HttpGet]
+        [Route("Member/PageData")]
+        public IActionResult GetPageData()
+        {
+            //var tenantMemberList = await _tenantService.GetTenantMemberListByTenantId(tenantId);
+
+            List<TenantMemberViewModel> tenantMembers = new List<TenantMemberViewModel>
+            {
+                new TenantMemberViewModel {Id = "1", FullName = "V1.V1.Value1", Email = "a@a.a1"},
+                new TenantMemberViewModel {Id = "2", FullName = "V1.V1.Value2", Email = "a@a.a2"},
+                new TenantMemberViewModel {Id = "3", FullName = "V1.V1.Value3", Email = "a@a.a3"}
+            };
+            //List<TenantMemberViewModel> tenantMembers = new List<TenantMemberViewModel>
+            //tenantMembers = tenantMemberList
+            //    .Select( c => new TenantMemberViewModel {
+            //        Id = c.Id,
+            //        FullName = c.LastName + c.FirstName[0] + c.MiddleName[0],
+            //        Email = c.Email
+            //    }).
+            //    ToList();
+
+            return new JsonResult(tenantMembers);
         }
     }
 }
