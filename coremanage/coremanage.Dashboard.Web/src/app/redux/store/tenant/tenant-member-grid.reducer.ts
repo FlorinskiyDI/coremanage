@@ -51,7 +51,7 @@ export function TenantMemberGridReducer(
   switch (action.type) {
 
     case TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID:
-        const pageNumber = action.payload.pageNumber;
+        const pageNumber = action.meta;
         return state.merge({
             items: List(),
             pageNumber: pageNumber == null ? state.pageNumber : pageNumber,
@@ -61,8 +61,9 @@ export function TenantMemberGridReducer(
 
     case TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID_SUCCESS:
         return state.merge({
-            items: action.payload.items,
+            items: List(action.payload.items),
             totalItems: action.payload.totalItems,            
+            pageNumber: action.payload.pageNumber,         
             error: null,
             loading: false
         });

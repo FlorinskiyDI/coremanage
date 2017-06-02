@@ -1,17 +1,20 @@
 ﻿<div class="">
 
+    {{pageNumber$ | async}}
+    {{membersPage$ | async}}
     <p>tenant-members</p>
-    <p>tenant-members</p>
-    <p>tenant-members</p>
-    <p>tenant-members</p>
-    <p>tenant-members</p>
+    {{items}}
 
+    {{memberGrid$ | async}}
     <members-grid-component
-        [items]="games$ | async"
-        [totalItems]="gamesCount$ | async"
-        [pageNumber]="gamesPage$ | async"
-        [loading]="gamesLoading$ | async"
-        (onPageChanged)="onGamesPageChanged($event)">        
+        [items]="entities"
+        [totalItems]="membersTotal$ | async"
+        [pageNumber]="membersPage$ | async"
+        [loading]="membersLoading$ | async"
+        (onPageChanged)="onMembersPageChanged($event)">        
     </members-grid-component>
+
     
+    <!--{{memberGrid$ | async}}-->
+    <!--{{memberGrid$ | async}}-->
 </div>

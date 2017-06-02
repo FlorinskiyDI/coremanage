@@ -11,37 +11,14 @@ export class MembersGridComponent {
     @Input() totalItems:number;
     @Input() pageNumber: number;
     @Input() loading: boolean;
-    @Output() onPageChanged = new EventEmitter<number>();
-
-
-    memberList: any;
+    @Output() onPageChanged = new EventEmitter<number>();    
 
     constructor(
         // private userProfileApiService: UserProfileApiService
-    ) { }
+    ) {
+        // this.items = this.items.toJS();
+    }
 
-
-
-    ngOnInit() {
-        this.memberList = [
-            { id: 1, firstName: 'first_1', lastName: 'last_1'},
-            { id: 2, firstName: 'first_2', lastName: 'last_2'},
-            { id: 3, firstName: 'first_3', lastName: 'last_3'},
-            { id: 1, firstName: 'first_1', lastName: 'last_1'},
-            { id: 2, firstName: 'first_2', lastName: 'last_2'},
-            { id: 3, firstName: 'first_3', lastName: 'last_3'},
-            { id: 1, firstName: 'first_1', lastName: 'last_1'},
-            { id: 2, firstName: 'first_2', lastName: 'last_2'},
-            { id: 3, firstName: 'first_3', lastName: 'last_3'},
-            { id: 1, firstName: 'first_1', lastName: 'last_1'},
-            { id: 2, firstName: 'first_2', lastName: 'last_2'},
-            { id: 3, firstName: 'first_3', lastName: 'last_3'},
-            { id: 1, firstName: 'first_1', lastName: 'last_1'},
-            { id: 2, firstName: 'first_2', lastName: 'last_2'},
-            { id: 3, firstName: 'first_3', lastName: 'last_3'},
-            { id: 1, firstName: 'first_1', lastName: 'last_1'},
-            { id: 2, firstName: 'first_2', lastName: 'last_2'},
-            { id: 3, firstName: 'first_3', lastName: 'last_3'},
-        ]
+    ngOnInit() {       
     }
 }
