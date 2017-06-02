@@ -1,20 +1,13 @@
-﻿<div class="">
+﻿<div class="">    
+    <p>tenant-members</p>  
 
-    {{pageNumber$ | async}}
-    {{membersPage$ | async}}
-    <p>tenant-members</p>
-    {{items}}
-
-    {{memberGrid$ | async}}
     <members-grid-component
-        [items]="entities"
-        [totalItems]="membersTotal$ | async"
-        [pageNumber]="membersPage$ | async"
-        [loading]="membersLoading$ | async"
-        (onPageChanged)="onMembersPageChanged($event)">        
+        [items]="members"
+        [totalItems]="membersTotal"
+        [pageNumber]="membersPage"
+        [loading]="membersLoading"
+        (onPageChanged)="onMembersPageChanged($event)"
+        (onRowDelete)="onMembersItemDelete($event)">  
     </members-grid-component>
 
-    
-    <!--{{memberGrid$ | async}}-->
-    <!--{{memberGrid$ | async}}-->
 </div>

@@ -111,15 +111,19 @@ namespace coremanage.Dashboard.WebApi.Controllers
                 new TenantMemberViewModel {Id = "6", FullName = "V1.V1.Value6", Email = "a@a.a6"},
                 new TenantMemberViewModel {Id = "7", FullName = "V1.V1.Value7", Email = "a@a.a7"},
                 new TenantMemberViewModel {Id = "8", FullName = "V1.V1.Value8", Email = "a@a.a8"},
-                //new TenantMemberViewModel {Id = "9", FullName = "V1.V1.Value9", Email = "a@a.a9"},
-                //new TenantMemberViewModel {Id = "10", FullName = "V1.V1.Value10", Email = "a@a.a10"}
+                new TenantMemberViewModel {Id = "9", FullName = "V1.V1.Value9", Email = "a@a.a9"},
+                new TenantMemberViewModel {Id = "10", FullName = "V1.V1.Value10", Email = "a@a.a10"},
+                new TenantMemberViewModel {Id = "11", FullName = "V1.V1.Value11", Email = "a@a.a11"},
+                new TenantMemberViewModel {Id = "12", FullName = "V1.V1.Value12", Email = "a@a.a12"}
             };
 
             var pageData = new PageData<TenantMemberViewModel> {
                 Items = tenantMembers,
                 PageNumber = 1,
-                TotalItems = 10
+                TotalItems = 12
             };
+
+            System.Threading.Thread.Sleep(1000);
             //List<TenantMemberViewModel> tenantMembers = new List<TenantMemberViewModel>
             //tenantMembers = tenantMemberList
             //    .Select( c => new TenantMemberViewModel {

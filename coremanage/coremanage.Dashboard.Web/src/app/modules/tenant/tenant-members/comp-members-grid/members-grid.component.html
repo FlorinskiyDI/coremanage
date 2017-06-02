@@ -11,18 +11,32 @@ members-grid
     </p-dataTable>-->
 
 
-    <p-dataTable    
-    [value]="items"
+    <p-dataTable #dt
+    reorderableColumns="true"
+    sortMode="multiple"
+    [responsive]="true" [stacked]="stacked"    
     [lazy]="true"
+    [value]="items"
     [rows]="10"
     [paginator]="true"
     [totalRecords]="totalItems"
     [loading]= "loading"
     (onLazyLoad)="onPageChanged.emit($event)">
-        <p-header>List of Members</p-header>
-        <p-column field="id" header="id"></p-column>
-        <p-column field="fullName" header="fullName"></p-column>
-        <p-column field="email" header="email"></p-column>
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:left">Export to CSV</button>
+            </div>
+        </p-header> 
+        <p-column [sortable]="true" field="id" header="id" ></p-column>
+        <p-column [sortable]="true" field="fullName" header="fullName"></p-column>
+        <p-column [sortable]="true" field="email" header="email"></p-column>
+        <p-column styleClass="col-button">
+            <ng-template pTemplate="header">                
+            </ng-template>
+            <ng-template let-car="rowData" pTemplate="body">
+                <button type="button" pButton (click)="selectCar(car)" icon="fa-search">Remove</button>
+            </ng-template>
+        </p-column>
     </p-dataTable>
-    {{items}}
+
 </div>

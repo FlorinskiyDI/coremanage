@@ -11,14 +11,9 @@ export class MembersGridComponent {
     @Input() totalItems:number;
     @Input() pageNumber: number;
     @Input() loading: boolean;
-    @Output() onPageChanged = new EventEmitter<number>();    
+    @Output() onPageChanged = new EventEmitter<any>();
+    @Output() onRowDelete = new EventEmitter<any>();
 
-    constructor(
-        // private userProfileApiService: UserProfileApiService
-    ) {
-        // this.items = this.items.toJS();
-    }
-
-    ngOnInit() {       
-    }
+    constructor() { }
+    ngOnInit() { }
 }
