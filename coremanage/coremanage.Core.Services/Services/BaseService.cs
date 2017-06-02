@@ -5,6 +5,7 @@ using coremanage.Core.Services.Interfaces;
 using storagecore.Abstractions.Entities;
 using storagecore.Abstractions.Uow;
 using AutoMapper;
+using storagecore.EntityFrameworkCore.Paging;
 
 namespace coremanage.Core.Services.Services
 {
@@ -14,11 +15,17 @@ namespace coremanage.Core.Services.Services
     {
         protected readonly IUowProvider UowProvider;
         protected readonly IMapper Mapper;
+        protected readonly IDataPager<TEntity, TKey> Pager;
 
-        protected BaseService(IUowProvider uowProvider, IMapper mapper)
+        protected BaseService(
+            IUowProvider uowProvider,
+            IMapper mapper,
+            IDataPager<TEntity, TKey> pager
+        )
         {
             this.UowProvider = uowProvider;
             this.Mapper = mapper;
+            this.Pager = pager;
         }
 
         /* Example

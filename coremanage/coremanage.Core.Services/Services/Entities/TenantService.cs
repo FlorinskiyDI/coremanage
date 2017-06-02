@@ -9,14 +9,19 @@ using storagecore.Abstractions.Uow;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using coremanage.Core.Models.Dtos;
 using Microsoft.EntityFrameworkCore;
+using storagecore.EntityFrameworkCore.Paging;
 
 namespace coremanage.Core.Services.Services.Entities
 {
     public class TenantService : BaseService<TenantDto, Tenant, int>, ITenantService
     {
-        public TenantService(IUowProvider uowProvider, IMapper mapper)
-            : base(uowProvider, mapper)
+        public TenantService(
+            IUowProvider uowProvider,
+            IMapper mapper,
+            IDataPager<Tenant, int> pager)
+            : base(uowProvider, mapper, pager)
         { }
 
         #region "Tenant"
@@ -111,6 +116,18 @@ namespace coremanage.Core.Services.Services.Entities
         #endregion
 
         #region "Tenant member"
+
+        public async Task<DataPageDto<TenantDto, int>> GetTenantMemberDataPage(int pageNumber, int pageLenght)
+        {
+            var dataPage = await Pager.GetAsync(
+                    pageNumber,
+                    pageLenght
+                );
+            var dataPageDto = Mapper.Map<DataPage<Tenant, int>, DataPageDto<TenantDto, int>>(dataPage);
+
+            return dataPageDto;
+        }
+
 
         public async Task<List<UserProfileDto>> GetTenantMemberListByTenantId(int tenantId)
         {

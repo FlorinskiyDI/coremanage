@@ -1,16 +1,5 @@
 ﻿<div class="members-grid-component">
 
-members-grid
-
-
-    <!--<p-dataTable [value]="memberList" [rows]="5" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[2,5,7]">
-        <p-header>Members of tenant</p-header>
-        <p-column field="id" header="id"></p-column>
-        <p-column field="firstName" header="first name"></p-column>
-        <p-column field="lastName" header="last name"></p-column>   
-    </p-dataTable>-->
-
-
     <p-dataTable #dt
     reorderableColumns="true"
     sortMode="multiple"
@@ -21,12 +10,15 @@ members-grid
     [paginator]="true"
     [totalRecords]="totalItems"
     [loading]= "loading"
-    (onLazyLoad)="onPageChanged.emit($event)">
-        <p-header>
+    (onLazyLoad)="onPageChanged.emit($event)">        
+         <p-header>List of members</p-header>
+        <p-footer>
             <div class="ui-helper-clearfix">
-                <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:left">Export to CSV</button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="font-weight: 300;float:left;">
+                    Export to CSV
+                </button>
             </div>
-        </p-header> 
+        </p-footer>
         <p-column [sortable]="true" field="id" header="id" ></p-column>
         <p-column [sortable]="true" field="fullName" header="fullName"></p-column>
         <p-column [sortable]="true" field="email" header="email"></p-column>

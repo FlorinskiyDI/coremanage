@@ -124,6 +124,8 @@ namespace coremanage.Dashboard.WebApi.Controllers
             };
 
             System.Threading.Thread.Sleep(1000);
+
+            var ccc = _tenantService.GetTenantMemberDataPage(pageNumber: 1, pageLenght: 10);
             //List<TenantMemberViewModel> tenantMembers = new List<TenantMemberViewModel>
             //tenantMembers = tenantMemberList
             //    .Select( c => new TenantMemberViewModel {

@@ -5,6 +5,7 @@ using storagecore.Abstractions.Context;
 using storagecore.Abstractions.Repositories;
 using storagecore.Abstractions.Uow;
 using storagecore.EntityFrameworkCore.Context;
+using storagecore.EntityFrameworkCore.Paging;
 using storagecore.EntityFrameworkCore.Repositories;
 using storagecore.EntityFrameworkCore.Uow;
 
@@ -23,7 +24,7 @@ namespace storagecore.EntityFrameworkCore
             services.TryAddSingleton<IUowProvider, UowProvider>();
             services.TryAddTransient<IEntityContext, TEntityContext>();
             services.TryAddTransient(typeof(IBaseRepository<,>), typeof(GenericRepository<,>));
-            //services.TryAddTransient(typeof(IDataPager<>), typeof(DataPager<>));
+            services.TryAddTransient(typeof(IDataPager<,>), typeof(DataPager<,>));
         }
     }
 }
