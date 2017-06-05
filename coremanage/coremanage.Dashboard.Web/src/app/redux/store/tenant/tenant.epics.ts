@@ -22,7 +22,8 @@ export class TenantEpics {
             this.createGetRequestTenantEpic(),
             this.createPostRequestTenantEpic(),
             this.updateGetRequestTenantEpic(),
-            this.updatePostRequestTenantEpic()
+            this.updatePostRequestTenantEpic(),
+            this.getRequestTenantMemberGridEpic()
             );
         return createEpicMiddleware(ccc);
     }
@@ -35,6 +36,15 @@ export class TenantEpics {
             .switchMap((payload: any) => this.tenantApiService.getTenantTreeNodes(payload.meta)
                 .map(data  => this.tenantActions.requestTenantTreeNodesSuccessAction(data, payload.meta))
                 .catch( error => of(this.tenantActions.requestTenantTreeNodesFailedAction(error))));
+    }
+
+    // tenant-member-grid
+    private getRequestTenantMemberGridEpic() {
+        return (action$: any) => action$
+            .ofType(TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID)
+            .switchMap((payload: any) => this.tenantApiService.getTenantMemberList(payload.meta)
+                .map(data  => this.tenantActions.getRequestTenantMemberGridSuccessAction(data, payload.meta))
+                .catch( error => of(this.tenantActions.getRequestTenantMemberGridFailedAction(error))));
     }
 
 

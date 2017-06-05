@@ -8,7 +8,7 @@ using IdentityModel.Client;
 using coremanage.Dashboard.WebApi.Models;
 using Microsoft.Extensions.Configuration;
 using coremanage.Core.Services.Interfaces.Entities;
-using coremanage.Dashboard.WebApi.Models.Authorize;
+using coremanage.Dashboard.WebApi.Models.Identity;
 using static IdentityServer4.IdentityServerConstants;
 
 namespace coremanage.Dashboard.WebApi.Controllers

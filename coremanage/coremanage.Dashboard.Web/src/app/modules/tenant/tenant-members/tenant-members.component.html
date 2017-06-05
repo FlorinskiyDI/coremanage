@@ -1,10 +1,12 @@
 ﻿<div class="">
 
-    <p>tenant-members</p>
-    <p>tenant-members</p>
-    <p>tenant-members</p>
-    <p>tenant-members</p>
-    <p>tenant-members</p>
+    <members-grid-component
+        [items]="members"
+        [totalItems]="membersTotal"
+        [pageNumber]="membersPage"
+        [loading]="membersLoading"
+        (onPageChanged)="onMembersPageChanged($event)"
+        (onRowDelete)="onMembersItemDelete($event)">  
+    </members-grid-component>
 
-    
 </div>
