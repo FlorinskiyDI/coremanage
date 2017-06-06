@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 
 /* state */ import { IAppState } from '../../../redux/store';
 /* action */ import { TenantActions } from "../../../redux/actions";
+/* model */ import { PageData } from "../../../common/index.models";
 
 @Component({
     selector: 'tenant-members-component',
@@ -37,9 +38,18 @@ export class TenantMembersComponent {
     }
 
     onMembersPageChanged(data: any) {
-        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction(data.first));
+
+        let pageData: PageData = {
+            TotalItemCount: 0,
+            TotalPageCount: 0,
+            PageNumber: data.first,
+            PageLength: data.rows,
+            // filterData: null,
+            // sortData: data.multiSortMeta
+        }
+        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction(pageData));
     }
-    onMembersItemDelete(dta: any){
-        
+
+    onMembersItemDelete(dta: any){        
     }
 }

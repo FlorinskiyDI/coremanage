@@ -1,6 +1,12 @@
 
-export class PageData<T> {
-		items: any[];
-		totalItems: number;
-		pageNumber: number;
-	}
+export class PageData {
+
+	TotalItemCount: number;
+	TotalPageCount: number;
+
+	PageNumber: number;
+    PageLength: number;
+
+	// filterData: any;
+	// sortData: any;
+}

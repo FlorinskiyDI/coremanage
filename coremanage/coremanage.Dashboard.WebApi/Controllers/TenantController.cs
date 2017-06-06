@@ -8,6 +8,7 @@ using coremanage.Core.Services.Interfaces.Entities;
 using coremanage.Dashboard.WebApi.Models.Tenant;
 using Microsoft.AspNetCore.Authorization;
 using coremanage.Dashboard.WebApi.Models;
+using coremanage.Core.Models.Dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -95,10 +96,17 @@ namespace coremanage.Dashboard.WebApi.Controllers
             return new JsonResult(tenantList);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Member/PageData")]
-        public IActionResult GetPageData()
+        public IActionResult GetPageData([FromBody] PageDataViewModel pageData)
         {
+            if (pageData == null)
+            {
+                pageData = new PageDataViewModel {
+                    PageNumber = 1,
+                    PageLength = 12
+                };
+            }
             //var tenantMemberList = await _tenantService.GetTenantMemberListByTenantId(tenantId);
 
             List<TenantMemberViewModel> tenantMembers = new List<TenantMemberViewModel>
@@ -117,11 +125,11 @@ namespace coremanage.Dashboard.WebApi.Controllers
                 new TenantMemberViewModel {Id = "12", FullName = "V1.V1.Value12", Email = "a@a.a12"}
             };
 
-            var pageData = new PageData<TenantMemberViewModel> {
-                Items = tenantMembers,
-                PageNumber = 1,
-                TotalItems = 12
-            };
+            //var pageData = new PageData<TenantMemberViewModel> {
+            //    Items = tenantMembers,
+            //    PageNumber = 1,
+            //    TotalItems = 12
+            //};
 
             System.Threading.Thread.Sleep(1000);
 

@@ -46,12 +46,12 @@ export const INITIAL_STATE = new TenantMemberGridModalRecord(
 
 export function TenantMemberGridReducer(
   state: TenantMemberGridState = INITIAL_STATE,
-  action: IPayloadAction<PageData<any>, any>
+  action: IPayloadAction<any, any>
 ): TenantMemberGridState {
   switch (action.type) {
 
     case TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID:
-        const pageNumber = action.meta;
+        const pageNumber = action.meta.pageNumber;
         return state.merge({
             items: List(),
             pageNumber: pageNumber == null ? state.pageNumber : pageNumber,
@@ -62,7 +62,7 @@ export function TenantMemberGridReducer(
     case TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID_SUCCESS:
         return state.merge({
             items: List(action.payload.items),
-            totalItems: action.payload.totalItems,            
+            totalItems: action.payload.totalItemCount,            
             pageNumber: action.payload.pageNumber,         
             error: null,
             loading: false
