@@ -96,41 +96,6 @@ namespace coremanage.Dashboard.WebApi.Controllers
             return new JsonResult(tenantList);
         }
 
-        //[HttpPost]
-        //[Route("Member/PageData")]
-        //public IActionResult GetPageData([FromBody] PageDataViewModel pageData)
-        //{
-        //    if (pageData == null)
-        //    {
-        //        pageData = new PageDataViewModel {
-        //            PageNumber = 1,
-        //            PageLength = 12
-        //        };
-        //    }
-
-        //    List<TenantMemberViewModel> tenantMembers = new List<TenantMemberViewModel>
-        //    {
-        //        new TenantMemberViewModel {Id = "1", FullName = "V1.V1.Value1", Email = "a@a.a1"},
-        //        new TenantMemberViewModel {Id = "2", FullName = "V1.V1.Value2", Email = "a@a.a2"},
-        //        new TenantMemberViewModel {Id = "3", FullName = "V1.V1.Value3", Email = "a@a.a3"},
-        //        new TenantMemberViewModel {Id = "4", FullName = "V1.V1.Value4", Email = "a@a.a4"},
-        //        new TenantMemberViewModel {Id = "5", FullName = "V1.V1.Value5", Email = "a@a.a5"},
-        //        new TenantMemberViewModel {Id = "6", FullName = "V1.V1.Value6", Email = "a@a.a6"},
-        //        new TenantMemberViewModel {Id = "7", FullName = "V1.V1.Value7", Email = "a@a.a7"},
-        //        new TenantMemberViewModel {Id = "8", FullName = "V1.V1.Value8", Email = "a@a.a8"},
-        //        new TenantMemberViewModel {Id = "9", FullName = "V1.V1.Value9", Email = "a@a.a9"},
-        //        new TenantMemberViewModel {Id = "10", FullName = "V1.V1.Value10", Email = "a@a.a10"},
-        //        new TenantMemberViewModel {Id = "11", FullName = "V1.V1.Value11", Email = "a@a.a11"},
-        //        new TenantMemberViewModel {Id = "12", FullName = "V1.V1.Value12", Email = "a@a.a12"}
-        //    };
-        //    System.Threading.Thread.Sleep(1000);
-
-        //    var ccc = _tenantService.GetTenantMemberDataPage(pageNumber: 1, pageLenght: 10);
-
-        //    return new JsonResult(pageData);
-        //}
-
-
         [HttpPost]
         [Route("Member/PageData")]
         public async Task<IActionResult> GetPageDataAsync([FromBody] DataPageDto<TenantMemberViewModel, string> pageData)
@@ -149,7 +114,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
             pageData.Items = pageDataMembers.Items.Select(s => new TenantMemberViewModel {
                 Id = s.Id,
-                FullName = s.LastName + " " + s.FirstName[0] + "." + s.MiddleName[0],
+                FullName = s.LastName + " " + s.FirstName[0] + "." + s.MiddleName[0] + ".",
                 Email = s.Email
             }).ToList();
 
