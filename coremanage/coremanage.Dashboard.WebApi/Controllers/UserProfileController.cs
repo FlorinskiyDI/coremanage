@@ -3,6 +3,8 @@ using coremanage.Core.Common.Context;
 using coremanage.Dashboard.WebApi.Models.UserProfile;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
+using coremanage.Core.Services.Interfaces.Entities;
 
 namespace coremanage.Dashboard.WebApi.Controllers
 {
@@ -11,42 +13,19 @@ namespace coremanage.Dashboard.WebApi.Controllers
     [Authorize]
     public class UserProfileController : Controller
     {
-        // GET: api/values
+
+        private readonly IUserProfileService _userProfileService;
+        public UserProfileController(IUserProfileService userProfileService)
+        {
+            _userProfileService = userProfileService;
+        }
+
         [HttpGet]
-        //[Authorize(Roles = "SuperAdmin, Admin, Manager, ")]
-        public List<UserProfileViewModel> Get()
+        [Route("AutoComplete/{query}")]
+        public async Task<IActionResult> GetEmailListForAutoComplete(string query)
         {
-            var userProfileList = new List<UserProfileViewModel>();
-
-            string name = NTContext.Context.UserName;
-            var http = NTContext.HttpContext;
-
-            return userProfileList;
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var emails = _userProfileService.GetEmailListForAutoCompleteAsync(query);
+            return new JsonResult(emails);
         }
     }
 }

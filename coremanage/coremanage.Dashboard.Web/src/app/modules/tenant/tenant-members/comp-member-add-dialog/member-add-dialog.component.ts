@@ -2,20 +2,20 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 
-/* interface */ import { IModalDialog } from '../../../common/index.interfaces';
-/* constant */ import { ModalDialogTypes } from '../../../common/index.constants';
-/* action */ import { LayoutActions, TenantActions } from "../../../redux/actions";
-/* state */ import { IAppState } from '../../../redux/store';
+/* interface */ import { IModalDialog } from '../../../../common/index.interfaces';
+/* constant */ import { ModalDialogTypes } from '../../../../common/index.constants';
+/* action */ import { LayoutActions, TenantActions } from "../../../../redux/actions";
+/* state */ import { IAppState } from '../../../../redux/store';
 
 @Component({
-    selector: 'tenant-add-dialog-component',
-    templateUrl: 'tenant-add-dialog.component.html'
+    selector: 'member-add-dialog-component',
+    templateUrl: 'member-add-dialog.component.html'
 })
-export class TenantAddDialogComponent implements OnInit {
+export class MemberAddDialogComponent implements OnInit {
     private layoutModal$: Observable<any>
     dialogModal = true;
     dialogObj: IModalDialog = {
-        modalType: ModalDialogTypes.TENANT_ITEM_ADD_TYPE,
+        modalType: ModalDialogTypes.TENANT_MEMBER_ADD_TYPE,
         isOpen: false,
         extraData: null
     };
@@ -23,7 +23,7 @@ export class TenantAddDialogComponent implements OnInit {
     constructor(
         private ngRedux: NgRedux<IAppState>,
         private layoutActions: LayoutActions,
-        private tenantActions: TenantActions,
+        // private tenantActions: TenantActions,
     ){
         this.layoutModal$ = this.ngRedux.select(state=>state.layout.layoutModal);        
     }
@@ -34,7 +34,7 @@ export class TenantAddDialogComponent implements OnInit {
            
             if (this.dialogObj.modalType == val.modalType && this.dialogObj.modalType != null) {
                 this.dialogObj.isOpen = true;
-                this.ngRedux.dispatch(this.tenantActions.getRequestTenantItemCreateAction());
+                // this.ngRedux.dispatch(this.tenantActions.getRequestTenantItemCreateAction());
             } else {
                 this.dialogObj.isOpen = false;
             }
@@ -45,5 +45,5 @@ export class TenantAddDialogComponent implements OnInit {
     onHideDialog(cccc: any = null){
         console.log("Close dialog => " + this.dialogObj.modalType);
         this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction());
-    }
+    }    
 }

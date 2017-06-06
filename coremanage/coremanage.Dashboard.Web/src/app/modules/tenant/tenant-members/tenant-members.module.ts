@@ -1,13 +1,16 @@
 // external
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataTableModule } from 'primeng/primeng';
+import { DataTableModule, ButtonModule, DialogModule, AutoCompleteModule } from 'primeng/primeng';
 
 
 /* module */ import { SharedModule } from '../../../modules-shared/shared.module';
 /* routes */ import { TenantMembersRoutes } from './tenant-members-routes.module';
 /* component */ import { TenantMembersComponent } from './tenant-members.component';
 /* component */ import { MembersGridComponent } from './comp-members-grid/members-grid.component';
+/* component */ import { MemberAddDialogComponent } from './comp-member-add-dialog/member-add-dialog.component';
+/* component */ import { MemberAddComponent } from './comp-member-add-dialog/comp-member-add/member-add.component';
+
 
 
 @NgModule({
@@ -15,12 +18,14 @@ import { DataTableModule } from 'primeng/primeng';
         SharedModule,
         CommonModule,
         TenantMembersRoutes,
-        DataTableModule // primeng
+        ButtonModule, DataTableModule, DialogModule, AutoCompleteModule // primeng
     ],
 
     declarations: [
         TenantMembersComponent,
-        MembersGridComponent
+        MembersGridComponent,
+        MemberAddDialogComponent,
+        MemberAddComponent
     ],
 
 })

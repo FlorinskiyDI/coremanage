@@ -144,7 +144,7 @@ export class TenantTreeComponent implements OnInit {
 
         this.ngRedux.dispatch(this.layoutActions.openLayoutModalAction({
             isOpen: true,
-            modalType: ModalDialogTypes.ADD_TENANT_TYPE,
+            modalType: ModalDialogTypes.TENANT_ITEM_ADD_TYPE,
             extraData: { }
         }));
     }

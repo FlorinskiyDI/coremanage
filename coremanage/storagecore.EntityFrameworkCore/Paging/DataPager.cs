@@ -106,8 +106,8 @@ namespace storagecore.EntityFrameworkCore.Paging
         {
             var page = new DataPage<TEntity, TKey>()
             {
-                Data = data,
-                TotalEntityCount = totalEntityCount,
+                Items = data,
+                TotalItemCount = totalEntityCount,
                 PageLength = pageLength,
                 PageNumber = pageNumber
             };

@@ -26,8 +26,9 @@ export class TenantApiService extends BaseApiService<any> {
     }
 
     getTenantMemberList(data: any){
-        let url = this.apiServer + 'Member/PageData';
-        return this.http.get(url, this.customRequestOptions.optionRequestAuth)
+        let url = this.apiServer + 'Member/PageData/';
+        let body = JSON.stringify(data);
+        return this.http.post(url, body, this.customRequestOptions.optionRequestAuth)
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }

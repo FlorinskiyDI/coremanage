@@ -17,12 +17,17 @@ namespace coremanage.Core.Services.Services.Entities
 {
     public class TenantService : BaseService<TenantDto, Tenant, int>, ITenantService
     {
+
+        protected readonly IDataPager<UserProfile, string> Pager;
+
         public TenantService(
             IUowProvider uowProvider,
             IMapper mapper,
-            IDataPager<Tenant, int> pager)
-            : base(uowProvider, mapper, pager)
-        { }
+            IDataPager<UserProfile, string> pager)
+            : base(uowProvider, mapper)
+        {
+            this.Pager = pager;
+        }
 
         #region "Tenant"
 
@@ -117,13 +122,13 @@ namespace coremanage.Core.Services.Services.Entities
 
         #region "Tenant member"
 
-        public async Task<DataPageDto<TenantDto, int>> GetTenantMemberDataPage(int pageNumber, int pageLenght)
+        public async Task<DataPageDto<UserProfileDto, string>> GetTenantMemberDataPage(int pageNumber, int pageLenght)
         {
             var dataPage = await Pager.GetAsync(
                     pageNumber,
                     pageLenght
                 );
-            var dataPageDto = Mapper.Map<DataPage<Tenant, int>, DataPageDto<TenantDto, int>>(dataPage);
+            var dataPageDto = Mapper.Map<DataPage<UserProfile, string>, DataPageDto<UserProfileDto, string>>(dataPage);
 
             return dataPageDto;
         }
