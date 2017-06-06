@@ -40,10 +40,10 @@ export class TenantMembersComponent {
     onMembersPageChanged(data: any) {
 
         let pageData: PageData = {
-            TotalItemCount: 0,
-            TotalPageCount: 0,
-            PageNumber: data.first,
-            PageLength: data.rows,
+            totalItemCount: 0,
+            totalPageCount: 0,
+            pageNumber: data.first + 1,
+            pageLength: data.rows,
             // filterData: null,
             // sortData: data.multiSortMeta
         }

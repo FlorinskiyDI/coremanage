@@ -1,11 +1,11 @@
 
 export class PageData {
 
-	TotalItemCount: number;
-	TotalPageCount: number;
+	totalItemCount: number;
+	totalPageCount: number;
 
-	PageNumber: number;
-    PageLength: number;
+	pageNumber: number;
+    pageLength: number;
 
 	// filterData: any;
 	// sortData: any;

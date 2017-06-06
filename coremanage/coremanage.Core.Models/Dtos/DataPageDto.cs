@@ -15,7 +15,7 @@ namespace coremanage.Core.Models.Dtos
         public int PageNumber { get; set; }
         public int PageLength { get; set; }
 
-        //public int FilterData { get; set; }
-        //public int SortData { get; set; }
+        public int FilterData { get; set; }
+        public int SortData { get; set; }
     }
 }
