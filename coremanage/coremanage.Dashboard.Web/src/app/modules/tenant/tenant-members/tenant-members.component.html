@@ -1,5 +1,9 @@
 ﻿<div class="">
 
+    <button pButton type="text" label="Add member" (click)="showMemberAddDialog()">
+    </button>
+
+
     <members-grid-component
         [items]="members"
         [totalItems]="membersTotal"
@@ -9,4 +13,7 @@
         (onRowDelete)="onMembersItemDelete($event)">  
     </members-grid-component>
 
+
+    <member-add-dialog-component>        
+    </member-add-dialog-component>
 </div>

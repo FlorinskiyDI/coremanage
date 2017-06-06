@@ -39,24 +39,12 @@ export class TenantManageComponent implements OnInit {
         });
     }
 
-    // showTenantEditDialog() {
-    //     this.ngRedux.dispatch(this.layoutActions.openLayoutModalAction({
-    //         isOpen: true,
-    //         modalType: ModalDialogTypes.EDIT_TENANT_TYPE,
-    //         extraData: { }
-    //     }));
-    // }
-
     private editTenant(event: any){
-
         this.ngRedux.dispatch(this.layoutActions.openLayoutModalAction({
             isOpen: true,
-            modalType: ModalDialogTypes.EDIT_TENANT_TYPE,
+            modalType: ModalDialogTypes.TENANT_ITEM_EDIT_TYPE,
             extraData: { tenantId: this.tenantId }
-        }));
-
-        console.log("Edit");
-        console.log(event);
+        }));       
     }
 
     private deleteTenant(event: any){

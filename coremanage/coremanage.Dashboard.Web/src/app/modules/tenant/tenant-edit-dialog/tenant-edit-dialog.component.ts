@@ -15,7 +15,7 @@ export class TenantEditDialogComponent implements OnInit {
     layoutModal$: Observable<any>
     dialogModal = true;
     dialogObj: IModalDialog = {
-        modalType: ModalDialogTypes.EDIT_TENANT_TYPE,
+        modalType: ModalDialogTypes.TENANT_ITEM_EDIT_TYPE,
         isOpen: false,
         extraData: null
     };

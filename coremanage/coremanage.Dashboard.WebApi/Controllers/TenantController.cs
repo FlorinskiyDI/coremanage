@@ -149,7 +149,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
             pageData.Items = pageDataMembers.Items.Select(s => new TenantMemberViewModel {
                 Id = s.Id,
-                FullName = s.LastName + " " + s.FirstName[0] + "." + s.MiddleName,
+                FullName = s.LastName + " " + s.FirstName[0] + "." + s.MiddleName[0],
                 Email = s.Email
             }).ToList();
 
