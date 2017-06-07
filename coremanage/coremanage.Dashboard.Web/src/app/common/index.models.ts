@@ -9,3 +9,6 @@ export * from './models/api/identity/login-data.model';
 export * from './models/api/identity/reLogin-data.model';
 export * from './models/api/tenant/tenant-create.model';
 export * from './models/api/tenant/tenant-update.model';
+
+// models
+export * from  './models/tenant-member-autocomplete.model';

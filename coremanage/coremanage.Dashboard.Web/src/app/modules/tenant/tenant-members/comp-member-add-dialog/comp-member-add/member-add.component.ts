@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { SelectItem } from 'primeng/primeng';
 
 /* api-service */ import { TenantApiService } from '../../../../../common/services/api/entities/tenant.api.service';
-/* model */ import { TenantCreateModel } from '../../../../../common/index.models';
+/* model */ import { TenantCreateModel, tenantMemberAutocomplete } from '../../../../../common/index.models';
 /* action */ import { TenantActions, LayoutActions } from "../../../../../redux/actions";
 /* state */ import { IAppState } from '../../../../../redux/store';
 
@@ -14,7 +14,7 @@ import { SelectItem } from 'primeng/primeng';
     templateUrl: 'member-add.component.html'
 })
 export class MemberAddComponent implements OnInit {  
-    public results: string[];
+    public results: any[];
     public texts: string[];
     private query: string;
     private memberCreate$ = this.ngRedux.select(state => state.tenant.tenantMember.memberCreate);
@@ -35,8 +35,9 @@ export class MemberAddComponent implements OnInit {
             .subscribe((data: any) => {
                 if(data != null){
                     if(data.getMember != null){
-                        this.results = data.getMember;
-                        this.results.unshift(this.query);
+                        this.initAutoComplete(data);
+                        // this.results = data.getMember;
+                        // this.results.unshift(this.query);
                     } else{
                         
                     }
@@ -47,5 +48,22 @@ export class MemberAddComponent implements OnInit {
     search(event: any) {
         this.query = event.query;
         this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberCreateAction(event.query));          
+    }
+
+    private initAutoComplete(data: any){        
+        data.forEach(element => {
+            this.results.push({
+                value: element,
+                isValid: true,
+                isActive: true
+            } as tenantMemberAutocomplete)
+        });
+        this.results.unshift({
+                value: this.query,
+                isValid: true,
+                isActive: false
+            } as tenantMemberAutocomplete
+        );
+
     }
 }
