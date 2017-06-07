@@ -5,11 +5,24 @@
 
 
 <p-autoComplete
-    [(ngModel)]="text"
+    [(ngModel)]="texts"
     [suggestions]="results"
     (completeMethod)="search($event)"
-    [multiple]="true">    
+    [multiple]="true">
+    <ng-template let-texts pTemplate="item">
+        <ng-template let-value pTemplate="selectedItem">
+            <span style="font-size:18px">>{{texts}}<</span>
+        </ng-template>
+    </ng-template>
 </p-autoComplete>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>texts - {{texts | json}}</p>
+<p>results - {{results | json}}</p>
 
-{{text | json}}
-{{results | json}}

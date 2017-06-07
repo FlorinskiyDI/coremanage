@@ -4,7 +4,8 @@ import { ActionsObservable, createEpicMiddleware, combineEpics  } from 'redux-ob
 import { of } from 'rxjs/observable/of';
 
 /* type */ import { TenantActionTypes, TenantActions  } from '../../../redux/actions/tenant.actions';
-/* service */ import { TenantApiService } from '../../../common/services/api/entities/tenant.api.service';
+/* api-service */ import { TenantApiService } from '../../../common/services/api/entities/tenant.api.service';
+/* api-service */ import { UserProfileApiService } from '../../../common/services/api/entities/user-profile.api.service';
 
 const BASE_URL = '/api';
 
@@ -13,17 +14,22 @@ export class TenantEpics {
     constructor(
         private http: Http,
         private tenantApiService: TenantApiService,
+        private userProfileApiService: UserProfileApiService,
         private tenantActions: TenantActions
     ) {}
 
     public createEpic() {
         let ccc =  combineEpics(
             this.getRequestTenantTreeNodesEpic(),
+            //
             this.createGetRequestTenantEpic(),
             this.createPostRequestTenantEpic(),
             this.updateGetRequestTenantEpic(),
-            this.updatePostRequestTenantEpic(),
-            this.getRequestTenantMemberGridEpic()
+            this.postRequestTenantItemUpdateEpic(),
+            //
+            this.getRequestTenantMemberGridEpic(),
+            this.getRequestTenantMemberCreateEpic(),
+            this.postRequestTenantMemberCreateEpic()
             );
         return createEpicMiddleware(ccc);
     }
@@ -46,7 +52,21 @@ export class TenantEpics {
                 .map(data  => this.tenantActions.getRequestTenantMemberGridSuccessAction(data, payload.meta))
                 .catch( error => of(this.tenantActions.getRequestTenantMemberGridFailedAction(error))));
     }
-
+    // tenant-member-create
+    private getRequestTenantMemberCreateEpic() {
+        return (action$: any) => action$
+            .ofType(TenantActionTypes.GET_REQUEST_TENANT_MEMBER_CREATE)
+            .switchMap((payload: any) => this.userProfileApiService.getUserEmailListForAutoComplete(payload.meta)
+                .map(data  => this.tenantActions.getRequestTenantMemberCreateSuccessAction(data))
+                .catch( error => of(this.tenantActions.getRequestTenantMemberCreateFailedAction(error))));
+    }
+    private postRequestTenantMemberCreateEpic() {
+        return (action$: any) => action$
+            .ofType(TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE)
+            .switchMap((payload: any) => this.tenantApiService.addTenantCreate(payload.meta)
+                .map(data  => this.tenantActions.postRequestTenantItemCreateSuccessAction(data))
+                .catch( error => of(this.tenantActions.postRequestTenantItemCreateFailedAction(error))));
+    }
 
     // tenant-item-create
     private createGetRequestTenantEpic() {
@@ -72,7 +92,7 @@ export class TenantEpics {
                 .map(data  => this.tenantActions.getRequestTenantItemUpdateSuccessAction(data))
                 .catch( error => of(this.tenantActions.getRequestTenantItemUpdateFailedAction(error))));
     }
-    private updatePostRequestTenantEpic() {
+    private postRequestTenantItemUpdateEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.POST_REQUEST_TENANT_ITEM_UPDATE)
             .switchMap((payload: any) => this.tenantApiService.addTenantUpdate(payload.meta)

@@ -4,7 +4,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { SelectItem } from 'primeng/primeng';
 
-/* service */ import { TenantApiService } from '../../../../../common/services/api/entities/tenant.api.service';
+/* api-service */ import { TenantApiService } from '../../../../../common/services/api/entities/tenant.api.service';
 /* model */ import { TenantCreateModel } from '../../../../../common/index.models';
 /* action */ import { TenantActions, LayoutActions } from "../../../../../redux/actions";
 /* state */ import { IAppState } from '../../../../../redux/store';
@@ -13,10 +13,11 @@ import { SelectItem } from 'primeng/primeng';
     selector: 'member-add-component',
     templateUrl: 'member-add.component.html'
 })
-export class MemberAddComponent implements OnInit {    
-
-    text: string;    
-    results: string[];
+export class MemberAddComponent implements OnInit {  
+    public results: string[];
+    public texts: string[];
+    private query: string;
+    private memberCreate$ = this.ngRedux.select(state => state.tenant.tenantMember.memberCreate);
 
     constructor(
         private ngRedux: NgRedux<IAppState>,
@@ -24,17 +25,27 @@ export class MemberAddComponent implements OnInit {
         private layoutActions: LayoutActions,
         private fb: FormBuilder,
     ) {
-        this.results = ["a","ab","abc","abcd"];
+        this.results = [];
+        this.query = "";
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.memberCreate$
+            .map(data => { return data.toJS()})
+            .subscribe((data: any) => {
+                if(data != null){
+                    if(data.getMember != null){
+                        this.results = data.getMember;
+                        this.results.unshift(this.query);
+                    } else{
+                        
+                    }
+                }
+        }); 
+    }
     
-    search(event) {
-        this.results.push(event.query);
-
-        console.log(event);
-        // this.mylookupservice.getResults(event.query).then(data => {
-        //     this.results = data;
-        // });
+    search(event: any) {
+        this.query = event.query;
+        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberCreateAction(event.query));          
     }
 }

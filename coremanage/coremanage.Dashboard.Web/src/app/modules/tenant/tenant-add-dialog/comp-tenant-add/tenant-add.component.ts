@@ -4,7 +4,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { SelectItem } from 'primeng/primeng';
 
-/* service */ import { TenantApiService } from '../../../../common/services/api/entities/tenant.api.service';
+/* api-service */ import { TenantApiService } from '../../../../common/services/api/entities/tenant.api.service';
 /* model */ import { TenantCreateModel } from '../../../../common/index.models';
 /* action */ import { TenantActions, LayoutActions } from "../../../../redux/actions";
 /* state */ import { IAppState } from '../../../../redux/store';

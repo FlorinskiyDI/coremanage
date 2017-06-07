@@ -1,25 +1,19 @@
-import { appConstant } from '../common/index.constants';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser'
+import { NgModule, ModuleWithProviders } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/primeng';
 
-import {
-    NgModule,
-    ModuleWithProviders
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-// Services
-import { JwtDecodeService } from '../common/services/auth/jwt-decode.service';
-import { AuthService } from '../common/services/auth/auth.service';
-import { IdentityApiService } from '../common/services/api/entities/identity.api.service';
-import { CustomRequestOptions } from '../common/services/api/custom-request-options.service';
-import { TenantApiService } from '../common/services/api/entities/tenant.api.service';
-// Actions
-import { ACTION_PROVIDERS } from '../redux/actions';
-import { EPICS_PROVIDERS } from '../redux/store'
+/* constant */ import { appConstant } from '../common/index.constants';
+/* service */ import { JwtDecodeService } from '../common/services/auth/jwt-decode.service';
+/* service */ import { AuthService } from '../common/services/auth/auth.service';
+/* api-service */ import { IdentityApiService } from '../common/services/api/entities/identity.api.service';
+/* api-service */ import { CustomRequestOptions } from '../common/services/api/custom-request-options.service';
+/* api-service */ import { TenantApiService } from '../common/services/api/entities/tenant.api.service';
+/* api-service */ import { UserProfileApiService } from '../common/services/api/entities/user-profile.api.service';
+/* action */ import { ACTION_PROVIDERS } from '../redux/actions';
+/* action */ import { EPICS_PROVIDERS } from '../redux/store'
 
 
 @NgModule({
@@ -43,6 +37,7 @@ import { EPICS_PROVIDERS } from '../redux/store'
         IdentityApiService,
         CustomRequestOptions,
         TenantApiService,
+        UserProfileApiService,
         AuthService,
         ACTION_PROVIDERS,
         EPICS_PROVIDERS
@@ -56,6 +51,7 @@ export class SharedModule {
                 // CommonModule,
                 CustomRequestOptions,
                 TenantApiService,
+                UserProfileApiService,
                 JwtDecodeService,
                 IdentityApiService,
                 AuthService,

@@ -24,7 +24,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [Route("AutoComplete/{query}")]
         public async Task<IActionResult> GetEmailListForAutoComplete(string query)
         {
-            var emails = _userProfileService.GetEmailListForAutoCompleteAsync(query);
+            var emails = await _userProfileService.GetEmailListForAutoCompleteAsync(query);
             return new JsonResult(emails);
         }
     }

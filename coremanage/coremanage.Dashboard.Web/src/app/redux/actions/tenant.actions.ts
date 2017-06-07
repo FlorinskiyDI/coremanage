@@ -18,7 +18,13 @@ export const TenantActionTypes =  {
   GET_REQUEST_TENANT_MEMBER_GRID: type('[TenantMemberGrid] load tenant member grid'),
   GET_REQUEST_TENANT_MEMBER_GRID_SUCCESS: type('[TenantMemberGrid] successfully loaded tenant member grid'),
   GET_REQUEST_TENANT_MEMBER_GRID_FAILURE: type('[TenantMemberGrid] failed to load tenant member grid'),
-
+  /* tenant-member-create action types */
+  GET_REQUEST_TENANT_MEMBER_CREATE: type('[TenantMemberCreate] get request member item'),
+  GET_REQUEST_TENANT_MEMBER_CREATE_SUCCESS: type('[TenantMemberCreate] successfully get requested  member item'),
+  GET_REQUEST_TENANT_MEMBER_CREATE_FAILURE: type('[TenantMemberCreate] failed to request get member item'),
+  POST_REQUEST_TENANT_MEMBER_CREATE: type('[TenantMemberUpdate] post request member item'),
+  POST_REQUEST_TENANT_MEMBER_CREATE_SUCCESS: type('[TenantMemberUpdate] successfully post requested  member item'),
+  POST_REQUEST_TENANT_MEMBER_CREATE_FAILURE: type('[TenantMemberUpdate] failed to request post member item'),
 
   /* tenant-item-create action types */
   GET_REQUEST_TENANT_ITEM_CREATE: type('[TenantItemCreate] get request tenant item'),
@@ -27,7 +33,6 @@ export const TenantActionTypes =  {
   POST_REQUEST_TENANT_ITEM_CREATE: type('[TenantItemCreate] post request tenant item'),
   POST_REQUEST_TENANT_ITEM_CREATE_SUCCESS: type('[TenantItemCreate] successfully post requested  tenant item'),
   POST_REQUEST_TENANT_ITEM_CREATE_FAILURE: type('[TenantItemCreate] failed to request post tenant item'),
-
   /* tenant-item-update action types */
   GET_REQUEST_TENANT_ITEM_UPDATE: type('[TenantItemUpdate] get request tenant item'),
   GET_REQUEST_TENANT_ITEM_UPDATE_SUCCESS: type('[TenantItemUpdate] successfully get requested  tenant item'),
@@ -36,6 +41,7 @@ export const TenantActionTypes =  {
   POST_REQUEST_TENANT_ITEM_UPDATE_SUCCESS: type('[TenantItemUpdate] successfully post requested  tenant item'),
   POST_REQUEST_TENANT_ITEM_UPDATE_FAILURE: type('[TenantItemUpdate] failed to request post tenant item'),
 
+  
 }
 
 
@@ -99,7 +105,45 @@ export class TenantActions {
     };
   }
 
-  /* tenant-tree-select actions */
+  /* tenant-member-create actions */
+  public getRequestTenantMemberCreateAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_MEMBER_CREATE,
+      meta: data
+    };
+  }
+  public getRequestTenantMemberCreateSuccessAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_MEMBER_CREATE_SUCCESS,
+      payload: data
+    };
+  }
+  public getRequestTenantMemberCreateFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.GET_REQUEST_TENANT_MEMBER_CREATE_FAILURE,
+      payload: data
+    };
+  }
+  public postRequestTenantMemberCreateAction(data: any) {
+    return {
+      type: TenantActionTypes.POST_REQUEST_TENANT_MEMBER_CREATE,
+      meta: data
+    };
+  }
+  public postRequestTenantMemberCreateSuccessAction(data: any) {
+    return {
+      type: TenantActionTypes.POST_REQUEST_TENANT_MEMBER_CREATE_SUCCESS,
+      payload: data
+    };
+  }
+  public postRequestTenantMemberCreateFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.POST_REQUEST_TENANT_MEMBER_CREATE_FAILURE,
+      payload: data
+    };
+  }
+
+  /* tenant-item-create actions */
   public getRequestTenantItemCreateAction() {
     return {
       type: TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE
