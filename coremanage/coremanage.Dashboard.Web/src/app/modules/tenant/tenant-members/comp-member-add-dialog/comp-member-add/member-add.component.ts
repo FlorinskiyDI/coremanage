@@ -14,7 +14,7 @@ import { SelectItem } from 'primeng/primeng';
     templateUrl: 'member-add.component.html'
 })
 export class MemberAddComponent implements OnInit {  
-    public results: any[];
+    public results: tenantMemberAutocomplete[];
     public texts: string[];
     private query: string;
     private memberCreate$ = this.ngRedux.select(state => state.tenant.tenantMember.memberCreate);
@@ -35,7 +35,7 @@ export class MemberAddComponent implements OnInit {
             .subscribe((data: any) => {
                 if(data != null){
                     if(data.getMember != null){
-                        this.initAutoComplete(data);
+                        this.initAutoComplete(data.getMember);
                         // this.results = data.getMember;
                         // this.results.unshift(this.query);
                     } else{
@@ -50,8 +50,9 @@ export class MemberAddComponent implements OnInit {
         this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberCreateAction(event.query));          
     }
 
-    private initAutoComplete(data: any){        
-        data.forEach(element => {
+    private initAutoComplete(data: any) {
+        this.results = [];     
+        data.forEach((element: any) => {
             this.results.push({
                 value: element,
                 isValid: true,
