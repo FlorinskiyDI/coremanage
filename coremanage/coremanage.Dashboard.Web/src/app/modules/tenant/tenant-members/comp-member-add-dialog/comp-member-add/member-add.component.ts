@@ -18,6 +18,7 @@ export class MemberAddComponent implements OnInit {
     private autocompleteQuery: string;
     public autocompleteResult: any;
     public autocompleteOption: any;
+
     formMember: FormGroup;
     formErrors: any = { 'users': '' };
     validationMessages: any = { 'users': { 'required': 'Users is required.' } };
@@ -28,7 +29,6 @@ export class MemberAddComponent implements OnInit {
         private layoutActions: LayoutActions,
         private fb: FormBuilder,
     ) {
-        // this.autocomplete.results = [];
         this.autocompleteQuery = "";
         this.autocompleteOption = { results: [] as any[], texts: [] as any[] }
     }
@@ -55,7 +55,11 @@ export class MemberAddComponent implements OnInit {
         this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberCreateAction(event.query));          
     }
     onSubmitForm() {
-        
+        let emailList: any[] = [];
+        this.formMember.value.users.forEach((element: any) => {
+            emailList.push(element.value);
+        });
+        this.ngRedux.dispatch(this.tenantActions.postRequestTenantMemberCreateAction(emailList));
     }
 
     private initAutoComplete(data: any) {

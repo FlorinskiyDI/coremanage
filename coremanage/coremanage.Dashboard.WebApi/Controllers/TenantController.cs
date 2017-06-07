@@ -98,7 +98,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
         [HttpPost]
         [Route("Member/PageData")]
-        public async Task<IActionResult> GetPageDataAsync([FromBody] DataPageDto<TenantMemberViewModel, string> pageData)
+        public async Task<IActionResult> GetMemberPageDataAsync([FromBody] DataPageDto<TenantMemberViewModel, string> pageData)
         {
             if (pageData == null)
             {
@@ -119,6 +119,13 @@ namespace coremanage.Dashboard.WebApi.Controllers
             }).ToList();
 
             return new JsonResult(pageData);
+        }
+
+        [HttpPost]
+        [Route("Member/Create")]
+        public async Task<IActionResult> PostMemberCreateAsync([FromBody] List<string> model)
+        {
+            return new JsonResult(model);
         }
     }
 }

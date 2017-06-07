@@ -20,14 +20,16 @@ export class TenantEpics {
 
     public createEpic() {
         let ccc =  combineEpics(
+
             this.getRequestTenantTreeNodesEpic(),
-            //
-            this.createGetRequestTenantEpic(),
-            this.createPostRequestTenantEpic(),
-            this.updateGetRequestTenantEpic(),
+            // tenant-item
+            this.getRequestTenantItemCreateEpic(),
+            this.postRequestTenantItemCreateEpic(),
+            this.getRequestTenantItemUpdateEpic(),
             this.postRequestTenantItemUpdateEpic(),
-            //
+            // tenant-grid
             this.getRequestTenantMemberGridEpic(),
+            // tenant-member
             this.getRequestTenantMemberCreateEpic(),
             this.postRequestTenantMemberCreateEpic()
             );
@@ -62,21 +64,21 @@ export class TenantEpics {
     }
     private postRequestTenantMemberCreateEpic() {
         return (action$: any) => action$
-            .ofType(TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE)
-            .switchMap((payload: any) => this.tenantApiService.addTenantCreate(payload.meta)
-                .map(data  => this.tenantActions.postRequestTenantItemCreateSuccessAction(data))
-                .catch( error => of(this.tenantActions.postRequestTenantItemCreateFailedAction(error))));
+            .ofType(TenantActionTypes.POST_REQUEST_TENANT_MEMBER_CREATE)
+            .switchMap((payload: any) => this.tenantApiService.postTenantMemberCreate(payload.meta)
+                .map(data  => this.tenantActions.postRequestTenantMemberCreateSuccessAction(data))
+                .catch( error => of(this.tenantActions.postRequestTenantMemberCreateFailedAction(error))));
     }
 
     // tenant-item-create
-    private createGetRequestTenantEpic() {
+    private getRequestTenantItemCreateEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.GET_REQUEST_TENANT_ITEM_CREATE)
             .switchMap((payload: any) => this.tenantApiService.getTenantCreate()
                 .map(data  => this.tenantActions.getRequestTenantItemCreateSuccessAction(data))
                 .catch( error => of(this.tenantActions.getRequestTenantItemCreateFailedAction(error))));
     }
-    private createPostRequestTenantEpic() {
+    private postRequestTenantItemCreateEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.POST_REQUEST_TENANT_ITEM_CREATE)
             .switchMap((payload: any) => this.tenantApiService.addTenantCreate(payload.meta)
@@ -85,7 +87,7 @@ export class TenantEpics {
     }
 
     // tenant-item-update 
-    private updateGetRequestTenantEpic() {
+    private getRequestTenantItemUpdateEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.GET_REQUEST_TENANT_ITEM_UPDATE)
             .switchMap((payload: any) => this.tenantApiService.getTenantUpdate(payload.meta)

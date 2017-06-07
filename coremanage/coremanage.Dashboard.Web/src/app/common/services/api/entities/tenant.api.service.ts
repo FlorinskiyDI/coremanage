@@ -32,7 +32,7 @@ export class TenantApiService extends BaseApiService<any> {
     }
     
     postTenantMemberCreate( data: any ): Observable<any> {
-        let url = this.apiServer + 'Create/';
+        let url = this.apiServer + 'Member/Create/';
         return this.http.post(url, JSON.stringify(data), this.customRequestOptions.optionRequestAuth)
             .map((res: Response) => res.json());
             // .catch(this.handleError);

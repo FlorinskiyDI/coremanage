@@ -19,12 +19,12 @@ export const TenantActionTypes =  {
   GET_REQUEST_TENANT_MEMBER_GRID_SUCCESS: type('[TenantMemberGrid] successfully loaded tenant member grid'),
   GET_REQUEST_TENANT_MEMBER_GRID_FAILURE: type('[TenantMemberGrid] failed to load tenant member grid'),
   /* tenant-member-create action types */
-  GET_REQUEST_TENANT_MEMBER_CREATE: type('[TenantMemberCreate] get request member item'),
-  GET_REQUEST_TENANT_MEMBER_CREATE_SUCCESS: type('[TenantMemberCreate] successfully get requested  member item'),
-  GET_REQUEST_TENANT_MEMBER_CREATE_FAILURE: type('[TenantMemberCreate] failed to request get member item'),
-  POST_REQUEST_TENANT_MEMBER_CREATE: type('[TenantMemberUpdate] post request member item'),
-  POST_REQUEST_TENANT_MEMBER_CREATE_SUCCESS: type('[TenantMemberUpdate] successfully post requested  member item'),
-  POST_REQUEST_TENANT_MEMBER_CREATE_FAILURE: type('[TenantMemberUpdate] failed to request post member item'),
+  GET_REQUEST_TENANT_MEMBER_CREATE: type('[TenantMemberCreate] get request tenant member'),
+  GET_REQUEST_TENANT_MEMBER_CREATE_SUCCESS: type('[TenantMemberCreate] successfully get requested tenant member'),
+  GET_REQUEST_TENANT_MEMBER_CREATE_FAILURE: type('[TenantMemberCreate] failed to request get tenant member'),
+  POST_REQUEST_TENANT_MEMBER_CREATE: type('[TenantMemberCreate] post request tenant member'),
+  POST_REQUEST_TENANT_MEMBER_CREATE_SUCCESS: type('[TenantMemberCreate] successfully post requested tenant member'),
+  POST_REQUEST_TENANT_MEMBER_CREATE_FAILURE: type('[TenantMemberCreate] failed to request post tenant member'),
 
   /* tenant-item-create action types */
   GET_REQUEST_TENANT_ITEM_CREATE: type('[TenantItemCreate] get request tenant item'),
