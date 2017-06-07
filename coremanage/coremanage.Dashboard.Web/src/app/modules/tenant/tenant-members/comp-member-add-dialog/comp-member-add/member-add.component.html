@@ -1,25 +1,27 @@
-<p>member-add-component</p>
-<p>member-add-component</p>
-<p>member-add-component</p>
-<p>member-add-component</p>
-
-<p-autoComplete
-    [(ngModel)]="texts"
-    [suggestions]="results"
-    (completeMethod)="search($event)"
-    [multiple]="true">
-    <ng-template let-value pTemplate="selectedItem">       
-            <span style="font-size:18px">>{{value.value}}<</span>        
-    </ng-template>
-</p-autoComplete>
-<p>0</p>
-<p>0</p>
-<p>0</p>
-<p>0</p>
-<p>0</p>
-<p>0</p>
-<p>0</p>
-<p>0</p>
-<p>texts - {{texts | json}}</p>
-<p>results - {{results | json}}</p>
-
+<form role="form" [formGroup]="formMember" (ngSubmit)="onSubmitForm(dt)">
+    <div class="form-group form-group-sm">               
+        <p-autoComplete
+            class="p-autocomplete"
+            formControlName="users"
+            name="autocompleteOption"            
+            [multiple]="true"
+            [suggestions]="autocompleteOption.results"
+            (completeMethod)="onSearchAutoComplete($event)"
+            [(ngModel)]="autocompleteOption.texts">
+            <ng-template let-value pTemplate="item">
+                <span class="ui-autocomplete-token-label">{{value.value}} <span *ngIf="!value.isActive;then invite"></span></span>
+            </ng-template>
+            <ng-template let-value pTemplate="selectedItem">
+                <span class="ui-autocomplete-token-label">{{value.value}} <span *ngIf="!value.isActive;then invite"></span></span>
+            </ng-template>
+            <ng-template #active>[active]</ng-template>
+            <ng-template #invite>[send invitation]</ng-template>
+        </p-autoComplete>
+        <div *ngIf="formErrors.users" class="alert alert-danger">
+            {{ formErrors.users }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-default" [disabled]="!formMember.valid">
+        Save changes
+    </button>
+</form>

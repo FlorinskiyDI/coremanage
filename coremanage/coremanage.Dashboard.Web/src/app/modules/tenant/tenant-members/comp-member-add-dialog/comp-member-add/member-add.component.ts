@@ -13,23 +13,28 @@ import { SelectItem } from 'primeng/primeng';
     selector: 'member-add-component',
     templateUrl: 'member-add.component.html'
 })
-export class MemberAddComponent implements OnInit {  
-    public results: tenantMemberAutocomplete[];
-    public texts: string[];
-    private query: string;
+export class MemberAddComponent implements OnInit {
     private memberCreate$ = this.ngRedux.select(state => state.tenant.tenantMember.memberCreate);
-
+    private autocompleteQuery: string;
+    public autocompleteResult: any;
+    public autocompleteOption: any;
+    formMember: FormGroup;
+    formErrors: any = { 'users': '' };
+    validationMessages: any = { 'users': { 'required': 'Users is required.' } };
+        
     constructor(
         private ngRedux: NgRedux<IAppState>,
         private tenantActions: TenantActions,        
         private layoutActions: LayoutActions,
         private fb: FormBuilder,
     ) {
-        this.results = [];
-        this.query = "";
+        // this.autocomplete.results = [];
+        this.autocompleteQuery = "";
+        this.autocompleteOption = { results: [] as any[], texts: [] as any[] }
     }
 
     ngOnInit() {
+        this.buildForm();
         this.memberCreate$
             .map(data => { return data.toJS()})
             .subscribe((data: any) => {
@@ -37,7 +42,7 @@ export class MemberAddComponent implements OnInit {
                     if(data.getMember != null){
                         this.initAutoComplete(data.getMember);
                         // this.results = data.getMember;
-                        // this.results.unshift(this.query);
+                        // this.results.unshift(this.autocompleteQuery);
                     } else{
                         
                     }
@@ -45,26 +50,52 @@ export class MemberAddComponent implements OnInit {
         }); 
     }
     
-    search(event: any) {
-        this.query = event.query;
+    onSearchAutoComplete(event: any) {
+        this.autocompleteQuery = event.query;
         this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberCreateAction(event.query));          
+    }
+    onSubmitForm() {
+        
     }
 
     private initAutoComplete(data: any) {
-        this.results = [];     
+        this.autocompleteOption.results = [];     
         data.forEach((element: any) => {
-            this.results.push({
+            this.autocompleteOption.results.push({
                 value: element,
                 isValid: true,
                 isActive: true
             } as tenantMemberAutocomplete)
         });
-        this.results.unshift({
-                value: this.query,
+        this.autocompleteOption.results.unshift({
+                value: this.autocompleteQuery,
                 isValid: true,
                 isActive: false
             } as tenantMemberAutocomplete
         );
 
+    }
+    private buildForm(): void {
+        this.formMember = this.fb.group({
+            users: new FormControl(this.autocompleteResult, Validators.required)            
+        });
+        this.formMember.valueChanges
+            .subscribe(data => this.onValueChanged(data));
+        this.onValueChanged();
+    }
+    private onValueChanged(data?: any) {
+        if (!this.formMember) { return; }
+        const form = this.formMember;
+        for (const field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            const control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
     }
 }
