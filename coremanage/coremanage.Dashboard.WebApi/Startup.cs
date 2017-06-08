@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using coremanage.Dashboard.WebApi.Extensions;
+using coremanage.Dashboard.WebApi.Services;
 
 namespace coremanage.Dashboard.WebApi
 {
@@ -51,7 +52,7 @@ namespace coremanage.Dashboard.WebApi
             services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
             services.AddCoreManagerData(); // registering the repository
             services.AddCoreManagerBootstrap(); // registering the services
-            
+            services.AddScoped<IViewRenderService, ViewRenderService>();
 
             services.AddAutoMapper();
             services.AddMvc();

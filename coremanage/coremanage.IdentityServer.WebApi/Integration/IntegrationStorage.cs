@@ -1,21 +1,21 @@
-﻿using coremanage.Data.Storage.Context;
-using IdentityServer4.Models;
-using IdentityServer4.Test;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using coremanage.Core.Common.Constants;
-using Microsoft.EntityFrameworkCore;
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Mappers;
 using coremanage.Data.Models.Entities;
 using coremanage.Data.Models.Entities.Identity;
+using coremanage.Data.Storage.Context;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
+using IdentityServer4.Models;
+using IdentityServer4.Test;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using storagecore.Abstractions.Uow;
 
-namespace coremanage.Data.Storage.Integration
+namespace coremanage.IdentityServer.WebApi.Integration
 {
     public static class IntegrationStorage
     {

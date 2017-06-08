@@ -5,15 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using coremanage.IdentityServer.WebApi.Services;
 using coremanage.IdentityServer.WebApi.Configurations;
-using coremanage.Data.Models.Entities;
 using coremanage.Data.Storage.Context;
 using coremanage.Data.Storage.MSSQL;
-using coremanage.Data.Storage.Integration;
 using coremanage.Data.Storage;
-using coremanage.Core.Bootstrap;
-using AutoMapper;
+//using coremanage.Core.Bootstrap;
 using coremanage.Data.Models.Entities.Identity;
-using IdentityServer4.Validation;
+using coremanage.IdentityServer.WebApi.Integration;
 
 namespace coremanage.IdentityServer.WebApi
 {
@@ -42,7 +39,7 @@ namespace coremanage.IdentityServer.WebApi
             // Configurations for ... .
             services.AddStorageMSSQL(connectionString); // dbContext
             services.AddCoreManagerData(); // data access and repositories
-            services.AddCoreManagerBootstrap(); // automapper and services
+            //services.AddCoreManagerBootstrap(); // automapper and services
 
             //services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             // Configurations for AddIdentityServer 
@@ -76,7 +73,7 @@ namespace coremanage.IdentityServer.WebApi
             .AddDefaultTokenProviders();
 
             
-            services.AddAutoMapper();
+            //services.AddAutoMapper();
             services.AddMvc();
         }
 

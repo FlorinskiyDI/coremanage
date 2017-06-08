@@ -23,7 +23,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\coremanage.Core.Bootstrap\coremanage.Core.Bootstrap.csproj" />
     <ProjectReference Include="..\coremanage.Core.Common\coremanage.Core.Common.csproj" />
     <ProjectReference Include="..\coremanage.Data.Models\coremanage.Data.Models.csproj" />
     <ProjectReference Include="..\coremanage.Data.Storage.MSSQL\coremanage.Data.Storage.MSSQL.csproj" />
