@@ -12,6 +12,7 @@ using System.IO;
 using MimeKit;
 using MailKit.Net.Smtp;
 using coremanage.Dashboard.WebApi.Services;
+using coremanage.Dashboard.WebApi.Messaging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,14 +24,21 @@ namespace coremanage.Dashboard.WebApi.Controllers
     public class TenantController : Controller
     {
         private readonly ITenantService _tenantService;
-        private readonly IViewRenderService _viewRenderService;
+        private readonly IUserProfileService _userProfileService;
+        //private readonly IViewRenderService _viewRenderService;
+        private readonly ISiteMessageEmailSender _emailSender;
+
         public TenantController(
+            IUserProfileService userProfileService,
             ITenantService tenantService,
-            IViewRenderService viewRenderService
+            //IViewRenderService viewRenderService,
+            ISiteMessageEmailSender emailSender
         )
         {
+            _userProfileService = userProfileService;
             _tenantService = tenantService;
-            _viewRenderService = viewRenderService;
+            //_viewRenderService = viewRenderService;
+            _emailSender = emailSender;
         }
 
         [HttpGet]
@@ -131,68 +139,74 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
         [HttpPost]
         [Route("Member/Create")]
-        public async Task<IActionResult> PostMemberCreateAsync([FromBody] List<string> model)
+        public async Task<IActionResult> PostMemberCreateAsync([FromBody] List<string> emailList)
         {
-            this.SendEmail();
-            return new JsonResult(model);
+            //this.SendEmail();
+            
+                var userProfileDto = await _userProfileService.AddAsync(emailList[0]);
+                var emailConfirmationToken = await _userProfileService.GetEmailConfirmationToken(emailList[0]);
+                
+                var callbackUrl = "http://localhost:5300/?userid=" + userProfileDto.Id + "&token =" +emailConfirmationToken;
+                await _emailSender.SendAccountConfirmationEmailAsync( null, emailList[0], "Confirm your account", callbackUrl );
+            
+
+            return new JsonResult(emailList);
         }
 
 
-        private async Task SendEmail()
-        {
-            var viewModel = new InvitationViewModel()
-            {
-                UserId = "cdb86aea-e3d6-4fdd-9b7f-55e12b710f78",
-                UserName = "iggy",
-            };
+        //private async Task SendEmail()
+        //{
+        //    var viewModel = new InvitationViewModel()
+        //    {
+        //    };
 
-            // Get the generated Razor view as String
-            var result = await _viewRenderService.RenderToStringAsync("InvitationTemplate", viewModel);
+        //    // Get the generated Razor view as String
+        //    var result = await _viewRenderService.RenderToStringAsync("InvitationTemplate", viewModel);
 
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write((String)result);
-            writer.Flush();
-            stream.Position = 0;
+        //    MemoryStream stream = new MemoryStream();
+        //    StreamWriter writer = new StreamWriter(stream);
+        //    writer.Write((String)result);
+        //    writer.Flush();
+        //    stream.Position = 0;
 
-            var message = new MimeMessage(); 
-            message.From.Add(new MailboxAddress("Hasan Yousef", "dmytro.florynskyi@gmail.com"));
-            message.To.Add(new MailboxAddress("Personal", "oleh.florinsky@gmail.com"));
-            message.Subject = "Email Test";
-            var bodyBuilder = new BodyBuilder();
+        //    var message = new MimeMessage(); 
+        //    message.From.Add(new MailboxAddress("Hasan Yousef", "dmytro.florynskyi@gmail.com"));
+        //    message.To.Add(new MailboxAddress("Personal", "oleh.florinsky@gmail.com"));
+        //    message.Subject = "Email Test";
+        //    var bodyBuilder = new BodyBuilder();
 
-            bodyBuilder.HtmlBody = @"<div>HTML email body</Div>";
+        //    bodyBuilder.HtmlBody = @"<div>HTML email body</Div>";
 
-            bodyBuilder.Attachments.Add("msg.html", stream);
+        //    bodyBuilder.Attachments.Add("msg.html", stream);
 
-            message.Body = bodyBuilder.ToMessageBody();
+        //    message.Body = bodyBuilder.ToMessageBody();
 
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 587);
-                client.AuthenticationMechanisms.Remove("XOAUTH2");  // due to enabling less secure apps access
-                Console.WriteLine("Prepairing the Email");
-                try
-                {
-                    client.Authenticate("dmytro.florynskyi@gmail.com", "FlorinskyDmitriy");
-                    Console.WriteLine("Auth Completed");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("ERROR Auth");
-                }
-                try
-                {
-                    client.Send(message);
-                    Console.WriteLine("Email had been sent");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("ERROR");
-                }
-                client.Disconnect(true);
-            }
-        }
+        //    using (var client = new SmtpClient())
+        //    {
+        //        client.Connect("smtp.gmail.com", 587);
+        //        client.AuthenticationMechanisms.Remove("XOAUTH2");  // due to enabling less secure apps access
+        //        Console.WriteLine("Prepairing the Email");
+        //        try
+        //        {
+        //            client.Authenticate("dmytro.florynskyi@gmail.com", "FlorinskyDmitriy");
+        //            Console.WriteLine("Auth Completed");
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            Console.WriteLine("ERROR Auth");
+        //        }
+        //        try
+        //        {
+        //            client.Send(message);
+        //            Console.WriteLine("Email had been sent");
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            Console.WriteLine("ERROR");
+        //        }
+        //        client.Disconnect(true);
+        //    }
+        //}
 
     }
 }

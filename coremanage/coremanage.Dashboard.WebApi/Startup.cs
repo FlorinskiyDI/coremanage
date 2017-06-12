@@ -13,6 +13,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using coremanage.Dashboard.WebApi.Extensions;
 using coremanage.Dashboard.WebApi.Services;
+using coremanage.Dashboard.WebApi.Razor;
+using coremanage.Messaging.Email;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using coremanage.Dashboard.WebApi.Messaging;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace coremanage.Dashboard.WebApi
 {
@@ -48,11 +53,21 @@ namespace coremanage.Dashboard.WebApi
                .AddAuthorization()
                .AddJsonFormatters();
             services.AddCors();
-
+            // Storage
             services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
             services.AddCoreManagerData(); // registering the repository
+
             services.AddCoreManagerBootstrap(); // registering the services
+
+            // Messaging
+            services.Configure<SmtpOptions>(Configuration.GetSection("SmtpOptions"));
+            //services.AddScoped<IViewRenderer, ViewRenderer>();
             services.AddScoped<IViewRenderService, ViewRenderService>();
+            services.TryAddScoped<ISmtpOptionsProvider, SiteSmtpOptionsResolver>();
+            services.AddTransient<ISiteMessageEmailSender, SiteEmailMessageSender>();
+            //services.TryAddSingleton<ITempDataProvider, CookieTempDataProvider>();
+           
+
 
             services.AddAutoMapper();
             services.AddMvc();

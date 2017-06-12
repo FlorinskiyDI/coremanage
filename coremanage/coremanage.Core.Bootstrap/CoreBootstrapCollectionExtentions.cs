@@ -14,6 +14,7 @@ namespace coremanage.Core.Bootstrap
         {
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IUserProfileService, UserProfileService>();
+            services.AddScoped<IUserAppService, UserAppService>();
 
             return services;
         }

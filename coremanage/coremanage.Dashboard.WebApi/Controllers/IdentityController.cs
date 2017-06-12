@@ -57,6 +57,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
                     Startup.Configuration.GetSection("CustomSettings").GetValue<string>("ApiName") + " " + StandardScopes.OfflineAccess,
                     extra: extra
                 );
+
                 return new JsonResult(tokenResponse);
             }
             catch (Exception e)

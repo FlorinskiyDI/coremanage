@@ -25,6 +25,7 @@
     <ProjectReference Include="..\coremanage.Core.Models\coremanage.Core.Models.csproj" />
     <ProjectReference Include="..\coremanage.Data.Storage.MSSQL\coremanage.Data.Storage.MSSQL.csproj" />
     <ProjectReference Include="..\coremanage.Data.Storage\coremanage.Data.Storage.csproj" />
+    <ProjectReference Include="..\coremanage.Messaging.Email\coremanage.Messaging.Email.csproj" />
   </ItemGroup>
 
 </Project>

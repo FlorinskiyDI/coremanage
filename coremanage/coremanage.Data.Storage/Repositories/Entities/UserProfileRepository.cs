@@ -8,6 +8,7 @@ using coremanage.Data.Models.Entities;
 using storagecore.EntityFrameworkCore.Models;
 using System.Threading.Tasks;
 using coremanage.Core.Contracts.Repositories;
+using coremanage.Data.Models.Entities.Identity;
 
 namespace coremanage.Data.Storage.Repositories.Entities
 {
@@ -22,5 +23,7 @@ namespace coremanage.Data.Storage.Repositories.Entities
             var list = new List<UserProfile>();
             return list;
         }
+
+        
     }
 }

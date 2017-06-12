@@ -21,6 +21,7 @@ namespace coremanage.Data.Storage
         {
             services.AddTransient<ITenantRepository, TenantRepository>();
             services.AddTransient<ISecurityRepository, SecurityRepository>();
+            services.AddTransient<IUserAppRepository, UserAppRepository>();
             services.AddTransient<IIdentityRoleHierarchyRepository, IdentityRoleHierarchyRepository>();
         }
     }

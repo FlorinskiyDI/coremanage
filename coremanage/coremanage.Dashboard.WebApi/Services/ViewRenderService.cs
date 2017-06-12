@@ -17,10 +17,12 @@ namespace coremanage.Dashboard.WebApi.Services
         private readonly IRazorViewEngine _razorViewEngine;
         private readonly ITempDataProvider _tempDataProvider;
         private readonly IServiceProvider _serviceProvider;
-        public ViewRenderService(IRazorViewEngine razorViewEngine,
-           ITempDataProvider tempDataProvider,
-           IServiceProvider serviceProvider)
-        {
+
+        public ViewRenderService(
+            IRazorViewEngine razorViewEngine,
+            ITempDataProvider tempDataProvider,
+            IServiceProvider serviceProvider
+        ) {
             _razorViewEngine = razorViewEngine;
             _tempDataProvider = tempDataProvider;
             _serviceProvider = serviceProvider;
