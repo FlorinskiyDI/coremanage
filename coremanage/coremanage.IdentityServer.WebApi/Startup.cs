@@ -45,19 +45,15 @@ namespace coremanage.IdentityServer.WebApi
             // Configurations for AddIdentityServer 
             services.AddIdentityServer(options =>{ })
                 .AddTemporarySigningCredential()
-
                 //.AddConfigurationStoreMSSQL(idSrv4ConnectionString) // InDatabase
                 //.AddOperationalStoreMSSQL(idSrv4ConnectionString) // InDatabase
-
                 //.AddInMemoryIdentityResources(Resources.GetIdentityResources()) // InMemory
                 .AddInMemoryApiResources(Resources.GetApiResources()) // InMemory
                 .AddInMemoryClients(Clients.Get()) // InMemory
-
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
                 .AddProfileService<ProfileService>()
                 .AddCustomTokenRequestValidator<CustomTokenRequestValidator>()
-                
                 //.AddExtensionGrantValidator<DynamicParameterExtensionGrantValidator>()
                 ;
 

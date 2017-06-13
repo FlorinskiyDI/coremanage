@@ -34,21 +34,21 @@ namespace coremanage.Core.Services.Services.Entities
 
         public async Task<UserProfileDto> AddAsync(string email, string password = "Password")
         { 
+
             var ccc = new UserProfileDto();
             using (var uow = UowProvider.CreateUnitOfWork())
             {
                 // Create ApplicationUser
-                var userAppRepository =  uow.GetCustomRepository<ISecurityRepository>();
-                //var userApp =  await userAppRepository.AddAsync(email, password);
+                var userAppRepository =  uow.GetCustomRepository<IUserAppRepository>();
+                var userApp =  await userAppRepository.AddAsync(email, password);
 
-                //// Create UserProfile
-                //var userProfileRepository = uow.GetRepository<UserProfile, string>();
-                //var userProfile = new UserProfile { Id = userApp.Id, Email = email };
-                //await userProfileRepository.AddAsync(userProfile);
-                //await uow.SaveChangesAsync();
+                // Create UserProfile
+                var userProfileRepository = uow.GetRepository<UserProfile, string>();
+                var userProfile = new UserProfile { Id = userApp.Id, Email = email };
+                await userProfileRepository.AddAsync(userProfile);
+                await uow.SaveChangesAsync();
 
-                //return Mapper.Map<UserProfile, UserProfileDto>(userProfile);
-                return ccc;
+                return Mapper.Map<UserProfile, UserProfileDto>(userProfile);
             }
         }
 

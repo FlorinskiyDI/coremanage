@@ -27,7 +27,7 @@ namespace coremanage.Data.Storage.Repositories.Entities
 
         public async Task<ApplicationUser> AddAsync(string email, string password)
         {
-            var user = new ApplicationUser { Email = email };
+            var user = new ApplicationUser { Email = email, UserName = email };
             await _userManager.CreateAsync(user, password);
             return user;
         }

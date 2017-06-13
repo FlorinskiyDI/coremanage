@@ -18,6 +18,8 @@ using coremanage.Messaging.Email;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using coremanage.Dashboard.WebApi.Messaging;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using coremanage.Data.Models.Entities.Identity;
+using coremanage.Data.Storage.Context;
 
 namespace coremanage.Dashboard.WebApi
 {
@@ -66,8 +68,18 @@ namespace coremanage.Dashboard.WebApi
             services.TryAddScoped<ISmtpOptionsProvider, SiteSmtpOptionsResolver>();
             services.AddTransient<ISiteMessageEmailSender, SiteEmailMessageSender>();
             //services.TryAddSingleton<ITempDataProvider, CookieTempDataProvider>();
-           
 
+
+            // Configurations for Identity
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+            })
+            .AddEntityFrameworkStores<CoreManageDbContext>()
+            .AddDefaultTokenProviders();
 
             services.AddAutoMapper();
             services.AddMvc();

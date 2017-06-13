@@ -49,7 +49,7 @@ namespace coremanage.Dashboard.WebApi.Messaging
             smtpOptions.Password = "FlorinskyDmitriy";
             smtpOptions.Port = 587;
             //smtpOptions.PreferredEncoding = siteSettings.SmtpPreferredEncoding;
-            //smtpOptions.RequiresAuthentication = siteSettings.SmtpRequiresAuth;
+            smtpOptions.RequiresAuthentication = true;
             smtpOptions.Server = "smtp.gmail.com";
             smtpOptions.User = "dmytro.florynskyi@gmail.com";
             //smtpOptions.UseSsl = siteSettings.SmtpUseSsl;
