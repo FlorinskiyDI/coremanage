@@ -2,12 +2,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { NgRedux, select } from '@angular-redux/store';
 import { CustomRequestOptions } from '../custom-request-options.service';
 
-// app`s import
-import { LoginData, ReLoginData } from '../../../index.models';
-import { appConstant } from '../../../index.constants';
+/* model */ import { LoginData, ReLoginData } from '../../../index.models';
+/* constant */ import { appConstant } from '../../../index.constants';
 
 @Injectable()
 export class IdentityApiService {

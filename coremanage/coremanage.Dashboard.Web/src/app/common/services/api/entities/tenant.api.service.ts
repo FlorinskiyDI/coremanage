@@ -4,8 +4,7 @@ import { Http, Response, RequestOptions } from '@angular/http';
 import { CustomRequestOptions } from '../custom-request-options.service';
 import { Observable } from 'rxjs/Rx';
 
-// app`s import
-import { BaseApiService } from '../base.api.service';
+/* service */ import { BaseApiService } from '../base.api.service';
 
 @Injectable()
 export class TenantApiService extends BaseApiService<any> {

@@ -5,8 +5,7 @@ import { UserProfileEntity } from '../../../index.models';
 import { CustomRequestOptions } from '../custom-request-options.service';
 import { Observable } from 'rxjs/Rx';
 
-// app`s import
-import { BaseApiService } from '../base.api.service';
+/* service */ import { BaseApiService } from '../base.api.service';
 
 @Injectable()
 export class UserProfileApiService extends BaseApiService<UserProfileEntity> {

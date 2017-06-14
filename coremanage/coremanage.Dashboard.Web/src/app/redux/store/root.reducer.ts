@@ -5,12 +5,14 @@ import * as fromSession from './session';
 import * as fromTenant from './tenant';
 import * as fromLayout from './layout';
 import * as fromUser from './user';
+import * as fromAccount from './account';
 
 export interface IAppState {
   session?: fromSession.ISession;
   tenant?: fromTenant.TenantState;
   user?: fromUser.UserState
-  layout?: fromLayout.LayoutState
+  layout?: fromLayout.LayoutState,
+  account?: fromAccount.AccountState
 };
 
 export const rootReducer = combineReducers<IAppState>({
@@ -18,7 +20,8 @@ export const rootReducer = combineReducers<IAppState>({
   layout: fromLayout.layoutReducer,
   session: fromSession.sessionReducer,
   tenant: fromTenant.tenantReducer,
-  user: fromUser.userReducer
+  user: fromUser.userReducer,
+  account: fromAccount.AccountReducer
 });
 
 // export function deimmutify(store: any) {

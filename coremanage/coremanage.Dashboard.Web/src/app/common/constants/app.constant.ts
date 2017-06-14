@@ -5,3 +5,8 @@ export const appConstant = {
 export const appLocalStorage = {
     authData: 'authData'
 }
+
+export const QueryParamsConfirmEmail = {
+    userId: 'userid',
+    token: 'token'
+}

@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 /* type */ import { TenantActionTypes, TenantActions  } from '../../../redux/actions/tenant.actions';
 /* api-service */ import { TenantApiService } from '../../../common/services/api/entities/tenant.api.service';
 /* api-service */ import { UserProfileApiService } from '../../../common/services/api/entities/user-profile.api.service';
+/* api-service */ import { AccountApiService } from '../../../common/services/api/entities/account.api.service';
 
 const BASE_URL = '/api';
 
@@ -14,7 +15,8 @@ export class TenantEpics {
     constructor(
         private http: Http,
         private tenantApiService: TenantApiService,
-        private userProfileApiService: UserProfileApiService,
+        private userProfileApiService: UserProfileApiService,        
+        private accountApiService: AccountApiService,
         private tenantActions: TenantActions
     ) {}
 
@@ -65,7 +67,7 @@ export class TenantEpics {
     private postRequestTenantMemberCreateEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.POST_REQUEST_TENANT_MEMBER_CREATE)
-            .switchMap((payload: any) => this.tenantApiService.postTenantMemberCreate(payload.meta)
+            .switchMap((payload: any) => this.accountApiService.postInvitation(payload.meta)
                 .map(data  => this.tenantActions.postRequestTenantMemberCreateSuccessAction(data))
                 .catch( error => of(this.tenantActions.postRequestTenantMemberCreateFailedAction(error))));
     }

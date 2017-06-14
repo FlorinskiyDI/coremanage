@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
 using AutoMapper;
+using coremanage.Core.Services.Interfaces;
 using coremanage.Core.Services.Interfaces.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using coremanage.Core.Services.Services.Entities;
+using coremanage.Core.Services.Services;
 
 namespace coremanage.Core.Bootstrap
 {
@@ -14,7 +16,7 @@ namespace coremanage.Core.Bootstrap
         {
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IUserProfileService, UserProfileService>();
-            services.AddScoped<IUserAppService, UserAppService>();
+            services.AddScoped<IInvitationService, InvitationService>();
 
             return services;
         }

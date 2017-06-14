@@ -145,7 +145,10 @@ namespace coremanage.Messaging.Email
 
                 foreach (string item in adrs)
                 {
-                    if (!string.IsNullOrEmpty(item)) { m.To.Add(new MailboxAddress("", item)); }
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        m.To.Add(new MailboxAddress("", item));
+                    }
                 }
             }
             else

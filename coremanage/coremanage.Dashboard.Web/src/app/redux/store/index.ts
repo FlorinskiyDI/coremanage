@@ -3,6 +3,7 @@ import { Map, fromJS } from 'immutable';
 import { rootReducer, IAppState } from './root.reducer';
 
 import { TenantEpics } from './tenant/tenant.epics';
+import { AccountEpics } from './account/account.epics';
 
 export {
   IAppState,
@@ -10,5 +11,6 @@ export {
 };
 
 export const EPICS_PROVIDERS: any[] = [
-    TenantEpics
+    TenantEpics,
+    AccountEpics
 ];

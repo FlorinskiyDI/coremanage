@@ -21,49 +21,69 @@ namespace coremanage.Core.Services.Services.Entities
     public class UserProfileService : BaseService<UserProfileDto, UserProfile, string>, IUserProfileService
     {
 
-        protected readonly IDataPager<UserProfile, string> Pager;
+        protected readonly IDataPager<UserProfile, string> _pager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public UserProfileService(
-            IUowProvider uowProvider,
+            IUowProvider uowProvider, 
             IMapper mapper,
-            IDataPager<UserProfile, string> pager
+            IDataPager<UserProfile, string> pager,
+            UserManager<ApplicationUser> userManager
         ) : base(uowProvider, mapper)
         {
-            this.Pager = pager;
+            this._pager = pager;
+            this._userManager = userManager;
         }
 
-        public async Task<UserProfileDto> AddAsync(string email, string password = "Password")
-        { 
+        public async Task<UserProfileDto> AddAsync(string email)
+        {
+            // create ApplicationUser
+            var user = new ApplicationUser { UserName = email, Email = email };
+            var result = await _userManager.CreateAsync(user);
 
-            var ccc = new UserProfileDto();
-            using (var uow = UowProvider.CreateUnitOfWork())
+            if (result.Succeeded)
             {
-                // Create ApplicationUser
-                var userAppRepository =  uow.GetCustomRepository<IUserAppRepository>();
-                var userApp =  await userAppRepository.AddAsync(email, password);
-
                 // Create UserProfile
-                var userProfileRepository = uow.GetRepository<UserProfile, string>();
-                var userProfile = new UserProfile { Id = userApp.Id, Email = email };
-                await userProfileRepository.AddAsync(userProfile);
-                await uow.SaveChangesAsync();
+                using (var uow = UowProvider.CreateUnitOfWork())
+                {
+                    var userProfileRepository = uow.GetRepository<UserProfile, string>();
+                    var userProfile = new UserProfile { Id = user.Id, Email = user.Email };
+                    await userProfileRepository.AddAsync(userProfile);
+                    await uow.SaveChangesAsync();
 
-                return Mapper.Map<UserProfile, UserProfileDto>(userProfile);
+                    return Mapper.Map<UserProfile, UserProfileDto>(userProfile);
+                }
             }
+            throw new ArgumentException("Can not create user");
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                throw new ArgumentException("Error");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new ArgumentException("Error");
+            }
+
+           var result =  await _userManager.ConfirmEmailAsync(user, token);
+           return result;
         }
 
         public async Task<string> GetEmailConfirmationToken(string email)
         {
-            using (var uow = UowProvider.CreateUnitOfWork())
-            {
-                var userAppRepository = uow.GetCustomRepository<IUserAppRepository>();
-                return await userAppRepository.GetEmailConfirmationToken(email);
-            }
+            var user = await _userManager.FindByEmailAsync(email);
+            var emailConfirmationToken =  await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            return emailConfirmationToken;
         }
 
         public async Task<List<string>> GetEmailListForAutoCompleteAsync(string query)
         {
-
             using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<UserProfile, string>();

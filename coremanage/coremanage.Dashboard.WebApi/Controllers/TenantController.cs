@@ -26,19 +26,19 @@ namespace coremanage.Dashboard.WebApi.Controllers
         private readonly ITenantService _tenantService;
         private readonly IUserProfileService _userProfileService;
         //private readonly IViewRenderService _viewRenderService;
-        private readonly ISiteMessageEmailSender _emailSender;
+        private readonly ISiteMessageEmailSender _siteMessageEmailSender;
 
         public TenantController(
             IUserProfileService userProfileService,
             ITenantService tenantService,
             //IViewRenderService viewRenderService,
-            ISiteMessageEmailSender emailSender
+            ISiteMessageEmailSender siteMessageEmailSender
         )
         {
             _userProfileService = userProfileService;
             _tenantService = tenantService;
             //_viewRenderService = viewRenderService;
-            _emailSender = emailSender;
+            _siteMessageEmailSender = siteMessageEmailSender;
         }
 
         [HttpGet]
@@ -128,7 +128,8 @@ namespace coremanage.Dashboard.WebApi.Controllers
             System.Threading.Thread.Sleep(1000);
             var pageDataMembers = await _tenantService.GetTenantMemberDataPage(pageData.PageNumber, pageData.PageLength);
 
-            pageData.Items = pageDataMembers.Items.Select(s => new TenantMemberViewModel {
+            pageData.Items = pageDataMembers.Items.Select(s => new TenantMemberViewModel
+            {
                 Id = s.Id,
                 FullName = s.LastName + " " + s.FirstName[0] + "." + s.MiddleName[0] + ".",
                 Email = s.Email
@@ -141,14 +142,13 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [Route("Member/Create")]
         public async Task<IActionResult> PostMemberCreateAsync([FromBody] List<string> emailList)
         {
-            //this.SendEmail();
-            
-                var userProfileDto = await _userProfileService.AddAsync(emailList[0]);
-                var emailConfirmationToken = await _userProfileService.GetEmailConfirmationToken(emailList[0]);
-                
-                var callbackUrl = "http://localhost:5300/?userid=" + userProfileDto.Id + "&token =" +emailConfirmationToken;
-                await _emailSender.SendAccountConfirmationEmailAsync( null, emailList[0], "Confirm your account", callbackUrl );
-            
+            foreach (var email in emailList)
+            {
+                var userProfileDto = await _userProfileService.AddAsync(email);
+                var confirmationToken = await _userProfileService.GetEmailConfirmationToken(email);
+                var confirmationUrl = "http://localhost:5300/?userid=" + userProfileDto.Id + "&token =" + confirmationToken;
+                await _siteMessageEmailSender.SendAccountConfirmationEmailAsync( null, email, "Confirm your account", confirmationUrl );
+            }
 
             return new JsonResult(emailList);
         }

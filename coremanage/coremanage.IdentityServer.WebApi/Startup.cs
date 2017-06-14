@@ -58,15 +58,15 @@ namespace coremanage.IdentityServer.WebApi
                 ;
 
             // Configurations for Identity
-            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 6;
-            })
-            .AddEntityFrameworkStores<CoreManageDbContext>()
-            .AddDefaultTokenProviders();
+            //services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            //{
+            //    options.Password.RequireDigit = false;
+            //    options.Password.RequireNonAlphanumeric = false;
+            //    options.Password.RequireUppercase = false;
+            //    options.Password.RequiredLength = 6;
+            //})
+            //.AddEntityFrameworkStores<CoreManageDbContext>()
+            //.AddDefaultTokenProviders();
 
             
             //services.AddAutoMapper();

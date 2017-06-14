@@ -5,6 +5,7 @@ using storagecore.EntityFrameworkCore;
 using coremanage.Data.Storage.Repositories;
 using coremanage.Data.Storage.Repositories.Entities;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using coremanage.Data.Models.Entities.Identity;
 
 namespace coremanage.Data.Storage
 {
@@ -13,16 +14,32 @@ namespace coremanage.Data.Storage
         public static IServiceCollection AddCoreManagerData(this IServiceCollection services)
         {
             services.AddStorageCoreDataAccess<CoreManageDbContext>();
-            RegisterStorageDataAccess(services);
+
+            InjectionRepositories(services);
+            AddIdentity(services);
+
             return services;
         }
 
-        private static void RegisterStorageDataAccess(IServiceCollection services)
+        private static void InjectionRepositories(IServiceCollection services)
         {
             services.AddTransient<ITenantRepository, TenantRepository>();
             services.AddTransient<ISecurityRepository, SecurityRepository>();
-            services.AddTransient<IUserAppRepository, UserAppRepository>();
             services.AddTransient<IIdentityRoleHierarchyRepository, IdentityRoleHierarchyRepository>();
+        }
+
+        private static void AddIdentity(IServiceCollection services)
+        {
+            // Configurations for Identity
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+            })
+            .AddEntityFrameworkStores<CoreManageDbContext>()
+            .AddDefaultTokenProviders();
         }
     }
 }
