@@ -1,0 +1,59 @@
+﻿<div class="container" style="margin-top:30px">
+    <div class="col-md-2">                    
+    </div>
+    <div class="col-md-2">      
+        <hr>            
+    </div>
+    <div class="col-md-4">
+        <div class="login-panel panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Sign In</h3>
+            </div>
+            <div class="panel-body">                
+                <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit(dt)">
+                    <div class="form-group form-group-sm">
+                        <label for="tenant">
+                            Tenant                          
+                        </label>
+                        <input type="text" id="tenant" class="form-control" formControlName="tenant" required placeholder="tenant">
+                        <div *ngIf="formErrors.tenant" class="alert alert-danger">
+                            {{ formErrors.tenant }}
+                        </div>
+                    </div>  
+                    <div class="form-group form-group-sm">
+                        <label for="userName">
+                            Username or Email                            
+                        </label>
+                        <input type="text" id="userName" class="form-control" formControlName="userName" required placeholder="username">
+                        <div *ngIf="formErrors.userName" class="alert alert-danger">
+                            {{ formErrors.userName }}
+                        </div>
+                    </div>                
+                    <div class="form-group form-group-sm">
+                        <label for="password">
+                            Password
+                            <a href="/sessions/forgot_password">(forgot password)</a>
+                        </label>
+                        <input type="password" id="password" class="form-control" formControlName="password" required placeholder="password">
+                        <div *ngIf="formErrors.password" class="alert alert-danger">
+                            {{ formErrors.password }}
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" formControlName="isRemember"> Remember me
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-default" [disabled]="!loginForm.valid">
+                        Sign in
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">       
+        <hr>        
+    </div>    
+    <div class="col-md-2">                    
+    </div>
+</div>

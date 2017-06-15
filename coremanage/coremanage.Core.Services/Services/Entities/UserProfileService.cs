@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using coremanage.Core.Models;
 using coremanage.Core.Common.Context;
 using coremanage.Core.Contracts.Repositories;
+using System.Security.Cryptography;
 
 namespace coremanage.Core.Services.Services.Entities
 {
@@ -35,44 +36,49 @@ namespace coremanage.Core.Services.Services.Entities
             this._userManager = userManager;
         }
 
-        public async Task<UserProfileDto> AddAsync(string email)
+        public async Task<UserProfileDto> CreateAsync(string userId)
         {
-            // create ApplicationUser
-            var user = new ApplicationUser { UserName = email, Email = email };
-            var result = await _userManager.CreateAsync(user);
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) throw new ArgumentException("Can not create user");
 
-            if (result.Succeeded)
+            var userProfile = new UserProfile { Id = user.Id, Email = user.Email };
+            using (var uow = UowProvider.CreateUnitOfWork())
             {
-                // Create UserProfile
-                using (var uow = UowProvider.CreateUnitOfWork())
-                {
-                    var userProfileRepository = uow.GetRepository<UserProfile, string>();
-                    var userProfile = new UserProfile { Id = user.Id, Email = user.Email };
-                    await userProfileRepository.AddAsync(userProfile);
-                    await uow.SaveChangesAsync();
-
-                    return Mapper.Map<UserProfile, UserProfileDto>(userProfile);
-                }
+                var userProfileRepository = uow.GetRepository<UserProfile, string>();
+                await userProfileRepository.AddAsync(userProfile);
+                await uow.SaveChangesAsync();
             }
-            throw new ArgumentException("Can not create user");
+
+            return Mapper.Map<UserProfile, UserProfileDto>(userProfile);
         }
 
         public async Task<IdentityResult> ConfirmEmailAsync(string userId, string token)
         {
             if (userId == null || token == null)
-            {
                 throw new ArgumentException("Error");
-            }
 
             var user = await _userManager.FindByIdAsync(userId);
-
-            if (user == null)
+            if (user != null)
             {
-                throw new ArgumentException("Error");
+                var result = await _userManager.ConfirmEmailAsync(user, token);
+                return result;
+                
             }
+            throw new ArgumentException("Error");
+        }
 
-           var result =  await _userManager.ConfirmEmailAsync(user, token);
-           return result;
+        public async Task<IdentityResult> ResetPasswordAsync(string userId, string code, string password)
+        {
+            if (userId == null || code == null || password == null)
+                throw new ArgumentException("Error");
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var result = await _userManager.ResetPasswordAsync(user, code, password);
+                return result;
+            }
+            throw new ArgumentException("Error");
         }
 
         public async Task<string> GetEmailConfirmationToken(string email)
@@ -80,6 +86,12 @@ namespace coremanage.Core.Services.Services.Entities
             var user = await _userManager.FindByEmailAsync(email);
             var emailConfirmationToken =  await _userManager.GenerateEmailConfirmationTokenAsync(user);
             return emailConfirmationToken;
+        }
+        public async Task<string> GetPasswordResetTokenAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            var passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return passwordResetToken;
         }
 
         public async Task<List<string>> GetEmailListForAutoCompleteAsync(string query)

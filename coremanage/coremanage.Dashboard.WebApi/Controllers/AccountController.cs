@@ -28,34 +28,21 @@ namespace coremanage.Dashboard.WebApi.Controllers
     public class AccountController : Controller
     {
         private readonly IUserProfileService _userProfileService;
-        //private readonly IIdentityServerInteractionService _interaction;
-        //private readonly IPersistedGrantService _persistedGrantService;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ISiteMessageEmailSender _siteMessageEmailSender;
 
         public AccountController(
             IUserProfileService userProfileService,
-            //IPersistedGrantService persistedGrantService,
-            //IIdentityServerInteractionService interaction,
+            UserManager<ApplicationUser> userManager,
             ISiteMessageEmailSender siteMessageEmailSender
         )
         {
             _userProfileService = userProfileService;
-            //_persistedGrantService = persistedGrantService;
-            //_interaction = interaction;
+            _userManager = userManager;
             _siteMessageEmailSender = siteMessageEmailSender;
         }
 
         #region Invitation
-
-        //[HttpPost]
-        //[Route("Invitation")]
-        //public async Task<IActionResult> Invitation([FromBody] string email)
-        //{
-        //    if (!email.IsNullOrEmpty())
-        //        await BuildInvitationAsync(email);
-        //    return new JsonResult(email);
-        //}
-
         [HttpPost]
         [Route("Invitation")]
         public async Task<IActionResult> InvitationMultiple([FromBody] List<string> emailList)
@@ -70,58 +57,102 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
         private async Task BuildInvitationAsync(string email)
         {
-            var userProfileDto = await _userProfileService.AddAsync(email);
+            // create applicationUser
+            var user = new ApplicationUser { UserName = email, Email = email };
+            var result = await _userManager.CreateAsync(user);
+            var userProfileDto = await _userProfileService.CreateAsync(user.Id);
             var confirmationToken = await _userProfileService.GetEmailConfirmationToken(email);
             var confirmationUrl = "http://localhost:5300/confirm-email"
                 + "?userid=" + userProfileDto.Id
                 + "&token=" + this.Encoded(confirmationToken);
+
             await _siteMessageEmailSender.SendAccountConfirmationEmailAsync(null, email, "Confirm your account", confirmationUrl);
         }
-
-
         #endregion
 
+        #region Register
 
-        [HttpGet]
-        [Route("ConfirmEmail")]
+        [HttpPost]
+        [Route("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmail(string userid, string token)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            var tokenDecoded = this.Decoded(token);
-            var result = await _userProfileService.ConfirmEmailAsync(userid, tokenDecoded);
-            if (result.Succeeded)
+            if (!ModelState.IsValid)
             {
-                return new JsonResult("Success");
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await _userProfileService.CreateAsync(user.Id);
+                    return new JsonResult("Success");
+                }
             }
             throw new ArgumentException("Error");
         }
 
-        ////
-        //// POST: /Account/ResetPassword
-        //[HttpPost]
+        [HttpPost]
+        [Route("Register/Confirm")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegisterWithConfirmEmail(RegisterViewModel model, string userid, string token)
+        {
+            var tokenDecoded = this.Decoded(token);
+            var resultConfirm = await _userProfileService.ConfirmEmailAsync(userid, tokenDecoded);
+            if (!ModelState.IsValid && resultConfirm.Succeeded)
+            { 
+                // updating applicationUser
+                var user = await _userManager.FindByIdAsync(userid);
+                var result = await _userManager.AddPasswordAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    return new JsonResult("Success");
+                }
+            }
+            throw new ArgumentException("Error");
+        }
+
+
+        #endregion
+        //[HttpGet]
+        //[Route("ConfirmEmail")]
         //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        //public async Task<IActionResult> ConfirmEmail(string userid, string token)
         //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    var user = await _userManager.FindByNameAsync(model.Email);
-        //    if (user == null)
-        //    {
-        //        // Don't reveal that the user does not exist
-        //        return new JsonResult("Success");
-        //    }
-        //    var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+        //    var tokenDecoded = this.Decoded(token);
+        //    var result = await _userProfileService.ConfirmEmailAsync(userid, tokenDecoded);
         //    if (result.Succeeded)
         //    {
-        //        return new JsonResult("Success");
+        //        var passwordResetToken = await _userProfileService.GetPasswordResetTokenAsync(userid);
+        //        return new JsonResult(passwordResetToken);
         //    }
-        //    AddErrors(result);
-        //    return Ok();
+        //    throw new ArgumentException("Error");
         //}
 
+
+
+        [HttpPost]
+        [Route("ResetPassword")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var user = await _userManager.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return new JsonResult("Success");
+            }
+            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return new JsonResult("Success");
+            }
+            AddErrors(result);
+            return Ok();
+        }
 
         #region Helpers
 

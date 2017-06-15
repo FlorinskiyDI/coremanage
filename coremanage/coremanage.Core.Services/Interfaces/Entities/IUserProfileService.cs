@@ -9,11 +9,14 @@ namespace coremanage.Core.Services.Interfaces.Entities
 {
     public interface IUserProfileService : IBaseService<UserProfileDto, string>
     {
+        
         Task<List<string>> GetEmailListForAutoCompleteAsync(string query);
+        Task<UserProfileDto> CreateAsync(string userId);
 
-        Task<UserProfileDto> AddAsync(string email);
+        Task<string> GetPasswordResetTokenAsync(string userId);
         Task<string> GetEmailConfirmationToken(string email);
 
         Task<IdentityResult> ConfirmEmailAsync(string userId, string token);
+        Task<IdentityResult> ResetPasswordAsync(string userId, string code, string password);
     }
 }
