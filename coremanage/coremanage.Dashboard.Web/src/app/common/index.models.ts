@@ -5,8 +5,9 @@ export * from './models/api/user-profile/user-profile.model';
 
 // component - view models
 export * from './models/api/page-data.model';
-export * from './models/api/identity/login-data.model';
-export * from './models/api/identity/reLogin-data.model';
+export * from './models/api/account/login-data.model';
+export * from './models/api/account/reLogin-data.model';
+export * from './models/api/account/register-data.model';
 export * from './models/api/tenant/tenant-create.model';
 export * from './models/api/tenant/tenant-update.model';
 

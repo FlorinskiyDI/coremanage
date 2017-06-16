@@ -14,7 +14,6 @@ import { WelcomeRoutes } from './welcome-routes.module';
 import { WelcomeComponent } from './welcome.component';
 import { WelcomeHeaderComponent } from './welcome-header/welcome-header.component';
 import { WelcomeNavbarComponent } from './welcome-navbar/welcome-navbar.component';
-import { TenantSelectionComponent } from './tenant-selection/tenant-selection.component';
 // app > services
 
 
@@ -33,8 +32,7 @@ import { TenantSelectionComponent } from './tenant-selection/tenant-selection.co
     declarations: [
         WelcomeComponent,
         WelcomeHeaderComponent,
-        WelcomeNavbarComponent,
-        TenantSelectionComponent
+        WelcomeNavbarComponent
     ],
     providers: [ ]
 

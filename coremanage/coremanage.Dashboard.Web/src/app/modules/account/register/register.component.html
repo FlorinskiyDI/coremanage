@@ -1,0 +1,100 @@
+﻿<div class="container" style="margin-top:30px">
+
+    <div class="col-md-4">
+    </div>
+    <!--<div class="col-md-4">
+
+        <form role="form" [formGroup]="registerForm" (ngSubmit)="onSubmit(dt)">
+            <div class="register-panel panel panel-default">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">Registration in system</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form-group form-group-sm">
+                        <label for="email">
+                            Enter email
+                        </label>
+                        <input type="text" id="email" class="form-control" formControlName="email" required=required />
+                        <div *ngIf="formErrors.email" class="alert alert-danger">
+                            {{ formErrors.email }}
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="name">
+                            Enter username
+                        </label>
+                        <input type="text" id="name" class="form-control" formControlName="name" required=required />
+                        <div *ngIf="formErrors.name" class="alert alert-danger">
+                            {{ formErrors.name }}
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="password">
+                            Password
+                        </label>
+                        <input type="password" id="password" class="form-control" formControlName="password" required=required />
+                        <div *ngIf="formErrors.password" class="alert alert-danger">
+                            {{ formErrors.password }}
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="confirmPassword">
+                            Confirm password
+                        </label>
+                        <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" required=required />
+                        <div *ngIf="formErrors.confirmPassword" class="alert alert-danger">
+                            {{ formErrors.confirmPassword }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-sm btn-primary" [disabled]="!registerForm.valid">
+                        Sign in
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>-->
+
+    <div class="col-md-4">
+        <div class="well">
+        <form (onSubmit)="onSubmit()" [formGroup]="signUpForm">
+          <div class="form-group">
+            <label for="username" class="control-label">Nombre de usuario:</label>
+            <input type="text" class="form-control" formControlName="username"  title="Please enter your username" placeholder="username">
+            <p class="help-block" *ngIf="signUpForm.get('username').hasError('required') && signUpForm.get('username').touched">Email address is required</p>
+            <p class="help-block" *ngIf="signUpForm.get('username').hasError('minlength') && signUpForm.get('username').touched">Username must be at least 6 characters</p>
+            <p class="help-block" *ngIf="signUpForm.get('username').hasError('maxlength') && signUpForm.get('username').touched">Username must be less than 15 characters</p>
+          </div>
+          <div class="form-group">
+            <label for="email" class="control-label">E-mail:</label>
+            <input class="form-control" formControlName="email" title="Please enter your email" placeholder="example@gmail.com">
+            <p class="help-block" *ngIf="signUpForm.get('email').hasError('required') && signUpForm.get('email').touched">Email address is required</p>
+            <p class="help-block" *ngIf="signUpForm.get('email').hasError('email') && signUpForm.get('email').touched">Debe ingresar una dirección de correo válida</p>
+          </div>
+          <div formGroupName="passwords">
+            <div class="form-group">
+                <label for="password" class="control-label">Contraseña:</label>
+                <input type="password" class="form-control" formControlName="password" title="Please enter your password">
+                <p class="help-block" *ngIf="signUpForm.get(['passwords','password']).hasError('required') && signUpForm.get(['passwords','password']).touched">Debe ingresar una contraseña</p>
+           </div>
+           <div class="form-group">
+                <label for="confirmedPassword" class="control-label">Confirmar Contraseña:</label>
+                <input type="password" class="form-control" formControlName="confirmedPassword"  title="Please re-enter your password">
+                <p class="help-block" *ngIf="signUpForm.get(['passwords','confirmedPassword']).hasError('required')&& signUpForm.get(['passwords','confirmedPassword']).touched">La confirmación de contraseña no puede estar vacía</p>
+                <p class="help-block" *ngIf="signUpForm.get(['passwords','confirmedPassword']).hasError('passwordMismatch') && signUpForm.get(['passwords','confirmedPassword']).touched">Las contraseñas no coinciden</p>
+                <div style='color:#ff7355' *ngIf="signUpForm.get(['passwords','password']).value != signUpForm.get(['passwords','confirmedPassword']).value && signUpForm.get(['passwords','confirmedPassword']).value != null">
+                    Password does not match
+                </div>
+          </div>
+          </div>
+          <button type="submit" class="btn btn-success" [disabled]="!signUpForm.valid">Registrarse</button>
+          <a routerLink="/signin" class="btn btn-default" style="">Ya tenes usuario? Logueate</a> {{ creationMessage }}
+        </form>
+      </div>
+    </div>
+</div>

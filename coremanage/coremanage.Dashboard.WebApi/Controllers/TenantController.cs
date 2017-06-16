@@ -138,20 +138,20 @@ namespace coremanage.Dashboard.WebApi.Controllers
             return new JsonResult(pageData);
         }
 
-        [HttpPost]
-        [Route("Member/Create")]
-        public async Task<IActionResult> PostMemberCreateAsync([FromBody] List<string> emailList)
-        {
-            foreach (var email in emailList)
-            {
-                var userProfileDto = await _userProfileService.AddAsync(email);
-                var confirmationToken = await _userProfileService.GetEmailConfirmationToken(email);
-                var confirmationUrl = "http://localhost:5300/?userid=" + userProfileDto.Id + "&token =" + confirmationToken;
-                await _siteMessageEmailSender.SendAccountConfirmationEmailAsync( null, email, "Confirm your account", confirmationUrl );
-            }
+        //[HttpPost]
+        //[Route("Member/Create")]
+        //public async Task<IActionResult> PostMemberCreateAsync([FromBody] List<string> emailList)
+        //{
+        //    foreach (var email in emailList)
+        //    {
+        //        var userProfileDto = await _userProfileService.CreateAsync(email);
+        //        var confirmationToken = await _userProfileService.GetEmailConfirmationToken(email);
+        //        var confirmationUrl = "http://localhost:5300/?userid=" + userProfileDto.Id + "&token =" + confirmationToken;
+        //        await _siteMessageEmailSender.SendAccountConfirmationEmailAsync( null, email, "Confirm your account", confirmationUrl );
+        //    }
 
-            return new JsonResult(emailList);
-        }
+        //    return new JsonResult(emailList);
+        //}
 
 
         //private async Task SendEmail()

@@ -4,20 +4,20 @@ import { CommonModule } from '@angular/common';
 // external > controls
 
 // app
-import { LoginRoutingModule } from './login-routes.module';
+import { RegisterRoutingModule } from './register-routes.module';
 import { SharedModule } from '../../../modules-shared/shared.module';
 // app > components
-import { LoginComponent } from './login.component';
+import { RegisterComponent } from './register.component';
 // app > services
 
 @NgModule({
     imports: [
         CommonModule,
-        LoginRoutingModule,
+        RegisterRoutingModule,
         SharedModule
     ],
     declarations: [
-        LoginComponent
+        RegisterComponent
     ],
     providers: [
         // AuthService,
@@ -25,4 +25,4 @@ import { LoginComponent } from './login.component';
     ]
 })
 
-export class LoginModule { }
+export class RegisterModule { }
