@@ -19,8 +19,9 @@ export class AccountEpics {
     public createEpic() {
         let ccc =  combineEpics(
             // account-confirm-email
-            this.postRequestAccountConfirmEmailEpic(),            
-            );
+            this.postRequestAccountConfirmEmailEpic(),
+            this.postRequestAccountRegistrationEpic(),      
+        );
         return createEpicMiddleware(ccc);
     }
 
@@ -32,5 +33,14 @@ export class AccountEpics {
             .switchMap((payload: any) => this.accountApiService.getConfirmEmail(payload.meta.userId, payload.meta.token)
                 .map(data  => this.accountActions.postRequestConfirmEmailSuccessAction(data))
                 .catch( error => of(this.accountActions.postRequestConfirmEmailFailedAction(error))));
+    }
+
+    /* account-registration */
+    private postRequestAccountRegistrationEpic() {
+        return (action$: any) => action$
+            .ofType(AccountActionTypes.POST_REQUEST_ACCOUNT_REGISTRATION)
+            .switchMap((payload: any) => this.accountApiService.postAccountRegistration(payload.meta)
+                .map(data  => this.accountActions.postRequestAccountRegistrationSuccessAction(data))
+                .catch( error => of(this.accountActions.postRequestAccountRegistrationFailedAction(error))));
     }
 }

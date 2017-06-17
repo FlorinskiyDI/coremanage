@@ -16,7 +16,7 @@
                         <label for="tenant">
                             Enter your company name (tenant)
                         </label>
-                        <input type="text" id="tenant" class="form-control" formControlName="tenant" required=required placeholder="tenant" />
+                        <input type="text" id="tenant" class="form-control" formControlName="tenant" required=required />
                         <div *ngIf="formErrors.tenant" class="alert alert-danger">
                             {{ formErrors.tenant }}
                         </div>
@@ -25,7 +25,7 @@
                         <label for="userName">
                             Username or email
                         </label>
-                        <input type="text" id="userName" class="form-control" formControlName="userName" required=required placeholder="username" />
+                        <input type="text" id="userName" class="form-control" formControlName="userName" required=required/>
                         <div *ngIf="formErrors.userName" class="alert alert-danger">
                             {{ formErrors.userName }}
                         </div>
@@ -35,7 +35,7 @@
                             Password
                             <a href="/sessions/forgot_password">(forgot password)</a>
                         </label>
-                        <input type="password" id="password" class="form-control" formControlName="password" required=required placeholder="password" />
+                        <input type="password" id="password" class="form-control" formControlName="password" required=required />
                         <div *ngIf="formErrors.password" class="alert alert-danger">
                             {{ formErrors.password }}
                         </div>

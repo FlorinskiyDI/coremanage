@@ -7,7 +7,6 @@ export const routes: Routes = [
     { path: 'workspace/:tenant', loadChildren: './modules-layouts/workspace/workspace.module#WorkspaceModule' },
     { path: '', loadChildren: './modules-layouts/welcome/welcome.module#WelcomeModule' },
     // { path: 'login', loadChildren: './modules/account/login/login.module#LoginModule' },
-    { path: 'confirm-email', loadChildren: './modules/account/confirm-email/confirm-email.module#ConfirmEmailModule' },
     // { path: 'about', loadChildren: './modules/about/about.module#AboutModule' },
 ];
 

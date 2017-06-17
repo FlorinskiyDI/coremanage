@@ -16,6 +16,7 @@ using IdentityServer4.Extensions;
 using System.Net;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
+using System.Threading;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,21 +51,21 @@ namespace coremanage.Dashboard.WebApi.Controllers
             foreach (var email in emailList)
             {
                 if (!email.IsNullOrEmpty())
-                    await BuildInvitationAsync(email);
+                    await BuildInvitationAsync(email, null);
             }
             return new JsonResult(emailList);
         }
 
-        private async Task BuildInvitationAsync(string email)
+        private async Task BuildInvitationAsync(string email, string redirectUrl)
         {
             // create applicationUser
-            var user = new ApplicationUser { UserName = email, Email = email };
-            var result = await _userManager.CreateAsync(user);
-            var userProfileDto = await _userProfileService.CreateAsync(user.Id);
+            //var user = new ApplicationUser { UserName = email, Email = email };
+            //var result = await _userManager.CreateAsync(user);
+            //var userProfileDto = await _userProfileService.CreateAsync(user.Id);
+
+            var user = await _userManager.FindByEmailAsync(email);
             var confirmationToken = await _userProfileService.GetEmailConfirmationToken(email);
-            var confirmationUrl = "http://localhost:5300/confirm-email"
-                + "?userid=" + userProfileDto.Id
-                + "&token=" + this.Encoded(confirmationToken);
+            var confirmationUrl = redirectUrl + "?userid=" + user.Id + "&token=" + this.Encoded(confirmationToken);
 
             await _siteMessageEmailSender.SendAccountConfirmationEmailAsync(null, email, "Confirm your account", confirmationUrl);
         }
@@ -75,58 +76,67 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [HttpPost]
         [Route("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
                     await _userProfileService.CreateAsync(user.Id);
+                    await BuildInvitationAsync(model.Email, model.RedirectUrl);
                     return new JsonResult("Success");
                 }
-            }
-            throw new ArgumentException("Error");
-        }
-
-        [HttpPost]
-        [Route("Register/Confirm")]
-        [AllowAnonymous]
-        public async Task<IActionResult> RegisterWithConfirmEmail(RegisterViewModel model, string userid, string token)
-        {
-            var tokenDecoded = this.Decoded(token);
-            var resultConfirm = await _userProfileService.ConfirmEmailAsync(userid, tokenDecoded);
-            if (!ModelState.IsValid && resultConfirm.Succeeded)
-            { 
-                // updating applicationUser
-                var user = await _userManager.FindByIdAsync(userid);
-                var result = await _userManager.AddPasswordAsync(user, model.Password);
-                if (result.Succeeded)
+                else
                 {
-                    return new JsonResult("Success");
+                    AddErrors(result);
+                    return new JsonResult(model);
                 }
             }
             throw new ArgumentException("Error");
         }
 
-
-        #endregion
-        //[HttpGet]
-        //[Route("ConfirmEmail")]
+        //[HttpPost]
+        //[Route("Register/Confirm")]
         //[AllowAnonymous]
-        //public async Task<IActionResult> ConfirmEmail(string userid, string token)
+        //public async Task<IActionResult> RegisterWithConfirmEmail(RegisterViewModel model, string userid, string token)
         //{
         //    var tokenDecoded = this.Decoded(token);
-        //    var result = await _userProfileService.ConfirmEmailAsync(userid, tokenDecoded);
-        //    if (result.Succeeded)
+        //    var resultConfirm = await _userProfileService.ConfirmEmailAsync(userid, tokenDecoded);
+        //    if (!ModelState.IsValid && resultConfirm.Succeeded)
         //    {
-        //        var passwordResetToken = await _userProfileService.GetPasswordResetTokenAsync(userid);
-        //        return new JsonResult(passwordResetToken);
+        //        // updating applicationUser
+        //        var user = await _userManager.FindByIdAsync(userid);
+        //        var result = await _userManager.AddPasswordAsync(user, model.Password);
+        //        if (result.Succeeded)
+        //        {
+        //            Thread.Sleep(2000);
+        //            return new JsonResult("Success");
+        //        }
         //    }
         //    throw new ArgumentException("Error");
         //}
+
+
+        #endregion
+        [HttpGet]
+        [Route("ConfirmEmail")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userid, string token)
+        {
+            var tokenDecoded = this.Decoded(token);
+            var result = await _userProfileService.ConfirmEmailAsync(userid, tokenDecoded);
+            Thread.Sleep(2000);
+
+            if (result.Succeeded)
+            {
+                
+                return new JsonResult("Success");
+            }
+            throw new ArgumentException("Error");
+        }
 
 
 

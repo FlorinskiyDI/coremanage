@@ -1,16 +1,23 @@
 ﻿<div class="component-confirm-email">
-    <p>confirm-email</p>
-    <p>confirm-email</p>
-    <p>confirm-email</p>
-    <p>confirm-email</p>
-    <p>confirm-email</p>
-    <p>confirm-email</p>
-    <p>confirm-email</p>
-    <p>confirm-email</p>
-    <p>confirm-email</p>
-    <p>confirm-email</p>
+    <div class="container body-content">
+        <h2>Confirm Email.</h2>
 
-    <p>confirm-email</p>
-    <p>confirm-email</p>
-    
+        <p *ngIf="isLading">Checking mail ...</p>
+
+        <p *ngIf="isConfirmedEmail  && !isLading">
+            Thank you for confirming you email. Please 
+            <a [routerLink]="['/login']">Click here to Log in</a>
+        </p>
+
+        <p *ngIf="!isConfirmedEmail && !isLading">
+            Error
+        </p>
+        
+        <hr>
+
+        <footer>
+            <p>© 2017 - CoreManage</p>
+        </footer>
+
+    </div>
 </div>

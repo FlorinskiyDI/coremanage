@@ -31,4 +31,11 @@ export class AccountApiService extends BaseApiService<any> {
             // .catch(this.handleError);
     }
 
+    postAccountRegistration(data: any){
+        let url = this.apiServer + 'Register/';        
+        let body = JSON.stringify(data);
+        return this.http.post(url, body, this.customRequestOptions.optionRequest)
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
 }

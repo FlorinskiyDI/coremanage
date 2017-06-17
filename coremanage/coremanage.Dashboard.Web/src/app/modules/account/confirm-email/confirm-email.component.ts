@@ -12,16 +12,23 @@ import { NgRedux, select } from '@angular-redux/store';
     styleUrls: ['./confirm-email.component.scss']
 })
 
-export class ConfirmEmailComponent implements OnInit {
+export class ConfirmEmailComponent implements OnInit {    
+    private accountConfirmEmail$ = this.ngRedux.select(state => state.account.accountConfirmEmail);
     
-    constructor(        
+    public isLading = true;
+    public isConfirmedEmail = false;
+    
+    constructor(
         private ngRedux: NgRedux<IAppState>,
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private accountActions: AccountActions
-    ) { }
+    ) {
+
+    }
 
     ngOnInit() {
+        this.isLading = true;
         let id = this.activatedRoute.snapshot.queryParams[QueryParamsConfirmEmail.userId];
         let token = this.activatedRoute.snapshot.queryParams[QueryParamsConfirmEmail.token];
         if(id != null && token != null && id != undefined && token != undefined){
@@ -29,6 +36,15 @@ export class ConfirmEmailComponent implements OnInit {
                 userId: id,
                 token: token
             }));
-        }              
+        }
+
+        this.accountConfirmEmail$
+            .map(data => { return data.toJS()})
+            .subscribe((data: any) => {
+                if(data != null){
+                    this.isLading = data.loading;
+                    this.isConfirmedEmail  = data.error == null ? true : false;
+                }
+        });  
     }
 }

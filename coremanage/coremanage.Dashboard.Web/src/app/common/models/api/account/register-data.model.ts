@@ -1,13 +1,15 @@
 export class RegisterData {
     public email: string;
-    public name: string;
+    public username: string;
     public password: string;
-    public confirmPassword: string;
+    public confirmedPassword: string;
+    public redirectUrl: string;
 
     constructor() {
+        this.redirectUrl= null;
         this.email = null;
-        this.name = null;
+        this.username = null;
         this.password = null;
-        this.confirmPassword = null;
+        this.confirmedPassword = null;
     }
 }
