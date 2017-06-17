@@ -8,12 +8,26 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>                
             </button>
-            <tenant-selector-nav-menu-component></tenant-selector-nav-menu-component>            
+            <a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-object-ungroup"></i>
+                <font>{{tenant$ | async}}</font>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu tenant-dropdown-menu">
+                <!--tenants-->
+                <li class="dropdown-header"><i>sign in to another tenant …</i></li>                
+                <li *ngFor="let tenant of tenantList$| async"><a (click)="refreshToken(tenant)">{{tenant}}</a></li>                               
+                <li role="separator" class="divider"></li>
+                <!--actions-->
+                <li class="dropdown-header"><i>action</i></li>
+                <li><a href="#">Sing out of  Test Company</a></li>
+                <li><a href="#">Help & feedback</a></li>
+            </ul>            
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">                
-                <li class="dropdown"><a routerLink="/workspace/tenant-test/dashboard/overview" routerLinkActive="active" class="dropdown-toggle">Dashboard</a></li>
-                <li class="dropdown"><a routerLink="/workspace/tenant-test/settings/overview" routerLinkActive="active" class="dropdown-toggle">Settings</a></li>              
+                <li class="dropdown" routerLinkActive="active"><a routerLink="/workspace/tenant-test/dashboard/overview" class="dropdown-toggle">Dashboard</a></li>
+                <li class="dropdown" routerLinkActive="active"><a routerLink="/workspace/tenant-test/settings"  class="dropdown-toggle">Settings</a></li>              
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">                    

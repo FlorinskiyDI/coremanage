@@ -12,7 +12,6 @@ import { WorkspaceRoutes } from './workspace-routes.module';
 // app > components
 import { WorkspaceComponent } from './workspace.component';
 import { WorkspaceHeaderComponent } from './workspace-header/workspace-header.component';
-import { TenantSelectorNavMenuComponent } from './tenant-selector-nav-menu/tenant-selector-nav-menu.component';
 // app > services
 
 
@@ -28,8 +27,7 @@ import { TenantSelectorNavMenuComponent } from './tenant-selector-nav-menu/tenan
 
     declarations: [
         WorkspaceComponent,
-        WorkspaceHeaderComponent,
-        TenantSelectorNavMenuComponent
+        WorkspaceHeaderComponent
     ],
     providers: [ ]
 
