@@ -2,6 +2,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux } from '@angular-redux/store';
+import { Router } from '@angular/router';
+
 // app`s import
 import { SessionActions } from '../../../redux/actions/session.actions';
 import { LoginData, ReLoginData } from '../../index.models';
@@ -9,24 +11,31 @@ import { JwtDecodeService } from './jwt-decode.service';
 import { IdentityApiService } from '../api/entities/identity.api.service';
 import { ISession, IdentityState } from '../../../redux/store/session/session.types';
 import { IAppState } from '../../../redux/store';
+import { appLocalStorage } from '../../index.constants';
 
 @Injectable()
 export class AuthService {
     redirectUrl: string; // store the URL so we can redirect after logging in
     isLoggedIn = false;
+    isRemember = false;
 
     constructor(
         private jwtDecodeService: JwtDecodeService,
         private identityApiService: IdentityApiService,
         private sessionActions: SessionActions,
-        private ngRedux: NgRedux<IAppState>
+        private ngRedux: NgRedux<IAppState>,
+        private router: Router
     ) { }
 
     public login(loginData: LoginData): Observable<any> {
         this.sessionActions.loginUser( );
         return this.identityApiService.get(loginData)
             .do(
-                data => { this.loginSuccess(data); },
+                data => {
+                    this.isLoggedIn = true;
+                    this.isRemember = loginData.isRemember;
+                    this.loginSuccess(data);                    
+                },
                 error => { this.loginError(error); }
             );
     }
@@ -47,7 +56,19 @@ export class AuthService {
     }
 
     public logout() {
+        localStorage.removeItem(appLocalStorage.authData);
         this.sessionActions.logoutUser();
+    }
+
+    public checkLogin(){
+        let strageData = localStorage.getItem(appLocalStorage.authData);
+        if(strageData != null)
+        {
+            this.sessionActions.loginUserSuccess(JSON.parse(strageData));
+            this.isLoggedIn = true;
+        }
+
+        return this.isLoggedIn;
     }
 
     private loginSuccess(data: any) {
@@ -71,6 +92,12 @@ export class AuthService {
             tenant: decode.tenant_name
         }
         this.sessionActions.loginUserSuccess(session);
+        let redirect = this.redirectUrl ? this.redirectUrl : '/workspace/'+ decode.tenant_name +'/dashboard/overview';  
+        this.router.navigate([redirect]);
+        if(this.isRemember){
+            localStorage.setItem(appLocalStorage.authData, JSON.stringify(session));
+        }
+        
     }
 
     private loginError(error: any) {
