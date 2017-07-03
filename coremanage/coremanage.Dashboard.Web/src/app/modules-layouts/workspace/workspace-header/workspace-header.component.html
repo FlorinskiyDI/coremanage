@@ -1,6 +1,6 @@
-﻿<nav class="navbar navbar-default navbar-fixed-top navbar-md">
+﻿<!--<nav class="navbar navbar-default navbar-fixed-top navbar-sm">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->        
+       
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -14,11 +14,11 @@
                 <i class="fa fa-angle-down"></i>
             </a>
             <ul class="dropdown-menu tenant-dropdown-menu">
-                <!--tenants-->
+               
                 <li class="dropdown-header"><i>sign in to another tenant …</i></li>                
                 <li *ngFor="let tenant of tenantList$| async"><a (click)="refreshToken(tenant)">{{tenant}}</a></li>                               
                 <li role="separator" class="divider"></li>
-                <!--actions-->
+               
                 <li class="dropdown-header"><i>action</i></li>
                 <li><a href="#">Sing out of  Test Company</a></li>
                 <li><a href="#">Help & feedback</a></li>
@@ -58,10 +58,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <!--<a class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                       
-                        <div class="user-icon">
-                        </div>
-                    </a>-->
+                    
                     <a href="#" class="dropdown-toggle user-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                          <div class="user-icon">
                         </div>
@@ -80,6 +77,66 @@
                     </ul>
                 </li>                
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
+</nav>-->
+<nav class="navbar navbar-default navbar-fixed-top navbar-md" role="navigation">
+    <div class="container-fluid">    
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>      
+            <a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i aria-hidden="true" class="fa fa-code" style="font-weight: bold; font-size: 18px; color: #8F8F91; padding-left: 5px;"></i>
+                Core manage tenant
+            </a>
+            <ul class="dropdown-menu tenant-dropdown-menu">               
+                <li class="dropdown-header"><i>sign in to another tenant …</i></li>                
+                <li *ngFor="let tenant of tenantList$| async"><a (click)="refreshToken(tenant)">{{tenant}}</a></li>             
+            </ul>  
+        </div>    
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        Dashboard
+                        <b class="caret" style="margin-left: 5px;"></b>
+                    </a>
+                    <ul class="dropdown-menu" style="font-size: 13px;">
+                        <li class="dropdown"><a routerLink="/workspace/tenant-test/dashboard/overview" class="dropdown-toggle">overview</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        Management
+                        <b class="caret" style="margin-left: 5px;"></b></a>
+                    <ul class="dropdown-menu" style="font-size: 13px;">
+                        <li ><a href="#">overview</a></li>
+                        <li class="dropdown"><a routerLink="/workspace/tenant-test/settings/tenants/members" class="dropdown-toggle">tenants</a></li>
+                        <li class="dropdown"><a routerLink="/workspace/tenant-test/settings/users/list" class="dropdown-toggle">users</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown" style="margin-right: 10px;">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        user@gmail.com
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu user-dropdown-menu" style="font-size: 13px;">                
+                        <li ><a href="#">My profile</a></li>  
+                        <li ><a href="#">Help &amp; feedback</a></li>              
+                        <li class="divider" role="separator"></li>
+                        <li ><a href="#">username: username</a></li>
+                        <li ><a href="#">role: role</a></li>
+                        <li class="divider" role="separator"></li>
+                        <li ><a (click)="logout()">Sign out</a></li>                 
+                    </ul>
+                </li>
+            </ul>      
+        </div>
+    </div>
 </nav>

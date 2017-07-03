@@ -13,6 +13,7 @@ import { DialogModule } from 'primeng/primeng';
 /* api-service */ import { TenantApiService } from '../common/services/api/entities/tenant.api.service';
 /* api-service */ import { UserProfileApiService } from '../common/services/api/entities/user-profile.api.service';
 /* api-service */ import { AccountApiService } from '../common/services/api/entities/account.api.service';
+/* guard-service */ import { AuthGuard } from '../common/services/guards/auth-guard.service';
 /* action */ import { ACTION_PROVIDERS } from '../redux/actions';
 /* action */ import { EPICS_PROVIDERS } from '../redux/store'
 
@@ -34,6 +35,7 @@ import { DialogModule } from 'primeng/primeng';
         FormsModule
     ],
     providers: [
+        AuthGuard,
         JwtDecodeService,
         IdentityApiService,
         CustomRequestOptions,
@@ -52,6 +54,7 @@ export class SharedModule {
             providers: [
                 // CommonModule,
                 CustomRequestOptions,
+                AuthGuard,
                 TenantApiService,
                 UserProfileApiService,
                 JwtDecodeService,

@@ -1,7 +1,17 @@
-.section-tenant-tree-component {
-    height: 100%;
-}
+// .section-tenant-tree-component {
+//     height: 100%;
+// }
 
-p{
-    margin: 0px;
+// p{
+//     margin: 0px;
+// }
+
+.tenant-tree-component {
+    .col-md-12 { padding: 0 15px; }
+    .panel-default { margin-top: 10px;
+        .panel-heading { font-size: 12px; background-image: none; padding: 5px 10px; font-weight: 500;
+            .panel-title { float: left; font-size: 12px; padding: 4px 0; }
+            button { border-radius: 2px; color: #005580; margin-left: auto; margin-right: 0; display: block; font-size: 12px; }
+        }
+    }
 }

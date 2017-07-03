@@ -1,15 +1,11 @@
-﻿<div class="tenant-tree-component">
-    <p>tenant-tree</p>
-    
-    <!-- add section-->
+﻿<!--<div class="tenant-tree-component">  
     <div>
         <button pButton type="text" label="Add new tenant" (click)="showTenantAddDialog()">
-        </button>        
+        </button>       
         <tenant-add-dialog-component>            
         </tenant-add-dialog-component>
-    </div><!-- END add section-->
+    </div>    
     
-    <!-- tree section-->
     <div>
         <p-tree
             selectionMode="single"
@@ -17,7 +13,7 @@
             [contextMenu]="cm"
             (onNodeExpand)="loadNode($event)"
             (onNodeSelect)="selectNode($event)"
-            [(selection)]="selectedNode"        
+            [(selection)]="selectedNode"
             >
             <ng-template let-node  pTemplate="default">            
                 <p   >{{node.label}} - {{node.id}} </p>
@@ -25,5 +21,37 @@
         </p-tree>    
         <p-contextMenu #cm [model]="pContexMenuItems" appendTo="body" >
         </p-contextMenu>
-    </div><!-- END tree section-->
+    </div>
+</div>-->
+<div class="tenant-tree-component">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Tree of tenants</h3>
+                        <button pButton type="text" label="Add new tenant" (click)="showTenantAddDialog()"></button>
+                    </div>
+
+                    <div class="panel-body">                        
+                        <p-tree
+                            selectionMode="single"
+                            [value]="files"
+                            (onNodeExpand)="loadNode($event)"
+                            (onNodeSelect)="selectNode($event)"
+                            [(selection)]="selectedNode"
+                            >
+                            <ng-template let-node  pTemplate="default">            
+                                <p   >{{node.label}} - {{node.id}} </p>
+                            </ng-template>
+                        </p-tree>
+                    </div>
+                    
+                </div>    
+                <tenant-add-dialog-component>            
+                </tenant-add-dialog-component>
+            </div>
+        </div>
+    </div>
 </div>

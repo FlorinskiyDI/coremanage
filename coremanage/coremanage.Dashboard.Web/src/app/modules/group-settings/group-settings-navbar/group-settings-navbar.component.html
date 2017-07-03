@@ -1,6 +1,5 @@
-﻿<nav class="navbar navbar-default navbar-fixed-top navbar-md">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
+﻿<!--<nav class="navbar navbar-default navbar-fixed-top navbar-md">
+    <div class="container-fluid">       
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
                 <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
@@ -17,13 +16,26 @@
                 <li class="dropdown"><a routerLink="/workspace/tenant-test/settings/users/list" routerLinkActive="active" class="dropdown-toggle">Users</a></li>                 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <!--<li class="divider" style="height: 18px; margin-top: 13px; border-left: 1px solid #999; padding-right: 5px;"></li>-->
-                <!--<li class="dropdown">
-                    <a routerLink="/efwef" routerLinkActive="active" class="dropdown-toggle">
-                        <i class="fa fa-user-o" aria-hidden="true" style="font-size: 13px;"></i> Add new user 
-                    </a>
-                </li>-->
+                
             </ul>    
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
+</nav>-->
+
+<nav class="navbar navbar-default navbar-fixed-top navbar-sm" role="navigation" style="box-shadow: none;">
+  <div class="container-fluid">       
+    <div class="navbar-collapse collapse" aria-expanded="true" style="height: 1px;">
+      <ul class="nav navbar-nav" style="font-size: 13px; color: #333;">
+        <li class="dropdown" routerLinkActive="active">
+            <a routerLink="/workspace/tenant-test/settings/overview" class="dropdown-toggle">Overview</a>
+        </li>
+        <li class="dropdown" routerLinkActive="active">
+            <a routerLink="/workspace/tenant-test/settings/tenants" class="dropdown-toggle">Tenants</a>
+        </li>
+        <li class="dropdown" routerLinkActive="active">
+            <a routerLink="/workspace/tenant-test/settings/users/list" class="dropdown-toggle">Users</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>

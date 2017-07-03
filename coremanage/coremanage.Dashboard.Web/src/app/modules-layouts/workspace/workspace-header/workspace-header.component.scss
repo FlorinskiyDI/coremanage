@@ -3,82 +3,20 @@
 .navbar-md .navbar-brand,
 .navbar-md .navbar-nav>li>a {padding-top:10px; padding-bottom:10px}
 .navbar-md .navbar-brand {height: 40px}  
-.navbar-md .navbar-toggle {margin: 6px 12px 6px 0px; padding: 6px 5px; }
+.navbar-md .navbar-toggle {margin: 6px 12px 6px 0px; padding: 6px 7px 6px 7px;}
 .navbar-md .navbar-toggle .icon-bar {width: 19px;}
 
+
+/* Create a small height at 30px */
+.navbar-sm {min-height:30px}
+.navbar-sm .navbar-brand,
+.navbar-sm .navbar-nav>li>a {padding-top:5px; padding-bottom:5px}
+.navbar-sm .navbar-brand {height: 30px}
+.navbar-sm .navbar-toggle {margin: 3px 9px 3px 0px; padding: 4px 4px 4px 4px;}
+.navbar-sm .navbar-toggle .icon-bar {width: 16px;}
+.nav > li > a { padding: 10px 10px; }
 .nav.navbar-right > li > a { padding: 10px 10px; }
-.navbar-brand { padding: 15px 10px; color: #333333; font-size: 16px; }
+.navbar-brand { font-size: 13px; color: #666; }
 
-/* Create a medium height at 40px */
-// .navbar-md {min-height:40px}
-// .navbar-md .navbar-brand,
-// .navbar-md .navbar-nav>li>a {padding-top:10px; padding-bottom:10px}
-// .navbar-md .navbar-brand {height: 40px}  
-// .navbar-md .navbar-toggle {margin: 5px 12px 5px 0px; padding: 5px 4px; }
-// .navbar-md .navbar-toggle .icon-bar {width: 19px;}
-// .user-icon{
-//     border-radius: 50%;
-//     width: 25px;
-//     height: 25px;
-//     background: #ccc;
-//     &:hover{
-//         background: #777;
-//     }
-// }
-// .navbar-md .navbar-nav > li > a{
-//     padding: 10px;    
-// }
-// .navbar-md .navbar-nav > li > a.active{
-//     color: #333;
+.navbar.navbar-default { box-shadow: none; }
 
-// }
-// .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .active > a{
-//     box-shadow: none;    
-// }
-// .navbar-md .navbar-nav > li > a.user-toggle{
-//      padding: 7px;
-// }
-// .container-fluid{
-//     padding: 0px 20px;
-// }
-
-// .dropdown-menu > li > a{
-//     font-size: 13px;
-// }
-
-// .dropdown-header{
-//     font-size: 13px;
-// }
-
-// .user-dropdown-menu{
-//     width: 210px;
-// }
-
-// .navbar-brand-img{
-//     width: 40px;
-//     float: left;
-// }
-
-// .navbar-brand{
-//     font-size: 14px;
-//     padding: 11px 12px;
-//     &:hover { background-color: #DCDCDC }
-//     > font { padding: 0px 5px; }
-// }
-
-// .navbar-default .navbar-brand{
-//     color: #333;    
-// }
-// .navbar-default {
-//     background: #eee;
-//     box-shadow: none;
-//     border: none;
-// }
-
-// .tenant-dropdown-menu{
-//     width: 260px;
-//     margin-left: 5px;
-//     border-top-left-radius: 0;
-//     border-top-right-radius: 0;
-// }
-// .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus { background-image: none; background-color: #F3F3F3;  }
