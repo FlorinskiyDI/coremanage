@@ -7,11 +7,14 @@
 // }
 
 .tenant-tree-component {
-    .col-md-12 { padding: 0 15px; }
+    .col-md-12 { padding: 0 10px; }
     .panel-default { margin-top: 10px;
+        .panel-body {
+            padding: 15px 0;
+            button { border-radius: 3px; margin-left: 20px; font-size: 12px; }
+        }
         .panel-heading { font-size: 12px; background-image: none; padding: 5px 10px; font-weight: 500;
-            .panel-title { float: left; font-size: 12px; padding: 4px 0; }
-            button { border-radius: 2px; color: #005580; margin-left: auto; margin-right: 0; display: block; font-size: 12px; }
+            .panel-title { font-size: 12px; padding: 4px 0; font-weight: normal; }            
         }
     }
 }

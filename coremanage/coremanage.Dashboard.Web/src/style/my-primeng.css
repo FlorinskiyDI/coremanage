@@ -27,13 +27,15 @@
 .ui-treenode-icon {
     float: left;
     padding-top: 7px;
-    margin: 0 8px 0 8px;
+    margin: 0 8px 0 4px;
+    color: #337ab7;
+    font-size: 13px;
 }
 .ui-treenode-label > span > p {
     padding-top: 4px;
     padding-bottom: 3px;
 }
-
+.ui-tree .ui-tree-container{ padding: 15px 0; }
 .ui-tree-container:hover .ui-tree-toggler:before {
     /*visibility: visible;*/
     opacity:1;

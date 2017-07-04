@@ -1,11 +1,66 @@
-﻿<div class="tenant-manage-component">
-    
+﻿
+<div class="tenant-manage-component">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-md-12" style="padding: 10px;">
+                <div>                
+                    <ul _ngcontent-c27="" class="nav nav-tabs" role="tablist">
+                        <li _ngcontent-c27="" class="" role="presentation" style="
+                            /* background-color: #333; */
+                            /* border-radius: 0; */
+                        "><a _ngcontent-c27="" aria-controls="home" data-toggle="tab" href="#home" role="tab" style="
+                            /* background-color: #F5F5F5; */
+                            font-size: 13px;
+                            font-size: 12px;
+                            padding: 7px 10px 7px 10px;
+                            font-weight: 500;
+                        " aria-expanded="false">Detail info</a></li>
+                                                <li class="active" _ngcontent-c27="" role="presentation"><a _ngcontent-c27="" aria-controls="profile" data-toggle="tab" href="#profile" role="tab" aria-expanded="true" style="
+                            font-size: 12px;
+                            /* background-color: #F5F5F5; */
+                            font-size: 13px;
+                            font-size: 12px;
+                            padding: 7px 10px 7px 10px;
+                            font-weight: normal;
+                        ">Members</a></li>
+                                                <li _ngcontent-c27="" role="presentation"><a _ngcontent-c27="" aria-controls="messages" data-toggle="tab" href="#messages" role="tab" style="
+                            font-size: 12px;
+                        ">Roles</a></li>                        
+                    </ul>
+                    
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">...</div>
+                        <div role="tabpanel" class="tab-pane" id="profile">...</div>
+                        <div role="tabpanel" class="tab-pane" id="messages">...</div>
+                    </div>
+                </div>
+                <p>{{tenantName}}</p>
+                <p-splitButton label="Edit... " [model]="itemsManage"></p-splitButton>
+                
+                <tenant-edit-dialog-component>            
+                </tenant-edit-dialog-component>
+
+                <ul class="nav nav-pills">
+                    <li role="presentation" class="">
+                        <a routerLink="/workspace/tenant-test/settings/tenants/detail" routerLinkActive="active">Detail</a>
+                    </li>
+                    <li role="presentation">
+                        <a routerLink="/workspace/tenant-test/settings/tenants/members" routerLinkActive="active">Members</a>
+                    </li>
+                    <li role="presentation">
+                        <a routerLink="/workspace/tenant-test/settings/tenants/roles" routerLinkActive="active">Roles</a>
+                    </li>
+                </ul>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="tenant-manage-component">    
     <p>tenant-manage</p>
     <p>{{tenantName}}</p>
     <p-splitButton label="Edit... " [model]="itemsManage"></p-splitButton>
-
-    <!--<button pButton type="text" label="Edit selected tenant" (click)="showTenantEditDialog()">    
-    </button>-->
+    
     <tenant-edit-dialog-component>            
     </tenant-edit-dialog-component>
 
@@ -21,4 +76,4 @@
         </li>
     </ul>
     <router-outlet></router-outlet>
-</div>
+</div>-->

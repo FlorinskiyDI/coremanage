@@ -31,10 +31,11 @@
 
                     <div class="panel-heading">
                         <h3 class="panel-title">Tree of tenants</h3>
-                        <button pButton type="text" label="Add new tenant" (click)="showTenantAddDialog()"></button>
+                        
                     </div>
 
-                    <div class="panel-body">                        
+                    <div class="panel-body">
+                        <button pButton type="text" label="Add new tenant" (click)="showTenantAddDialog()"></button>                        
                         <p-tree
                             selectionMode="single"
                             [value]="files"
