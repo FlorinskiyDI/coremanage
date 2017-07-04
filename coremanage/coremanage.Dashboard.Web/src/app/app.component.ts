@@ -2,6 +2,7 @@
 
 import './app.component.scss';
 import '../style/app.css';
+import '../style/my-primeng.css';
 
 @Component({
     selector: 'my-app',

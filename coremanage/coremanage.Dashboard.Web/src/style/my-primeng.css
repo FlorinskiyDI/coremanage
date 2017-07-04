@@ -1,0 +1,43 @@
+
+/* tree */
+.ui-tree{
+    width: inherit;
+    border: none;
+}
+.ui-tree p { margin: 0px; }
+.ui-treenode-content .ui-tree-toggler {
+    padding-top: 6px;
+    float: left;
+}
+.ui-treenode-content .ui-state-highlight {
+    display: block;
+    background-image: none;
+    background-color: #E7E7E7;
+    border-radius: 0px;
+    color: #333;
+    padding-left: 21px;
+}
+
+.ui-tree-toggler:before {
+    /*visibility: hidden;*/
+    opacity:0;
+    transition:opacity 0.3s linear;
+}
+
+.ui-treenode-icon {
+    float: left;
+    padding-top: 7px;
+    margin: 0 8px 0 8px;
+}
+.ui-treenode-label > span > p {
+    padding-top: 4px;
+    padding-bottom: 3px;
+}
+
+.ui-tree-container:hover .ui-tree-toggler:before {
+    /*visibility: visible;*/
+    opacity:1;
+}
+
+.fa-caret-right::before{ content: "\f105"; }
+.fa-caret-down::before{ content: "\f107"; }

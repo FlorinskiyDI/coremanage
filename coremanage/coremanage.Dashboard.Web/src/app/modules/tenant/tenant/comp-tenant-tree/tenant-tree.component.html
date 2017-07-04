@@ -41,9 +41,10 @@
                             (onNodeExpand)="loadNode($event)"
                             (onNodeSelect)="selectNode($event)"
                             [(selection)]="selectedNode"
+                            ui-treenode-toggler="fa-angle-right"
                             >
                             <ng-template let-node  pTemplate="default">            
-                                <p   >{{node.label}} - {{node.id}} </p>
+                                <p>{{node.label}}</p>
                             </ng-template>
                         </p-tree>
                     </div>
@@ -55,3 +56,15 @@
         </div>
     </div>
 </div>
+
+<!--<p-tree
+                            selectionMode="single"
+                            [value]="files"
+                            (onNodeExpand)="loadNode($event)"
+                            (onNodeSelect)="selectNode($event)"
+                            [(selection)]="selectedNode"
+                            >
+                            <ng-template let-node  pTemplate="default">            
+                                <p>{{node.label}}</p>
+                            </ng-template>
+                        </p-tree>-->

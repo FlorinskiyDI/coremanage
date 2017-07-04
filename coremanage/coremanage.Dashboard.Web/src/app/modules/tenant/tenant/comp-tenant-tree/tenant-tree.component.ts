@@ -128,8 +128,9 @@ export class TenantTreeComponent implements OnInit {
                     id: s.id,
                     label: s.name,
                     data: s.name,
-                    expandedIcon: "fa-folder-open",
-                    collapsedIcon: "fa-folder",
+                    icon: "fa-object-ungroup",
+                    // expandedIcon: "fa-folder-open",
+                    // collapsedIcon: "fa-folder",
                     leaf: false,
                     selectable: true
                 });

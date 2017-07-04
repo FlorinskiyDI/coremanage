@@ -73,31 +73,31 @@ export class AuthService {
 
     private loginSuccess(data: any) {
         let decode = this.jwtDecodeService.decode(data.accessToken);
-        // console.log('@LOG Decoded token' + decode);
-        console.log('@LOG Decoded token - {0}', decode);
-        let user: IdentityState = {
-            firstName: decode.name,
-            lastName: decode.family_name,
-            userName: decode.sub,
-            email: decode.email,
-            role: decode.role,
-            tenant_list: decode.tenant_list
-        };
         let session: ISession = {
             access_token: data.accessToken,
             refresh_token: data.refreshToken,
-            user: user,
+            tenant: decode.tenant_name,
+            user: {
+                firstName: decode.name,
+                lastName: decode.family_name,
+                userName: decode.sub,
+                email: decode.email,
+                role: decode.role,
+                tenant_list: decode.tenant_list
+            },
             hasError: false,
-            isLoading: false,
-            tenant: decode.tenant_name
+            isLoading: false            
         }
-        this.sessionActions.loginUserSuccess(session);
-        let redirect = this.redirectUrl ? this.redirectUrl : '/workspace/'+ decode.tenant_name +'/dashboard/overview';  
-        this.router.navigate([redirect]);
+        this.sessionActions.loginUserSuccess(session);        
+
+        // save data in localStorage 
         if(this.isRemember){
             localStorage.setItem(appLocalStorage.authData, JSON.stringify(session));
-        }
-        
+        }     
+
+        // redirect to route
+        let redirect = this.redirectUrl ? this.redirectUrl : '/workspace/'+ decode.tenant_name +'/dashboard/overview';  
+        this.router.navigate([redirect]);   
     }
 
     private loginError(error: any) {
