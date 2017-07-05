@@ -17,7 +17,7 @@ import { fromJS, Map, List, Record } from 'immutable';
 })
 
 export class TenantTreeComponent implements OnInit {
-    
+    private menuItems: MenuItem[];
     private loadedNodes$: Observable<any>
     private selectedNode$: Observable<any>
     private selectedNode: TreeNode;
@@ -75,6 +75,12 @@ export class TenantTreeComponent implements OnInit {
         this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(null));
     }
     private _initContextMenu() {
+
+         this.menuItems = [
+                    {label: 'New', icon: 'fa-plus'},
+                    {label: 'Open', icon: 'fa-download'},
+                    {label: 'Undo', icon: 'fa-refresh'}
+                ];
         this.pContexMenuItems = [
             {
                 label: 'Add user'

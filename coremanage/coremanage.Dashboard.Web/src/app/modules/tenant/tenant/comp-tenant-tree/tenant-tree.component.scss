@@ -1,11 +1,3 @@
-// .section-tenant-tree-component {
-//     height: 100%;
-// }
-
-// p{
-//     margin: 0px;
-// }
-
 .tenant-tree-component {
     .col-md-12 { padding: 0 10px; }
     .panel-default { margin-top: 10px;
@@ -14,7 +6,7 @@
             button { border-radius: 3px; margin-left: 20px; font-size: 12px; }
         }
         .panel-heading { font-size: 12px; background-image: none; padding: 5px 10px; font-weight: 500;
-            .panel-title { font-size: 12px; padding: 4px 0; font-weight: normal; }            
+            .panel-title { font-size: 12px; padding: 4px 0; color: #555; }            
         }
     }
 }

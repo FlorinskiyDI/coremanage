@@ -1,4 +1,3 @@
-
 /* tree */
 .ui-tree{
     width: inherit;
@@ -9,17 +8,19 @@
     padding-top: 6px;
     float: left;
 }
-.ui-treenode-content .ui-state-highlight {
+.ui-treenode-content .ui-treenode-label {
     display: block;
-    background-image: none;
-    background-color: #E7E7E7;
+    background-image: none;    
     border-radius: 0px;
     color: #333;
-    padding-left: 21px;
+    padding-left: 21px;    
+    padding-right: 0px;
+}
+.ui-treenode-content .ui-state-highlight {
+    background-color: #E7E7E7;
 }
 
-.ui-tree-toggler:before {
-    /*visibility: hidden;*/
+.ui-tree-toggler:before {  
     opacity:0;
     transition:opacity 0.3s linear;
 }
@@ -27,19 +28,32 @@
 .ui-treenode-icon {
     float: left;
     padding-top: 7px;
-    margin: 0 8px 0 4px;
-    color: #337ab7;
+    margin: 0 8px 0 4px;    
     font-size: 13px;
 }
-.ui-treenode-label > span > p {
-    padding-top: 4px;
-    padding-bottom: 3px;
+.ui-treenode-label > span > p {    
+    line-height: 27px;
 }
 .ui-tree .ui-tree-container{ padding: 15px 0; }
-.ui-tree-container:hover .ui-tree-toggler:before {
-    /*visibility: visible;*/
+.ui-tree-container:hover .ui-tree-toggler:before {    
     opacity:1;
 }
 
 .fa-caret-right::before{ content: "\f105"; }
 .fa-caret-down::before{ content: "\f107"; }
+
+/* dataTable */
+.ui-datatable .ui-datatable-thead > tr > th,
+.ui-datatable .ui-datatable-tfoot > tr > td,
+.ui-datatable .ui-datatable-data > tr > td {
+    border-bottom: none;     
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /*border: none;*/
+}
+.ui-datatable thead th, .ui-datatable tfoot td {
+    /*background-image: none;*/
+    text-align: left;
+    
+}
+.ui-widget { font-family: 'Roboto', sans-serif; }

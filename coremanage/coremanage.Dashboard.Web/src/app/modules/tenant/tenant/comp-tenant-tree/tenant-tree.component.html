@@ -19,7 +19,7 @@
                 <p   >{{node.label}} - {{node.id}} </p>
             </ng-template>
         </p-tree>    
-        <p-contextMenu #cm [model]="pContexMenuItems" appendTo="body" >
+        
         </p-contextMenu>
     </div>
 </div>-->
@@ -41,13 +41,26 @@
                             [value]="files"
                             (onNodeExpand)="loadNode($event)"
                             (onNodeSelect)="selectNode($event)"
+                            (onNodeContextMenuSelect)="selectNode($event)"
                             [(selection)]="selectedNode"
                             ui-treenode-toggler="fa-angle-right"
                             >
                             <ng-template let-node  pTemplate="default">            
-                                <p>{{node.label}}</p>
+                                <p >
+                                    {{node.label}}
+                                    <!--<p-menu #menu popup="popup" [model]="menuItems" appendTo="body"></p-menu>
+                                    <button style="float: right;" type="button" pButton icon="fa fa-ellipsis-h" (click)="menu.toggle($event)">
+                                       
+                                    </button>-->
+                                    <!--<button style="float: right;" type="button" pButton label="Remove" (click)="menu.toggle($event)">
+                                       
+                                    </button>-->
+                                    <!--<i (contextmenu)="cm.show($event)" class="fa fa-object-group" style="float: right;"></i>-->
+                                </p>                                
                             </ng-template>
                         </p-tree>
+                        <p-contextMenu [target]="img"  #cm [model]="pContexMenuItems" appendTo="body" >
+                        </p-contextMenu>
                     </div>
                     
                 </div>    
