@@ -1,13 +1,20 @@
 ﻿<div class="">
 
-   
-<div class="panel panel-default">
-  <div class="panel-body">
-     <button pButton type="text" label="Add member" (click)="showMemberAddDialog()">
-    </button>
-  </div>
-</div>
-    
+    <div class="well" style="padding: 5px; margin-top: 10px; margin-bottom: 10px;">
+        <div class="">
+            <button label="Add member" pbutton="" type="text" ng-reflect-label="Add member"
+                (click)="showMemberAddDialog()"
+                class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                style="font-size: 13px; ">
+                <span class="ui-button-text ui-c">Add members</span>
+            </button>
+            <button label="Add member" pbutton="" type="text" ng-reflect-label="Add member"
+                class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                style=" font-size: 13px;">
+                <span class="ui-button-text ui-c">Remove all</span>
+            </button>
+        </div>
+    </div>
 
 
     <members-grid-component
@@ -20,6 +27,6 @@
     </members-grid-component>
 
 
-    <member-add-dialog-component>        
+    <member-add-dialog-component>
     </member-add-dialog-component>
 </div>

@@ -118,22 +118,21 @@ namespace coremanage.Dashboard.WebApi.Controllers
         {
             if (pageData == null)
             {
-                pageData = new DataPageDto<TenantMemberViewModel, string>
-                {
+                pageData = new DataPageDto<TenantMemberViewModel, string> {
                     PageNumber = 1,
                     PageLength = 12
                 };
             }
-
-            System.Threading.Thread.Sleep(1000);
             var pageDataMembers = await _tenantService.GetTenantMemberDataPage(pageData.PageNumber, pageData.PageLength);
 
-            pageData.Items = pageDataMembers.Items.Select(s => new TenantMemberViewModel
-            {
+            pageData.PageLength = pageDataMembers.PageLength;
+            pageData.PageNumber = pageDataMembers.PageNumber;
+            pageData.TotalItemCount = pageDataMembers.TotalItemCount;
+            pageData.Items = pageDataMembers.Items.Select(s => new TenantMemberViewModel {
                 Id = s.Id,
-                FullName = s.LastName + " " + s.FirstName[0] + "." + s.MiddleName[0] + ".",
+                FullName = (s.LastName == null || s.FirstName == null || s.MiddleName == null) ? "" : s.LastName + " " + s.FirstName[0] + "." + s.MiddleName[0] + ".",
                 Email = s.Email
-            }).ToList();
+            });
 
             return new JsonResult(pageData);
         }

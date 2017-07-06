@@ -18,11 +18,19 @@ export class AccountApiService extends BaseApiService<any> {
 
     // postInvitation( data: string[] | string): Observable<any> {
     postInvitation( data: any): Observable<any> {
-        let url = this.apiServer + 'Invitation/';
+        let url = this.apiServer + 'InviteByEmail/';
         return this.http.post(url, JSON.stringify(data), this.customRequestOptions.optionRequestAuth)
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }
+
+    UnsubscribeFromTenant(userId: any){
+        let url = this.apiServer + 'UnsubscribeFromTenant/' + userId;
+        return this.http.get(url, this.customRequestOptions.optionRequestAuth)
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+
 
     getConfirmEmail(userId: any, token: any){
         let url = this.apiServer + 'ConfirmEmail/' + "?userid=" + userId + "&token=" + token;

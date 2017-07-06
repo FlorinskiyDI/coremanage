@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using coremanage.Core.Services.Interfaces.Entities;
-using coremanage.Dashboard.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using coremanage.Data.Models.Entities.Identity;
-using IdentityServer4.Services;
-using Microsoft.Extensions.Logging;
 using coremanage.Dashboard.WebApi.Models.Account;
 using coremanage.Dashboard.WebApi.Messaging;
 using IdentityServer4.Extensions;
-using System.Net;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Threading;
+using coremanage.Core.Common.Context;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,6 +38,42 @@ namespace coremanage.Dashboard.WebApi.Controllers
             _userManager = userManager;
             _siteMessageEmailSender = siteMessageEmailSender;
         }
+
+
+
+
+
+
+        [HttpPost]
+        [Route("InviteByEmail")]
+        public async Task<IActionResult> InviteByEmail([FromBody] List<string> emailList)
+        {
+            foreach (var email in emailList)
+            {
+                var user = await _userProfileService.GetByEmail(email) ?? await _userProfileService.CreateAsync(email);
+                await _userProfileService.SubscribeFromTenant(user.Id, NTContext.Context.TenantName);
+            }
+
+            return new JsonResult(emailList);
+        }
+
+        [HttpGet]
+        [Route("UnsubscribeFromTenant/{id}")]
+        public async Task<IActionResult> UnsubscribeFromTenant(string id)
+        {
+            await _userProfileService.UnsubscribeFromTenant(id, NTContext.Context.TenantName);
+
+            return new JsonResult(id);
+        }
+
+
+
+
+
+
+
+
+
 
         #region Invitation
         [HttpPost]

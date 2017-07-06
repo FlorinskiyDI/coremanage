@@ -16,9 +16,8 @@
     padding-left: 21px;    
     padding-right: 0px;
 }
-.ui-treenode-content .ui-state-highlight {
-    background-color: #E7E7E7;
-}
+.ui-treenode-content .ui-state-highlight { background-color: #E7E7E7; }
+.ui-treenode-content .ui-state-highlight > span > p { color: #333; }
 
 .ui-tree-toggler:before {  
     opacity:0;
@@ -33,11 +32,10 @@
 }
 .ui-treenode-label > span > p {    
     line-height: 27px;
+    color: #337ab7;
 }
 .ui-tree .ui-tree-container{ padding: 15px 0; }
-.ui-tree-container:hover .ui-tree-toggler:before {    
-    opacity:1;
-}
+.ui-tree .ui-tree-container:hover .ui-tree-toggler:before { opacity:1; }
 
 .fa-caret-right::before{ content: "\f105"; }
 .fa-caret-down::before{ content: "\f107"; }

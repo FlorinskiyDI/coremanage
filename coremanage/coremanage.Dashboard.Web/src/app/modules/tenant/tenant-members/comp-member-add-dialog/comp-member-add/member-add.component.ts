@@ -4,7 +4,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { SelectItem } from 'primeng/primeng';
 
-/* model */ import { TenantCreateModel, tenantMemberAutocomplete } from '../../../../../common/index.models';
+/* model */ import { TenantCreateModel, tenantMemberAutocomplete, PageData } from '../../../../../common/index.models';
 /* action */ import { TenantActions, LayoutActions } from "../../../../../redux/actions";
 /* state */ import { IAppState } from '../../../../../redux/store';
 
@@ -21,10 +21,10 @@ export class MemberAddComponent implements OnInit {
     formMember: FormGroup;
     formErrors: any = { 'users': '' };
     validationMessages: any = { 'users': { 'required': 'Users is required.' } };
-        
+
     constructor(
         private ngRedux: NgRedux<IAppState>,
-        private tenantActions: TenantActions,        
+        private tenantActions: TenantActions,
         private layoutActions: LayoutActions,
         private fb: FormBuilder,
     ) {
@@ -44,6 +44,12 @@ export class MemberAddComponent implements OnInit {
                         // this.results.unshift(this.autocompleteQuery);
                     } else{
                         
+                    }
+                    if(data.postMember != null){
+                        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction(new PageData()));
+                        this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction());
+                        // this.results = data.getMember;
+                        // this.results.unshift(this.autocompleteQuery);
                     }
                 }
         }); 

@@ -25,6 +25,11 @@ export const TenantActionTypes =  {
   POST_REQUEST_TENANT_MEMBER_CREATE: type('[TenantMemberCreate] post request tenant member'),
   POST_REQUEST_TENANT_MEMBER_CREATE_SUCCESS: type('[TenantMemberCreate] successfully post requested tenant member'),
   POST_REQUEST_TENANT_MEMBER_CREATE_FAILURE: type('[TenantMemberCreate] failed to request post tenant member'),
+  /* tenant-member-delete action types */
+  DELETE_TENANT_MEMBER: type('[TenantMemberDelete] delete tenant member'),
+  DELETE_TENANT_MEMBER_SUCCESS: type('[TenantMemberDelete] successfully delete tenant member'),
+  DELETE_TENANT_MEMBER_FAILURE: type('[TenantMemberDelete] failed to delete tenant member'),
+
 
   /* tenant-item-create action types */
   GET_REQUEST_TENANT_ITEM_CREATE: type('[TenantItemCreate] get request tenant item'),
@@ -139,6 +144,25 @@ export class TenantActions {
   public postRequestTenantMemberCreateFailedAction(data: any) {
     return {
       type: TenantActionTypes.POST_REQUEST_TENANT_MEMBER_CREATE_FAILURE,
+      payload: data
+    };
+  }
+  /* tenant-member-create actions */
+  public deleteTenantMemberAction(data: any) {
+    return {
+      type: TenantActionTypes.DELETE_TENANT_MEMBER,
+      meta: data
+    };
+  }
+  public deleteTenantMemberSuccessAction(data: any) {
+    return {
+      type: TenantActionTypes.DELETE_TENANT_MEMBER_SUCCESS,
+      payload: data
+    };
+  }
+  public deleteTenantMemberFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.DELETE_TENANT_MEMBER_FAILURE,
       payload: data
     };
   }

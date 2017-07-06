@@ -15,8 +15,8 @@
          <!--<p-header>List of members</p-header>-->
         <p-footer>
             <div class="ui-helper-clearfix">
-                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export to CSV" (click)="dt.exportCSV()" style="font-weight: 300;float:left;">
-                    
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export to CSV"
+                    (click)="dt.exportCSV()" style="font-weight: 300;float:left;">                    
                 </button>
             </div>
         </p-footer>
@@ -26,8 +26,8 @@
         <p-column styleClass="col-button" [style]="">
             <ng-template pTemplate="header">                
             </ng-template>
-            <ng-template let-car="rowData" pTemplate="body">
-                <button type="button" pButton (click)="selectCar(car)" label="Remove"></button>
+            <ng-template let-row="rowData" pTemplate="body">
+                <button type="button" pButton (click)="onRowDelete.emit(row)" label="Remove" style="font-size: 13px;"></button>
             </ng-template>
         </p-column>
     </p-dataTable>

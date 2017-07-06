@@ -33,7 +33,8 @@ export class TenantEpics {
             this.getRequestTenantMemberGridEpic(),
             // tenant-member
             this.getRequestTenantMemberCreateEpic(),
-            this.postRequestTenantMemberCreateEpic()
+            this.postRequestTenantMemberCreateEpic(),           
+            this.deleteTenantMemberEpic()
             );
         return createEpicMiddleware(ccc);
     }
@@ -71,7 +72,14 @@ export class TenantEpics {
                 .map(data  => this.tenantActions.postRequestTenantMemberCreateSuccessAction(data))
                 .catch( error => of(this.tenantActions.postRequestTenantMemberCreateFailedAction(error))));
     }
-
+    // tenant-member-delete
+    private deleteTenantMemberEpic() {
+        return (action$: any) => action$
+            .ofType(TenantActionTypes.DELETE_TENANT_MEMBER)
+            .switchMap((payload: any) => this.accountApiService.UnsubscribeFromTenant(payload.meta)
+                .map(data  => this.tenantActions.deleteTenantMemberSuccessAction(data))
+                .catch( error => of(this.tenantActions.deleteTenantMemberFailedAction(error))));
+    }
     // tenant-item-create
     private getRequestTenantItemCreateEpic() {
         return (action$: any) => action$

@@ -44,15 +44,15 @@ export class TenantMembersComponent {
             .map(data => { return data.toJS()})
             .subscribe((data: any) => {
                 this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction(new PageData()));
-        });        
+        });
     }
 
     onMembersPageChanged(data: any) {
-
+        let pageNumber = data.first == 0 ? 0: data.first + 1;
         let pageData: PageData = {
             totalItemCount: 0,
             totalPageCount: 0,
-            pageNumber: data.first + 1,
+            pageNumber: pageNumber % data.rows + 1,
             pageLength: data.rows,
             // filterData: null,
             // sortData: data.multiSortMeta
@@ -60,7 +60,9 @@ export class TenantMembersComponent {
         this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction(pageData));
     }
 
-    onMembersItemDelete(dta: any){        
+    onMembersItemDelete(data: any){
+        this.ngRedux.dispatch(this.tenantActions.deleteTenantMemberAction(data.id));
+        console.log(data);
     }
 
     showMemberAddDialog() {

@@ -15,6 +15,7 @@ using coremanage.Core.Models;
 using coremanage.Core.Common.Context;
 using coremanage.Core.Contracts.Repositories;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace coremanage.Core.Services.Services.Entities
 {
@@ -26,7 +27,7 @@ namespace coremanage.Core.Services.Services.Entities
         private readonly UserManager<ApplicationUser> _userManager;
 
         public UserProfileService(
-            IUowProvider uowProvider, 
+            IUowProvider uowProvider,
             IMapper mapper,
             IDataPager<UserProfile, string> pager,
             UserManager<ApplicationUser> userManager
@@ -36,11 +37,15 @@ namespace coremanage.Core.Services.Services.Entities
             this._userManager = userManager;
         }
 
-        public async Task<UserProfileDto> CreateAsync(string userId)
+        public async Task<UserProfileDto> CreateAsync(string email)
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null) throw new ArgumentException("Can not create user");
+            // creating applicationUser
+            var user = new ApplicationUser { UserName = email, Email = email };
+            var result = await _userManager.CreateAsync(user);
+            if (!result.Succeeded)
+                throw new ArgumentException("The app user was not created");
 
+            // creating userProfile
             var userProfile = new UserProfile { Id = user.Id, Email = user.Email };
             using (var uow = UowProvider.CreateUnitOfWork())
             {
@@ -62,7 +67,7 @@ namespace coremanage.Core.Services.Services.Entities
             {
                 var result = await _userManager.ConfirmEmailAsync(user, token);
                 return result;
-                
+
             }
             throw new ArgumentException("Error");
         }
@@ -84,7 +89,7 @@ namespace coremanage.Core.Services.Services.Entities
         public async Task<string> GetEmailConfirmationToken(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            var emailConfirmationToken =  await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             return emailConfirmationToken;
         }
         public async Task<string> GetPasswordResetTokenAsync(string userId)
@@ -101,6 +106,63 @@ namespace coremanage.Core.Services.Services.Entities
                 var repository = uow.GetRepository<UserProfile, string>();
                 var userprofiles = await repository.QueryAsync(c => c.Email.Contains(query));
                 return userprofiles.Select(s => s.Email).ToList();
+            }
+        }
+
+        public async Task<UserProfileDto> GetByEmail(string email)
+        {
+            using (var uow = UowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetRepository<UserProfile, string>();
+                var userprofiles = await repository.QueryAsync(c => c.Email == email);
+                return Mapper.Map<UserProfile, UserProfileDto>(userprofiles.FirstOrDefault());
+            }
+        }
+
+        public async Task SubscribeFromTenant(string userId, string tenantName)
+        {
+            using (var uow = UowProvider.CreateUnitOfWork())
+            {
+                var repositoryUserProfile = uow.GetRepository<UserProfile, string>();
+                var repositoryTenant= uow.GetRepository<Tenant, int>();
+                // get user and tenant
+                var userprofiles = await repositoryUserProfile.GetAsync(userId, i => i.Include(c =>c.UserProfileTenants));
+                var tenants= await repositoryTenant.QueryAsync(c => c.Name == tenantName);
+                var tenant = tenants.FirstOrDefault();
+
+                var userProfileTenant = new UserProfileTenant { 
+                    Tenant = tenant,
+                    UserProfile = userprofiles
+                };
+
+                userprofiles.UserProfileTenants.Add(userProfileTenant);
+                await uow.SaveChangesAsync();
+                //return Mapper.Map<UserProfile, UserProfileDto>(userprofiles.FirstOrDefault());
+            }
+        }
+
+        public async Task UnsubscribeFromTenant(string userId, string tenantName)
+        {
+            using (var uow = UowProvider.CreateUnitOfWork())
+            {
+                var repositoryUserProfile = uow.GetRepository<UserProfile, string>();
+                var repositoryTenant = uow.GetRepository<Tenant, int>();
+                // get user and tenant
+                var userprofiles = await repositoryUserProfile.GetAsync(userId, i => i.Include(c => c.UserProfileTenants).ThenInclude(v => v.Tenant));
+                var tenants = await repositoryTenant.QueryAsync(c => c.Name == tenantName);
+                var tenant = tenants.FirstOrDefault();
+
+                var userProfileTenant = userprofiles.UserProfileTenants.FirstOrDefault(c => c.TenantId == tenant.Id);
+                //var userProfileTenant = new UserProfileTenant
+                //{
+                //    Tenant = tenant,
+                //    TenantId = tenant.Id,
+                //    UserProfile = userprofiles,
+                //    UserProfileId = userprofiles.Id
+                //};
+
+                userprofiles.UserProfileTenants.Remove(userProfileTenant);
+                await uow.SaveChangesAsync();
             }
         }
     }

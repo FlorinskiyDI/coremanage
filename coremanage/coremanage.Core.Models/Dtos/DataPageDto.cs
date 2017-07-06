@@ -17,5 +17,10 @@ namespace coremanage.Core.Models.Dtos
 
         public int FilterData { get; set; }
         public int SortData { get; set; }
+
+        public DataPageDto()
+        {
+            this.Items = new List<TEntityDto>();
+        }
     }
 }
