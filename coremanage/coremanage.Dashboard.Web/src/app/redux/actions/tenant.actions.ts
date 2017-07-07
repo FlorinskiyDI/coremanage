@@ -45,7 +45,10 @@ export const TenantActionTypes =  {
   POST_REQUEST_TENANT_ITEM_UPDATE: type('[TenantItemUpdate] post request tenant item'),
   POST_REQUEST_TENANT_ITEM_UPDATE_SUCCESS: type('[TenantItemUpdate] successfully post requested  tenant item'),
   POST_REQUEST_TENANT_ITEM_UPDATE_FAILURE: type('[TenantItemUpdate] failed to request post tenant item'),
-
+  /* tenant-item-delete action types */
+  DELETE_TENANT_ITEM: type('[TenantDelete] delete tenant'),
+  DELETE_TENANT_ITEM_SUCCESS: type('[TenantDelete] successfully delete tenant'),
+  DELETE_TENANT_ITEM_FAILURE: type('[TenantDelete] failed to delete tenant'),
   
 }
 
@@ -238,6 +241,25 @@ export class TenantActions {
   public postRequestTenantItemUpdateFailedAction(data: any) {
     return {
       type: TenantActionTypes.POST_REQUEST_TENANT_ITEM_UPDATE_FAILURE,
+      payload: data
+    };
+  }  
+  /* tenant-item-create actions */
+  public deleteTenantItemAction(data: any) {
+    return {
+      type: TenantActionTypes.DELETE_TENANT_ITEM,
+      meta: data
+    };
+  }
+  public deleteTenantItemSuccessAction(data: any) {
+    return {
+      type: TenantActionTypes.DELETE_TENANT_ITEM_SUCCESS,
+      payload: data
+    };
+  }
+  public deleteTenantItemFailedAction(data: any) {
+    return {
+      type: TenantActionTypes.DELETE_TENANT_ITEM_FAILURE,
       payload: data
     };
   }

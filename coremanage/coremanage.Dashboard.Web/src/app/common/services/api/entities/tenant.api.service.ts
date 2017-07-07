@@ -66,4 +66,11 @@ export class TenantApiService extends BaseApiService<any> {
             // .catch(this.handleError);
     }
 
+    deleteTenantItem(tenantId: any){
+        let url = this.apiServer + 'Delete/' + tenantId;
+        return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+
 }

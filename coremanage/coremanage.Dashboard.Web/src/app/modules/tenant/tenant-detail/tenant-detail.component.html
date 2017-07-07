@@ -1,9 +1,19 @@
 ﻿<div class="">
+<div class=""> 
 
-<p>tenant-detail</p>
-<p>tenant-detail</p>
-<p>tenant-detail</p>
-<p>tenant-detail</p>
-<p>tenant-detail</p>
+    <div class="well" style="padding: 5px; margin-top: 10px; margin-bottom: 10px;">
+        <div class="">
+            <button label="Add member" pbutton="" type="text" ng-reflect-label="Add member"
+                (click)="onTenantDelete()"
+                class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                style="font-size: 13px; ">
+                <span class="ui-button-text ui-c">Remove</span>
+            </button>            
+        </div>
+    </div>
 
 </div>
+
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+<p-growl [(value)]="msgs"></p-growl>
