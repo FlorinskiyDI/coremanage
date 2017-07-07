@@ -16,11 +16,14 @@
         </div>
     </div>
 
+    <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+    <p-growl [(value)]="msgs"></p-growl>
 
     <members-grid-component
         [items]="members"
         [totalItems]="membersTotal"
         [pageNumber]="membersPage"
+        [selectedItem]="selectedItem"
         [loading]="membersLoading"
         (onPageChanged)="onMembersPageChanged($event)"
         (onRowDelete)="onMembersItemDelete($event)">  

@@ -7,6 +7,7 @@ import { LazyLoadEvent } from 'primeng/primeng';
 })
 export class MembersGridComponent {
 
+    @Input() selectedItem: any;
     @Input() items: any;
     @Input() totalItems:number;
     @Input() pageNumber: number;

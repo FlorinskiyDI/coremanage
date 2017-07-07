@@ -4,6 +4,7 @@
     <p-dataTable #dt
     reorderableColumns="true"
     sortMode="multiple"
+    [(selection)]="selectedItem"
     [responsive]="true" [stacked]="stacked"    
     [lazy]="true"
     [value]="items"

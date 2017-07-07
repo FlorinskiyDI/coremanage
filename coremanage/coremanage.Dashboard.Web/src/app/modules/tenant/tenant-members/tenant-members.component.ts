@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgRedux, select,  } from '@angular-redux/store';
+import { ConfirmationService, Message} from 'primeng/primeng';
 import { Observable } from 'rxjs/Observable';
 import { Map } from 'immutable';
 import 'rxjs/add/operator/map';
@@ -12,22 +13,27 @@ import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'tenant-members-component',
-    templateUrl: 'tenant-members.component.html'
+    templateUrl: 'tenant-members.component.html',
+    providers: [ConfirmationService]
 })
 export class TenantMembersComponent {
     // member grid options
-    public members: Observable<any>;
+    public msgs: Message[] = [];
+    public selectedItem: any;
+    public members: any;
     public membersTotal: Observable<number>;
     public membersPage: Observable<number>;
     public membersLoading: Observable<boolean>;
     // observables
-    private memberGrid$ = this.ngRedux.select(state => state.tenant.tenantMember.memberGrid);    
+    private memberGrid$ = this.ngRedux.select(state => state.tenant.tenantMember.memberGrid);
+    private memberDelete$ = this.ngRedux.select(state => state.tenant.tenantMember.memberDelete);
     private selectedNode$ = this.ngRedux.select(state=>state.tenant.tenantTree.selectedNode);
 
     constructor(
         private tenantActions: TenantActions,
         private ngRedux: NgRedux<IAppState>,
         private layoutActions: LayoutActions,
+        private confirmationService: ConfirmationService
     ) { }
 
     ngOnInit() {
@@ -38,6 +44,15 @@ export class TenantMembersComponent {
                 this.membersTotal = data.totalItems;
                 this.membersPage = data.pageNumber;
                 this.membersLoading = data.loading;
+            });
+
+         this.memberDelete$
+            .map(data => { return data.toJS()})
+            .subscribe(data => {
+                if(data.id != null && data.error == null ){
+                    this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
+                    console.log("Member is delete")
+                }
             });
 
         this.selectedNode$
@@ -68,8 +83,23 @@ export class TenantMembersComponent {
     }
 
     onMembersItemDelete(data: any){
-        this.ngRedux.dispatch(this.tenantActions.deleteTenantMemberAction(data.id));
+        this.confirmDelete(data);      
         console.log(data);
+    }
+    
+    confirmDelete(data: any) {
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to perform this action?',
+            accept: () => {
+                let index = this.members.indexOf(data);
+                this.members = this.members.filter((val: any,i: any) => i!=index);
+                this.ngRedux.dispatch(this.tenantActions.deleteTenantMemberAction(data.id));
+                console.log("True");
+            },
+            reject: () => {      
+                console.log("False");
+            }
+        });
     }
 
     showMemberAddDialog() {

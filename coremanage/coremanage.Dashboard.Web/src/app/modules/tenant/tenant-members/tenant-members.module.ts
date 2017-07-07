@@ -1,7 +1,8 @@
 // external
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataTableModule, ButtonModule, DialogModule, AutoCompleteModule } from 'primeng/primeng';
+import { DataTableModule, ButtonModule, DialogModule,
+    AutoCompleteModule, ConfirmDialogModule, GrowlModule} from 'primeng/primeng';
 
 
 /* module */ import { SharedModule } from '../../../modules-shared/shared.module';
@@ -18,7 +19,8 @@ import { DataTableModule, ButtonModule, DialogModule, AutoCompleteModule } from 
         SharedModule,
         CommonModule,
         TenantMembersRoutes,
-        ButtonModule, DataTableModule, DialogModule, AutoCompleteModule // primeng
+        ButtonModule, DataTableModule, DialogModule, // primeng
+        AutoCompleteModule, ConfirmDialogModule, GrowlModule // primeng
     ],
 
     declarations: [
