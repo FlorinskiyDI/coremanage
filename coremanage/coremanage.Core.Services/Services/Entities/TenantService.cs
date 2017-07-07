@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using coremanage.Core.Models.Dtos;
 using Microsoft.EntityFrameworkCore;
 using storagecore.EntityFrameworkCore.Paging;
+using storagecore.EntityFrameworkCore.Query;
 
 namespace coremanage.Core.Services.Services.Entities
 {
@@ -122,17 +123,25 @@ namespace coremanage.Core.Services.Services.Entities
 
         #region "Tenant member"
 
-        public async Task<DataPageDto<UserProfileDto, string>> GetTenantMemberDataPage(int pageNumber, int pageLenght)
+        public async Task<DataPageDto<UserProfileDto, string>> GetTenantMemberDataPage(int pageNumber, int pageLenght, int tenantId)
         {
-            var dataPage = await Pager.GetAsync(
-                    pageNumber,
-                    pageLenght
-                );
+            // geting id list of users by tenantId
+            List<string> idList;
+            using (var uow = UowProvider.CreateUnitOfWork())
+            {
+                var repositoryTenant = uow.GetRepository<Tenant, int>();
+                var tenant = await repositoryTenant.GetAsync(tenantId, s => s.Include(c => c.UserProfileTenants).ThenInclude(v => v.UserProfile));
+                idList = tenant.UserProfileTenants.Select(s => s.UserProfileId).ToList();
+            }
+
+            // createing filter and paging of user table
+            var filter = new Filter<UserProfile>(null);
+            filter.AddExpression(e => idList.Contains(e.Id));
+            var dataPage = await Pager.QueryAsync( pageNumber, pageLenght, filter );
             var dataPageDto = Mapper.Map<DataPage<UserProfile, string>, DataPageDto<UserProfileDto, string>>(dataPage);
 
             return dataPageDto;
         }
-
 
         public async Task<List<UserProfileDto>> GetTenantMemberListByTenantId(int tenantId)
         {

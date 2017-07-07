@@ -17,16 +17,20 @@ export class AccountApiService extends BaseApiService<any> {
     }
 
     // postInvitation( data: string[] | string): Observable<any> {
-    postInvitation( data: any): Observable<any> {
-        let url = this.apiServer + 'InviteByEmail/';
-        return this.http.post(url, JSON.stringify(data), this.customRequestOptions.optionRequestAuth)
+    postInvitation( data: any, tenantId: any){
+        let url = this.apiServer + 'InviteByEmail/';        
+        let body = JSON.stringify(data);
+        let options = this.customRequestOptions.getOptionRequestAuth();
+        options.headers.append('tenant_id', tenantId);
+
+        return this.http.post(url, body, options)
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }
 
     UnsubscribeFromTenant(userId: any){
         let url = this.apiServer + 'UnsubscribeFromTenant/' + userId;
-        return this.http.get(url, this.customRequestOptions.optionRequestAuth)
+        return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }
@@ -34,7 +38,7 @@ export class AccountApiService extends BaseApiService<any> {
 
     getConfirmEmail(userId: any, token: any){
         let url = this.apiServer + 'ConfirmEmail/' + "?userid=" + userId + "&token=" + token;
-        return this.http.get(url, this.customRequestOptions.optionRequest)
+        return this.http.get(url, this.customRequestOptions.getOptionRequest())
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }
@@ -42,7 +46,7 @@ export class AccountApiService extends BaseApiService<any> {
     postAccountRegistration(data: any){
         let url = this.apiServer + 'Register/';        
         let body = JSON.stringify(data);
-        return this.http.post(url, body, this.customRequestOptions.optionRequest)
+        return this.http.post(url, body, this.customRequestOptions.getOptionRequest())
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }

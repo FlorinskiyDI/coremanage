@@ -46,7 +46,11 @@ export class MemberAddComponent implements OnInit {
                         
                     }
                     if(data.postMember != null){
-                        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction(new PageData()));
+                        let tenantId = this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id;
+                        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction({
+                            data: new PageData(),
+                            tenantName: tenantId
+                        }));
                         this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction());
                         // this.results = data.getMember;
                         // this.results.unshift(this.autocompleteQuery);
@@ -64,7 +68,10 @@ export class MemberAddComponent implements OnInit {
         this.formMember.value.users.forEach((element: any) => {
             emailList.push(element.value);
         });
-        this.ngRedux.dispatch(this.tenantActions.postRequestTenantMemberCreateAction(emailList));
+        this.ngRedux.dispatch(this.tenantActions.postRequestTenantMemberCreateAction({
+            data: emailList,
+            tenantId: this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id
+        }));
     }
 
     private initAutoComplete(data: any) {

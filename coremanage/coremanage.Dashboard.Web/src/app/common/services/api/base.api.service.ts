@@ -21,7 +21,7 @@ export abstract class BaseApiService<TEntity> {
     update(
         id: number,
         entity: TEntity,
-        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+        optionRequest: RequestOptions = this.customRequestOptions.getOptionRequestAuth()
     ): Observable<any> {
         return this.http.put(this.apiServer + id, JSON.stringify(entity), optionRequest)
             .map( (res: Response) => res.json())
@@ -30,7 +30,7 @@ export abstract class BaseApiService<TEntity> {
 
     add(
         entity: TEntity,
-        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+        optionRequest: RequestOptions = this.customRequestOptions.getOptionRequestAuth()
     ): Observable<TEntity> {
         return this.http.post(this.apiServer, JSON.stringify(entity), optionRequest)
             .map((res: Response) => res.json())
@@ -39,7 +39,7 @@ export abstract class BaseApiService<TEntity> {
 
     get(
         id: number,
-        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+        optionRequest: RequestOptions = this.customRequestOptions.getOptionRequestAuth()
     ): Observable<TEntity> {
         return this.http.get(this.apiServer + id, optionRequest)
             .map((res: Response) => res.json())
@@ -47,7 +47,7 @@ export abstract class BaseApiService<TEntity> {
     }
 
     getAll(
-        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+        optionRequest: RequestOptions = this.customRequestOptions.getOptionRequestAuth()
     ): Observable<TEntity[]> {
         return this.http.get(this.apiServer, optionRequest)
             .map((res: Response) => res.json())
@@ -56,7 +56,7 @@ export abstract class BaseApiService<TEntity> {
 
     delete(
         id: number,
-        optionRequest: RequestOptions = this.customRequestOptions.optionRequestAuth
+        optionRequest: RequestOptions = this.customRequestOptions.getOptionRequestAuth()
     ): Observable<TEntity> {
         return this.http.delete(this.apiServer + id, optionRequest)
             .map((res: Response) => res.json())

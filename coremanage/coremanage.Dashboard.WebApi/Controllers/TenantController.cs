@@ -13,6 +13,7 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using coremanage.Dashboard.WebApi.Services;
 using coremanage.Dashboard.WebApi.Messaging;
+using coremanage.Core.Common.Context;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -123,7 +124,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
                     PageLength = 12
                 };
             }
-            var pageDataMembers = await _tenantService.GetTenantMemberDataPage(pageData.PageNumber, pageData.PageLength);
+            var pageDataMembers = await _tenantService.GetTenantMemberDataPage(pageData.PageNumber, pageData.PageLength, NTContext.Context.TenantId);
 
             pageData.PageLength = pageDataMembers.PageLength;
             pageData.PageNumber = pageDataMembers.PageNumber;

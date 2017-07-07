@@ -20,7 +20,8 @@ namespace coremanage.Core.Services.Interfaces.Entities
 
         Task<List<UserProfileDto>> GetTenantMemberListByTenantId(int tenantId);
         Task<List<UserProfileDto>> CreateTenantMember(UserProfileDto userProfileDto);
-        Task<DataPageDto<UserProfileDto, string>> GetTenantMemberDataPage(int pageNumber, int pageLenght);
+
+        Task<DataPageDto<UserProfileDto, string>> GetTenantMemberDataPage(int pageNumber, int pageLenght, int tenantId);
         Task<List<UserProfileDto>> DeleteTenantMember(int userProfileId);
     }
 }

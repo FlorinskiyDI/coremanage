@@ -19,7 +19,7 @@ export class UserProfileApiService extends BaseApiService<UserProfileEntity> {
     
     getUserEmailListForAutoComplete(query: string ): Observable<any> {
         let url = this.apiServer + 'AutoComplete/' + query;
-        return this.http.get(url, this.customRequestOptions.optionRequestAuth)
+        return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }

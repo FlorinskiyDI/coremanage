@@ -40,7 +40,6 @@ namespace coremanage.Dashboard.WebApi.Controllers
                 return new JsonResult($"{e.Message}\r\n{e.StackTrace}");
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] LoginModel model)
         {
@@ -66,7 +65,6 @@ namespace coremanage.Dashboard.WebApi.Controllers
             }
         }
 
-        
         private async Task<TokenClient> GetTokenClient()
         {
             var url = Startup.Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost");

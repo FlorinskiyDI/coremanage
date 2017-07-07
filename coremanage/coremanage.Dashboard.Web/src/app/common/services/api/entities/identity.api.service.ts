@@ -20,14 +20,14 @@ export class IdentityApiService {
 
     // retern token
     get( loginData: LoginData ): Observable<any> {
-        return this.http.post(this.apiServer + 'api/Identity', JSON.stringify(loginData), this.customRequestOptions.optionRequest)
+        return this.http.post(this.apiServer + 'api/Identity', JSON.stringify(loginData), this.customRequestOptions.getOptionRequest())
             .map( (res: Response) => res.json())
             .catch(this.handleError);
     }
 
     refresh(reLoginData: ReLoginData): Observable<any> {
         let body = JSON.stringify(reLoginData);
-        return this.http.post(this.apiServer + 'api/Identity/Refresh', body,  this.customRequestOptions.optionRequestAuth)
+        return this.http.post(this.apiServer + 'api/Identity/Refresh', body,  this.customRequestOptions.getOptionRequestAuth())
              .map( (res: Response) => {
                return res.json()
              })

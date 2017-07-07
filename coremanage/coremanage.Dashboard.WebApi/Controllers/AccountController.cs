@@ -51,7 +51,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
             foreach (var email in emailList)
             {
                 var user = await _userProfileService.GetByEmail(email) ?? await _userProfileService.CreateAsync(email);
-                await _userProfileService.SubscribeFromTenant(user.Id, NTContext.Context.TenantName);
+                await _userProfileService.SubscribeFromTenant(user.Id, NTContext.Context.TenantId);
             }
 
             return new JsonResult(emailList);
@@ -65,17 +65,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
 
             return new JsonResult(id);
         }
-
-
-
-
-
-
-
-
-
-
-        #region Invitation
+        
         [HttpPost]
         [Route("Invitation")]
         public async Task<IActionResult> InvitationMultiple([FromBody] List<string> emailList)
@@ -88,22 +78,9 @@ namespace coremanage.Dashboard.WebApi.Controllers
             return new JsonResult(emailList);
         }
 
-        private async Task BuildInvitationAsync(string email, string redirectUrl)
-        {
-            // create applicationUser
-            //var user = new ApplicationUser { UserName = email, Email = email };
-            //var result = await _userManager.CreateAsync(user);
-            //var userProfileDto = await _userProfileService.CreateAsync(user.Id);
+        
 
-            var user = await _userManager.FindByEmailAsync(email);
-            var confirmationToken = await _userProfileService.GetEmailConfirmationToken(email);
-            var confirmationUrl = redirectUrl + "?userid=" + user.Id + "&token=" + this.Encoded(confirmationToken);
-
-            await _siteMessageEmailSender.SendAccountConfirmationEmailAsync(null, email, "Confirm your account", confirmationUrl);
-        }
-        #endregion
-
-        #region Register
+        
 
         [HttpPost]
         [Route("Register")]
@@ -152,7 +129,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         //}
 
 
-        #endregion
+        
         [HttpGet]
         [Route("ConfirmEmail")]
         [AllowAnonymous]
@@ -197,6 +174,20 @@ namespace coremanage.Dashboard.WebApi.Controllers
         }
 
         #region Helpers
+
+        private async Task BuildInvitationAsync(string email, string redirectUrl)
+        {
+            // create applicationUser
+            //var user = new ApplicationUser { UserName = email, Email = email };
+            //var result = await _userManager.CreateAsync(user);
+            //var userProfileDto = await _userProfileService.CreateAsync(user.Id);
+
+            var user = await _userManager.FindByEmailAsync(email);
+            var confirmationToken = await _userProfileService.GetEmailConfirmationToken(email);
+            var confirmationUrl = redirectUrl + "?userid=" + user.Id + "&token=" + this.Encoded(confirmationToken);
+
+            await _siteMessageEmailSender.SendAccountConfirmationEmailAsync(null, email, "Confirm your account", confirmationUrl);
+        }
 
         private void AddErrors(IdentityResult result)
         {

@@ -119,7 +119,7 @@ namespace coremanage.Core.Services.Services.Entities
             }
         }
 
-        public async Task SubscribeFromTenant(string userId, string tenantName)
+        public async Task SubscribeFromTenant(string userId, int tenantId)
         {
             using (var uow = UowProvider.CreateUnitOfWork())
             {
@@ -127,7 +127,7 @@ namespace coremanage.Core.Services.Services.Entities
                 var repositoryTenant= uow.GetRepository<Tenant, int>();
                 // get user and tenant
                 var userprofiles = await repositoryUserProfile.GetAsync(userId, i => i.Include(c =>c.UserProfileTenants));
-                var tenants= await repositoryTenant.QueryAsync(c => c.Name == tenantName);
+                var tenants= await repositoryTenant.QueryAsync(c => c.Id == tenantId);
                 var tenant = tenants.FirstOrDefault();
 
                 var userProfileTenant = new UserProfileTenant { 

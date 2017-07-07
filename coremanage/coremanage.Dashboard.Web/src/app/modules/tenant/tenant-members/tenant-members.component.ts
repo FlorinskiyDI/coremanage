@@ -43,7 +43,10 @@ export class TenantMembersComponent {
         this.selectedNode$
             .map(data => { return data.toJS()})
             .subscribe((data: any) => {
-                this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction(new PageData()));
+                this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction({
+                    data: new PageData(),
+                    tenantName: data.id
+                }));
         });
     }
 
@@ -57,7 +60,11 @@ export class TenantMembersComponent {
             // filterData: null,
             // sortData: data.multiSortMeta
         }
-        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction(pageData));
+        let tenantId = this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id;
+        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction({
+                    data: pageData,
+                    tenantName: tenantId
+                }));
     }
 
     onMembersItemDelete(data: any){

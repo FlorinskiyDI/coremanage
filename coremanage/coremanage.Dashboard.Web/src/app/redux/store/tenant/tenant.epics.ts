@@ -53,7 +53,7 @@ export class TenantEpics {
     private getRequestTenantMemberGridEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID)
-            .switchMap((payload: any) => this.tenantApiService.getTenantMemberList(payload.meta)
+            .switchMap((payload: any) => this.tenantApiService.getTenantMemberList(payload.meta.data, payload.meta.tenantName)
                 .map(data  => this.tenantActions.getRequestTenantMemberGridSuccessAction(data, payload.meta))
                 .catch( error => of(this.tenantActions.getRequestTenantMemberGridFailedAction(error))));
     }
@@ -68,7 +68,7 @@ export class TenantEpics {
     private postRequestTenantMemberCreateEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.POST_REQUEST_TENANT_MEMBER_CREATE)
-            .switchMap((payload: any) => this.accountApiService.postInvitation(payload.meta)
+            .switchMap((payload: any) => this.accountApiService.postInvitation(payload.meta.data, payload.meta.tenantId)
                 .map(data  => this.tenantActions.postRequestTenantMemberCreateSuccessAction(data))
                 .catch( error => of(this.tenantActions.postRequestTenantMemberCreateFailedAction(error))));
     }

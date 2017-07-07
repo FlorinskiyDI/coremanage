@@ -41,8 +41,10 @@ namespace coremanage.Dashboard.WebApi.Middleware
         public void SetNTContext(HttpContext context)
         {
             var claims = context.User.Claims;
-            string companyId = context.Request.Headers[ExtJwtClaimTypes.TenantName];
-            companyId = companyId ?? claims.Where(c => c.Type == ExtJwtClaimTypes.TenantName).Select(c => c.Value).FirstOrDefault();
+
+            //  check header options, if header options is null get tenant from token claims 
+            string companyId = context.Request.Headers[ExtJwtClaimTypes.TenantId];
+            companyId = companyId ?? claims.First(c => c.Type == ExtJwtClaimTypes.TenantId).Value;
 
 
 
@@ -52,7 +54,7 @@ namespace coremanage.Dashboard.WebApi.Middleware
             string firstName = claims.First(c => c.Type == JwtClaimTypes.Name).Value;
             string lastName = claims.First(c => c.Type == JwtClaimTypes.FamilyName).Value;
             string tenantName = claims.First(c => c.Type == ExtJwtClaimTypes.TenantName).Value;
-            int tenantId = Convert.ToInt32(claims.First(c => c.Type == ExtJwtClaimTypes.TenantId).Value);
+            int tenantId = Convert.ToInt32(companyId ?? "0");
 
             NTContextModel model = new NTContextModel()
             {

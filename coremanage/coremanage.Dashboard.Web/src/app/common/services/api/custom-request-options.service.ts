@@ -7,34 +7,38 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CustomRequestOptions {
 
-  public optionRequest: RequestOptions;
-  public optionRequestAuth: RequestOptions;
+  // public optionRequest: RequestOptions;
+  // public optionRequestAuth: RequestOptions;
   private accessToken$: Observable<any>;
 
   constructor(
     private ngRedux: NgRedux<IAppState>
   ) {
-    this.setOptionRequest();
-    this.accessToken$ = this.ngRedux.select(state => state.session.access_token);
-    this.accessToken$.subscribe((value: any) => {
-        if (value) {
-          this.setOptionRequestAuth(value)
-        } else {
-          console.warn('access token not found!!!');
-        }
-    });
+    // this.setOptionRequest();
+    // this.accessToken$ = this.ngRedux.select(state => state.session.access_token);
+    // this.accessToken$.subscribe((value: any) => {
+    //     if (value) {
+    //       this.setOptionRequestAuth(value)
+    //     } else {
+    //       console.warn('access token not found!!!');
+    //     }
+    // });
   }
 
-  private setOptionRequest() {
+  public getOptionRequest(): RequestOptions {
     let headers: Headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.optionRequest = new RequestOptions({headers: headers});
+    return new RequestOptions({headers: headers});
   }
 
-  private setOptionRequestAuth(accessToken: string) {
+  public getOptionRequestAuth(): RequestOptions {
+    let access_token = this.ngRedux.getState().session.access_token;
+    if(access_token == null)
+      console.warn('access token not found!!!');
+
     let headers: Headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Bearer ' + accessToken);
-    this.optionRequestAuth = new RequestOptions({headers: headers});
+    headers.append('Authorization', 'Bearer ' + access_token);
+    return new RequestOptions({headers: headers});
   }
 }
