@@ -85,13 +85,15 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedAt = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(nullable: true),
+                    AddedBy = table.Column<string>(nullable: true),
+                    AddedTime = table.Column<DateTime>(nullable: true),
+                    DeletedBy = table.Column<string>(nullable: true),
+                    DeletedTime = table.Column<DateTime>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
                     IsGroup = table.Column<bool>(nullable: true),
-                    LastModifiedAt = table.Column<DateTime>(nullable: true),
-                    LastModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedTime = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     ParentTenantId = table.Column<int>(nullable: true)
                 },
@@ -105,16 +107,18 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(nullable: true),
+                    AddedBy = table.Column<string>(nullable: true),
+                    AddedTime = table.Column<DateTime>(nullable: true),
+                    DeletedBy = table.Column<string>(nullable: true),
+                    DeletedTime = table.Column<DateTime>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
                     LastAccess = table.Column<DateTime>(nullable: false),
-                    LastModifiedAt = table.Column<DateTime>(nullable: true),
-                    LastModifiedBy = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    MiddleName = table.Column<string>(nullable: true)
+                    MiddleName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -20,11 +20,13 @@ namespace coremanage.Data.Models.Entities
         public int? ParentTenantId { get; set; }
 
         // implementation IAuditable
-        public string CreatedBy { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public string LastModifiedBy { get; set; }
-        public DateTime? LastModifiedAt { get; set; }
-        public bool? IsDeleted { get; set; }
+        public string AddedBy { get; set; }
+        public string ModifiedBy { get; set; }
+        public string DeletedBy { get; set; }
+        public DateTime? AddedTime { get; set; }
+        public DateTime? ModifiedTime { get; set; }
+        public DateTime? DeletedTime { get; set; }
+        public bool IsDeleted { get; set; }
         
         public List<UserProfileTenant> UserProfileTenants { get; set; } // many to many
         public List<PersonalTenantClaim> IdentityTenantClaims { get; set; } // many to many
