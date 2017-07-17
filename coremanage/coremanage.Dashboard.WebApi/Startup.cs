@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using coremanage.Core.Bootstrap;
 using coremanage.Data.Storage;
 using coremanage.Data.Storage.MSSQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using coremanage.Dashboard.WebApi.Extensions;
 using coremanage.Dashboard.WebApi.Services;
-using coremanage.Dashboard.WebApi.Razor;
 using coremanage.Messaging.Email;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using coremanage.Dashboard.WebApi.Messaging;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using coremanage.Data.Models.Entities.Identity;
-using coremanage.Data.Storage.Context;
 
 namespace coremanage.Dashboard.WebApi
 {
@@ -84,6 +77,8 @@ namespace coremanage.Dashboard.WebApi
 
             app.UseApplicationInsightsRequestTelemetry();
             app.UseApplicationInsightsExceptionTelemetry();
+
+            
 
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {

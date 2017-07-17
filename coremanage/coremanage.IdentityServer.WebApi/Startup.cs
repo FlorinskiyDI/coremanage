@@ -81,6 +81,8 @@ namespace coremanage.IdentityServer.WebApi
             app.UseApplicationInsightsRequestTelemetry();
             app.UseApplicationInsightsExceptionTelemetry();
 
+            
+
             //this will do the initial DB population
 
             //IntegrationStorage.InitializeDatabaseAsync(
