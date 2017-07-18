@@ -22,6 +22,9 @@ namespace coremanage.Data.Storage.Context
         public CoreManageDbContext(DbContextOptions<CoreManageDbContext> options) : base(options)
         {
         }
+        public CoreManageDbContext()
+        {
+        }
 
         // entities
         public DbSet<PersonalClaim> PersonalClaims { get; set; }
@@ -37,15 +40,17 @@ namespace coremanage.Data.Storage.Context
             modelBuilder.Entity<UserProfileTenant>(entity => { entity.HasKey(e => new { e.UserProfileId, e.TenantId }); });
             modelBuilder.Entity<PersonalTenantClaim>(entity => { entity.HasKey(e => new { e.PersonalClaimId, e.TenantId }); });
             modelBuilder.Entity<IdentityRoleHierarchy>(entity => { entity.HasKey(e => new { e.RoleId, e.ChildRoleId }); });
+            //modelBuilder.Entity<Tenant>().Property<bool>("IsDeleted");
 
             // Configure soft deletes
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
                 if (typeof(IAuditable).IsAssignableFrom(entity.ClrType))
                 {
-                    modelBuilder.Entity(entity.ClrType).HasDiscriminator("IsDeleted", typeof(bool)).HasValue(false);
-                    modelBuilder.Entity(entity.ClrType).Property(typeof(bool), "IsDeleted").IsRequired(true).HasDefaultValue(false);
-                    modelBuilder.Entity(entity.ClrType).Property(typeof(bool), "IsDeleted").Metadata.IsReadOnlyAfterSave = false;
+                    //modelBuilder.Entity(entity.ClrType).Property<bool>("IsDeleted");
+                    //modelBuilder.Entity(entity.ClrType).HasDiscriminator("IsDeleted", typeof(bool)).HasValue(false);
+                    //modelBuilder.Entity(entity.ClrType).Property(typeof(bool), "IsDeleted").IsRequired(true).HasDefaultValue(false);
+                    //modelBuilder.Entity(entity.ClrType).Property(typeof(bool), "IsDeleted").Metadata.IsReadOnlyAfterSave = false;
                 }
             }
 
@@ -63,7 +68,7 @@ namespace coremanage.Data.Storage.Context
             return base.SaveChanges();
         }
 
-        private  void AuditEntities()
+        private void AuditEntities()
         {
             // implementation auditable
             var objectStateEntries = ChangeTracker.Entries()
@@ -79,13 +84,13 @@ namespace coremanage.Data.Storage.Context
 
                 switch (entry.State)
                 {
-                    case EntityState.Deleted:
-                        {
-                            entry.State = EntityState.Modified;
-                            entityBase.DeletedTime = currentTime;
-                            entityBase.IsDeleted = true;
-                            break;
-                        }
+                    //case EntityState.Deleted:
+                    //    {
+                    //        entry.State = EntityState.Modified;
+                    //        entityBase.DeletedTime = currentTime;
+                    //        entityBase.IsDeleted = true;
+                    //        break;
+                    //    }
                     case EntityState.Modified:
                         entityBase.ModifiedTime = currentTime;
                         break;

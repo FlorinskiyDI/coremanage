@@ -1,6 +1,5 @@
 ﻿using coremanage.Core.Common.Context;
 using coremanage.Core.Common.Types;
-using IdentityModel;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
@@ -50,18 +49,18 @@ namespace coremanage.Dashboard.WebApi.Middleware
 
 
             string userName = context.User.Identity.Name;
-            string userId = claims.First(c => c.Type == JwtClaimTypes.Id).Value;
-            string firstName = claims.First(c => c.Type == JwtClaimTypes.Name).Value;
-            string lastName = claims.First(c => c.Type == JwtClaimTypes.FamilyName).Value;
+            //string userId = claims.First(c => c.Type == JwtClaimTypes.Id).Value;
+            //string firstName = claims.First(c => c.Type == JwtClaimTypes.Name).Value;
+            //string lastName = claims.First(c => c.Type == JwtClaimTypes.FamilyName).Value;
             string tenantName = claims.First(c => c.Type == ExtJwtClaimTypes.TenantName).Value;
             int tenantId = Convert.ToInt32(companyId ?? "0");
 
             NTContextModel model = new NTContextModel()
             {
-                UserId = userId,
-                UserName = userName,
-                FirstName = firstName,
-                LastName = lastName,
+                //UserId = userId,
+                //UserName = userName,
+                //FirstName = firstName,
+                //LastName = lastName,
                 TenantId = tenantId,
                 TenantName = tenantName,
             };

@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using coremanage.Data.Models.Entities.Identity;
 using coremanage.Dashboard.WebApi.Models.Account;
 using coremanage.Dashboard.WebApi.Messaging;
-using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Threading;
@@ -72,7 +71,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         {
             foreach (var email in emailList)
             {
-                if (!email.IsNullOrEmpty())
+                //if (!email.IsNullOrEmpty())
                     await BuildInvitationAsync(email, null);
             }
             return new JsonResult(emailList);

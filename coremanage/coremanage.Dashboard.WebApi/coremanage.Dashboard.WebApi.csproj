@@ -9,7 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.1.1" />
-    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="1.2.1" />
     <PackageReference Include="MailKit" Version="1.16.2" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0-preview2-final" />
@@ -23,7 +22,6 @@
     <ProjectReference Include="..\coremanage.Core.Bootstrap\coremanage.Core.Bootstrap.csproj" />
     <ProjectReference Include="..\coremanage.Core.Common\coremanage.Core.Common.csproj" />
     <ProjectReference Include="..\coremanage.Core.Models\coremanage.Core.Models.csproj" />
-    <ProjectReference Include="..\coremanage.Data.Storage.MSSQL\coremanage.Data.Storage.MSSQL.csproj" />
     <ProjectReference Include="..\coremanage.Data.Storage\coremanage.Data.Storage.csproj" />
     <ProjectReference Include="..\coremanage.Messaging.Email\coremanage.Messaging.Email.csproj" />
   </ItemGroup>

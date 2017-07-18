@@ -25,8 +25,8 @@ namespace coremanage.Data.Storage.Repositories.Entities
                 join idn in this.Context.Users on users.Id equals idn.Id
                 join usersTenants in this.Context.UserProfileTenants on idn.Id equals usersTenants.UserProfileId
                 join tenants in this.Context.Tenants on usersTenants.TenantId equals tenants.Id
-                where users.IsDeleted == false && idn.Id == userId
-                where tenants.IsDeleted == false && tenants.ParentTenantId == parentId
+                where idn.Id == userId
+                where tenants.ParentTenantId == parentId
                 select tenants)
             .ToListAsync();
 
@@ -40,7 +40,7 @@ namespace coremanage.Data.Storage.Repositories.Entities
                 join idn in this.Context.Users on users.Id equals idn.Id
                 join usersTenants in this.Context.UserProfileTenants on idn.Id equals usersTenants.UserProfileId
                 join tenants in this.Context.Tenants on usersTenants.TenantId equals tenants.Id
-                where users.IsDeleted == false && idn.Id == userId
+                where idn.Id == userId
                 select tenants)
             .ToListAsync();
 

@@ -21,7 +21,7 @@ namespace coremanage.Data.Models.Entities
         public DateTime? AddedTime { get; set; }
         public DateTime? ModifiedTime { get; set; }
         public DateTime? DeletedTime { get; set; }
-        public bool IsDeleted { get; set; }
+        //public bool IsDeleted { get; set; }
 
         public virtual ICollection<UserProfileTenant> UserProfileTenants { get; set; } // many to many
     }

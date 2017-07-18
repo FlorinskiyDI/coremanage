@@ -5,8 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using coremanage.IdentityServer.WebApi.Services;
 using coremanage.IdentityServer.WebApi.Configurations;
-using coremanage.Data.Storage.Context;
-using coremanage.Data.Storage.MSSQL;
 using coremanage.Data.Storage;
 //using coremanage.Core.Bootstrap;
 using coremanage.Data.Models.Entities.Identity;

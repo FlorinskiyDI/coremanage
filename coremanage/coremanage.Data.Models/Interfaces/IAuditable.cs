@@ -14,6 +14,6 @@ namespace coremanage.Data.Models.Interfaces
         DateTime? DeletedTime { get; set; }
 
         // Soft Delete
-        bool IsDeleted { get; set; }
+        //bool IsDeleted { get; set; }
     }
 }

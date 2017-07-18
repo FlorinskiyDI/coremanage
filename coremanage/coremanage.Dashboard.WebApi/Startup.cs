@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using coremanage.Core.Bootstrap;
 using coremanage.Data.Storage;
-using coremanage.Data.Storage.MSSQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -80,12 +78,12 @@ namespace coremanage.Dashboard.WebApi
 
             
 
-            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
-            {
-                Authority = Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost"),
-                ApiName = Configuration.GetSection("CustomSettings").GetValue<string>("ApiName"),
-                RequireHttpsMetadata = false
-            });
+            //app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            //{
+            //    Authority = Configuration.GetSection("CustomSettings").GetValue<string>("IdentityHost"),
+            //    ApiName = Configuration.GetSection("CustomSettings").GetValue<string>("ApiName"),
+            //    RequireHttpsMetadata = false
+            //});
 
             var webHost = Configuration.GetSection("CustomSettings").GetValue<string>("WebHost");
             app.UseCors(builder => builder

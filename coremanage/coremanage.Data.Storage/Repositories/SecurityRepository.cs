@@ -35,8 +35,8 @@ namespace coremanage.Data.Storage.Repositories
                             join idn in this.Context.Users on users.Id equals idn.Id
                             join users_tenants in this.Context.UserProfileTenants on idn.Id equals users_tenants.UserProfileId
                             join tenants in this.Context.Tenants on users_tenants.TenantId equals tenants.Id
-                            where users.IsDeleted == false && idn.UserName == userName
-                            where tenants.IsDeleted == false && tenants.Name == tenant
+                            where idn.UserName == userName
+                            where tenants.Name == tenant
                                   select tenants)
                             .AnyAsync();
             return isTenant;
@@ -45,7 +45,7 @@ namespace coremanage.Data.Storage.Repositories
         public async Task<Tenant> GetTenantByName(string name)
         {
             return await (from tenants in this.Context.Tenants
-                        where tenants.IsDeleted == false && tenants.Name == name
+                        where  tenants.Name == name
                           select tenants).FirstOrDefaultAsync();
         }
 
@@ -54,7 +54,7 @@ namespace coremanage.Data.Storage.Repositories
             // getting user
             var query = from users in this.Context.UserProfiles
                         join idn in this.Context.Users on users.Id equals idn.Id
-                        where users.IsDeleted == false && idn.UserName == userName
+                        where idn.UserName == userName
                         select new IdentityProfileModel
                         {
                             UserId = users.Id,
@@ -88,8 +88,7 @@ namespace coremanage.Data.Storage.Repositories
             if (profileRoles.Any(r => r.RoleType == (int)SystemRoleTypes.SuperAdmin))
             {
                 // getting all companies
-                model.TenantList = (from cmp in this.Context.Tenants
-                                    where cmp.IsDeleted == false
+                model.TenantList = (from cmp in this.Context.Tenants                                    
                                     orderby cmp.Name
                                     select cmp.Name).ToArrayAsync().Result;
                 //model.Roles = profileRoles.Where(r => r.RoleType == (int)SystemRoleTypes.SuperAdmin).Select(r => r.Name).ToArray();
@@ -98,7 +97,7 @@ namespace coremanage.Data.Storage.Repositories
             {
                 int[] groupCompanyId = profileRoles.Where(r => r.RoleType == (int)SystemRoleTypes.GroupAdmin).Select(r => r.TenantId).ToArray();
                 var companies = (from cmp in this.Context.Tenants
-                                 where cmp.IsDeleted == false && ((cmp.ParentTenantId != null && groupCompanyId.Contains(cmp.ParentTenantId.Value)) || groupCompanyId.Contains(cmp.Id))
+                                 where ((cmp.ParentTenantId != null && groupCompanyId.Contains(cmp.ParentTenantId.Value)) || groupCompanyId.Contains(cmp.Id))
                                  select cmp.Name).ToListAsync().Result;
                 model.TenantList = companies.Union(model.TenantList).ToArray();
                 //model.Roles = profileRoles.Where(r => r.RoleType == (int)SystemRoleTypes.GroupAdmin).Select(r => r.Name).ToArray();

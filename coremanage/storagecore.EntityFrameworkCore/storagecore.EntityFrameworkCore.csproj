@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.4.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.0-preview2-final" />
   </ItemGroup>
 
   <ItemGroup>
