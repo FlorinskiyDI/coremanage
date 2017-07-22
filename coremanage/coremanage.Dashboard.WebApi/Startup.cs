@@ -94,6 +94,12 @@ namespace coremanage.Dashboard.WebApi
 
             app.UseContextMiddleware();
             app.UseProfileMiddleware();
+
+
+            //IntegrationStorage.InitializeDatabaseAsync(
+            //    app.ApplicationServices
+            //).Wait();
+
             app.UseMvc();
         }
     }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace coremanage.Data.Storage.Migrations
 {
-    public partial class IdentityServerDbContext1 : Migration
+    public partial class InitCoreManage : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -90,13 +90,12 @@ namespace coremanage.Data.Storage.Migrations
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     IsGroup = table.Column<bool>(type: "bit", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NewField1 = table.Column<int>(type: "int", nullable: true),
-                    ParentTenantId = table.Column<int>(type: "int", nullable: true),
-                    ParentTenantId222 = table.Column<int>(type: "int", nullable: true)
+                    ParentTenantId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -114,6 +113,7 @@ namespace coremanage.Data.Storage.Migrations
                     DeletedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     LastAccess = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),

@@ -12,7 +12,7 @@ namespace coremanage.Data.Storage
         public CoreManageDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<CoreManageDbContext>();
-            builder.UseSqlServer("data source=SB-153\\SQLEXPRESS ;Initial Catalog=CoreManage2; Integrated Security=True;");
+            builder.UseSqlServer("data source=SB-153\\SQLEXPRESS ;Initial Catalog=Project.CoreManage; Integrated Security=True;");
             return new CoreManageDbContext(builder.Options);
         }
     }

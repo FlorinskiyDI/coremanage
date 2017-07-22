@@ -9,7 +9,7 @@ export const routes: Routes = [
     { 
       path: 'workspace/:tenant',
       loadChildren: './modules-layouts/workspace/workspace.module#WorkspaceModule',
-      canActivate: [AuthGuard]
+      // canActivate: [AuthGuard]
     },
     { path: '', loadChildren: './modules-layouts/welcome/welcome.module#WelcomeModule' },
     // { path: 'login', loadChildren: './modules/account/login/login.module#LoginModule' },

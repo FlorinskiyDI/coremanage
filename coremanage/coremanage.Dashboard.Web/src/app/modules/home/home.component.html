@@ -8,7 +8,17 @@
             Credibly synergize market positioning initiatives for dynamic.
         </p>   
         <hr>
-
+        <div>Hello world</div>
+        {{valueLoader}}
+        <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [toggle]="false"
+             [speed]="200" [showSpinner]="false" [direction]="'leftToRightIncreased'"
+             [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"
+></ng-progress>
+        <button (click)="AddProgress()">Add Progress</button>
+        <button (click)="startLoading()">Start Loading</button>
+        <button (click)="stopLoading()">Stop Loading</button>
+        <button (click)="completeLoading()">Complete Loading</button>
+        <!-- <ng2-slim-loading-bar></ng2-slim-loading-bar> -->
         <footer>
             <p>© 2017 - CoreManage</p>
         </footer>

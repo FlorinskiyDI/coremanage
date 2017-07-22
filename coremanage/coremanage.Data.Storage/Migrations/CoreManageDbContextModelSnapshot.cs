@@ -158,6 +158,11 @@ namespace coremanage.Data.Storage.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<bool?>("IsGroup");
 
                     b.Property<string>("ModifiedBy");
@@ -166,21 +171,13 @@ namespace coremanage.Data.Storage.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("NewField1");
-
-                    b.Property<int?>("NewField2");
-
-                    b.Property<int?>("NewField3");
-
-                    b.Property<int?>("NewField4");
-
                     b.Property<int?>("ParentTenantId");
-
-                    b.Property<int?>("ParentTenantId222");
 
                     b.HasKey("Id");
 
                     b.ToTable("Tenants");
+
+                    b.HasDiscriminator<bool?>("IsDeleted").HasValue(false);
                 });
 
             modelBuilder.Entity("coremanage.Data.Models.Entities.UserProfile", b =>
@@ -200,6 +197,11 @@ namespace coremanage.Data.Storage.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<DateTime>("LastAccess");
 
                     b.Property<string>("LastName");
@@ -213,6 +215,8 @@ namespace coremanage.Data.Storage.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserProfiles");
+
+                    b.HasDiscriminator<bool?>("IsDeleted").HasValue(false);
                 });
 
             modelBuilder.Entity("coremanage.Data.Models.Entities.UserProfileTenant", b =>

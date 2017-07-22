@@ -10,13 +10,17 @@ import { HomeRoutes } from './home-routes.module';
 import { HomeComponent } from './home.component';
 // app > services
 import { ValueApiService } from '../../common/services/api/entities/value.api.service';
+import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         HttpModule,
-        HomeRoutes
+        HomeRoutes,
+        SlimLoadingBarModule.forRoot(),        
+        NgProgressModule
     ],
     declarations: [
         HomeComponent

@@ -18,13 +18,6 @@ namespace coremanage.Data.Models.Entities
         public string Description { get; set; }
         public bool? IsGroup { get; set; }
         public int? ParentTenantId { get; set; }
-        public int? ParentTenantId222 { get; set; }
-
-        public int? NewField1 { get; set; }
-
-        public int? NewField2 { get; set; }
-        public int? NewField3 { get; set; }
-        public int? NewField4 { get; set; }
 
         // implementation IAuditable
         public string AddedBy { get; set; }
@@ -33,8 +26,8 @@ namespace coremanage.Data.Models.Entities
         public DateTime? AddedTime { get; set; }
         public DateTime? ModifiedTime { get; set; }
         public DateTime? DeletedTime { get; set; }
-        //public bool IsDeleted { get; set; }
-        
+        public bool? IsDeleted { get; set; }
+
         public List<UserProfileTenant> UserProfileTenants { get; set; } // many to many
         public List<PersonalTenantClaim> IdentityTenantClaims { get; set; } // many to many
 

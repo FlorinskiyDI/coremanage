@@ -8,7 +8,6 @@ using coremanage.IdentityServer.WebApi.Configurations;
 using coremanage.Data.Storage;
 //using coremanage.Core.Bootstrap;
 using coremanage.Data.Models.Entities.Identity;
-using coremanage.IdentityServer.WebApi.Integration;
 
 namespace coremanage.IdentityServer.WebApi
 {

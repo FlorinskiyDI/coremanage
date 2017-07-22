@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import '../favicon.ico';
 
-import 'font-awesome-sass-loader';
+// import 'font-awesome-sass-loader';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 
 
