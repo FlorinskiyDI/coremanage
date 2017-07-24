@@ -8,7 +8,7 @@ using coremanage.Data.Storage.Context;
 namespace coremanage.Data.Storage.MSSQL.Migrations
 {
     [DbContext(typeof(CoreManageDbContext))]
-    [Migration("20170525113927_IdentityServerDbContext")]
+    [Migration("20170724100108_IdentityServerDbContext")]
     partial class IdentityServerDbContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -143,19 +143,26 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("CreatedAt");
+                    b.Property<string>("AddedBy");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<DateTime?>("AddedTime");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<DateTime?>("DeletedTime");
 
                     b.Property<string>("Description");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
 
                     b.Property<bool?>("IsGroup");
 
-                    b.Property<DateTime?>("LastModifiedAt");
+                    b.Property<string>("ModifiedBy");
 
-                    b.Property<string>("LastModifiedBy");
+                    b.Property<DateTime?>("ModifiedTime");
 
                     b.Property<string>("Name");
 
@@ -164,6 +171,8 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tenants");
+
+                    b.HasDiscriminator<bool?>("IsDeleted").HasValue(false);
                 });
 
             modelBuilder.Entity("coremanage.Data.Models.Entities.UserProfile", b =>
@@ -171,29 +180,38 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("CreatedAt");
+                    b.Property<string>("AddedBy");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<DateTime?>("AddedTime");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<DateTime?>("DeletedTime");
 
                     b.Property<string>("Email");
 
                     b.Property<string>("FirstName");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime>("LastAccess");
-
-                    b.Property<DateTime?>("LastModifiedAt");
-
-                    b.Property<string>("LastModifiedBy");
 
                     b.Property<string>("LastName");
 
                     b.Property<string>("MiddleName");
 
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<DateTime?>("ModifiedTime");
+
                     b.HasKey("Id");
 
                     b.ToTable("UserProfiles");
+
+                    b.HasDiscriminator<bool?>("IsDeleted").HasValue(false);
                 });
 
             modelBuilder.Entity("coremanage.Data.Models.Entities.UserProfileTenant", b =>
@@ -301,7 +319,7 @@ namespace coremanage.Data.Storage.MSSQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("coremanage.Data.Models.Entities.Tenant", "Tenant")
-                        .WithMany()
+                        .WithMany("IdentityTenantClaims")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

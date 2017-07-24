@@ -1,7 +1,7 @@
 ﻿import 'jquery/src/jquery';
 
 import 'bootstrap/dist/js/bootstrap';
-import 'bootstrap/dist/css/bootstrap-theme.css'; // 3D design
+// import 'bootstrap/dist/css/bootstrap-theme.css'; // 3D design
 import 'bootstrap/dist/css/bootstrap.css';
 
 import '../favicon.ico';
@@ -20,8 +20,3 @@ import 'primeui/themes/bootstrap/theme.css'; // bootstrap
 
 // import 'primeng/resources/themes/bootstrap/theme.css';
 // import 'primeui/primeui-ng-all.min.css'; // ??????????????
-
-
-
-
-

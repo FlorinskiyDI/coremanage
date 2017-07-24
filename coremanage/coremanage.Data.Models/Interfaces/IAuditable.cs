@@ -6,10 +6,12 @@ namespace coremanage.Data.Models.Interfaces
 {
     public interface IAuditable
     {
-        string CreatedBy { get; set; }
-        DateTime? CreatedAt { get; set; }
-        string LastModifiedBy { get; set; }
-        DateTime? LastModifiedAt { get; set; }
+        string AddedBy { get; set; }
+        string ModifiedBy { get; set; }
+        string DeletedBy { get; set; }
+        DateTime? AddedTime { get; set; }
+        DateTime? ModifiedTime { get; set; }
+        DateTime? DeletedTime { get; set; }
 
         // Soft Delete
         bool? IsDeleted { get; set; }
