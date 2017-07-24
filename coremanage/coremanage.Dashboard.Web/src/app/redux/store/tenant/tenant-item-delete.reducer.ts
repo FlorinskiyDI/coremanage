@@ -42,21 +42,21 @@ export function TenantItemDeleteReducer(
 ): TenantItemDeleteState {
   switch (action.type) {
 
-    case TenantActionTypes.DELETE_TENANT_MEMBER:
+    case TenantActionTypes.DELETE_TENANT_ITEM:
         return state.merge({
             id: null,
             error: null,
             loading: true
         });
 
-    case TenantActionTypes.DELETE_TENANT_MEMBER_SUCCESS:
+    case TenantActionTypes.DELETE_TENANT_ITEM_SUCCESS:
         return state.merge({
             id: action.payload,
             error: null,
             loading: false
         });
 
-    case TenantActionTypes.DELETE_TENANT_MEMBER_FAILURE:
+    case TenantActionTypes.DELETE_TENANT_ITEM_FAILURE:
         return state.merge({
             id: null,
             error: action.payload,

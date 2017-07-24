@@ -83,13 +83,13 @@ namespace coremanage.IdentityServer.WebApi
 
             //this will do the initial DB population
 
-            IntegrationStorage.InitializeDatabaseAsync(
-                app.ApplicationServices,
-                Clients.Get(),
-                Resources.GetApiResources(),
-                null,
-                TestUsers.Get()
-            ).Wait();
+            //IntegrationStorage.InitializeDatabaseAsync(
+            //    app.ApplicationServices,
+            //    Clients.Get(),
+            //    Resources.GetApiResources(),
+            //    null,
+            //    TestUsers.Get()
+            //).Wait();
 
             app.UseIdentity();
             app.UseIdentityServer();

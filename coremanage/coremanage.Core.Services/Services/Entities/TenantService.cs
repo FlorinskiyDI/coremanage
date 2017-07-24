@@ -90,9 +90,27 @@ namespace coremanage.Core.Services.Services.Entities
             return Mapper.Map<Tenant, TenantDto>(tenant);
         }
 
-        public Task<TenantDto> DeleteTenant(int tenantId)
+        public new int Remove(int tenantId)
         {
-            throw new NotImplementedException();
+            using (var uow = UowProvider.CreateUnitOfWork())
+            {
+                var repositoryTenant = uow.GetRepository<Tenant, int>();
+                // remove parentId of all subtenant
+                var tenantsByParent = repositoryTenant.Query(c => c.ParentTenantId == tenantId);
+                foreach (var tenant in tenantsByParent)
+                {
+                    tenant.ParentTenantId = 0;
+                    repositoryTenant.Update(tenant);
+                    uow.SaveChanges();
+                }
+
+                // remove tenant
+                var tenantItem = repositoryTenant.Get(tenantId);
+                repositoryTenant.Remove(tenantItem); // not pass id!!!
+                uow.SaveChanges();
+            }
+
+            return tenantId;
         }
 
         public async Task<List<TenantDto>> GetTenantList()

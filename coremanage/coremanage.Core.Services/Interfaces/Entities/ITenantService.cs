@@ -13,7 +13,7 @@ namespace coremanage.Core.Services.Interfaces.Entities
         Task<TenantDto> GetTenant(int tenantId);
         Task<TenantDto> CreateTenant(TenantDto tenantDto);
         Task<TenantDto> UpdateTenant(TenantDto tenantDto);
-        Task<TenantDto> DeleteTenant(int tenantId);
+        int Remove(int tenantId);
 
         Task<List<TenantDto>> GetTenantList();
         Task<List<TenantDto>> GetTenantListByParentId(int parentId);

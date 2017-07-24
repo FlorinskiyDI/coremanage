@@ -43,6 +43,8 @@ export class TenantTreeComponent implements OnInit {
                     let result = this.upCastToMenuItem(data.treeNodes);
                     this.selectedNode = result[0];
                     this.tenantActions.selectTenantTreeNodeAction(this.selectedNode);
+                    let tenantId = this.ngRedux.getState().tenant.tenantItem.itemDelete.id;
+                    tenantId = null;
                     this.files = result;
                     return;
                 }

@@ -138,6 +138,15 @@ namespace coremanage.Dashboard.WebApi.Controllers
             return new JsonResult(pageData);
         }
 
+        [HttpGet]
+        [Route("Delete/{tenantId}")]
+        public IActionResult Remove(int tenantId)
+        {
+            var result = _tenantService.Remove(tenantId);
+            return new JsonResult(result);
+        }
+
+
         //[HttpPost]
         //[Route("Member/Create")]
         //public async Task<IActionResult> PostMemberCreateAsync([FromBody] List<string> emailList)

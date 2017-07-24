@@ -22,7 +22,6 @@ export class TenantEpics {
 
     public createEpic() {
         let ccc =  combineEpics(
-
             this.getRequestTenantTreeNodesEpic(),
             // tenant-item
             this.getRequestTenantItemCreateEpic(),
@@ -39,7 +38,6 @@ export class TenantEpics {
             );
         return createEpicMiddleware(ccc);
     }
-
 
     // tenant-tree
     private getRequestTenantTreeNodesEpic() {
@@ -58,6 +56,7 @@ export class TenantEpics {
                 .map(data  => this.tenantActions.getRequestTenantMemberGridSuccessAction(data, payload.meta))
                 .catch( error => of(this.tenantActions.getRequestTenantMemberGridFailedAction(error))));
     }
+ 
     // tenant-member-create
     private getRequestTenantMemberCreateEpic() {
         return (action$: any) => action$
@@ -73,6 +72,7 @@ export class TenantEpics {
                 .map(data  => this.tenantActions.postRequestTenantMemberCreateSuccessAction(data))
                 .catch( error => of(this.tenantActions.postRequestTenantMemberCreateFailedAction(error))));
     }
+
     // tenant-member-delete
     private deleteTenantMemberEpic() {
         return (action$: any) => action$
@@ -81,6 +81,7 @@ export class TenantEpics {
                 .map(data  => this.tenantActions.deleteTenantMemberSuccessAction(data))
                 .catch( error => of(this.tenantActions.deleteTenantMemberFailedAction(error))));
     }
+
     // tenant-item-create
     private getRequestTenantItemCreateEpic() {
         return (action$: any) => action$
@@ -112,10 +113,11 @@ export class TenantEpics {
                 .map(data  => this.tenantActions.postRequestTenantItemUpdateSuccessAction(data))
                 .catch( error => of(this.tenantActions.postRequestTenantItemUpdateFailedAction(error))));
     }
-    // tenant-member-delete
+
+    // tenant-item-delete
     private deleteTenantItemEpic() {
         return (action$: any) => action$
-            .ofType(TenantActionTypes.DELETE_TENANT_MEMBER)
+            .ofType(TenantActionTypes.DELETE_TENANT_ITEM)
             .switchMap((payload: any) => this.tenantApiService.deleteTenantItem(payload.meta)
                 .map(data  => this.tenantActions.deleteTenantItemSuccessAction(data))
                 .catch(error => of(this.tenantActions.deleteTenantItemFailedAction(error))));
