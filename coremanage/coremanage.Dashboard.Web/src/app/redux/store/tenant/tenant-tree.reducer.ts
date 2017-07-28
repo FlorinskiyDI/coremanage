@@ -95,11 +95,6 @@ export function TenantTreeReducer(
         }
       });
 
-    // case TenantActionTypes.SET_TENANT_TREE:
-    //   return state.merge({
-    //     tree: action.payload
-    //   });
-
     case TenantActionTypes.SELECT_TENANT_TREE_NODE:
       return state.merge({
         selectedNode: Map(action.payload)

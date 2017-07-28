@@ -41,6 +41,7 @@ namespace coremanage.Data.Storage.Repositories.Entities
                 join usersTenants in this.Context.UserProfileTenants on idn.Id equals usersTenants.UserProfileId
                 join tenants in this.Context.Tenants on usersTenants.TenantId equals tenants.Id
                 where users.IsDeleted == false && idn.Id == userId
+                where tenants.IsDeleted == false
                 select tenants)
             .ToListAsync();
 

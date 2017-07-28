@@ -1,12 +1,12 @@
-import { IPayloadAction } from '../../util';
+import { IPayloadAction, IBaseStateApi } from '../../util';
 import { TenantActions, TenantActionTypes } from '../../actions/tenant.actions';
 import { List, Map, Record } from 'immutable';
 
 // model
-export interface TenantItemDeleteModel {  
-  id: any,
-  error: any,
-  loading: boolean
+export interface TenantItemDeleteModel extends IBaseStateApi<any, any> {  
+  // id: any,
+  // error: any,
+  // loading: boolean
 };
 
 // states
@@ -17,9 +17,10 @@ export interface TenantItemDeleteState extends Map<string, any>, TenantItemDelet
 
 // record
 export const TenantItemDeleteModalRecord = Record({
-  id: null,
-  error: null,
-  loading: false
+  meta: null,
+  data: null,
+  isError: false,
+  isLoading: false
 });
 
 // init
@@ -27,9 +28,10 @@ export const INITIAL_STATE = new TenantItemDeleteModalRecord(
     (<any>Object).assign(
       {},
       {
-        id: null,
-        error: null,
-        loading: false
+        meta: null,
+        data: null,
+        isError: false,
+        isLoading: false
       },
       {}
     )
@@ -44,28 +46,30 @@ export function TenantItemDeleteReducer(
 
     case TenantActionTypes.DELETE_TENANT_ITEM:
         return state.merge({
-            id: null,
-            error: null,
-            loading: true
-        });
+            meta: action.meta,
+            data: null,
+            isError: false,
+            isLoading: true
+        } as TenantItemDeleteModel );
 
     case TenantActionTypes.DELETE_TENANT_ITEM_SUCCESS:
         return state.merge({
-            id: action.payload,
-            error: null,
-            loading: false
-        });
+            meta: null,
+            data: action.payload,
+            isError: false,
+            isLoading: false
+        } as TenantItemDeleteModel );       
 
     case TenantActionTypes.DELETE_TENANT_ITEM_FAILURE:
         return state.merge({
-            id: null,
-            error: action.payload,
-            loading: false
-        });
-
+            meta: null,
+            data: null,
+            isError: action.payload,
+            isLoading: false
+        } as TenantItemDeleteModel );
 
     default:
-        return state;
+        return INITIAL_STATE;
 
   }
 }

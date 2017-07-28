@@ -4,7 +4,7 @@
     <div class="well" style="padding: 5px; margin-top: 10px; margin-bottom: 10px;">
         <div class="">
             <button label="Add member" pbutton="" type="text" ng-reflect-label="Add member"
-                (click)="onTenantDelete()"
+                (click)="onDeleteTenantItem()"
                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
                 style="font-size: 13px; ">
                 <span class="ui-button-text ui-c">Remove</span>
@@ -16,4 +16,4 @@
 
 
 <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
-<p-growl [(value)]="msgs"></p-growl>
+<p-growl [(value)]="noticeList"></p-growl>

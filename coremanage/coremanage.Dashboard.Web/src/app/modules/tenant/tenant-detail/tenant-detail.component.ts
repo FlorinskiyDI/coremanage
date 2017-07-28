@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService, Message} from 'primeng/primeng';
 import { NgRedux, select } from '@angular-redux/store';
+import { Subscription } from "rxjs/Subscription";
 
 /* state */ import { IAppState } from '../../../redux/store';
 /* action */ import { TenantActions } from "../../../redux/actions";
@@ -11,9 +12,12 @@ import { NgRedux, select } from '@angular-redux/store';
     templateUrl: 'tenant-detail.component.html',    
     providers: [ConfirmationService]
 })
-export class TenantDetailComponent {
-    public msgs: Message[] = [];
-    private itemDelete$ = this.ngRedux.select(state=>state.tenant.tenantItem.itemDelete);
+
+export class TenantDetailComponent implements OnDestroy, OnInit {
+    
+    public noticeList: Message[] = [];
+    private tenantItemDelete$ = this.ngRedux.select(state=>state.tenant.tenantItem.itemDelete);
+    private tenantItemDelete: Subscription;
 
     constructor(
         private tenantActions: TenantActions,
@@ -21,33 +25,47 @@ export class TenantDetailComponent {
         private confirmationService: ConfirmationService
     ) { }
 
-
     ngOnInit() {
-        
+        this._initSubscribe();
     }
-    onTenantDelete(){
-        this.itemDelete$
-            .map(data => { return data.toJS()})
-            .subscribe(data => {
-                if(data.id != null && data.error == null ){
-                    this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
-                    console.log("Member is delete")
-                    this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(null));
-                }
-            });
+    ngOnDestroy() {
+        this.tenantItemDelete.unsubscribe();
+    }
+
+
+    public onDeleteTenantItem(){
         let tenantId = this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id;
-        this.confirmDelete(tenantId);
-    }
-    confirmDelete(tenantId: any) {
         this.confirmationService.confirm({
             message: 'Are you sure that you want to perform this action?',
-            accept: () => {
-                this.ngRedux.dispatch(this.tenantActions.deleteTenantItemAction(tenantId));
-                console.log(tenantId);
-            },
-            reject: () => {      
-                console.log("False");
-            }
+            accept: () => { this.ngRedux.dispatch(this.tenantActions.deleteTenantItemAction(tenantId)); },
+            reject: () => { console.log("False"); }
         });
+    }
+
+    private _initSubscribe(){
+        this.tenantItemDelete = this.tenantItemDelete$
+            .map(data => data.toJS())
+            .subscribe(
+                (value: any) => {
+                    if (value.data == null)
+                        return;
+
+                    if (!value.isError)
+                    {
+                        this.noticeList = [
+                            {
+                                severity:'info',
+                                summary:'Confirmed',
+                                detail:'Tenant  was deleted successfully'
+                            }
+                        ];
+                        this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(null));
+                    }
+
+                    if (value.isError)
+                        console.log("Tenant delete is failure")
+                    if (value.isLoading)
+                        console.log("LOADING");
+                });
     }
 }

@@ -148,7 +148,10 @@ namespace coremanage.Core.Services.Services.Entities
             using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repositoryTenant = uow.GetRepository<Tenant, int>();
-                var tenant = await repositoryTenant.GetAsync(tenantId, s => s.Include(c => c.UserProfileTenants).ThenInclude(v => v.UserProfile));
+                var tenant = await repositoryTenant.GetAsync(
+                    tenantId,
+                    s => s.Include(c => c.UserProfileTenants).ThenInclude(v => v.UserProfile)
+                );
                 idList = tenant.UserProfileTenants.Select(s => s.UserProfileId).ToList();
             }
 
