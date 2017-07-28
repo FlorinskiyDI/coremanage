@@ -18,7 +18,7 @@ namespace coremanage.Core.Services.Interfaces.Entities
 
         Task<UserProfileDto> GetByEmail(string email);
         Task SubscribeFromTenant(string userId, int tenantId);
-        Task UnsubscribeFromTenant(string userId, string tenantName);
+        Task UnsubscribeFromTenant(string userId, int tenantId);
 
 
         Task<IdentityResult> ConfirmEmailAsync(string userId, string token);

@@ -65,7 +65,7 @@ export class TenantMembersComponent {
         });
     }
 
-    onMembersPageChanged(data: any) {
+    onPageChangedMembers(data: any) {
         let pageNumber = data.first == 0 ? 0: data.first + 1;
         let pageData: PageData = {
             totalItemCount: 0,
@@ -82,18 +82,17 @@ export class TenantMembersComponent {
                 }));
     }
 
-    onMembersItemDelete(data: any){
-        this.confirmDelete(data);      
-        console.log(data);
-    }
-    
-    confirmDelete(data: any) {
+    onDeleteMembersItem(data: any){        
         this.confirmationService.confirm({
             message: 'Are you sure that you want to perform this action?',
             accept: () => {
                 let index = this.members.indexOf(data);
                 this.members = this.members.filter((val: any,i: any) => i!=index);
-                this.ngRedux.dispatch(this.tenantActions.deleteTenantMemberAction(data.id));
+
+                this.ngRedux.dispatch(this.tenantActions.deleteTenantMemberAction({
+                    data: data.id,
+                    tenantId: this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id
+                }));
                 console.log("True");
             },
             reject: () => {      
@@ -102,8 +101,7 @@ export class TenantMembersComponent {
         });
     }
 
-    showMemberAddDialog() {
-
+    showDialogMemberAdd() {
         this.ngRedux.dispatch(this.layoutActions.openLayoutModalAction({
             isOpen: true,
             modalType: ModalDialogTypes.TENANT_MEMBER_ADD_TYPE,

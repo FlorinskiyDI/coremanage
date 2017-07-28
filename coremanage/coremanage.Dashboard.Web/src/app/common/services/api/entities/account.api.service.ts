@@ -28,9 +28,12 @@ export class AccountApiService extends BaseApiService<any> {
             // .catch(this.handleError);
     }
 
-    UnsubscribeFromTenant(userId: any){
+    UnsubscribeFromTenant(userId: any, tenantId: any){
         let url = this.apiServer + 'UnsubscribeFromTenant/' + userId;
-        return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
+        let options = this.customRequestOptions.getOptionRequestAuth();
+        options.headers.append('tenant_id', tenantId);
+
+        return this.http.get(url, options)
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }

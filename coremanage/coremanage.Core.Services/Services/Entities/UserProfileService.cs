@@ -141,7 +141,7 @@ namespace coremanage.Core.Services.Services.Entities
             }
         }
 
-        public async Task UnsubscribeFromTenant(string userId, string tenantName)
+        public async Task UnsubscribeFromTenant(string userId, int tenantId)
         {
             using (var uow = UowProvider.CreateUnitOfWork())
             {
@@ -149,20 +149,13 @@ namespace coremanage.Core.Services.Services.Entities
                 var repositoryTenant = uow.GetRepository<Tenant, int>();
                 // get user and tenant
                 var userprofiles = await repositoryUserProfile.GetAsync(userId, i => i.Include(c => c.UserProfileTenants).ThenInclude(v => v.Tenant));
-                var tenants = await repositoryTenant.QueryAsync(c => c.Name == tenantName);
+                var tenants = await repositoryTenant.QueryAsync(c => c.Id == tenantId);
                 var tenant = tenants.FirstOrDefault();
 
-                var userProfileTenant = userprofiles.UserProfileTenants.FirstOrDefault(c => c.TenantId == tenant.Id);
-                //var userProfileTenant = new UserProfileTenant
-                //{
-                //    Tenant = tenant,
-                //    TenantId = tenant.Id,
-                //    UserProfile = userprofiles,
-                //    UserProfileId = userprofiles.Id
-                //};
-
+                var userProfileTenant = userprofiles.UserProfileTenants.FirstOrDefault(c => c.TenantId == tenantId && c.UserProfileId == userId );
+               
                 userprofiles.UserProfileTenants.Remove(userProfileTenant);
-                await uow.SaveChangesAsync();
+                uow.SaveChanges();
             }
         }
     }

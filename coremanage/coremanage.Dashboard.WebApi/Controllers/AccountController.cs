@@ -61,7 +61,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
         [Route("UnsubscribeFromTenant/{id}")]
         public async Task<IActionResult> UnsubscribeFromTenant(string id)
         {
-            await _userProfileService.UnsubscribeFromTenant(id, NTContext.Context.TenantName);
+            await _userProfileService.UnsubscribeFromTenant(id, NTContext.Context.TenantId);
 
             return new JsonResult(id);
         }

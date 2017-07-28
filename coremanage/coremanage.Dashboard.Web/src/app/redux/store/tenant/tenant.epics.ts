@@ -77,7 +77,7 @@ export class TenantEpics {
     private deleteTenantMemberEpic() {
         return (action$: any) => action$
             .ofType(TenantActionTypes.DELETE_TENANT_MEMBER)
-            .switchMap((payload: any) => this.accountApiService.UnsubscribeFromTenant(payload.meta)
+            .switchMap((payload: any) => this.accountApiService.UnsubscribeFromTenant(payload.meta.data, payload.meta.tenantId)
                 .map(data  => this.tenantActions.deleteTenantMemberSuccessAction(data))
                 .catch( error => of(this.tenantActions.deleteTenantMemberFailedAction(error))));
     }

@@ -150,7 +150,7 @@ export class TenantActions {
       payload: data
     };
   }
-  /* tenant-member-create actions */
+  /* tenant-member-delete actions */
   public deleteTenantMemberAction(data: any) {
     return {
       type: TenantActionTypes.DELETE_TENANT_MEMBER,

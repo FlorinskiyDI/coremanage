@@ -3,7 +3,7 @@
     <div class="well" style="padding: 5px; margin-top: 10px; margin-bottom: 10px;">
         <div class="">
             <button label="Add member" pbutton="" type="text" ng-reflect-label="Add member"
-                (click)="showMemberAddDialog()"
+                (click)="showDialogMemberAdd()"
                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
                 style="font-size: 13px; ">
                 <span class="ui-button-text ui-c">Add members</span>
@@ -25,8 +25,8 @@
         [pageNumber]="membersPage"
         [selectedItem]="selectedItem"
         [loading]="membersLoading"
-        (onPageChanged)="onMembersPageChanged($event)"
-        (onRowDelete)="onMembersItemDelete($event)">  
+        (onPageChanged)="onPageChangedMembers($event)"
+        (onRowDelete)="onDeleteMembersItem($event)">  
     </members-grid-component>
 
 
