@@ -8,8 +8,8 @@ import * as fromUser from './user';
 import * as fromAccount from './account';
 
 export interface IAppState {
-  session?: fromSession.ISession;
-  tenant?: fromTenant.TenantState;
+  session?: fromSession.ISession,
+  tenant?: fromTenant.TenantState,
   user?: fromUser.UserState
   layout?: fromLayout.LayoutState,
   account?: fromAccount.AccountState
@@ -19,9 +19,9 @@ export const rootReducer = combineReducers<IAppState>({
   router: routerReducer,
   layout: fromLayout.layoutReducer,
   session: fromSession.sessionReducer,
-  tenant: fromTenant.tenantReducer,
-  user: fromUser.userReducer,
+  tenant: fromTenant.tenantReducer, 
   account: fromAccount.AccountReducer
+  user: fromUser.userReducer,
 });
 
 // export function deimmutify(store: any) {

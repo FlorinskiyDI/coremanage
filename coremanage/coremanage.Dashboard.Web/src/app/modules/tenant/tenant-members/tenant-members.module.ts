@@ -1,9 +1,7 @@
 // external
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataTableModule, ButtonModule, DialogModule,
-    AutoCompleteModule, ConfirmDialogModule, GrowlModule} from 'primeng/primeng';
-
+import { DataTableModule, ButtonModule, DialogModule, AutoCompleteModule, ConfirmDialogModule, GrowlModule} from 'primeng/primeng';
 
 /* module */ import { SharedModule } from '../../../modules-shared/shared.module';
 /* routes */ import { TenantMembersRoutes } from './tenant-members-routes.module';
@@ -11,7 +9,6 @@ import { DataTableModule, ButtonModule, DialogModule,
 /* component */ import { MembersGridComponent } from './comp-members-grid/members-grid.component';
 /* component */ import { MemberAddDialogComponent } from './comp-member-add-dialog/member-add-dialog.component';
 /* component */ import { MemberAddComponent } from './comp-member-add-dialog/comp-member-add/member-add.component';
-
 
 
 @NgModule({
@@ -22,7 +19,6 @@ import { DataTableModule, ButtonModule, DialogModule,
         ButtonModule, DataTableModule, DialogModule, // primeng
         AutoCompleteModule, ConfirmDialogModule, GrowlModule // primeng
     ],
-
     declarations: [
         TenantMembersComponent,
         MembersGridComponent,

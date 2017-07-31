@@ -72,5 +72,4 @@ export class TenantApiService extends BaseApiService<any> {
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }
-
 }

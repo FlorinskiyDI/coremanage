@@ -30,9 +30,10 @@ export interface IPayloadAction<P, M> extends Action {
 	meta?: M;
 }
 
-export interface IBaseStateApi<TM, TD>{
+export interface IBaseStateApi<TD, TM>{
     meta: TM;
     data :TD;
+    error: any;
     isLoading: boolean;
-    isError: boolean;	
+    isError: boolean;
 }

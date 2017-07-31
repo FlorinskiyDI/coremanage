@@ -244,7 +244,6 @@ export class TenantActions {
       payload: data
     };
   }  
-  /* tenant-item-create actions */
   public deleteTenantItemAction(data: any) {
     return {
       type: TenantActionTypes.DELETE_TENANT_ITEM,

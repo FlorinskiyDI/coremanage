@@ -23,4 +23,37 @@ export class UserProfileApiService extends BaseApiService<UserProfileEntity> {
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }
+
+    getCreateData( ): Observable<any> {
+        let url = this.apiServer + 'Create/';
+        return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+    create( data: any ): Observable<any> {
+        let url = this.apiServer + 'Create/';
+        return this.http.post(url, JSON.stringify(data), this.customRequestOptions.getOptionRequestAuth())
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+
+    getUpdateData(data: any): Observable<any> {
+        let url = this.apiServer + 'Update/'+ data;
+        return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+    update( data: any ): Observable<any> {
+        let url = this.apiServer + 'Update/';
+        return this.http.post(url, JSON.stringify(data), this.customRequestOptions.getOptionRequestAuth())
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+
+    delete(tenantId: any){
+        let url = this.apiServer + 'Delete/' + tenantId;
+        return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
 }

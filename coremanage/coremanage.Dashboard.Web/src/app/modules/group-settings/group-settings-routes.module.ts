@@ -7,9 +7,8 @@ const routes: Routes = [
         path: '',
         component: GroupSettingsComponent,
         children: [
-            { path: 'overview', loadChildren: '../../modules/hub-overview-settings/hub-overview-settings.module#HubOverviewSettingsModule' },
             { path: 'tenants', loadChildren: '../../modules/tenant/tenant/tenant.module#TenantModule' },
-            { path: 'users', loadChildren: '../../modules/hub-users/hub-users.module#HubUsersModule' }
+            { path: 'users', loadChildren: '../../modules/user/user/user.module#UserModule' }
         ]
     }
 ];

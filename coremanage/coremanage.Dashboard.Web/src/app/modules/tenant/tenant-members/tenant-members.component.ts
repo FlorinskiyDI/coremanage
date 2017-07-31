@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NgRedux, select,  } from '@angular-redux/store';
-import { ConfirmationService, Message} from 'primeng/primeng';
+import { NgRedux, select } from '@angular-redux/store';
+import { ConfirmationService, Message, Confirmation} from 'primeng/primeng';
 import { Observable } from 'rxjs/Observable';
-import { Map } from 'immutable';
 import 'rxjs/add/operator/map';
 
 /* state */ import { IAppState } from '../../../redux/store';
@@ -37,6 +36,50 @@ export class TenantMembersComponent {
     ) { }
 
     ngOnInit() {
+        this._initSubscribe();
+    }
+
+    public onPageChangedMembers(data: any) {
+        let tenantId = this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id;
+        let pageNumber = (data.first == 0 ? 0: data.first + 1) % data.rows + 1;
+        let pageData: PageData = {
+            totalItemCount: 0,
+            totalPageCount: 0,
+            pageNumber: pageNumber,
+            pageLength: data.rows,
+            // filterData: null,
+            // sortData: data.multiSortMeta
+        }
+        
+        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction({
+            data: pageData,
+            tenantName: tenantId
+        }));
+    }
+    public onDeleteMembersItem(data: any){
+        let confirm: Confirmation = {
+            message: 'Are you sure that you want to delete member?',
+            accept: () => {
+                let index = this.members.indexOf(data);
+                this.members = this.members.filter((val: any,i: any) => i!=index);
+                this.ngRedux.dispatch(this.tenantActions.deleteTenantMemberAction({
+                    data: data.id,
+                    tenantId: this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id
+                }));
+            },
+            reject: () => console.log("reject")
+        }
+        this.confirmationService.confirm(confirm);
+    }
+    public showDialogMemberAdd() {
+        this.ngRedux.dispatch(this.layoutActions.openLayoutModalAction({
+            isOpen: true,
+            modalType: ModalDialogTypes.TENANT_MEMBER_ADD_TYPE,
+            extraData: { }
+        }));
+    }
+
+    private _initSubscribe(){
         this.memberGrid$
             .map(data => { return data.toJS()})
             .subscribe(data => {
@@ -46,14 +89,27 @@ export class TenantMembersComponent {
                 this.membersLoading = data.loading;
             });
 
-         this.memberDelete$
-            .map(data => { return data.toJS()})
-            .subscribe(data => {
-                if(data.id != null && data.error == null ){
-                    this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
-                    console.log("Member is delete")
-                }
-            });
+        this.memberDelete$
+            .map(data => data.toJS())
+            .subscribe(
+                (value: any) => {
+                    if (value.data == null)
+                        return;
+
+                    if (!value.isError)
+                    {
+                        this.msgs = [{
+                            severity:'info',
+                            summary:'Confirmed',
+                            detail:'Memeber was deleted successfully'
+                        }];                        
+                    }
+
+                    if (value.isError)
+                        console.log("Member delete is failure")
+                    if (value.isLoading)
+                        console.log("LOADING");
+                });            
 
         this.selectedNode$
             .map(data => { return data.toJS()})
@@ -63,49 +119,5 @@ export class TenantMembersComponent {
                     tenantName: data.id
                 }));
         });
-    }
-
-    onPageChangedMembers(data: any) {
-        let pageNumber = data.first == 0 ? 0: data.first + 1;
-        let pageData: PageData = {
-            totalItemCount: 0,
-            totalPageCount: 0,
-            pageNumber: pageNumber % data.rows + 1,
-            pageLength: data.rows,
-            // filterData: null,
-            // sortData: data.multiSortMeta
-        }
-        let tenantId = this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id;
-        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberGridAction({
-                    data: pageData,
-                    tenantName: tenantId
-                }));
-    }
-
-    onDeleteMembersItem(data: any){        
-        this.confirmationService.confirm({
-            message: 'Are you sure that you want to perform this action?',
-            accept: () => {
-                let index = this.members.indexOf(data);
-                this.members = this.members.filter((val: any,i: any) => i!=index);
-
-                this.ngRedux.dispatch(this.tenantActions.deleteTenantMemberAction({
-                    data: data.id,
-                    tenantId: this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id
-                }));
-                console.log("True");
-            },
-            reject: () => {      
-                console.log("False");
-            }
-        });
-    }
-
-    showDialogMemberAdd() {
-        this.ngRedux.dispatch(this.layoutActions.openLayoutModalAction({
-            isOpen: true,
-            modalType: ModalDialogTypes.TENANT_MEMBER_ADD_TYPE,
-            extraData: { }
-        }));
     }
 }

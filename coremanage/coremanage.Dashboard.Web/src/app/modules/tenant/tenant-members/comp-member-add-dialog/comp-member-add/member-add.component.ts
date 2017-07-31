@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { SelectItem } from 'primeng/primeng';
 
 /* model */ import { TenantCreateModel, tenantMemberAutocomplete, PageData } from '../../../../../common/index.models';
-/* action */ import { TenantActions, LayoutActions } from "../../../../../redux/actions";
+/* action */ import { TenantActions, LayoutActions } from '../../../../../redux/actions';
 /* state */ import { IAppState } from '../../../../../redux/store';
 
 @Component({
@@ -28,7 +28,7 @@ export class MemberAddComponent implements OnInit {
         private layoutActions: LayoutActions,
         private fb: FormBuilder,
     ) {
-        this.autocompleteQuery = "";
+        this.autocompleteQuery = '';
         this.autocompleteOption = { results: [] as any[], texts: [] as any[] }
     }
 
@@ -43,7 +43,7 @@ export class MemberAddComponent implements OnInit {
                         // this.results = data.getMember;
                         // this.results.unshift(this.autocompleteQuery);
                     } else{
-                        
+
                     }
                     if(data.postMember != null){
                         let tenantId = this.ngRedux.getState().tenant.tenantTree.selectedNode.toJS().id;
@@ -58,10 +58,10 @@ export class MemberAddComponent implements OnInit {
                 }
         }); 
     }
-    
+
     onSearchAutoComplete(event: any) {
         this.autocompleteQuery = event.query;
-        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberCreateAction(event.query));          
+        this.ngRedux.dispatch(this.tenantActions.getRequestTenantMemberCreateAction(event.query));
     }
     onSubmitForm() {
         let emailList: any[] = [];
@@ -75,7 +75,7 @@ export class MemberAddComponent implements OnInit {
     }
 
     private initAutoComplete(data: any) {
-        this.autocompleteOption.results = [];     
+        this.autocompleteOption.results = [];
         data.forEach((element: any) => {
             this.autocompleteOption.results.push({
                 value: element,
@@ -93,7 +93,7 @@ export class MemberAddComponent implements OnInit {
     }
     private buildForm(): void {
         this.formMember = this.fb.group({
-            users: new FormControl(this.autocompleteResult, Validators.required)            
+            users: new FormControl(this.autocompleteResult, Validators.required)
         });
         this.formMember.valueChanges
             .subscribe(data => this.onValueChanged(data));

@@ -52,13 +52,11 @@ export class TenantDetailComponent implements OnDestroy, OnInit {
 
                     if (!value.isError)
                     {
-                        this.noticeList = [
-                            {
-                                severity:'info',
-                                summary:'Confirmed',
-                                detail:'Tenant  was deleted successfully'
-                            }
-                        ];
+                        this.noticeList = [{
+                            severity:'info',
+                            summary:'Confirmed',
+                            detail:'Tenant  was deleted successfully'
+                        }];
                         this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(null));
                     }
 

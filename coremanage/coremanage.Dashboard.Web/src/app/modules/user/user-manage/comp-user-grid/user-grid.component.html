@@ -1,29 +1,29 @@
 ﻿
-<div class="members-grid-component">
-
-    <p-dataTable #dtMembers
+<div class="user-grid-component">
+    <p-dataTable #dtUser
         reorderableColumns="true"
         sortMode="multiple"
         [(selection)]="selectedItem"
-        [responsive]="true" [stacked]="stacked"
-        [lazy]="true"
+        [stacked]="stacked"        
         [value]="items"
-        [rows]="10"
+        [rows]="10"        
+        [responsive]="true"
+        [lazy]="true"
         [paginator]="true"
         [totalRecords]="totalItems"
         [loading]= "loading"
         (onLazyLoad)="onPageChanged.emit($event)">
 
-        <p-footer>
+        <!-- <p-footer>
             <div class="ui-helper-clearfix">
                 <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export to CSV"
-                    (click)="dtMembers.exportCSV()" style="font-weight: 300;float:left;">
+                    (click)="dtUser.exportCSV()" style="font-weight: 300;float:left;">
                 </button>
             </div>
-        </p-footer>
+        </p-footer> -->
         
-        <p-column [sortable]="true" field="id" header="id" [style]="{}"></p-column>
-        <p-column [sortable]="true" field="fullName" header="fullName" [style]="{}"></p-column>
+        <!-- <p-column [sortable]="true" field="id" header="id" [style]="{}"></p-column> -->
+        <p-column [sortable]="true" field="Name" header="fullName" [style]="{}"></p-column>
         <p-column [sortable]="true" field="email" header="email" [style]="{}"></p-column>
         <p-column styleClass="col-button" [style]="">
             <ng-template pTemplate="header">
@@ -32,6 +32,6 @@
                 <button type="button" pButton (click)="onRowDelete.emit(row)" label="Remove" style="font-size: 13px;"></button>
             </ng-template>
         </p-column>
-    </p-dataTable>
 
+    </p-dataTable>
 </div>

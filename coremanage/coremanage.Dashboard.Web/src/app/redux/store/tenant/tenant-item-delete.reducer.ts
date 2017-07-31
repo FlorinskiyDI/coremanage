@@ -63,8 +63,8 @@ export function TenantItemDeleteReducer(
     case TenantActionTypes.DELETE_TENANT_ITEM_FAILURE:
         return state.merge({
             meta: null,
-            data: null,
-            isError: action.payload,
+            data: action.payload,
+            isError: true,
             isLoading: false
         } as TenantItemDeleteModel );
 

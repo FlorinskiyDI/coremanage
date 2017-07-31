@@ -1,52 +1,19 @@
-import { IPayloadAction } from '../../util';
-import { UserActions, UserActionTypes } from '../../actions/user.actions';
-import { UserProfileEntity } from '../../../common/index.models';
+import { combineReducers } from 'redux';
+
+/* reducer */ import { UserItemCreateReducer, UserItemCreateState } from './user-item-create.reducer';
+// /* reducer */ import { UserItemUpdateReducer, UserItemUpdateState } from './user-item-update.reducer';
+// /* reducer */ import { UserItemDeleteReducer, UserItemDeleteState } from './user-item-delete.reducer';
+
 
 export interface UserItemState {
-  item: UserProfileEntity;
-  error: any; // property of request
-  loading: boolean; // property of request
+  itemCreate?: UserItemCreateState,
+  // itemUpdate?: UserItemUpdateState,
+  // itemDelete?: UserItemDeleteState
 };
 
-const initialState: UserItemState = {
-  item: null,
-  error: null,
-  loading: false
-};
-
-
-export function userItemReducer(
-  state: UserItemState = initialState,
-  action: IPayloadAction<any, any>
-): UserItemState {
-  switch (action.type) {
-
-    case UserActionTypes.LOAD_USER_ITEM:
-        return Object.assign({}, state, {
-        item: null,
-        error: null,
-        loading: true
-        });
-
-    case UserActionTypes.LOAD_USER_ITEM_SUCCESS:
-        const user = action.payload['results'];
-        return Object.assign({}, state, {
-        item: user,
-        error: null,
-        loading: false
-        });
-
-
-    case UserActionTypes.LOAD_USER_ITEM_FAILURE:
-        const error = action.payload['error'];
-        return Object.assign({}, state, {
-        item: null,
-        error: error,
-        loading: false
-        });
-
-    default:
-        return state;
-
-  }
-}
+// reducer
+export const UserItemReducer = combineReducers<UserItemState>({
+  itemCreate: UserItemCreateReducer,
+  // itemUpdate: UserItemUpdateReducer,
+  // itemDelete: UserItemDeleteReducer
+});
