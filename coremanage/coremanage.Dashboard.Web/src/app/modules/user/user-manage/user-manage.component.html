@@ -1,7 +1,7 @@
 ﻿<div class="well" style="padding: 5px; margin-top: 10px; margin-bottom: 10px;">
     <div class="">
         <button label="Add member" pbutton="" type="text" ng-reflect-label="Add member"
-            (click)="showDialogMemberAdd()"
+            (click)="showDialogUserAdd()"
             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
             style="font-size: 13px; ">
             <span class="ui-button-text ui-c">Add new</span>
@@ -13,5 +13,19 @@
         </button>
     </div>        
 </div>
-<user-grid-filter-component></user-grid-filter-component>
-<user-grid-component></user-grid-component>
+
+<user-grid-filter-component>    
+</user-grid-filter-component>
+
+<user-grid-component
+    [items]="users"
+    [totalItems]="usersTotal"
+    [pageNumber]="usersPage"
+    [selectedItem]="selectedItem"
+    [loading]="usersLoading"
+    (onPageChanged)="onPageChangedUsers($event)"
+    (onRowDelete)="onDeleteUsersItem($event)">
+</user-grid-component>
+
+<user-add-dialog-component>    
+</user-add-dialog-component>

@@ -20,7 +20,7 @@ export const rootReducer = combineReducers<IAppState>({
   layout: fromLayout.layoutReducer,
   session: fromSession.sessionReducer,
   tenant: fromTenant.tenantReducer, 
-  account: fromAccount.AccountReducer
+  account: fromAccount.AccountReducer,
   user: fromUser.userReducer,
 });
 

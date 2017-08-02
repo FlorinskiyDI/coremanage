@@ -8,8 +8,6 @@ import { of } from 'rxjs/observable/of';
 /* api-service */ import { UserProfileApiService } from '../../../common/services/api/entities/user-profile.api.service';
 /* api-service */ import { AccountApiService } from '../../../common/services/api/entities/account.api.service';
 
-const BASE_URL = '/api';
-
 @Injectable()
 export class TenantEpics {
     constructor(

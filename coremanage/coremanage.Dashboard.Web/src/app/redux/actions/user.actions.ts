@@ -7,13 +7,19 @@ import { type } from '../util';
 
 export const UserActionTypes =  {
 
-   /* user-item-create action types */
+  /* tenant-member-grid action types */
+  GET_REQUEST_USER_GRID: type('[UserGrid] load user grid'),
+  GET_REQUEST_USER_GRID_SUCCESS: type('[UserGrid] successfully loaded user grid'),
+  GET_REQUEST_USER_GRID_FAILURE: type('[UserGrid] failed to load user grid'),
+
+  /* user-item-create action types */
   GET_REQUEST_USER_ITEM_CREATE: type('[UserItemCreate] get request user item'),
   GET_REQUEST_USER_ITEM_CREATE_SUCCESS: type('[UserItemCreate] successfully get requested  user item'),
   GET_REQUEST_USER_ITEM_CREATE_FAILURE: type('[UserItemCreate] failed to request get user item'),
   POST_REQUEST_USER_ITEM_CREATE: type('[UserItemCreate] post request user item'),
   POST_REQUEST_USER_ITEM_CREATE_SUCCESS: type('[UserItemCreate] successfully post requested  user item'),
   POST_REQUEST_USER_ITEM_CREATE_FAILURE: type('[UserItemCreate] failed to request post user item'),
+
   /* user-item-update action types */
   GET_REQUEST_USER_ITEM_UPDATE: type('[UserItemUpdate] get request user item'),
   GET_REQUEST_USER_ITEM_UPDATE_SUCCESS: type('[UserItemUpdate] successfully get requested  user item'),
@@ -42,6 +48,28 @@ export class UserActions {
     private ngRedux: NgRedux<IAppState>
   ) {
   }
+
+  /* user-grid actions */
+  public getRequestUserGridAction(data: any) {
+    return {
+      type: UserActionTypes.GET_REQUEST_USER_GRID,
+      meta: data,
+    };
+  }
+  public getRequestUserGridSuccessAction(data: any, meta: any) {
+    return {
+      type: UserActionTypes.GET_REQUEST_USER_GRID_SUCCESS,
+      meta: meta,
+      payload: data
+    };
+  }
+  public getRequestUserGridFailedAction(data: any) {
+    return {
+      type: UserActionTypes.GET_REQUEST_USER_GRID_FAILURE,
+      payload: data
+    };
+  }
+
 
   /* user-item-create actions */
   public getRequestUserItemCreateAction() {

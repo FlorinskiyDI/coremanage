@@ -51,7 +51,7 @@ namespace coremanage.Dashboard.WebApi.Controllers
             foreach (var email in emailList)
             {
                 var user = await _userProfileService.GetByEmail(email) ?? await _userProfileService.CreateAsync(email);
-                await _userProfileService.SubscribeFromTenant(user.Id, NTContext.Context.TenantId);
+                await _userProfileService.SubscribeFromTenantAsync(user.Id, NTContext.Context.TenantId);
             }
 
             return new JsonResult(emailList);

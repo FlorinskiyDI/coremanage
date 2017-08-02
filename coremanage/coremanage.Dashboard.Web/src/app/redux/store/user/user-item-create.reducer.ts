@@ -17,8 +17,8 @@ export interface UserItemCreateState extends Map<string, any>, IBaseStateApi<Use
 // record
 export const UserItemCreateModalRecord = Record({
     meta: null,
-    data: Map(),
-    error: Map(),
+    data: null,
+    error: null,
     isError: false,
     isLoading: false
 });
@@ -29,8 +29,8 @@ export const INITIAL_STATE = new UserItemCreateModalRecord(
       {},
       {
         meta: null,
-        data: Map(),
-        error: Map(),
+        data: null,
+        error: null,
         isError: false,
         isLoading: false
       },
@@ -52,7 +52,7 @@ export function UserItemCreateReducer(
             error: null,
             isError: false,
             isLoading: false
-        } as IBaseStateApi<UserItemCreateModel, any>);
+        } as UserItemCreateState);
         
     case UserActionTypes.GET_REQUEST_USER_ITEM_CREATE_SUCCESS:
         return state.merge({
@@ -62,7 +62,7 @@ export function UserItemCreateReducer(
             },
             isError: false,
             isLoading: false
-        } as IBaseStateApi<UserItemCreateModel, any>);
+        } as UserItemCreateState);
 
     case UserActionTypes.GET_REQUEST_USER_ITEM_CREATE_FAILURE:
         return state.merge({
@@ -70,7 +70,7 @@ export function UserItemCreateReducer(
             error: action.payload,
             isError: true,
             isLoading: false
-        } as IBaseStateApi<UserItemCreateModel, any>);
+        } as UserItemCreateState);
 
 
     case UserActionTypes.POST_REQUEST_USER_ITEM_CREATE:
@@ -80,7 +80,7 @@ export function UserItemCreateReducer(
             error: null,
             isError: false,
             isLoading: false
-        }as IBaseStateApi<UserItemCreateModel, any>);
+        }as UserItemCreateState);
 
     case UserActionTypes.POST_REQUEST_USER_ITEM_CREATE_SUCCESS:
         return state.merge({
@@ -90,7 +90,7 @@ export function UserItemCreateReducer(
             },
             isError: false,
             isLoading: false
-        } as IBaseStateApi<UserItemCreateModel, any>);
+        } as UserItemCreateState);
 
     case UserActionTypes.POST_REQUEST_USER_ITEM_CREATE_FAILURE:
         return state.merge({
@@ -98,7 +98,7 @@ export function UserItemCreateReducer(
             error: action.payload,
             isError: true,
             isLoading: false
-        } as IBaseStateApi<UserItemCreateModel, any>);
+        } as UserItemCreateState);
 
     default:
         return INITIAL_STATE;

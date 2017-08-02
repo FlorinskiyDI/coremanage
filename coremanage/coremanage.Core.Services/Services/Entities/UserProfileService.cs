@@ -119,25 +119,24 @@ namespace coremanage.Core.Services.Services.Entities
             }
         }
 
-        public async Task SubscribeFromTenant(string userId, int tenantId)
+        public async Task SubscribeFromTenantAsync(string userId, int tenantId)
         {
             using (var uow = UowProvider.CreateUnitOfWork())
             {
                 var repositoryUserProfile = uow.GetRepository<UserProfile, string>();
                 var repositoryTenant= uow.GetRepository<Tenant, int>();
                 // get user and tenant
-                var userprofiles = await repositoryUserProfile.GetAsync(userId, i => i.Include(c =>c.UserProfileTenants));
+                var userProfiles = await repositoryUserProfile.GetAsync(userId, i => i.Include(c =>c.UserProfileTenants));
                 var tenants= await repositoryTenant.QueryAsync(c => c.Id == tenantId);
                 var tenant = tenants.FirstOrDefault();
 
                 var userProfileTenant = new UserProfileTenant { 
                     Tenant = tenant,
-                    UserProfile = userprofiles
+                    UserProfile = userProfiles
                 };
 
-                userprofiles.UserProfileTenants.Add(userProfileTenant);
+                userProfiles.UserProfileTenants.Add(userProfileTenant);
                 await uow.SaveChangesAsync();
-                //return Mapper.Map<UserProfile, UserProfileDto>(userprofiles.FirstOrDefault());
             }
         }
 

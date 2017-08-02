@@ -25,7 +25,7 @@ export class UserProfileApiService extends BaseApiService<UserProfileEntity> {
     }
 
     getCreateData( ): Observable<any> {
-        let url = this.apiServer + 'Create/';
+        let url = this.apiServer + 'GetCreateData/';
         return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
             .map((res: Response) => res.json());
             // .catch(this.handleError);
@@ -38,7 +38,7 @@ export class UserProfileApiService extends BaseApiService<UserProfileEntity> {
     }
 
     getUpdateData(data: any): Observable<any> {
-        let url = this.apiServer + 'Update/'+ data;
+        let url = this.apiServer + 'GetUpdateData/'+ data;
         return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
             .map((res: Response) => res.json());
             // .catch(this.handleError);
@@ -50,9 +50,20 @@ export class UserProfileApiService extends BaseApiService<UserProfileEntity> {
             // .catch(this.handleError);
     }
 
-    delete(tenantId: any){
-        let url = this.apiServer + 'Delete/' + tenantId;
+    delete(userId: any){
+        let url = this.apiServer + 'Delete/' + userId;
         return this.http.get(url, this.customRequestOptions.getOptionRequestAuth())
+            .map((res: Response) => res.json());
+            // .catch(this.handleError);
+    }
+
+    
+    getPageData(data: any){
+        let url = this.apiServer + 'PageData/';
+        let body = JSON.stringify(data);
+        let options = this.customRequestOptions.getOptionRequestAuth();
+
+        return this.http.post(url, body, options)
             .map((res: Response) => res.json());
             // .catch(this.handleError);
     }

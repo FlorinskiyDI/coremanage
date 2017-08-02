@@ -6,8 +6,6 @@ import { of } from 'rxjs/observable/of';
 /* type */ import { AccountActionTypes, AccountActions  } from '../../../redux/actions/account.actions';
 /* api-service */ import { AccountApiService } from '../../../common/services/api/entities/account.api.service';
 
-const BASE_URL = '/api';
-
 @Injectable()
 export class AccountEpics {
     constructor(

@@ -9,4 +9,9 @@ namespace storagecore.EntityFrameworkCore.Entities
     {
         public TKey Id { get; set; }
     }
+
+    public class BaseTenantEntity<TKey> : BaseEntity<TKey>, IBaseEntity<TKey>
+    {
+        public TKey TenantId { get; set; }
+    }
 }

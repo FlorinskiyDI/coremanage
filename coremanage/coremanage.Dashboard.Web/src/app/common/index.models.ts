@@ -10,6 +10,6 @@ export * from './models/api/account/reLogin-data.model';
 export * from './models/api/account/register-data.model';
 export * from './models/api/tenant/tenant-create.model';
 export * from './models/api/tenant/tenant-update.model';
-
+export * from './models/api/user-profile/user-create.model';
 // models
 export * from  './models/tenant-member-autocomplete.model';

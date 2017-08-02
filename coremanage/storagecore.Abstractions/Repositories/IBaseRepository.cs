@@ -9,8 +9,6 @@ namespace storagecore.Abstractions.Repositories
 {
     public interface IBaseRepository<TEntity, in TKey>
     {
-        //Expression<Func<TEntity, bool>> PreFilter { get; set; }
-
         // get all
         IEnumerable<TEntity> GetAll(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,

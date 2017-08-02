@@ -15,7 +15,7 @@ export class UserAddDialogComponent implements OnInit {
     private layoutModal$: Observable<any>
     dialogModal = true;
     dialogObj: IModalDialog = {
-        modalType: ModalDialogTypes.TENANT_ITEM_ADD_TYPE,
+        modalType: ModalDialogTypes.USER_ITEM_ADD_TYPE,
         isOpen: false,
         extraData: null
     };
@@ -29,13 +29,14 @@ export class UserAddDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-         this.layoutModal$.subscribe((value: any) => {
+        this.layoutModal$.subscribe((value: any) => {
             let val = value.toJS();
            
             if (this.dialogObj.modalType == val.modalType && this.dialogObj.modalType != null) {
                 this.dialogObj.isOpen = true;
                 this.ngRedux.dispatch(this.userActions.getRequestUserItemCreateAction());
-            } else {
+            }
+            else {
                 this.dialogObj.isOpen = false;
             }
         });        

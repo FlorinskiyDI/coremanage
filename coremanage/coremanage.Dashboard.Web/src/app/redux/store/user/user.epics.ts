@@ -5,29 +5,37 @@ import { of } from 'rxjs/observable/of';
 
 /* type */ import { UserActionTypes, UserActions  } from '../../../redux/actions/user.actions';
 /* api-service */ import { UserProfileApiService } from '../../../common/services/api/entities/user-profile.api.service';
-/* api-service */ import { AccountApiService } from '../../../common/services/api/entities/account.api.service';
 
-const BASE_URL = '/api';
 
 @Injectable()
 export class UserEpics {
     constructor(
         private http: Http,
-        private userProfileApiService: UserProfileApiService,        
-        private accountApiService: AccountApiService,
+        private userProfileApiService: UserProfileApiService,
         private userActions: UserActions
     ) {}
 
     public createEpic() {
-        let ccc =  combineEpics(
+        let epics =  combineEpics(
+            // user-grid
+            this.getRequestTenantMemberGridEpic(),
             // user-item
             this.getRequestUserItemCreateEpic(),
             this.postRequestUserItemCreateEpic(),
             this.getRequestUserItemUpdateEpic(),
             this.postRequestUserItemUpdateEpic(),            
-            this.deleteUserItemEpic(),
+            this.deleteUserItemEpic()
             );
-        return createEpicMiddleware(ccc);
+        return createEpicMiddleware(epics);
+    }
+
+    // user-grid
+    private getRequestTenantMemberGridEpic() {
+        return (action$: any) => action$
+            .ofType(UserActionTypes.GET_REQUEST_USER_GRID)
+            .switchMap((payload: any) => this.userProfileApiService.getPageData(payload.meta.data)
+                .map(data  => this.userActions.getRequestUserGridSuccessAction(data, payload.meta))
+                .catch( error => of(this.userActions.getRequestUserGridFailedAction(error))));
     }
 
     // user-item-create
