@@ -6,7 +6,7 @@ import { SelectItem } from 'primeng/primeng';
 import { Subscription } from "rxjs/Subscription";
 
 /* api-service */ import { UserProfileApiService } from '../../../../common/services/api/entities/user-profile.api.service';
-/* model */ import { UserCreateModel } from '../../../../common/index.models';
+/* model */ import { UserCreateModel, PageData } from '../../../../common/index.models';
 /* action */ import { UserActions, LayoutActions } from "../../../../redux/actions";
 /* state */ import { IAppState } from '../../../../redux/store';
 
@@ -63,6 +63,9 @@ export class UserAddComponent implements OnInit {
                     {
                         this.ngRedux.dispatch(this.layoutActions.closeLayoutModalAction());
                         // this.ngRedux.dispatch(this.tenantActions.getRequestTenantTreeNodesAction(null));
+                        this.ngRedux.dispatch(this.userActions.getRequestUserGridAction({
+                            data: new PageData()
+                        }));
                         this.userCreateData = new UserCreateModel();
                     }
 

@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 @Component({
     selector: 'tenant-members-component',
     templateUrl: 'tenant-members.component.html',
-    providers: [ConfirmationService]
+    providers: [ ConfirmationService ]
 })
 export class TenantMembersComponent {
     // member grid options

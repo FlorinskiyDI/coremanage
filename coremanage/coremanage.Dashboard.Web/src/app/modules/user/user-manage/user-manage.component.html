@@ -24,8 +24,11 @@
     [selectedItem]="selectedItem"
     [loading]="usersLoading"
     (onPageChanged)="onPageChangedUsers($event)"
-    (onRowDelete)="onDeleteUsersItem($event)">
+    (onRowDelete)="onDeleteUserItem($event)">
 </user-grid-component>
 
 <user-add-dialog-component>    
 </user-add-dialog-component>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+<p-growl [(value)]="msgs"></p-growl>

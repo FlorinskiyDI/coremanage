@@ -27,17 +27,11 @@ export const UserActionTypes =  {
   POST_REQUEST_USER_ITEM_UPDATE: type('[UserItemUpdate] post request user item'),
   POST_REQUEST_USER_ITEM_UPDATE_SUCCESS: type('[UserItemUpdate] successfully post requested  user item'),
   POST_REQUEST_USER_ITEM_UPDATE_FAILURE: type('[UserItemUpdate] failed to request post user item'),
+
   /* user-item-delete action types */
   DELETE_USER_ITEM: type('[UserDelete] delete user'),
   DELETE_USER_ITEM_SUCCESS: type('[UserDelete] successfully delete user'),
   DELETE_USER_ITEM_FAILURE: type('[UserDelete] failed to delete user'),
-
-  /*
-    user-list action types
-  */
-  LOAD_USER_LIST: type('[UserList] load user list'),
-  LOAD_USER_LIST_SUCCESS: type('[UserList] successfully loaded user list'),
-  LOAD_USER_LIST_FAILURE: type('[UserList] failed to load user list'),
  
 }
 
@@ -69,7 +63,6 @@ export class UserActions {
       payload: data
     };
   }
-
 
   /* user-item-create actions */
   public getRequestUserItemCreateAction() {
@@ -144,7 +137,9 @@ export class UserActions {
       type: UserActionTypes.POST_REQUEST_USER_ITEM_UPDATE_FAILURE,
       payload: data
     };
-  }  
+  }
+  
+  /* user-item-delete actions */
   public deleteUserItemAction(data: any) {
     return {
       type: UserActionTypes.DELETE_USER_ITEM,

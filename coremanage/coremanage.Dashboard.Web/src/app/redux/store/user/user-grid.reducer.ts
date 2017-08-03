@@ -1,5 +1,5 @@
 import { IPayloadAction, IBaseStateApi } from '../../util';
-import { TenantActions, TenantActionTypes } from '../../actions/tenant.actions';
+import { UserActions, UserActionTypes } from '../../actions/user.actions';
 import { List, Map, Record } from 'immutable';
 
 import { PageData } from '../../../common/index.models'
@@ -48,7 +48,7 @@ export function UserGridReducer(
 ): UserGridState {
   switch (action.type) {
 
-    case TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID:
+    case UserActionTypes.GET_REQUEST_USER_GRID:
         const pageNumber = action.meta.pageNumber;
         return state.merge({
             meta: null,
@@ -58,7 +58,7 @@ export function UserGridReducer(
             isLoading: false
         } as UserGridState);
 
-    case TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID_SUCCESS:
+    case UserActionTypes.GET_REQUEST_USER_GRID_SUCCESS:
         return state.merge({                
             data: action.payload,
             error: null,
@@ -66,7 +66,7 @@ export function UserGridReducer(
             isLoading: false
         } as UserGridState);
 
-    case TenantActionTypes.GET_REQUEST_TENANT_MEMBER_GRID_FAILURE:
+    case UserActionTypes.GET_REQUEST_USER_GRID_FAILURE:
         return state.merge({
             data: null,
             error: action.payload,

@@ -16,6 +16,8 @@ using coremanage.Core.Common.Context;
 using coremanage.Core.Contracts.Repositories;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
+using coremanage.Core.Models.Dtos;
+using storagecore.EntityFrameworkCore.Query;
 
 namespace coremanage.Core.Services.Services.Entities
 {
@@ -23,7 +25,7 @@ namespace coremanage.Core.Services.Services.Entities
     public class UserProfileService : BaseService<UserProfileDto, UserProfile, string>, IUserProfileService
     {
 
-        protected readonly IDataPager<UserProfile, string> _pager;
+        private readonly IDataPager<UserProfile, string> _pager;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public UserProfileService(
@@ -156,6 +158,48 @@ namespace coremanage.Core.Services.Services.Entities
                 userprofiles.UserProfileTenants.Remove(userProfileTenant);
                 uow.SaveChanges();
             }
+        }
+
+        public async Task<DataPageDto<UserProfileDto, string>> GetPageData(int pageNumber, int pageLenght, IList<int> tenantIdList)
+        {
+            // geting id list of users by tenantId
+            List<string> idList = new List<string>();
+
+            using (var uow = UowProvider.CreateUnitOfWork())
+            {
+                var repositoryTenant = uow.GetRepository<Tenant, int>();
+                var tenants = await repositoryTenant.QueryAsync(
+                    filter: e => tenantIdList.Contains(e.Id),
+                    includes: s => s.Include(c => c.UserProfileTenants).ThenInclude(v => v.UserProfile)
+                );
+                foreach (var tenant in tenants)
+                {
+                    idList.AddRange(tenant.UserProfileTenants.Select(s => s.UserProfileId));
+                }
+            }
+
+
+            // createing filter and paging of user table
+            var filter = new Filter<UserProfile>(null);
+            filter.AddExpression(e => idList.Contains(e.Id));
+            filter.AddExpression(e => e.IsDeleted == false);
+            var dataPage = await _pager.QueryAsync(pageNumber, pageLenght, filter);
+            var dataPageDto = Mapper.Map<DataPage<UserProfile, string>, DataPageDto<UserProfileDto, string>>(dataPage);
+
+            return dataPageDto;
+        }
+
+        public new string Remove(string userId)
+        {
+            using (var uow = UowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetRepository<UserProfile, string>();
+                var userItem = repository.Get(userId);
+                repository.Remove(userItem); // not pass id!!!
+                uow.SaveChanges();
+            }
+
+            return userId;
         }
     }
 }

@@ -11,11 +11,13 @@ import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'user-manage-component',
-    templateUrl: 'user-manage.component.html'
+    templateUrl: 'user-manage.component.html',
+    providers: [ ConfirmationService ]
 })
+
 export class UserManageComponent {
 
-    // member grid options
+    // user grid options
     public msgs: Message[] = [];
     public selectedItem: any;
     public users: any;
@@ -24,12 +26,13 @@ export class UserManageComponent {
     public usersLoading: Observable<boolean>;
     // observables
     private userGrid$ = this.ngRedux.select(state => state.user.userGrid);
+    private userDelete$ = this.ngRedux.select(state => state.user.userItem.itemDelete);
     
     constructor(
         private userActions: UserActions,
         private ngRedux: NgRedux<IAppState>,
         private layoutActions: LayoutActions,
-        // private confirmationService: ConfirmationService
+        private confirmationService: ConfirmationService
     ) { }
     
     ngOnInit() {
@@ -45,12 +48,22 @@ export class UserManageComponent {
             pageLength: data.rows,
             // filterData: null,
             // sortData: data.multiSortMeta
-        }        
+        }
         this.ngRedux.dispatch(this.userActions.getRequestUserGridAction({
             data: pageData
         }));
     }
     public onDeleteUserItem(data: any){
+         let confirm: Confirmation = {
+            message: 'Are you sure that you want to delete user?',
+            accept: () => {
+                let index = this.users.indexOf(data);
+                this.users = this.users.filter((val: any,i: any) => i!=index);
+                this.ngRedux.dispatch(this.userActions.deleteUserItemAction(data.id));
+            },
+            reject: () => console.log("reject")
+        }
+        this.confirmationService.confirm(confirm);
     }
 
     public showDialogUserAdd() {
@@ -69,15 +82,16 @@ export class UserManageComponent {
             .map(data => { return data.toJS()})
             .subscribe(value => {
                 
-                if(value == null)
+                if(value.data == null)
                     return;
 
                 if (value.isLoading == true)
                 {
+                    this.usersLoading = value.isLoading;
                     console.log("LOADING");
                 }
 
-                if (!value.isError == false)
+                if (!value.isError)
                 {
                     this.users = value.data.items;
                     this.usersTotal = value.data.totalItemCount;
@@ -89,7 +103,28 @@ export class UserManageComponent {
                 {
                     console.log("FAILURE")
                 }
-                
             });
+
+        this.userDelete$
+            .map(data => data.toJS())
+            .subscribe(
+                (value: any) => {
+                    if (value.data == null)
+                        return;
+
+                    if (!value.isError)
+                    {
+                        this.msgs = [{
+                            severity:'info',
+                            summary:'Confirmed',
+                            detail:'User was deleted successfully'
+                        }];
+                    }
+
+                    if (value.isError)
+                        console.log("User delete is failure")
+                    if (value.isLoading)
+                        console.log("LOADING");
+                });
     }
 }

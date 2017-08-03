@@ -8,6 +8,7 @@ using coremanage.Core.Services.Interfaces.Entities;
 using System.Linq;
 using coremanage.Core.Models.Dtos.Identity;
 using coremanage.Dashboard.WebApi.Models.Tenant;
+using coremanage.Core.Models.Dtos;
 
 namespace coremanage.Dashboard.WebApi.Controllers
 {
@@ -59,5 +60,42 @@ namespace coremanage.Dashboard.WebApi.Controllers
             return new JsonResult(model);
         }
 
+        [HttpPost]
+        [Route("PageData")]
+        public async Task<IActionResult> GetPageData([FromBody] DataPageDto<UserProfileViewModel, string> pageData)
+        {
+            if (pageData == null)
+            {
+                pageData = new DataPageDto<UserProfileViewModel, string>
+                {
+                    PageNumber = 1,
+                    PageLength = 12
+                };
+            }
+            var tenantIdList = new List<int> { NTContext.Context.TenantId };
+            var pageDataMembers = await _userProfileService
+                .GetPageData(
+                    pageData.PageNumber,
+                    pageData.PageLength,
+                    tenantIdList);
+
+            pageData.PageLength = pageDataMembers.PageLength;
+            pageData.PageNumber = pageDataMembers.PageNumber;
+            pageData.TotalItemCount = pageDataMembers.TotalItemCount;
+            pageData.Items = pageDataMembers.Items.Select(s => new UserProfileViewModel { 
+                Id = s.Id,
+                UserName = (s.LastName == null || s.FirstName == null || s.MiddleName == null) ? "" : s.LastName + " " + s.FirstName[0] + "." + s.MiddleName[0] + ".",
+                Email = s.Email
+            });
+
+            return new JsonResult(pageData);
+        }
+        [HttpGet]
+        [Route("Delete/{userId}")]
+        public IActionResult Remove(string userId)
+        {
+            var result = _userProfileService.Remove(userId);
+            return new JsonResult(result);
+        }
     }
 }

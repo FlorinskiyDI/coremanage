@@ -4,6 +4,7 @@ using System.Text;
 using coremanage.Core.Models.Dtos.Identity;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using coremanage.Core.Models.Dtos;
 
 namespace coremanage.Core.Services.Interfaces.Entities
 {
@@ -11,7 +12,9 @@ namespace coremanage.Core.Services.Interfaces.Entities
     {
         
         Task<List<string>> GetEmailListForAutoCompleteAsync(string query);
+        Task<DataPageDto<UserProfileDto, string>> GetPageData(int pageNumber, int pageLenght, IList<int> tenantIdList);
         Task<UserProfileDto> CreateAsync(string email);
+        new string Remove(string userId);
 
         Task<string> GetPasswordResetTokenAsync(string userId);
         Task<string> GetEmailConfirmationToken(string email);
