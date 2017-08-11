@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  coremanage.dashboard.webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+  coremanage.identityserver.webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"

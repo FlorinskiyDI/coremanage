@@ -14,7 +14,7 @@ namespace coremanage.Dashboard.WebApi
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls("http://localhost:5200")
+                //.UseUrls("http://localhost:5200")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

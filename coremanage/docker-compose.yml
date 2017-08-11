@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  coremanage.dashboard.webapi:
+    image: coremanage.dashboard.webapi
+    build:
+      context: ./coremanage.Dashboard.WebApi
+      dockerfile: Dockerfile
+
+  coremanage.identityserver.webapi:
+    image: coremanage.identityserver.webapi
+    build:
+      context: ./coremanage.IdentityServer.WebApi
+      dockerfile: Dockerfile

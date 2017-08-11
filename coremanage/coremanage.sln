@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F4EACBFE-9EEC-437B-B777-7AAA9489976C}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,11 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5969B558-5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{8C831312-5A23-445A-AA0D-80BAF9A9A751}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Core.Bootstrap", "coremanage.Core.Bootstrap\coremanage.Core.Bootstrap.csproj", "{DB310632-EBB7-423E-93F4-2C894CB5C2F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Core.Bootstrap", "coremanage.Core.Bootstrap\coremanage.Core.Bootstrap.csproj", "{DB310632-EBB7-423E-93F4-2C894CB5C2F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Messaging.Email", "coremanage.Messaging.Email\coremanage.Messaging.Email.csproj", "{4682696E-15E8-4C54-97DB-9A268FB36C78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Messaging.Email", "coremanage.Messaging.Email\coremanage.Messaging.Email.csproj", "{4682696E-15E8-4C54-97DB-9A268FB36C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.IdentityServer.WebApi", "coremanage.IdentityServer.WebApi\coremanage.IdentityServer.WebApi.csproj", "{7E9BB071-B6D6-4644-917D-788A4DC05460}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.IdentityServer.WebApi", "coremanage.IdentityServer.WebApi\coremanage.IdentityServer.WebApi.csproj", "{7E9BB071-B6D6-4644-917D-788A4DC05460}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dashboard", "Dashboard", "{D5A5CF72-B22B-4AB9-A729-3781BAAAD4B8}"
 EndProject
@@ -26,27 +26,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Dashboard.WebApi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "coresurvey", "coresurvey", "{7918FAA2-E7B0-4598-930C-2DC51255A75B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "storagecore.Abstractions", "storagecore.Abstractions\storagecore.Abstractions.csproj", "{A0700777-195E-4317-9723-F672EF4EDA7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "storagecore.Abstractions", "storagecore.Abstractions\storagecore.Abstractions.csproj", "{A0700777-195E-4317-9723-F672EF4EDA7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "storagecore.EntityFrameworkCore", "storagecore.EntityFrameworkCore\storagecore.EntityFrameworkCore.csproj", "{69190E2B-9D5C-4D94-8F2C-111AC582EA45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "storagecore.EntityFrameworkCore", "storagecore.EntityFrameworkCore\storagecore.EntityFrameworkCore.csproj", "{69190E2B-9D5C-4D94-8F2C-111AC582EA45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Data.Storage", "coremanage.Data.Storage\coremanage.Data.Storage.csproj", "{78BBE643-EACF-4A9F-9AB7-A7091D54EAF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Data.Storage", "coremanage.Data.Storage\coremanage.Data.Storage.csproj", "{78BBE643-EACF-4A9F-9AB7-A7091D54EAF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Core.Contracts", "coremanage.Core.Contracts\coremanage.Core.Contracts.csproj", "{54EFE7BF-BC0C-4985-88B0-51C728874313}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Core.Contracts", "coremanage.Core.Contracts\coremanage.Core.Contracts.csproj", "{54EFE7BF-BC0C-4985-88B0-51C728874313}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Data.Storage.MSSQL", "coremanage.Data.Storage.MSSQL\coremanage.Data.Storage.MSSQL.csproj", "{BB856DBE-8421-410D-8698-E84B39F25916}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Data.Storage.MSSQL", "coremanage.Data.Storage.MSSQL\coremanage.Data.Storage.MSSQL.csproj", "{BB856DBE-8421-410D-8698-E84B39F25916}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Core.Models", "coremanage.Core.Models\coremanage.Core.Models.csproj", "{DE5F4F2D-5BE5-4C0E-BD0C-7DD9FDC7E136}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Core.Models", "coremanage.Core.Models\coremanage.Core.Models.csproj", "{DE5F4F2D-5BE5-4C0E-BD0C-7DD9FDC7E136}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Data.Models", "coremanage.Data.Models\coremanage.Data.Models.csproj", "{B8D16719-2E48-4DB5-AA34-29AA2126205B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Data.Models", "coremanage.Data.Models\coremanage.Data.Models.csproj", "{B8D16719-2E48-4DB5-AA34-29AA2126205B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Core.Services", "coremanage.Core.Services\coremanage.Core.Services.csproj", "{6ABBDA98-98C7-4F66-B03B-6FAAFEB360AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Core.Services", "coremanage.Core.Services\coremanage.Core.Services.csproj", "{6ABBDA98-98C7-4F66-B03B-6FAAFEB360AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client.ResourceOwner", "client.ResourceOwner\client.ResourceOwner.csproj", "{0F39D634-1196-49D8-856A-8642207A91AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "client.ResourceOwner", "client.ResourceOwner\client.ResourceOwner.csproj", "{0F39D634-1196-49D8-856A-8642207A91AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coremanage.Core.Common", "coremanage.Core.Common\coremanage.Core.Common.csproj", "{45F534AB-9313-48E9-9F08-FE83DE18FE93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coremanage.Core.Common", "coremanage.Core.Common\coremanage.Core.Common.csproj", "{45F534AB-9313-48E9-9F08-FE83DE18FE93}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "coremanage", "coremanage", "{9FF21FC3-DBDE-4371-BAE8-F8E59CE36374}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -226,6 +228,18 @@ Global
 		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Release|x64.Build.0 = Release|Any CPU
 		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Release|x86.ActiveCfg = Release|Any CPU
 		{45F534AB-9313-48E9-9F08-FE83DE18FE93}.Release|x86.Build.0 = Release|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Debug|x64.Build.0 = Debug|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Debug|x86.Build.0 = Debug|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Release|x64.ActiveCfg = Release|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Release|x64.Build.0 = Release|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Release|x86.ActiveCfg = Release|Any CPU
+		{1ABEA9BB-4825-4553-AC7C-9EF177306AB4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
